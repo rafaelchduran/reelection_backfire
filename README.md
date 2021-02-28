@@ -20,7 +20,7 @@ Elements 2-8 are the inputs of the project and thus they are synchronized via dr
 <a id='main'></a>
  ## reelection_backfire
  
-If you are a first time user of this repository, the first thing you need to do is to clone it into the Dropbox folder. This is done simply by clicking add in the desktop app, select the option clone repository. Select ```rafaelchduran/reelection_backfire``` and in local path just choose the shared dropbox folder. By doing this you will include a folder called "work-trade-autocracy" in dropbox. 
+If you are a first time user of this repository, the first thing you need to do is to clone it into the Dropbox folder. This is done simply by clicking add in the desktop app, select the option clone repository. Select ```rafaelchduran/reelection_backfire``` and in local path just choose the shared dropbox folder. By doing this you will include a folder called "reelection_backfire" in dropbox. 
 
 The next and ***very important*** step to follow is to remove synchorinization of this folder via Dropbox ([instructions](https://help.dropbox.com/en-US/files-folders/restore-delete/ignored-files)). Not doing so will corrupt the repository.
 
@@ -46,5 +46,5 @@ Finally, one of the BIG advantages of GitHub is that it will allow us to communi
 
 One way that facilitates using these tools even further is to download the GitHub app into your Phone or Tablet: it will show changes that have been committed but also the issues that have been raised and other information, moreover you will be able to make comments on issues and such using it. 
 
-
+*ReadMe description taken from C. Felipe Balcazar
 
