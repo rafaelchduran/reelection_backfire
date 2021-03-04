@@ -27,21 +27,21 @@ it should not have a lag DV since we have a twfe model, and it should control fo
 
 *========================================================================
 *Working Directory
-cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/Dofiles"
+cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/reelection_backfire/Dofiles"
 
 *========================================================================
 *Run do files
 *do "reelection_July19_2020_vargeneration_electoral_2.do" /*I don't need this one*/
-do "1. electoral_Feb_27_2021.do"
-do "1. incumbent_characteristics_Feb_27_2021.do"
-do "1. envipe_Feb_27_2021.do"
-do "1. dtos_Feb_27_2021.do"
-do "1. mando_unico_Feb_27_2021.do"
-do "2. database_Feb_27_2021.do"
-do "3. cooperation_agreements_Feb_27_2021.do"
-do "3. main_tables_Feb_27_2021.do"
-do "4. additional_tables_Feb_27_2021.do"
-do "3. cooperation_agreements_Feb_27_2021.do"
-do "4. matching_Feb_27_2021.do"
-do "5. figures_Feb_27_2021"
+do "1. electoral.do"
+do "1. incumbent_characteristics.do"
+do "1. envipe.do"
+do "1. dtos.do"
+do "1. mando_unico.do"
+do "2. database.do"
+do "3. cooperation_agreements.do"
+do "3. main_tables.do"
+do "4. additional_tables.do"
+do "3. cooperation_agreements.do"
+do "4. matching.do"
+do "5. figures"
 

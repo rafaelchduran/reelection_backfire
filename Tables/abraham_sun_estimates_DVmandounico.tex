@@ -1,0 +1,45 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements}
+\label{tab:abraham_sun_lagdv}
+\scalebox{1}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{1}{c}{Security Cooperation Agreement A} & \multicolumn{1}{c}{Security Cooperation Agreement B$^{a}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+\addlinespace
+Lag 7 years &      $ -0.0607^{} $ &  $ -0.0869^{} $   \\
+& ($ 0.0990$) & ($ 0.0829 $) \\
+Lag 6 years &          $ -0.0118^{} $ &   $ -0.0376^{} $  \\
+& ($ 0.0312$) & ($ 0.0239 $) \\
+Lag 5 years &        $ -0.0658^{} $ &   $ -0.0968^{} $ \\
+& ($ 0.0568$) & ($ 0.0629 $) \\
+Lag 4 years &         $ -0.1452^{} $ &      $ -0.1992^{*} $  \\
+& ($ 0.1060$) & ($ 0.1148 $) \\
+Lag 3 years &        $ -0.1246^{} $ &     $ -0.1499^{} $ \\
+& ($ 0.0934$) & ($ 0.0973 $) \\
+Lag 2 years &        $ -0.0708^{} $ &    $ -0.0514^{} $  \\
+& ($ 0.0605$) & ($ 0.0973 $) \\
+Reform, time 0 &        $ -0.0138^{} $ &     $ 0.0467^{} $ \\
+& ($ 0.0688$) & ($ 0.0656 $) \\
+Lead 1 year &         $ -0.2983^{} $ &       $ -0.1574^{} $ \\
+& ($ 0.1831$) & ($ 0.1847 $) \\
+Lead 2 years &         $ -0.4223^{*} $ &      $ -0.3877^{*} $  \\
+& ($ 0.2246$) & ($ 0.2115 $) \\
+Lead 3 years &        $ -0.3975^{**} $ &     $ -0.3376^{**} $ \\
+& ($ 0.1691$) & ($ 0.1372 $) \\
+\addlinespace
+Observations       &                 11,492        &          12,194  \\
+R-squared        &              0.4598        &           0.4111   \\
+Mun. FEs       &     \checkmark         &  \checkmark    \\
+Year. FEs       &     \checkmark         &  \checkmark   \\
+State Controls$^b$   &    \checkmark      &   \checkmark    \\
+Cohort weighted   &   \checkmark       &   \checkmark    \\
+Lag DV &                  &   \checkmark    \\
+\hline \hline
+\multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to the inverse hyperbolic sine transformation. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\end{tabular}
+}
+\end{table}

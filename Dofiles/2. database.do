@@ -9,25 +9,25 @@ set more off
 set varabbrev off 
 
 *Working Directory
-cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/Dofiles"
+cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/reelection_backfire/Dofiles"
 
 *Create main file: 
 foreach y in 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019{
-use "../Data/ConstructionDatabase/Municipality_Codes_UniqueID.dta", clear
+use "../../Data/ConstructionDatabase/Municipality_Codes_UniqueID.dta", clear
 gen year=`y'
-save "../Data/ConstructionDatabase/municipalities_id_`y'.dta", replace
+save "../../Data/ConstructionDatabase/municipalities_id_`y'.dta", replace
 }
 
-use "../Data/ConstructionDatabase/municipalities_id_2010.dta", clear
-append using "../Data/ConstructionDatabase/municipalities_id_2011.dta"
-append using "../Data/ConstructionDatabase/municipalities_id_2012.dta"
-append using "../Data/ConstructionDatabase/municipalities_id_2013.dta"
-append using "../Data/ConstructionDatabase/municipalities_id_2014.dta"
-append using "../Data/ConstructionDatabase/municipalities_id_2015.dta"
-append using "../Data/ConstructionDatabase/municipalities_id_2016.dta"
-append using "../Data/ConstructionDatabase/municipalities_id_2017.dta"
-append using "../Data/ConstructionDatabase/municipalities_id_2018.dta"
-*append using "../Data/ConstructionDatabase/municipalities_id_2019.dta"
+use "../../Data/ConstructionDatabase/municipalities_id_2010.dta", clear
+append using "../../Data/ConstructionDatabase/municipalities_id_2011.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2012.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2013.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2014.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2015.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2016.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2017.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2018.dta"
+*append using "../../Data/ConstructionDatabase/municipalities_id_2019.dta"
 
 rename ENTIDAD estado
 rename NOMBRE_ENTIDAD nombre_estado
@@ -36,7 +36,7 @@ rename NOMBRE_MUNICIPIO nombre_municipio
 rename UNIQUE_MUNICIPALITY mun_id
 
 *Main file to append all other files:
-save "../Data/ConstructionDatabase/municipalities_id_2010_2019.dta", replace
+save "../../Data/ConstructionDatabase/municipalities_id_2010_2019.dta", replace
 
 *1) ADD TREATMENT using Magar's election's database
 /*
@@ -44,7 +44,7 @@ save "../Data/ConstructionDatabase/municipalities_id_2010_2019.dta", replace
 **need to collapse to the mun-year level
 */
 rename mun_id inegi
-merge 1:1 inegi year using  "../Data/municipal_elections_incumbent_mexico_1989_present_v2.dta"
+merge 1:1 inegi year using  "../../Data/municipal_elections_incumbent_mexico_1989_present_v2.dta"
 drop if _merge==2
 rename _merge hadelection
 label variable hadelection "Dummy=1 if an election that year; 0 otherwise"
@@ -123,11 +123,11 @@ replace `i'=`i'[_n-1] if `i'==.
 }
 */
 
-save "../Data/ConstructionDatabase/municipalities_id_2010_2019_wtreatment.dta", replace
+save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_wtreatment.dta", replace
 
 *2) ADD OUTCOME
 **2.1) Homicides from SNSP
-insheet using "../Data/ConstructionDatabase/DenunciasSNSP/Municipal-Delitos-2015-2019_dic19/Municipal-Delitos - diciembre 2019.csv", clear
+insheet using "../../Data/ConstructionDatabase/DenunciasSNSP/Municipal-Delitos-2015-2019_dic19/Municipal-Delitos - diciembre 2019.csv", clear
 keep if subtipodedelito=="Homicidio doloso" 
 egen homicidio=rowtotal(enero febrero marzo abril mayo junio julio agosto septiembre octubre noviembre diciembre)
 collapse (sum)homicidio (firstnm)clave_ent entidad  municipio, by(cvemunicipio ao)
@@ -138,10 +138,10 @@ label variable year "year"
 rename cvemunicipio inegi
 rename homicidio homicide
 label variable homicide "Homicide"
-save "../Data/ConstructionDatabase/DenunciasSNSP/Municipal-Delitos-2015-2019_dic19/homicides_2015_2019.dta", replace
+save "../../Data/ConstructionDatabase/DenunciasSNSP/Municipal-Delitos-2015-2019_dic19/homicides_2015_2019.dta", replace
 
-use "../Data/ConstructionDatabase/municipalities_id_2010_2019_wtreatment.dta", clear
-merge 1:1 inegi year using "../Data/ConstructionDatabase/DenunciasSNSP/Municipal-Delitos-2015-2019_dic19/homicides_2015_2019.dta"
+use "../../Data/ConstructionDatabase/municipalities_id_2010_2019_wtreatment.dta", clear
+merge 1:1 inegi year using "../../Data/ConstructionDatabase/DenunciasSNSP/Municipal-Delitos-2015-2019_dic19/homicides_2015_2019.dta"
 /*
     Result                           # of obs.
     -----------------------------------------
@@ -156,10 +156,10 @@ merge 1:1 inegi year using "../Data/ConstructionDatabase/DenunciasSNSP/Municipal
 drop if _merge==2
 rename _merge missinghomicidedata
 
-save "../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew.dta", replace
+save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew.dta", replace
 
 *merge old homicide methodology
-insheet using "../Data/ConstructionDatabase/DenunciasSNSP/Incidencia municipal 2011 - 2017 oct19.csv", clear
+insheet using "../../Data/ConstructionDatabase/DenunciasSNSP/Incidencia municipal 2011 - 2017 oct19.csv", clear
 keep if modalidad=="HOMICIDIOS" & tipo=="DOLOSOS"
 egen homicidio_old=rowtotal(enero febrero marzo abril mayo junio julio agosto septiembre octubre noviembre diciembre)
 collapse (sum)homicidio_old, by(inegi AÑO)
@@ -169,10 +169,10 @@ rename AÑO year
 label variable year "year"
 rename homicidio_old homicide_old
 label variable homicide_old "Homicide (old measure)"
-save "../Data/ConstructionDatabase/DenunciasSNSP/homicides_2011_2017.dta", replace
+save "../../Data/ConstructionDatabase/DenunciasSNSP/homicides_2011_2017.dta", replace
 
-use "../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew.dta", clear
-merge 1:1 inegi year using "../Data/ConstructionDatabase/DenunciasSNSP/homicides_2011_2017.dta"
+use "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew.dta", clear
+merge 1:1 inegi year using "../../Data/ConstructionDatabase/DenunciasSNSP/homicides_2011_2017.dta"
 /*
     Result                           # of obs.
     -----------------------------------------
@@ -186,25 +186,25 @@ merge 1:1 inegi year using "../Data/ConstructionDatabase/DenunciasSNSP/homicides
 drop if _merge==2
 rename _merge missinghomicideolddata
 
-save "../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew&old.dta", replace
+save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew&old.dta", replace
 
 **2.2) Defunciones from INEGI
 preserve
-insheet using "../Data/ConstructionDatabase/DefuncionPorHomicidioINEGI/INEGI_ags_zac_reshape_final3.csv", clear
+insheet using "../../Data/ConstructionDatabase/DefuncionPorHomicidioINEGI/INEGI_ags_zac_reshape_final3.csv", clear
 drop if inegi==.
 reshape long defunciones, i(inegi) j(year)
 label variable defunciones "defunciones por homicidio (INEGI)"
-save "../Data/ConstructionDatabase/DefuncionPorHomicidioINEGI/defunciones_1990_2018.dta", replace
+save "../../Data/ConstructionDatabase/DefuncionPorHomicidioINEGI/defunciones_1990_2018.dta", replace
 restore
 
-merge 1:1 inegi year using "../Data/ConstructionDatabase/DefuncionPorHomicidioINEGI/defunciones_1990_2018.dta"
+merge 1:1 inegi year using "../../Data/ConstructionDatabase/DefuncionPorHomicidioINEGI/defunciones_1990_2018.dta"
 drop if _merge==2
 drop _merge
 
 **2.3) Effort from detenciones from SNSP (infomex)
 **get municipalities to match with inegi's ids
 preserve
-insheet using "../Data/ConstructionDatabase/Effort/Detenciones/detenidos.csv", clear
+insheet using "../../Data/ConstructionDatabase/Effort/Detenciones/detenidos.csv", clear
 *remove accents:
 gen municipio2 = ustrlower( ustrregexra( ustrnormalize( municipio, "nfd" ) , "\p{Mark}", "" )  )
 gen estado2 = ustrlower( ustrregexra( ustrnormalize( estado, "nfd" ) , "\p{Mark}", "" )  )
@@ -221,27 +221,27 @@ order estado municipio detenidos
 replace estado="MEXICO" if estado=="ESTADO DE MEXICO"
 replace estado="DISTRITO FEDERAL" if estado=="CIUDAD DE MEXICO"
 drop if municipio=="SIN INFORMACION"
-save "../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_ids.dta", replace
-export delimited using "../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_ids.csv", replace
+save "../../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_ids.dta", replace
+export delimited using "../../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_ids.csv", replace
 restore
 
 **get municipal ids
 preserve
-use "../Data/ConstructionDatabase/municipalities_id_2010_2019_wtreatment.dta", clear
+use "../../Data/ConstructionDatabase/municipalities_id_2010_2019_wtreatment.dta", clear
 collapse (mean)estado inegi ife, by(nombre_estado nombre_municipio)
 drop estado
-export delimited using "../Data/ConstructionDatabase/Effort/Detenciones/muns_ids.csv", replace
+export delimited using "../../Data/ConstructionDatabase/Effort/Detenciones/muns_ids.csv", replace
 restore
 
 **upload match between effort policia ids and inegi
 preserve
-insheet using "../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_muns_ids.csv", clear
-save "../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_muns_ids.dta", replace
+insheet using "../../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_muns_ids.csv", clear
+save "../../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_muns_ids.dta", replace
 restore
 
 *merge
 preserve
-insheet using "../Data/ConstructionDatabase/Effort/Detenciones/detenidos.csv", clear
+insheet using "../../Data/ConstructionDatabase/Effort/Detenciones/detenidos.csv", clear
 *remove accents:
 gen municipio2 = ustrlower( ustrregexra( ustrnormalize( municipio, "nfd" ) , "\p{Mark}", "" )  )
 gen estado2 = ustrlower( ustrregexra( ustrnormalize( estado, "nfd" ) , "\p{Mark}", "" )  )
@@ -258,14 +258,14 @@ replace estado="MEXICO" if estado=="ESTADO DE MEXICO"
 replace estado="DISTRITO FEDERAL" if estado=="CIUDAD DE MEXICO"
 drop if municipio=="SIN INFORMACION"
 
-merge m:1 estado municipio using "../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_muns_ids.dta"
+merge m:1 estado municipio using "../../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_muns_ids.dta"
 drop _merge
 collapse (sum) detenidos, by(inegi year)
-save "../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_winegi.dta", replace
+save "../../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_winegi.dta", replace
 restore
 
 *final merge with 
-merge 1:1 inegi year using "../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_winegi.dta"
+merge 1:1 inegi year using "../../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_winegi.dta"
 drop if _merge==2
 rename _merge missingpoliceffort
 label variable detenidos "Detained by local police (in flagrancy, SNSP)"
@@ -274,23 +274,23 @@ label variable missingpoliceffort "Dummy missing local police effort"
 **2.4) Illegal activities from SEDENA (infomex)
 preserve
 foreach i in armas cartuchos drogas  granadas laboratorios pistas vehiculos{
-insheet using  "../Data/ConstructionDatabase/Effort/`i'_asegurados.csv", clear
-save  "../Data/ConstructionDatabase/Effort/`i'_asegurados.dta", replace
+insheet using  "../../Data/ConstructionDatabase/Effort/`i'_asegurados.csv", clear
+save  "../../Data/ConstructionDatabase/Effort/`i'_asegurados.dta", replace
 }
 
 foreach i in hectareas_amapola_mariguana{
-insheet using  "../Data/ConstructionDatabase/Effort/`i'.csv", clear
-save  "../Data/ConstructionDatabase/Effort/`i'.dta", replace
+insheet using  "../../Data/ConstructionDatabase/Effort/`i'.csv", clear
+save  "../../Data/ConstructionDatabase/Effort/`i'.dta", replace
 }
 
-use "../Data/ConstructionDatabase/Effort/armas_asegurados.dta", clear
-append using "../Data/ConstructionDatabase/Effort/cartuchos_asegurados.dta"
-append using "../Data/ConstructionDatabase/Effort/drogas_asegurados.dta"
-append using "../Data/ConstructionDatabase/Effort/hectareas_amapola_mariguana.dta"
-append using "../Data/ConstructionDatabase/Effort/granadas_asegurados.dta"
-append using "../Data/ConstructionDatabase/Effort/laboratorios_asegurados.dta"
-append using "../Data/ConstructionDatabase/Effort/pistas_asegurados.dta"
-append using "../Data/ConstructionDatabase/Effort/vehiculos_asegurados.dta"
+use "../../Data/ConstructionDatabase/Effort/armas_asegurados.dta", clear
+append using "../../Data/ConstructionDatabase/Effort/cartuchos_asegurados.dta"
+append using "../../Data/ConstructionDatabase/Effort/drogas_asegurados.dta"
+append using "../../Data/ConstructionDatabase/Effort/hectareas_amapola_mariguana.dta"
+append using "../../Data/ConstructionDatabase/Effort/granadas_asegurados.dta"
+append using "../../Data/ConstructionDatabase/Effort/laboratorios_asegurados.dta"
+append using "../../Data/ConstructionDatabase/Effort/pistas_asegurados.dta"
+append using "../../Data/ConstructionDatabase/Effort/vehiculos_asegurados.dta"
 *remove accents:
 gen municipio2 = ustrlower( ustrregexra( ustrnormalize( municipio, "nfd" ) , "\p{Mark}", "" )  )
 gen estado2 = ustrlower( ustrregexra( ustrnormalize( estado, "nfd" ) , "\p{Mark}", "" )  )
@@ -330,12 +330,12 @@ label variable lab_eradicated_day "Laboratories day eradication (SEDENA)"
 label variable lab_eradicated_month "Laboratories month eradication (SEDENA)"
 label variable lab_eradicated_year "Laboratories year eradication (SEDENA)"
 
-save  "../Data/ConstructionDatabase/Effort/effort_sedena.dta", replace
+save  "../../Data/ConstructionDatabase/Effort/effort_sedena.dta", replace
 restore
 
 preserve
 *create dataset to export and merge municipal ids
-use  "../Data/ConstructionDatabase/Effort/effort_sedena.dta", clear
+use  "../../Data/ConstructionDatabase/Effort/effort_sedena.dta", clear
 gen var=1
 collapse (mean)var, by(estado municipio)
 drop if municipio=="SIN ESPECIFICAR"
@@ -355,24 +355,24 @@ drop if municipio=="NO ESPECIFICADO SON."
 drop if municipio=="NO ESPECIFICADO TAB."
 drop if municipio=="NO ESPECIFICADO VER."
 drop if municipio=="NO ESPECIFICADO ZAC"
-export delimited using "../Data/ConstructionDatabase/Effort/effort_sedena.csv", replace
+export delimited using "../../Data/ConstructionDatabase/Effort/effort_sedena.csv", replace
 restore
 
 *get municipal ids
 preserve
-use "../Data/ConstructionDatabase/municipalities_id_2010_2019_wtreatment.dta", clear
+use "../../Data/ConstructionDatabase/municipalities_id_2010_2019_wtreatment.dta", clear
 collapse (mean)estado inegi ife, by(nombre_estado nombre_municipio)
 drop estado
-export delimited using "../Data/ConstructionDatabase/Effort/muns_ids.csv", replace
+export delimited using "../../Data/ConstructionDatabase/Effort/muns_ids.csv", replace
 restore
 
 preserve
-insheet using  "../Data/ConstructionDatabase/Effort/matchid_sedena_inegi.csv", clear
-save "../Data/ConstructionDatabase/Effort/matchid_sedena_inegi.dta", replace
+insheet using  "../../Data/ConstructionDatabase/Effort/matchid_sedena_inegi.csv", clear
+save "../../Data/ConstructionDatabase/Effort/matchid_sedena_inegi.dta", replace
 restore
 
 preserve 
-use  "../Data/ConstructionDatabase/Effort/effort_sedena.dta", clear
+use  "../../Data/ConstructionDatabase/Effort/effort_sedena.dta", clear
 drop if municipio=="SIN ESPECIFICAR"
 drop if municipio=="NO ESPECIFICADO"
 drop if municipio=="NO ESPECIFICADO BC"
@@ -392,7 +392,7 @@ drop if municipio=="NO ESPECIFICADO VER."
 drop if municipio=="NO ESPECIFICADO ZAC"
 replace estado="COAHUILA" if estado=="COAHUILA DE ZARAGOZA"
 
-merge m:m estado municipio using "../Data/ConstructionDatabase/Effort/matchid_sedena_inegi.dta"
+merge m:m estado municipio using "../../Data/ConstructionDatabase/Effort/matchid_sedena_inegi.dta"
 drop if _merge!=3
 drop _merge
 
@@ -455,10 +455,10 @@ label variable laboratorio "Laboratories Eradicated (SEDENA)"
 label variable pistas "Runways Eradicated (SEDENA)"
 label variable vehiculo_aereo "Secured airplanes (SEDENA)"
 label variable vehiculo_lacustre "Secured water vehicle (SEDENA)"
-save  "../Data/ConstructionDatabase/Effort/effort_sedena_winegi.dta", replace
+save  "../../Data/ConstructionDatabase/Effort/effort_sedena_winegi.dta", replace
 restore
 
-merge 1:1 inegi year using "../Data/ConstructionDatabase/Effort/effort_sedena_winegi.dta"
+merge 1:1 inegi year using "../../Data/ConstructionDatabase/Effort/effort_sedena_winegi.dta"
 drop if _merge==2
 rename _merge missingarmyeffort
 label variable missingarmyeffort "Dummy missing army effort"
@@ -466,14 +466,14 @@ label variable missingarmyeffort "Dummy missing army effort"
 *3) ADD COVARIATES
 **3.1) Population from MAIZE TO HAZE 
 preserve
-use "../Data/ConstructionDatabase/Poblacion/MaizeToHaze_JEEA_ReplicationData.dta", clear
+use "../../Data/ConstructionDatabase/Poblacion/MaizeToHaze_JEEA_ReplicationData.dta", clear
 keep year state muncode munname pop
 rename muncode inegi
 rename pop pop_mazetohaze
-save "../Data/ConstructionDatabase/Poblacion/pop_1990_2010.dta", replace
+save "../../Data/ConstructionDatabase/Poblacion/pop_1990_2010.dta", replace
 restore
 
-merge 1:1 inegi year using "../Data/ConstructionDatabase/Poblacion/pop_1990_2010.dta"
+merge 1:1 inegi year using "../../Data/ConstructionDatabase/Poblacion/pop_1990_2010.dta"
 /*
 
     Result                           # of obs.
@@ -495,30 +495,30 @@ drop _merge
 
 **3.2) Population from CONAPO
 preserve 
-insheet using "../Data/ConstructionDatabase/Poblacion/CONAPO/base_municipios_final_datos_01.csv", clear
+insheet using "../../Data/ConstructionDatabase/Poblacion/CONAPO/base_municipios_final_datos_01.csv", clear
 collapse (sum)population, by(inegi year)
 rename population pop_conapo
 label variable pop_conapo "Population (CONAPO)"
-save "../Data/ConstructionDatabase/Poblacion/CONAPO/base_municipios_final_datos_01.dta", replace
+save "../../Data/ConstructionDatabase/Poblacion/CONAPO/base_municipios_final_datos_01.dta", replace
 
-insheet using "../Data/ConstructionDatabase/Poblacion/CONAPO/base_municipios_final_datos_02.csv", clear
+insheet using "../../Data/ConstructionDatabase/Poblacion/CONAPO/base_municipios_final_datos_02.csv", clear
 collapse (sum)population, by(inegi year)
 rename population pop_conapo
 label variable pop_conapo "Population (CONAPO)"
-save "../Data/ConstructionDatabase/Poblacion/CONAPO/base_municipios_final_datos_02.dta", replace
+save "../../Data/ConstructionDatabase/Poblacion/CONAPO/base_municipios_final_datos_02.dta", replace
 
-append using "../Data/ConstructionDatabase/Poblacion/CONAPO/base_municipios_final_datos_01.dta"
+append using "../../Data/ConstructionDatabase/Poblacion/CONAPO/base_municipios_final_datos_01.dta"
 drop if year>2019
-save "../Data/ConstructionDatabase/Poblacion/CONAPO/pop_conapo_2015_2019.dta", replace
+save "../../Data/ConstructionDatabase/Poblacion/CONAPO/pop_conapo_2015_2019.dta", replace
 restore
 
-merge 1:1 inegi year using "../Data/ConstructionDatabase/Poblacion/CONAPO/pop_conapo_2015_2019.dta"
+merge 1:1 inegi year using "../../Data/ConstructionDatabase/Poblacion/CONAPO/pop_conapo_2015_2019.dta"
 drop if _merge==2 
 drop _merge
 
 **3.3) Population from INEGI
 preserve 
-insheet using "../Data/ConstructionDatabase/Poblacion/poblacion_muns_inegi_censo_2010.csv", clear
+insheet using "../../Data/ConstructionDatabase/Poblacion/poblacion_muns_inegi_censo_2010.csv", clear
 gen year=2010
 keep pobl_total pobl_hombres pobl_mujeres inegi year 
 rename pobl_total pop_inegi
@@ -528,39 +528,39 @@ label variable pop_inegi "Population (CENSO 2010)"
 label variable pop_men_inegi "Men Population (CENSO 2010)"
 label variable pop_women_inegi "Women Population (CENSO 2010)"
 
-save "../Data/ConstructionDatabase/Poblacion/pop_inegi_2010.dta", replace
+save "../../Data/ConstructionDatabase/Poblacion/pop_inegi_2010.dta", replace
 restore
 
-merge 1:1 inegi year using "../Data/ConstructionDatabase/Poblacion/pop_inegi_2010.dta"
+merge 1:1 inegi year using "../../Data/ConstructionDatabase/Poblacion/pop_inegi_2010.dta"
 drop if _merge==2 
 drop _merge
 
 **3.4) Population from SALUD (FROM CONAPO, from 2011 to 2014)
 preserve 
-insheet using "../Data/ConstructionDatabase/Poblacion/Salud/poblacion_municipal_salud_conapo_2010_2014_final.csv", clear
+insheet using "../../Data/ConstructionDatabase/Poblacion/Salud/poblacion_municipal_salud_conapo_2010_2014_final.csv", clear
 rename population_salud pop_salud
 label variable pop_salud "Population (Secretaria de Salud from CONAPO proyections, 2011-2014)"
 drop if year==2010
-save "../Data/ConstructionDatabase/Poblacion/pop_salud_2011_2014.dta", replace
+save "../../Data/ConstructionDatabase/Poblacion/pop_salud_2011_2014.dta", replace
 restore
 
-merge 1:1 inegi year using "../Data/ConstructionDatabase/Poblacion/pop_salud_2011_2014.dta"
+merge 1:1 inegi year using "../../Data/ConstructionDatabase/Poblacion/pop_salud_2011_2014.dta"
 drop if _merge==2 
 drop _merge
 
-*save "../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew&old_wpop.dta", replace
+*save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew&old_wpop.dta", replace
 
 
 **3.5) Other covariates from MAIZE to HAZE
 preserve
-use "../Data/ConstructionDatabase/Poblacion/MaizeToHaze_JEEA_ReplicationData.dta", clear
+use "../../Data/ConstructionDatabase/Poblacion/MaizeToHaze_JEEA_ReplicationData.dta", clear
 keep year state muncode munname natlcornp-pcforest area_cultivated-other_crops_cultivated pop_male pop_female marijuana_value-tot4drugs_value_mex ///
 tot4drugs_value_mex armed_personnel_per milexp military_exp_per riosstate-otros rainm6m7_80s rainm6m7_9093 tempm6m7_80s tempm6m7_9093 tempm4m5_80s tempm4m5_9093 rainm tempm
 rename muncode inegi
-save "../Data/ConstructionDatabase/Covariates/cov_1990_2010.dta", replace
+save "../../Data/ConstructionDatabase/Covariates/cov_1990_2010.dta", replace
 restore 
 
-merge 1:1 inegi year using "../Data/ConstructionDatabase/Covariates/cov_1990_2010.dta"
+merge 1:1 inegi year using "../../Data/ConstructionDatabase/Covariates/cov_1990_2010.dta"
 drop if _merge==2
 drop _merge
 
@@ -569,11 +569,11 @@ foreach i in areakm2{
 replace `i'=`i'[_n-1] if `i'==.
 }
 
-*save "../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v1.dta", replace
+*save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v1.dta", replace
 
 **3.6) State-level electoral dynamics from Magar
 
-merge m:m  nombre_estado using "../Data/state_elections_mexico_winning_margin.dta"
+merge m:m  nombre_estado using "../../Data/state_elections_mexico_winning_margin.dta"
 drop if _merge==2
 drop _merge
 
@@ -582,7 +582,7 @@ drop _merge
 **3.8) Income 
 
 **3.9) Mayor characteristics
-merge m:m inegi year using "../Data/ConstructionDatabase/SNIM/Transformations/presidentes_municipales_historico_winegi_final.dta"
+merge m:m inegi year using "../../Data/ConstructionDatabase/SNIM/Transformations/presidentes_municipales_historico_winegi_final.dta"
 drop if _merge==2 /*Loose some observations from Coahuila and Tabasco of 2009 */
 tab emm if _merge==1 /*don't have info of yucatan 2010, and the others are spurious municipalities. 172 observations lost */
 drop _merge
@@ -592,28 +592,28 @@ drop if dup>1
 drop dup
 
 **3.10) ENVIPE Citizens demands
-merge m:m estado year using "../Data/ConstructionDatabase/EncuestaVictimizacion/Stata/envipe_2011_2019_estado.dta"
+merge m:m estado year using "../../Data/ConstructionDatabase/EncuestaVictimizacion/Stata/envipe_2011_2019_estado.dta"
 drop if _merge==2
 drop _merge
 
 **3.11) Carteles presence, Castillo et. al (2018)
-merge m:m inegi using "../Data/ConstructionDatabase/Trafficking Networks/Camilo, Mejia and Restrepo (2020). Cocaine Supply Shortages in Mexico/replication/Leviathan_Restat/dta/carteles.dta"
+merge m:m inegi using "../../Data/ConstructionDatabase/Trafficking Networks/Camilo, Mejia and Restrepo (2020). Cocaine Supply Shortages in Mexico/replication/Leviathan_Restat/dta/carteles.dta"
 drop if _merge==2
 drop _merge
 
 **3.12) Mando unico by municipality
-merge m:m inegi year using "../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2011_2018.dta"
+merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2011_2018.dta"
 drop if _merge==2
 drop _merge
 
 **SAVE DATABASE
-save "../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v1.dta", replace
+save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v1.dta", replace
 
  
 ******************
 *TRANSFORMATIONS
 ******************
-use "../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v1.dta", clear
+use "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v1.dta", clear
 
 *A.1) COVARIATES
 *generate population for all years
@@ -688,7 +688,7 @@ foreach i in homicidepc homicide_oldpc homicidecombinedpc defuncionespc detenido
 gen ihs_`i'=asinh(`i')
 }
   
-save "../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v2.dta", replace
+save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v2.dta", replace
 
 *C) EVENT-STUDY LEADS, LAGS AND CONTROLS
 
@@ -701,10 +701,10 @@ gen adopt=.
 replace adopt=1 if reform>0 & l.reform==0
 replace adopt=0 if adopt==.
 gen adopt_year=year if adopt==1 //the non-treated states do not have leads or lags. 
-save "../Data/ConstructionDatabase/adopt_year.dta", replace
+save "../../Data/ConstructionDatabase/adopt_year.dta", replace
 restore
 
-merge m:m estado year using "../Data/ConstructionDatabase/adopt_year.dta"
+merge m:m estado year using "../../Data/ConstructionDatabase/adopt_year.dta"
 xtset inegi year
 xfill adopt_year, i(inegi)
 
@@ -780,7 +780,7 @@ capture gen `var'_date0=date_0*`var'
 }
 
 
-save "../Data/ConstructionDatabase/data_wleads&lags.dta", replace
+save "../../Data/ConstructionDatabase/data_wleads&lags.dta", replace
 
 *D) EVENT-STUDY LEADS, ABRAHAM AND SUN (2020) FULL SATURATED MODEL
 **FOR INCUMBENCY ESTIMATES:
@@ -802,7 +802,7 @@ replace whichlead="lead_3" if lead_3==1
 encode whichlead, gen(whichlead_num)
 
 drop if incumbent_yesterday_w_tomorrow==.
-save "../Data/ConstructionDatabase/data_wleads&lags_incumbency.dta", replace
+save "../../Data/ConstructionDatabase/data_wleads&lags_incumbency.dta", replace
 
 restore
 
@@ -843,13 +843,13 @@ gen pri_president=0
 replace pri_president=1 if year<=2018 & year>=2013
 
 
-save "../Data/ConstructionDatabase/data_wleads&lags2.dta", replace
+save "../../Data/ConstructionDatabase/data_wleads&lags2.dta", replace
 
 
 ****************************************************
 * Weights for Abraham and Sun (2020) specification
 **************************************************** 
-use "../Data/ConstructionDatabase/data_wleads&lags2.dta", replace
+use "../../Data/ConstructionDatabase/data_wleads&lags2.dta", replace
 
 preserve
 **c) get counts; recall that four states don't have lead and lags (the non-treated)
@@ -877,11 +877,11 @@ sort whichlead `i' perc
  tostring `i', generate(`i'_s)
 gen indic=whichlead+"_"+`i'_s
 
-save "../Data/ConstructionDatabase/weights.dta", replace
+save "../../Data/ConstructionDatabase/weights.dta", replace
 restore
 
 rename _merge _mergeold
-merge m:m whichlead `i' using "../Data/ConstructionDatabase/weights.dta" //we do not merge the lag_8 and lag_1
+merge m:m whichlead `i' using "../../Data/ConstructionDatabase/weights.dta" //we do not merge the lag_8 and lag_1
 gen indic_name = strtoname(indic)
 }
 
@@ -892,13 +892,13 @@ foreach n of local names {
 
 
 
-save "../Data/ConstructionDatabase/data_wleads&lags2_weights.dta", replace
+save "../../Data/ConstructionDatabase/data_wleads&lags2_weights.dta", replace
 
 
 ****************************************************
 * Weights for Abraham and Sun (2020) specification, FOR INCUMBENCY ADVANTAGE ESTIMATES;
 **************************************************** 
-use "../Data/ConstructionDatabase/data_wleads&lags_incumbency.dta", replace
+use "../../Data/ConstructionDatabase/data_wleads&lags_incumbency.dta", replace
 
 preserve
 **c) get counts; recall that four states don't have lead and lags (the non-treated)
@@ -926,11 +926,11 @@ sort whichlead `i' perc
  tostring `i', generate(`i'_s)
 gen indic=whichlead+"_"+`i'_s
 
-save "../Data/ConstructionDatabase/weights_incumbency.dta", replace
+save "../../Data/ConstructionDatabase/weights_incumbency.dta", replace
 restore
 
 rename _merge _mergeold
-merge m:m whichlead `i' using "../Data/ConstructionDatabase/weights_incumbency.dta" //we do not merge the lag_8 and lag_1
+merge m:m whichlead `i' using "../../Data/ConstructionDatabase/weights_incumbency.dta" //we do not merge the lag_8 and lag_1
 gen indic_name = strtoname(indic)
 }
 
@@ -939,14 +939,14 @@ foreach n of local names {
     gen byte `n' = (indic_name == "`n'")
 }
 
-save "../Data/ConstructionDatabase/data_wleads&lags_incumbency_weights.dta", replace
+save "../../Data/ConstructionDatabase/data_wleads&lags_incumbency_weights.dta", replace
 
 
 ****************************************************
 * For R
 ****************************************************
 clear all
-use "../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v2.dta", clear
+use "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v2.dta", clear
 
 collapse (sum) defunciones homicide homicide_old detenidos  pop (mean)reform (firstnm)nombre_estado, by(estado year)
 drop if year>2018
@@ -977,7 +977,7 @@ replace `i'=. if `i'==0
 rename estado estado_num
 rename nombre_estado state
   
-save "../Data/ConstructionDatabase/collapseddata_forR.dta", replace
+save "../../Data/ConstructionDatabase/collapseddata_forR.dta", replace
  
 
 
