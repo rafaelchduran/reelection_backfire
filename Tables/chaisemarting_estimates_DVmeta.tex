@@ -1,0 +1,33 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements}
+\label{tab:chaisemartin}
+\scalebox{1}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{1}{c}{log(homicides per capita)} & \multicolumn{1}{c}{IHS(homicides per capita)$^{a}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+\addlinespace
+Lag 4 years &        $ 0.176^{*} $ &     $ 0.081^{**} $ \\
+& ($ 0.102$) & ($ 0.036 $) \\
+Lag 3 years &        $ -0.087^{} $ &     $ 0.009^{} $ \\
+& ($ 0.224$) & ($ 0.100 $) \\
+Lag 2 years &        $ -0.021^{} $ &     $ -0.034^{} $ \\
+& ($ 0.088$) & ($ 0.043 $) \\
+Reform, time 0 &        $ -0.134^{} $ &     $ -0.086^{} $ \\
+& ($ 0.107$) & ($ 0.062 $) \\
+Lead 1 year &         $ -0.071^{} $ &       $ -0.093^{} $ \\
+& ($ 0.161$) & ($ 0.074 $) \\
+Lead 2 years &         $ -0.131^{} $ &      $ -0.116^{} $  \\
+& ($ 0.228$) & ($ 0.099 $) \\
+Lead 3 years &        $ -0.088^{} $ &     $ -0.075^{} $ \\
+& ($ 0.000$) & ($ 0.000 $) \\
+\addlinespace
+Controls$^b$   &    \checkmark      &   \checkmark    \\
+\hline \hline
+\multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Refers to the inverse hyperbolic sine transformation.  $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\end{tabular}
+}
+\end{table}

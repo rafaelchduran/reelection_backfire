@@ -3,40 +3,8 @@
 *Author: Rafael Ch (rafael.ch@nyu.edu)
 *========================================================================
 /*
-Main Messages
-1. Sec. Coop. Agreements decrease violence
-2. Reform decreases the likelihood of signing sec. coop. agreements. Things look better with acuerdo than acuerdo2, and with IHS rather than logs.
--Wash hands-off < old the bull by the horns
--Why?
-3. The fall in likelihood is stronger when there is political alignment. But there are two stories:
-3.1 Transfers due to the alignment (Alignment literature, Dell (2015)). = capacity isolation
-3.2 Blame/accountability from citizens (Sandra Ley 2017 on Mexico). = capacity isolation
-
-ANOTHER MECHANISM IS INCUMBENCY ADVANTAGE: 
-If incumbency disadvantage then this would be negative. But I find there is an inc. advantage. 
-Now why is there an inc. advantage:
-3.2.a. Clientelistic machinery-based incumbency advantage a la Fergusson et al (2019). Reelection incentives lead mayors to use the whole apparatus. 
-3.2.b. Quality-based incumbency advantage a la Eggers (2017)
-3.2.c. Information-based incumbency advantage a la BDM et a. (2020).
-
-
-**IT'S WRONG FROM HERE ON:
-4. Het effects of alignment with governor PRI (negative and significant) and president ALGINED (positive and significant)
-
-5. Check type of agreements: only has this for control municipalities which is weird
-
-Notes
-1. check how acuerdo and acuerdo2 differ - done, use acuerdo
-2. check how governor_alignment was constructed 
-3. read Chaisemartin to understand the placebos 
-4. read Sandra Ley paper on how citizens hold mayor accountables, and what happens with alignment
-
-
-TODOS 
-1. INCLUDE BOTH MODELS: OVERALL ALIGNMENT AND PRI ALIGNMENT TO COMPARE THE COEFFICIENTS
 
 */
-
 
 *========================================================================
 *Environment
@@ -57,85 +25,29 @@ use "../../Data/ConstructionDatabase/data_wleads&lags2_weights.dta", clear
 xtset inegi year 
 
 *========================================================================
-*SET GLOBALS AND OTHER VARIABLES
-global controls winning_margin_governor  governor_alignment  
-
-foreach i in reform{
-gen `i'_pre=L.`i'
-}
-
-foreach i in winning_margin_governor governor_alignment logdefuncionespc{
-gen `i'_pre=L2.`i'
-}
-
-global controls_pre winning_margin_governor_pre governor_alignment_pre logdefuncionespc_pre
-
-*set controls 
-*global controls winning_margin_governor governor_alignment logdefuncionespc
-// create controls prereform
-bysort estado inegi: gen logdefuncionespc_prereform=logdefuncionespc if year==2013
-bysort estado inegi: replace logdefuncionespc_prereform=logdefuncionespc_prereform[_n-1] if logdefuncionespc_prereform==.
-bysort estado inegi: replace logdefuncionespc_prereform=logdefuncionespc_prereform[_n+1] if logdefuncionespc_prereform==.
-bysort estado inegi: replace logdefuncionespc_prereform=logdefuncionespc_prereform[_n+1] if logdefuncionespc_prereform==.
-bysort estado inegi: replace logdefuncionespc_prereform=logdefuncionespc_prereform[_n+1] if logdefuncionespc_prereform==.
-bysort estado inegi: replace logdefuncionespc_prereform=logdefuncionespc_prereform[_n+1] if logdefuncionespc_prereform==.
-
-
-*generate groups 
-gen group=.
-replace group=1 if adopt_year==.
-replace group=2 if adopt_year==2015
-replace group=3 if adopt_year==2016
-replace group=4 if adopt_year==2017
-replace group=5 if adopt_year==2018
-
-*NOTE: similar results using pre-treatment controls
-
-*create alignment variables and clean them 
-order firstword win_governor alignment_executive_strong alignment_governor_strong double_alignment
-*ssc install fillmissing, replace
-
-
-*create alignment variables:
-gen governor_alignment2=0 if firstword==win_governor & firstword!="pri" & firstword!="" // aligned but not the pri
-order firstword win_governor governor_alignment2 alignment_executive_strong alignment_governor_strong double_alignment
-replace governor_alignment2=1 if firstword==win_governor & firstword=="pri" // aligned and pri
-
-replace governor_alignment2=2 if firstword!=win_governor // not aligned
-
-*fill:
-sort inegi year
-foreach i in  governor_alignment2{
-fillmissing `i', with(previous)
-}
-*this generates missing values of places that were not aligned. But that's exactly what I want to have aside. 
-*Here PRI is acting as the way to measure higher clientelistic transfers, rather than credit claiming. 
-
-*generate alignment with PRI president
-gen president_alignment=0
-replace president_alignment=1 if firstword=="pri" & year>2012 & year<2019
-
-
-
-sort inegi year
-foreach i in  alignment_executive_strong alignment_governor_strong double_alignment{
-*bysort inegi year: replace `i'=`i'[_n-1] if `i'==.
-fillmissing `i', with(previous)
-}
-
-**need to correct governor_alignment varaible: 
-replace governor_alignment=. if win_governor==""  
-sort inegi year
-foreach i in  governor_alignment{
-fillmissing `i', with(previous)
-}
-
-rename governor_alignment governor_pri
-
-gen president_pri=0
-replace president_pri=1 if year>2012 & year<2019
-
-
+*SET GLOBALS
+	global narco ap4_2_3_lag_8 ap4_2_3_lag_7 ap4_2_3_lag_6 ap4_2_3_lag_5 ap4_2_3_lag_4 ap4_2_3_lag_3 ap4_2_3_lag_2
+	global punishment ap4_2_11_lag_8 ap4_2_11_lag_7 ap4_2_11_lag_6 ap4_2_11_lag_5 ap4_2_11_lag_4 ap4_2_11_lag_3 ap4_2_11_lag_2
+	global money ap4_12b_lag_8 ap4_12b_lag_7 ap4_12b_lag_6 ap4_12b_lag_5 ap4_12b_lag_4 ap4_12b_lag_3 ap4_12b_lag_2
+	global police ap5_4_2_b_lag_8 ap5_4_2_b_lag_7 ap5_4_2_b_lag_6 ap5_4_2_b_lag_5 ap5_4_2_b_lag_4 ap5_4_2_b_lag_3 ap5_4_2_b_lag_2
+	global army ap5_4_8_b_lag_8 ap5_4_8_b_lag_7 ap5_4_8_b_lag_6 ap5_4_8_b_lag_5 ap5_4_8_b_lag_4 ap5_4_8_b_lag_3 ap5_4_8_b_lag_2
+	global citizens $narco $punishment $money $police $army
+	global narco2 ap4_2_3
+	global punishment2 ap4_2_11
+	global money2 ap4_12b
+	global police2 ap5_4_2_b
+	global army2 ap5_4_8_b
+	global citizens2  $narco2 $punishment2 $money2 $police2 $army2  
+	
+	global incumbent_adv inc_lag_8 inc_lag_7 inc_lag_6 inc_lag_5 inc_lag_4 inc_lag_3 inc_lag_2
+	global incumbent_adv2 inc_party_runsfor1_lag_8 inc_party_runsfor1_lag_7 inc_party_runsfor1_lag_6 inc_party_runsfor1_lag_5 inc_party_runsfor1_lag_4 inc_party_runsfor1_lag_3 inc_party_runsfor1_lag_2
+	global incumbent_adv3 inc_party_won_lag_8 inc_party_won_lag_7 inc_party_won_lag_6 inc_party_won_lag_5 inc_party_won_lag_4 inc_party_won_lag_3 inc_party_won_lag_2
+	global num_parties numparties_eff_lag_8 numparties_eff_lag_7 numparties_eff_lag_6 numparties_eff_lag_5 numparties_eff_lag_4 numparties_eff_lag_3 numparties_eff_lag_2
+	global num_parties2 numparties_eff_molinar_lag_8 numparties_eff_molinar_lag_7 numparties_eff_molinar_lag_6 numparties_eff_molinar_lag_5 numparties_eff_molinar_lag_4 numparties_eff_molinar_lag_3 numparties_eff_molinar_lag_2
+	
+	global incumbency $incumbent_adv $num_parties
+	
+	global controls winning_margin_governor_pre governor_alignment_pre logdefuncionespc_prereform $citizens2
 
 *========================================================================
 *SET MATSIZE
@@ -770,6 +682,12 @@ cL.reform#c.pri_mayor2 "Term Limit Reform*PRI mayor" ) ///
 collabels(none) nonotes booktabs nomtitles  nolines
 
 *MESSAGE: PARTY DOES MATTER, BUT GET SAME RESULTS FOR ALL PARTIES. SO NO BIGGY. 
+
+*========================================================================
+*DIFFERENCE WITH PRESIDENT ALIGNMENT. THIS WAS POSITIVE
+
+
+
 
 
 *========================================================================

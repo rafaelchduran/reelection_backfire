@@ -2,35 +2,7 @@
 *Paper: Reelection Backfire
 *Author: Rafael Ch (rafael.ch@nyu.edu)
 *========================================================================
-/*
-Main Messages
-1. Sec. Coop. Agreements decrease violence
-2. Reform decreases the likelihood of signing sec. coop. agreements. Things look better with acuerdo than acuerdo2, and with IHS rather than logs.
--Wash hands-off < old the bull by the horns
--Why?
-3. The fall in likelihood is stronger when there is political alignment. But there are two stories:
-3.1 Transfers due to the alignment (Alignment literature, Dell (2015)). = capacity isolation
-3.2 Blame/accountability from citizens (Sandra Ley 2017 on Mexico). = accountability
-
-ANOTHER MECHANISM IS INCUMBENCY ADVANTAGE: 
-If incumbency disadvantage then this would be negative. But I find there is an inc. advantage. 
-Now why is there an inc. advantage:
-3.2.a. Clientelistic machinery-based incumbency advantage a la Fergusson et al (2019). Reelection incentives lead mayors to use the whole apparatus. 
-3.2.b. Quality-based incumbency advantage a la Eggers (2017)
-3.2.c. Information-based incumbency advantage a la BDM et a. (2020).
-
-
-**IT'S WRONG FROM HERE ON:
-4. Het effects of alignment with governor PRI (negative and significant) and president ALGINED (positive and significant)
-
-5. Check type of agreements: only has this for control municipalities which is weird
-
-Notes
-1. check how acuerdo and acuerdo2 differ - done, use acuerdo
-2. check how governor_alignment was constructed 
-3. read Chaisemartin to understand the placebos 
-4. read Sandra Ley paper on how citizens hold mayor accountables, and what happens with alignment
-
+/*NOTES
 
 */
 
@@ -47,80 +19,76 @@ cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/reelection_backfire/
 
 *========================================================================
 *LOAD DATA
-use "../../Data/ConstructionDatabase/data_wleads&lags2_weights.dta", clear
+use "../../Data/ConstructionDatabase/data_final.dta", clear
 
 *========================================================================
 *SET PANEL
 xtset inegi year 
 
 *========================================================================
-*SET GLOBALS AND OTHER VARIABLES
-gen pri_mayor2=.
-replace  pri_mayor2=1 if firstword=="pri"
-replace pri_mayor2=0 if firstword!="pri" & firstword!=""
-
-*fill:
-sort inegi year
-foreach i in  pri_mayor2{
-fillmissing `i', with(previous)
-}
-
-gen morena_mayor2=.
-replace  morena_mayor2=1 if firstword=="morena"
-replace morena_mayor2=0 if firstword!="morena" & firstword!=""
-
-gen pan_mayor2=.
-replace  pan_mayor2=1 if firstword=="pan"
-replace pan_mayor2=0 if firstword!="pan" & firstword!=""
-
-*fill:
-sort inegi year
-foreach i in  morena_mayor2 pan_mayor2{
-fillmissing `i', with(previous)
-}
-
-order pri_mayor2 morena_mayor2 pan_mayor2
-
-global controls winning_margin_governor  governor_alignment pri_mayor2 morena_mayor2
-
-sort inegi year
-
-foreach i in reform{
-gen `i'_pre=L.`i'
-}
-
-foreach i in winning_margin_governor governor_alignment logdefuncionespc{
-gen `i'_pre=L2.`i'
-}
-
-global controls_pre winning_margin_governor_pre governor_alignment_pre logdefuncionespc_pre
-
-*set controls 
-*global controls winning_margin_governor governor_alignment logdefuncionespc
-// create controls prereform
-bysort estado inegi: gen logdefuncionespc_prereform=logdefuncionespc if year==2013
-bysort estado inegi: replace logdefuncionespc_prereform=logdefuncionespc_prereform[_n-1] if logdefuncionespc_prereform==.
-bysort estado inegi: replace logdefuncionespc_prereform=logdefuncionespc_prereform[_n+1] if logdefuncionespc_prereform==.
-bysort estado inegi: replace logdefuncionespc_prereform=logdefuncionespc_prereform[_n+1] if logdefuncionespc_prereform==.
-bysort estado inegi: replace logdefuncionespc_prereform=logdefuncionespc_prereform[_n+1] if logdefuncionespc_prereform==.
-bysort estado inegi: replace logdefuncionespc_prereform=logdefuncionespc_prereform[_n+1] if logdefuncionespc_prereform==.
-
-
-*generate groups 
-gen group=.
-replace group=1 if adopt_year==.
-replace group=2 if adopt_year==2015
-replace group=3 if adopt_year==2016
-replace group=4 if adopt_year==2017
-replace group=5 if adopt_year==2018
+*SET GLOBALS
+	global narco ap4_2_3_lag_8 ap4_2_3_lag_7 ap4_2_3_lag_6 ap4_2_3_lag_5 ap4_2_3_lag_4 ap4_2_3_lag_3 ap4_2_3_lag_2
+	global punishment ap4_2_11_lag_8 ap4_2_11_lag_7 ap4_2_11_lag_6 ap4_2_11_lag_5 ap4_2_11_lag_4 ap4_2_11_lag_3 ap4_2_11_lag_2
+	global money ap4_12b_lag_8 ap4_12b_lag_7 ap4_12b_lag_6 ap4_12b_lag_5 ap4_12b_lag_4 ap4_12b_lag_3 ap4_12b_lag_2
+	global police ap5_4_2_b_lag_8 ap5_4_2_b_lag_7 ap5_4_2_b_lag_6 ap5_4_2_b_lag_5 ap5_4_2_b_lag_4 ap5_4_2_b_lag_3 ap5_4_2_b_lag_2
+	global army ap5_4_8_b_lag_8 ap5_4_8_b_lag_7 ap5_4_8_b_lag_6 ap5_4_8_b_lag_5 ap5_4_8_b_lag_4 ap5_4_8_b_lag_3 ap5_4_8_b_lag_2
+	global citizens $narco $punishment $money $police $army
+	global narco2 ap4_2_3
+	global punishment2 ap4_2_11
+	global money2 ap4_12b
+	global police2 ap5_4_2_b
+	global army2 ap5_4_8_b
+	global citizens2  $narco2 $punishment2 $money2 $police2 $army2  
+	
+	global citizens3  ap4_2_11_pre ap4_12b_pre ap5_4_2_b_pre ap5_4_8_b_pre // ap4_2_3_pre
+	
+	global incumbent_adv inc_lag_8 inc_lag_7 inc_lag_6 inc_lag_5 inc_lag_4 inc_lag_3 inc_lag_2
+	global incumbent_adv2 inc_party_runsfor1_lag_8 inc_party_runsfor1_lag_7 inc_party_runsfor1_lag_6 inc_party_runsfor1_lag_5 inc_party_runsfor1_lag_4 inc_party_runsfor1_lag_3 inc_party_runsfor1_lag_2
+	global incumbent_adv3 inc_party_won_lag_8 inc_party_won_lag_7 inc_party_won_lag_6 inc_party_won_lag_5 inc_party_won_lag_4 inc_party_won_lag_3 inc_party_won_lag_2
+	global num_parties numparties_eff_lag_8 numparties_eff_lag_7 numparties_eff_lag_6 numparties_eff_lag_5 numparties_eff_lag_4 numparties_eff_lag_3 numparties_eff_lag_2
+	global num_parties2 numparties_eff_molinar_lag_8 numparties_eff_molinar_lag_7 numparties_eff_molinar_lag_6 numparties_eff_molinar_lag_5 numparties_eff_molinar_lag_4 numparties_eff_molinar_lag_3 numparties_eff_molinar_lag_2
+	
+	global incumbency $incumbent_adv $num_parties
+	
+	global controls winning_margin_governor  governor_notaligned pri_mayor2 morena_mayor2 $citizens2 winning_margin alignment_executive_strong
+	*global controls winning_margin_governor  governor_alignment pri_mayor2 morena_mayor2 
+	global controls_pre winning_margin_governor_pre governor_alignment_pre logdefuncionespc_pre  winning_margin_pre alignment_executive_strong_pre $citizens3
 
 *NOTE: similar results using pre-treatment controls
-
 
 *========================================================================
 *SET MATSIZE
 set matsize 11000 
 
+*========================================================================
+***0) TWFE model - Effect of decentralization in public good provision
+sort inegi year
+
+est clear
+foreach outcome in logdetenidospc logdetenidos_2pc logheroina_kg logheroina_kg_2 logmetanfetamina_kg logmetanfetamina_kg_2 loglaboratorio loglaboratorio_2{
+foreach treatment in  acuerdo2{
+eststo: quietly xi: areg `outcome' `treatment' $controls_pre i.year, a(inegi) vce(cluster inegi)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+eststo: quietly xi: areg `outcome' l.`treatment' $controls_pre i.year, a(inegi) vce(cluster inegi)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+eststo: quietly xi: areg `outcome' l2.`treatment' $controls_pre i.year, a(inegi) vce(cluster inegi)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+}
+}
+
+esttab est*, keep( acuerdo2) t star(* 0.1 ** 0.05 *** 0.01)
+
+*MESSAGE: there are more local police forces detentions. The military doesn't do much.
+*MESSAGE2: the effect is contemporary
 
 
 *========================================================================
@@ -130,17 +98,17 @@ sort inegi year
 est clear
 foreach outcome in logdefuncionespc ihs_defuncionespc{
 foreach treatment in acuerdo  acuerdo2{
-eststo: quietly xi: areg `outcome' `treatment' $controls i.year, a(inegi) vce(cluster inegi)
+eststo: quietly xi: areg `outcome' `treatment'  $controls_pre i.year, a(inegi) vce(cluster inegi)
 	estadd local controls \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
 	estadd local clustermun \checkmark
-eststo: quietly xi: areg `outcome' l.`treatment' $controls i.year, a(inegi) vce(cluster inegi)
+eststo: quietly xi: areg `outcome' l.`treatment' $controls_pre i.year, a(inegi) vce(cluster inegi)
 	estadd local controls \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
 	estadd local clustermun \checkmark
-eststo: quietly xi: areg `outcome' l2.`treatment' $controls i.year, a(inegi) vce(cluster inegi)
+eststo: quietly xi: areg `outcome' l2.`treatment' $controls_pre i.year, a(inegi) vce(cluster inegi)
 	estadd local controls \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -163,27 +131,84 @@ collabels(none) nonotes booktabs nomtitles  nolines
 *MESSAGE: security cooperation agreements decrease homicides
 
 *========================================================================
+**EFFECT IS NOT MEDIATED BY THE REFORM
+est clear
+foreach outcome in logdefuncionespc ihs_defuncionespc{
+foreach treatment in acuerdo  acuerdo2{
+eststo: quietly xi: areg `outcome' `treatment' reform $controls_pre i.year, a(inegi) vce(cluster inegi)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+eststo: quietly xi: areg `outcome' L.`treatment' reform  $controls_pre i.year, a(inegi) vce(cluster inegi)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+eststo: quietly xi: areg `outcome' L2.`treatment' reform  $controls_pre i.year, a(inegi) vce(cluster inegi)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+}
+}
+
+esttab est*, keep(acuerdo acuerdo2 reform) t star(* 0.1 ** 0.05 *** 0.01)
+
+*let's see the interaction
+est clear
+foreach outcome in logdefuncionespc {
+foreach treatment in   acuerdo2{
+eststo: quietly xi: areg `outcome' c.`treatment'##c.reform $controls i.year, a(inegi) vce(cluster inegi)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	}
+	}
+	estadd local clustermun \checkmark
+eststo: quietly xi: areg `outcome' cL.`treatment'##cL.reform  $controls i.year, a(inegi) vce(cluster inegi)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+eststo: quietly xi: areg `outcome' cL2.`treatment'##cL.reform  $controls i.year, a(inegi) vce(cluster inegi)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+}
+}
+
+esttab est*, keep(acuerdo2 reform c.acuerdo2#c.reform) t star(* 0.1 ** 0.05 *** 0.01)
+lincom _b[acuerdo2] + _b[c.acuerdo2#reform]
+
+*THIS KIND OF DOESN'T MAKE SENSE BECAUSE ACUERDO2 IS AFFECTED BY REFORM
+
+
+
+*========================================================================
 ***2A) TWFE model -Effect of Reform on Sec. Coop Agreement
+sort inegi year
 
 est clear
-foreach outcome in acuerdo {
+foreach outcome in acuerdo2 {
 foreach treatment in reform{
-eststo: quietly xi: areg `outcome' `treatment' $controls i.year, a(inegi) vce(cluster estado)
+eststo: quietly xi: areg `outcome' `treatment' $controls_pre i.year, a(inegi) vce(cluster estado)
 	estadd local controls \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
 	estadd local clustermun \checkmark
-eststo: quietly xi: areg `outcome' l.`treatment' $controls i.year, a(inegi) vce(cluster estado)
+eststo: quietly xi: areg `outcome' l.`treatment' $controls_pre i.year, a(inegi) vce(cluster estado)
 	estadd local controls \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
 	estadd local clustermun \checkmark
-eststo: quietly xi: areg `outcome' l2.`treatment' $controls i.year, a(inegi) vce(cluster estado)
+eststo: quietly xi: areg `outcome' l2.`treatment' $controls_pre i.year, a(inegi) vce(cluster estado)
 	estadd local controls \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
 	estadd local clustermun \checkmark
-eststo: quietly xi: areg `outcome' l3.`treatment' $controls i.year, a(inegi) vce(cluster estado)
+eststo: quietly xi: areg `outcome' l3.`treatment' $controls_pre i.year, a(inegi) vce(cluster estado)
 	estadd local controls \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -205,6 +230,7 @@ collabels(none) nonotes booktabs nomtitles  nolines
 **reform decreased the likelihood of signing security cooperation agreements
 **but results are biased due to heterogeneous treatment effects (staggered treatment)
 **same results clustering at the municipality level but should cluster at the estado level
+
 *========================================================================
 ***2B) TWFE model - demanding -Effect of Reform on Sec. Coop Agreement
 
@@ -592,9 +618,8 @@ tex Observations       &            ${N_log}        &     ${N_ihs}  \\
 tex R-squared        &              ${r2_log}        &           ${r2_ihs}   \\
 tex Mun. FEs       &     \checkmark         &  \checkmark    \\
 tex Year. FEs       &     \checkmark         &  \checkmark   \\
-tex State Controls$^b$   &    \checkmark      &   \checkmark    \\
+tex Controls$^b$   &          &       \\
 tex Cohort weighted   &   \checkmark       &   \checkmark    \\
-tex Lag DV &                  &   \checkmark    \\
 
 tex \hline \hline      
 tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to the inverse hyperbolic sine transformation. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
@@ -612,13 +637,12 @@ Also, if include controls, include all such as past homicides, winning margin an
 
 *========================================================================
 ***6) Corrected-TWFE (Chaisemartin and D'Haultfoeuille, forthcoming AER) -Effect of Reform on Sec. Coop Agreement
-*ssc install did_multiplegt, replace
 
-global controls winning_margin_governor_pre governor_alignment_pre logdefuncionespc_prereform
+*global controls winning_margin_governor_pre governor_alignment_pre logdefuncionespc_prereform $citizens2 alignment_executive_strong_pre winning_margin_pre
 
 *Graph:
 foreach outcome in acuerdo  acuerdo2 {
-did_multiplegt `outcome' group year reform, breps(1000) controls($controls) seed(5675) ///
+did_multiplegt `outcome' group year reform, breps(1000) controls($controls_pre) seed(5675) ///
 cluster(estado) robust_dynamic dynamic(3) placebo(4) longdiff_placebo 
 graph export "../Figures/chaisemartin_`outcome'.png", as(png) replace
 }
@@ -627,7 +651,7 @@ graph export "../Figures/chaisemartin_`outcome'.png", as(png) replace
 *A) Acuerdo:
 ************
 foreach outcome in acuerdo {
-did_multiplegt `outcome' group year reform, breps(1000) controls($controls) placebo(4) seed(5675) ///
+did_multiplegt `outcome' group year reform, breps(1000) controls($controls_pre) placebo(4) seed(5675) ///
 cluster(estado) robust_dynamic  dynamic(3) ///
 save_results("../../Data/chaisemartin_`outcome'.dta")
 
@@ -670,7 +694,7 @@ foreach i in 1 2 3 4{
 *B) Acuerdo2:
 ************
 foreach outcome in acuerdo2 {
-did_multiplegt `outcome' group year reform, breps(1000) controls($controls) placebo(4) seed(5675) ///
+did_multiplegt `outcome' group year reform, breps(1000) controls($controls_pre) placebo(4) seed(5675) ///
 cluster(estado) robust_dynamic  dynamic(3) ///
 save_results("../../Data/chaisemartin_`outcome'.dta")
 
@@ -739,7 +763,7 @@ tex Lead 3 years &        $ ${beta_t_3}^{${est_t_3}} $ &     $ ${beta2_t_3}^{${e
 tex  & ($ ${se_t_3}$) & ($ ${se2_t_3} $) \\
 
 tex \addlinespace
-tex State Controls$^b$   &    \checkmark      &   \checkmark    \\
+tex Controls$^b$   &    \checkmark      &   \checkmark    \\
 tex \hline \hline      
 tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Secondary version of security cooperation agreements. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
 tex \end{tabular}
@@ -751,52 +775,106 @@ texdoc close
 *MESSAGE: Reform decreases the likelihood of signing security cooperation agreements.
 
 *========================================================================
-***7) Wild bootstrap -Effect of Reform on Sec. Coop Agreement
+***7) Wild bootstrap -Effect of Reform on Sec. Coop Agreement. To adjust for the small number of clusters.
 *set matsize
 set matsize 11000 
 
+sort inegi year
+foreach i in reform{
+*gen `i'_pre=L.`i'
+gen `i'_pre2=L2.`i'
+}
+
 /*WILD:
 est clear
-eststo: clustse reg acuerdo reform_pre year_* $controls_pre, fe(inegi)  cluster(estado) method(wild) reps(1000)
+eststo: clustse reg acuerdo reform_pre2 year_* $controls, fe(inegi)  cluster(estado) method(wild) reps(1000)
 	estadd local comcontrols \checkmark
 	estadd local departmentfixed \checkmark
 	estadd local clusterdepartment \checkmark
-	estadd local ci "[-0.252, -0.053]"
+	estadd local ci "[-0.315, -0.052]"
+	estadd local ci "[-0.417, -0.083]" // with L2.
 
-eststo: clustse reg acuerdo2 reform_pre year_* $controls_pre, fe(inegi)  cluster(estado) method(wild) reps(1000)
+eststo: clustse reg acuerdo2 reform_pre2 year_* $controls, fe(inegi)  cluster(estado) method(wild) reps(1000)
 	estadd local comcontrols \checkmark
 	estadd local departmentfixed \checkmark
 	estadd local clusterdepartment \checkmark
-	estadd local ci "[-0.184, 0.039]"
+	estadd local ci "[-0.237, 0.019]"
+	estadd local ci "[-0.365, -0.019]" // with L2.
+
 	*/
 	
 
 *TWFE
 est clear
-eststo: quietly xi: areg acuerdo reform_pre $controls_pre i.year, a(inegi) vce(cluster estado)
+eststo: quietly xi: areg acuerdo L.reform $controls i.year, a(inegi) vce(cluster estado)
 	estadd local controls \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
 	estadd local clustermun \checkmark
-	estadd local ci "[-0.252, -0.053]"
-	*estadd local ci "[-0.358, -0.075]" // with L2.
+	estadd local ci "[-0.315, -0.052]"
 
-eststo: quietly xi: areg acuerdo2 reform_pre $controls_pre i.year, a(inegi) vce(cluster estado)
+eststo: quietly xi: areg acuerdo L2.reform $controls i.year, a(inegi) vce(cluster estado)
 	estadd local controls \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
 	estadd local clustermun \checkmark
-	estadd local ci "[-0.184, 0.039]"
-	*estadd local ci "[-0.308, -0.004]" // with L2.
+	estadd local ci "[-0.417, -0.083]" // with L2.
 
+eststo: quietly xi: areg acuerdo2 L.reform $controls i.year, a(inegi) vce(cluster estado)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+	estadd local ci "[-0.237, 0.019]"
 
-esttab est*, keep(reform_pre) t star(* 0.1 ** 0.05 *** 0.01)
+eststo: quietly xi: areg acuerdo2 L2.reform $controls i.year, a(inegi) vce(cluster estado)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+	estadd local ci "[-0.365, -0.019]" // with L2.
+	
+esttab est*, keep(L.reform L2.reform) t star(* 0.1 ** 0.05 *** 0.01)
 
 esttab using "../Tables/wild_reform_sec_agreement.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N R2 controls munfe yearfe clustermun ci, fmt(%11.2gc 3) label("Observations" "R2" "Controls" "Mun. FE" "Year FE" "Depto. Cluster S.E." "Wild CI")) ///
-keep(reform_pre) ///
+keep(L.reform L2.reform) ///
 mgroups("DV: Security Cooperation Agreement A" "DV: Security Cooperation Agreement B", ///
 pattern(1 1 ) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
-coeflabel(reform_pre "Reform (t-1)" ) ///
+coeflabel(L.reform "Reform (t-1)" L2.reform "Reform (t-2)") ///
 collabels(none) nonotes booktabs nomtitles  nolines
+
+
+*========================================================================
+*MESSAGE TILL HERE: CENTRALIZATION DECREASES HOMICIDES AND INCREASES PUBLIC GOOD PROVISION; REFORM DECRESED CENTRALIZATION, AND THUS INCREASED HOMICIDES AND PUBLIC GOOD PROVISION
+**SO REELECTION INCENTIVES LED TO DECENTRALIZATION, PUBLIC GOOD UNDERPROVISION AND VIOLENCE
+*========================================================================
+
+*========================================================================
+*1) WINNING MARGIN
+***do margins
+
+est clear
+foreach outcome in acuerdo2 {
+foreach treatment in reform{
+eststo: quietly xi: areg `outcome' `treatment' $controls i.year, a(inegi) vce(cluster estado)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+/*eststo: quietly xi: areg `outcome' l.`treatment' $controls i.year, a(inegi) vce(cluster estado)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+	*/
+}
+}
+
+margins, at(winning_margin_pre=(0(.1)1))
+marginsplot, scheme(s1color)
+
+esttab est*, keep(reform L.reform) t star(* 0.1 ** 0.05 *** 0.01)
+
+
 
