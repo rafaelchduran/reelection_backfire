@@ -590,7 +590,7 @@ texdoc close
 
 
 ************
-*A) laboratories:
+*A) cocaine:
 ************
 foreach outcome in logcocaina_kg {
 did_multiplegt `outcome' group year reform, breps(1000) controls($controls_pre) placebo(4) seed(5675) ///
@@ -717,6 +717,271 @@ texdoc close
 
 
 *MESSAGE: 
+
+
+
+
+************
+*A) Poppy:
+************
+foreach outcome in logamapola_kghec {
+did_multiplegt `outcome' group year reform, breps(1000) controls($controls_pre) placebo(4) seed(5675) ///
+cluster(estado) robust_dynamic  dynamic(3) ///
+save_results("../../Data/chaisemartin_`outcome'.dta")
+
+}
+
+ereturn list
+return list
+
+*save results to globals:
+foreach i in 0 1 2 3{
+	glo grados_t_`i': di %5.3f e(N_effect_`i')-3
+	glo beta_t_`i': di %5.3f e(effect_`i')
+	glo se_t_`i': di %5.3f e(se_effect_`i')
+	glo t_t_`i': di e(effect_`i')/e(se_effect_`i')
+	glo pval_t_`i': di 2*ttail(${grados_t_`i'},abs(${t_t_`i'})) 
+	glo est_t_`i'= "" 
+			if (${pval_t_`i'}<=0.1) global est_t_`i' = "*"
+			if (${pval_t_`i'}<=0.05) global est_t_`i' = "**"
+			if (${pval_t_`i'}<=0.01) global est_t_`i' = "***"
+			*if (${pval_t_`i'}=0) global est_t_`i' = "***"
+}
+
+*Placebos: 
+foreach i in 1 2 3 4{
+	glo pgrados_t_`i': di %5.3f e(N_placebo_`i')-3
+	glo pbeta_t_`i': di %5.3f e(placebo_`i')
+	glo pse_t_`i': di %5.3f e(se_placebo_`i')
+	glo pt_t_`i': di e(placebo_`i')/e(se_placebo_`i')
+	glo ppval_t_`i': di 2*ttail(${pgrados_t_`i'},abs(${pt_t_`i'})) 
+	glo pest_t_`i'= "" 
+			if (${ppval_t_`i'}<=0.1) global pest_t_`i' = "*"
+			if (${ppval_t_`i'}<=0.05) global pest_t_`i' = "**"
+			if (${ppval_t_`i'}<=0.01) global pest_t_`i' = "***"
+			*if (${ppval_t_`i'}=0) global pest_t_`i' = "***"
+}
+
+	
+
+
+
+************
+*B) 
+************
+foreach outcome in logamapola_kghec_2 {
+did_multiplegt `outcome' group year reform, breps(1000) controls($controls_pre) placebo(4) seed(5675) ///
+cluster(estado) robust_dynamic  dynamic(3) ///
+save_results("../../Data/chaisemartin_`outcome'.dta")
+
+}
+
+ereturn list
+return list
+
+*save results to globals:
+foreach i in 0 1 2 3{
+	glo grados2_t_`i': di %5.3f e(N_effect_`i')-3
+	glo beta2_t_`i': di %5.3f e(effect_`i')
+	glo se2_t_`i': di %5.3f e(se_effect_`i')
+	glo t2_t_`i': di e(effect_`i')/e(se_effect_`i')
+	glo pval2_t_`i': di 2*ttail(${grados2_t_`i'},abs(${t2_t_`i'})) 
+	glo est2_t_`i'= "" 
+			if (${pval2_t_`i'}<=0.1) global est2_t_`i' = "*"
+			if (${pval2_t_`i'}<=0.05) global est2_t_`i' = "**"
+			if (${pval2_t_`i'}<=0.01) global est2_t_`i' = "***"
+			*if (${pval2_t_`i'}=0) global est2_t_`i' = "***"
+
+}
+
+*Placebos: 
+foreach i in 1 2 3 4{
+	glo pgrados2_t_`i': di %5.3f e(N_placebo_`i')-3
+	glo pbeta2_t_`i': di %5.3f e(placebo_`i')
+	glo pse2_t_`i': di %5.3f e(se_placebo_`i')
+	glo pt2_t_`i': di e(placebo_`i')/e(se_placebo_`i')
+	glo ppval2_t_`i': di 2*ttail(${pgrados2_t_`i'},abs(${pt2_t_`i'})) 
+	glo pest2_t_`i'= "" 
+			if (${ppval2_t_`i'}<=0.1) global pest2_t_`i' = "*"
+			if (${ppval2_t_`i'}<=0.05) global pest2_t_`i' = "**"
+			if (${ppval2_t_`i'}<=0.01) global pest2_t_`i' = "***"
+			*if (${ppval2_t_`i'}=0) global pest2_t_`i' = "***"
+}
+
+*Table
+	
+texdoc init  "../Tables/chaisemarting_estimates_DVpoppy.tex", replace force
+tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+tex \centering
+tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements}
+tex \label{tab:chaisemartin}
+tex \scalebox{1}{    
+tex \begin{tabular}{lcc}  
+tex \hline \hline       
+tex \\ \multicolumn{3}{l}{Dependent variable:}\\
+tex & \multicolumn{1}{c}{log(homicides per capita)} & \multicolumn{1}{c}{IHS(homicides per capita)$^{a}$} \\
+tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
+tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+tex \addlinespace
+tex Lag 4 years &        $ ${pbeta_t_3}^{${pest_t_3}} $ &     $ ${pbeta2_t_3}^{${pest2_t_3}} $ \\
+tex  & ($ ${pse_t_3}$) & ($ ${pse2_t_3} $) \\
+tex Lag 3 years &        $ ${pbeta_t_2}^{${pest_t_2}} $ &     $ ${pbeta2_t_2}^{${pest2_t_2}} $ \\
+tex  & ($ ${pse_t_2}$) & ($ ${pse2_t_2} $) \\
+tex Lag 2 years &        $ ${pbeta_t_1}^{${pest_t_1}} $ &     $ ${pbeta2_t_1}^{${pest2_t_1}} $ \\
+tex  & ($ ${pse_t_1}$) & ($ ${pse2_t_1} $) \\
+tex Reform, time 0 &        $ ${beta_t_0}^{${est_t_0}} $ &     $ ${beta2_t_0}^{${est2_t_0}} $ \\
+tex  & ($ ${se_t_0}$) & ($ ${se2_t_0} $) \\
+tex Lead 1 year &         $ ${beta_t_1}^{${est_t_1}} $ &       $ ${beta2_t_1}^{${est2_t_1}} $ \\
+tex  & ($ ${se_t_1}$) & ($ ${se2_t_1} $) \\
+tex Lead 2 years &         $ ${beta_t_2}^{${est_t_2}} $ &      $ ${beta2_t_2}^{${est2_t_2}} $  \\
+tex  & ($ ${se_t_2}$) & ($ ${se2_t_2} $) \\
+tex Lead 3 years &        $ ${beta_t_3}^{${est_t_3}} $ &     $ ${beta2_t_3}^{${est2_t_3}} $ \\
+tex  & ($ ${se_t_3}$) & ($ ${se2_t_3} $) \\
+
+tex \addlinespace
+tex Controls$^b$   &    \checkmark      &   \checkmark    \\
+tex \hline \hline      
+tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Refers to the inverse hyperbolic sine transformation.  $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \end{tabular}
+tex } 
+tex \end{table}
+texdoc close
+
+
+*MESSAGE: 
+
+
+
+
+************
+*A) Drugs:
+************
+foreach outcome in logdrugs {
+did_multiplegt `outcome' group year reform, breps(1000) controls($controls_pre) placebo(4) seed(5675) ///
+cluster(estado) robust_dynamic  dynamic(3) ///
+save_results("../../Data/chaisemartin_`outcome'.dta")
+
+}
+
+ereturn list
+return list
+
+*save results to globals:
+foreach i in 0 1 2 3{
+	glo grados_t_`i': di %5.3f e(N_effect_`i')-3
+	glo beta_t_`i': di %5.3f e(effect_`i')
+	glo se_t_`i': di %5.3f e(se_effect_`i')
+	glo t_t_`i': di e(effect_`i')/e(se_effect_`i')
+	glo pval_t_`i': di 2*ttail(${grados_t_`i'},abs(${t_t_`i'})) 
+	glo est_t_`i'= "" 
+			if (${pval_t_`i'}<=0.1) global est_t_`i' = "*"
+			if (${pval_t_`i'}<=0.05) global est_t_`i' = "**"
+			if (${pval_t_`i'}<=0.01) global est_t_`i' = "***"
+			*if (${pval_t_`i'}=0) global est_t_`i' = "***"
+}
+
+*Placebos: 
+foreach i in 1 2 3 4{
+	glo pgrados_t_`i': di %5.3f e(N_placebo_`i')-3
+	glo pbeta_t_`i': di %5.3f e(placebo_`i')
+	glo pse_t_`i': di %5.3f e(se_placebo_`i')
+	glo pt_t_`i': di e(placebo_`i')/e(se_placebo_`i')
+	glo ppval_t_`i': di 2*ttail(${pgrados_t_`i'},abs(${pt_t_`i'})) 
+	glo pest_t_`i'= "" 
+			if (${ppval_t_`i'}<=0.1) global pest_t_`i' = "*"
+			if (${ppval_t_`i'}<=0.05) global pest_t_`i' = "**"
+			if (${ppval_t_`i'}<=0.01) global pest_t_`i' = "***"
+			*if (${ppval_t_`i'}=0) global pest_t_`i' = "***"
+}
+
+	
+
+
+
+************
+*B) 
+************
+foreach outcome in logdrugs_2 {
+did_multiplegt `outcome' group year reform, breps(1000) controls($controls_pre) placebo(4) seed(5675) ///
+cluster(estado) robust_dynamic  dynamic(3) ///
+save_results("../../Data/chaisemartin_`outcome'.dta")
+
+}
+
+ereturn list
+return list
+
+*save results to globals:
+foreach i in 0 1 2 3{
+	glo grados2_t_`i': di %5.3f e(N_effect_`i')-3
+	glo beta2_t_`i': di %5.3f e(effect_`i')
+	glo se2_t_`i': di %5.3f e(se_effect_`i')
+	glo t2_t_`i': di e(effect_`i')/e(se_effect_`i')
+	glo pval2_t_`i': di 2*ttail(${grados2_t_`i'},abs(${t2_t_`i'})) 
+	glo est2_t_`i'= "" 
+			if (${pval2_t_`i'}<=0.1) global est2_t_`i' = "*"
+			if (${pval2_t_`i'}<=0.05) global est2_t_`i' = "**"
+			if (${pval2_t_`i'}<=0.01) global est2_t_`i' = "***"
+			*if (${pval2_t_`i'}=0) global est2_t_`i' = "***"
+
+}
+
+*Placebos: 
+foreach i in 1 2 3 4{
+	glo pgrados2_t_`i': di %5.3f e(N_placebo_`i')-3
+	glo pbeta2_t_`i': di %5.3f e(placebo_`i')
+	glo pse2_t_`i': di %5.3f e(se_placebo_`i')
+	glo pt2_t_`i': di e(placebo_`i')/e(se_placebo_`i')
+	glo ppval2_t_`i': di 2*ttail(${pgrados2_t_`i'},abs(${pt2_t_`i'})) 
+	glo pest2_t_`i'= "" 
+			if (${ppval2_t_`i'}<=0.1) global pest2_t_`i' = "*"
+			if (${ppval2_t_`i'}<=0.05) global pest2_t_`i' = "**"
+			if (${ppval2_t_`i'}<=0.01) global pest2_t_`i' = "***"
+			*if (${ppval2_t_`i'}=0) global pest2_t_`i' = "***"
+}
+
+*Table
+	
+texdoc init  "../Tables/chaisemarting_estimates_DVdrugsoverall.tex", replace force
+tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+tex \centering
+tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements}
+tex \label{tab:chaisemartin}
+tex \scalebox{1}{    
+tex \begin{tabular}{lcc}  
+tex \hline \hline       
+tex \\ \multicolumn{3}{l}{Dependent variable:}\\
+tex & \multicolumn{1}{c}{log(homicides per capita)} & \multicolumn{1}{c}{IHS(homicides per capita)$^{a}$} \\
+tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
+tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+tex \addlinespace
+tex Lag 4 years &        $ ${pbeta_t_3}^{${pest_t_3}} $ &     $ ${pbeta2_t_3}^{${pest2_t_3}} $ \\
+tex  & ($ ${pse_t_3}$) & ($ ${pse2_t_3} $) \\
+tex Lag 3 years &        $ ${pbeta_t_2}^{${pest_t_2}} $ &     $ ${pbeta2_t_2}^{${pest2_t_2}} $ \\
+tex  & ($ ${pse_t_2}$) & ($ ${pse2_t_2} $) \\
+tex Lag 2 years &        $ ${pbeta_t_1}^{${pest_t_1}} $ &     $ ${pbeta2_t_1}^{${pest2_t_1}} $ \\
+tex  & ($ ${pse_t_1}$) & ($ ${pse2_t_1} $) \\
+tex Reform, time 0 &        $ ${beta_t_0}^{${est_t_0}} $ &     $ ${beta2_t_0}^{${est2_t_0}} $ \\
+tex  & ($ ${se_t_0}$) & ($ ${se2_t_0} $) \\
+tex Lead 1 year &         $ ${beta_t_1}^{${est_t_1}} $ &       $ ${beta2_t_1}^{${est2_t_1}} $ \\
+tex  & ($ ${se_t_1}$) & ($ ${se2_t_1} $) \\
+tex Lead 2 years &         $ ${beta_t_2}^{${est_t_2}} $ &      $ ${beta2_t_2}^{${est2_t_2}} $  \\
+tex  & ($ ${se_t_2}$) & ($ ${se2_t_2} $) \\
+tex Lead 3 years &        $ ${beta_t_3}^{${est_t_3}} $ &     $ ${beta2_t_3}^{${est2_t_3}} $ \\
+tex  & ($ ${se_t_3}$) & ($ ${se2_t_3} $) \\
+
+tex \addlinespace
+tex Controls$^b$   &    \checkmark      &   \checkmark    \\
+tex \hline \hline      
+tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Refers to the inverse hyperbolic sine transformation.  $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \end{tabular}
+tex } 
+tex \end{table}
+texdoc close
+
+
+*MESSAGE: 
+
 
 
 

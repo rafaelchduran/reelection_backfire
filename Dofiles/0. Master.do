@@ -24,6 +24,9 @@ it should not have a lag DV since we have a twfe model, and it should control fo
 *ssc install center, replace
 *ssc install unique, replace
 *ssc install clustse, replace
+*ssc install fillmissing, replace
+*ssc install did_multiplegt, replace
+
 
 *========================================================================
 *Working Directory

@@ -54,9 +54,11 @@ foreach i in reform{
 gen `i'_pre=L.`i'
 }
 
-foreach i in winning_margin_governor governor_alignment logdefuncionespc winning_margin alignment_executive_strong{
+foreach i in winning_margin_governor governor_alignment logdefuncionespc winning_margin alignment_executive_strong ///
+ap4_2_3 ap4_2_11 ap4_12b ap5_4_2_b ap5_4_8_b{
 gen `i'_pre=L2.`i'
 }
+
 
 **need to fill winning_margin alignment_executive_strong
 foreach i in  winning_margin winning_margin_pre alignment_executive_strong_pre{
@@ -157,6 +159,7 @@ rename governor_alignment governor_pri
 gen president_pri=0
 replace president_pri=1 if year>2012 & year<2019
 
+tab inegi, gen(inegi_)
 
 
 *========================================================================
