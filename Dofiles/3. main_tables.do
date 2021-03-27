@@ -219,7 +219,7 @@ use "../Data/ConstructionDatabase/data_wleads&lags2_weights.dta", clear
 ************	
 
 est clear
-quietly	areg  logdefuncionespc  $saturated $lagDV i.year, a(inegi) vce(cluster estado)
+quietly	areg  logdefuncionespc  $saturated  i.year, a(inegi) vce(cluster estado)
 	estadd local depcontrols \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark

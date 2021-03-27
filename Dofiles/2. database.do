@@ -1,24 +1,39 @@
-*****************************************************
-*Reelection Backfire
-*Rafael Ch (2020)
-*Var Generation & Data set construction      
-*****************************************************
+*Main database construction
+*Paper: Reelection Backfire
+*Author: Rafael Ch (rafael.ch@nyu.edu)
+*========================================================================
+/*NOTES
+Merge numbers changed because I added years from 2004 to 2009, and 2019
+*/
 
+*========================================================================
+*Environment
 clear all
 set more off  
 set varabbrev off 
 
+*========================================================================
 *Working Directory
 cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/reelection_backfire/Dofiles"
 
+*========================================================================
 *Create main file: 
-foreach y in 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019{
+**from 2004 onwards to capture all elections that affect 2010 observations. 
+foreach y in 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019{
 use "../../Data/ConstructionDatabase/Municipality_Codes_UniqueID.dta", clear
 gen year=`y'
 save "../../Data/ConstructionDatabase/municipalities_id_`y'.dta", replace
 }
 
 use "../../Data/ConstructionDatabase/municipalities_id_2010.dta", clear
+/*use "../../Data/ConstructionDatabase/municipalities_id_2004.dta", clear
+append using "../../Data/ConstructionDatabase/municipalities_id_2005.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2006.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2007.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2008.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2009.dta"
+append using "../../Data/ConstructionDatabase/municipalities_id_2010.dta"
+*/
 append using "../../Data/ConstructionDatabase/municipalities_id_2011.dta"
 append using "../../Data/ConstructionDatabase/municipalities_id_2012.dta"
 append using "../../Data/ConstructionDatabase/municipalities_id_2013.dta"
@@ -40,7 +55,7 @@ save "../../Data/ConstructionDatabase/municipalities_id_2010_2019.dta", replace
 
 *1) ADD TREATMENT using Magar's election's database
 /*
-**the id here is inegi not 
+**the id here is inegi not ife
 **need to collapse to the mun-year level
 */
 rename mun_id inegi
@@ -84,6 +99,7 @@ Missing info:
 
 */
 
+**Define treatment:
 *first treatment year
 foreach i in 3 4 6 7 11 12 14 15 16 17 19 22 24 27 31{
 replace reform=1 if year==2015 & estado==`i'
@@ -92,7 +108,7 @@ replace reform=1 if year==2017 & estado==`i'
 replace reform=1 if year==2018 & estado==`i'
 replace reform=1 if year==2019 & estado==`i'
 }
-label variable reform "Dummy=1 if treated Electoral Reform; o otherwise"
+label variable reform "Dummy=1 if treated Electoral Reform; 0 otherwise"
 
 *second treatment year
 foreach i in 1 2 8 10 20 23 25 28 32{
@@ -115,18 +131,23 @@ replace reform=1 if year==2018 & estado==`i'
 replace reform=1 if year==2019 & estado==`i'
 }
 
-replace reform=0 if reform==.
-
-/*Fix treatment
-foreach i in incumbent_yesterday_w_today incumbent_today_w_tomorrow incumbent_yesterday_w_tomorrow incumbent_yesterday_w_tomorrow2 coalition_v01 coalition_v02 coalition_v03 coalition_v04 coalition_v05 coalition_v06 coalition_v07 coalition_v08 coalition_v09 coalition_v10 coalition_v11 coalition_v12 coalition_v13 coalition_v14 coalition_v15 coalition_v16 coalition_v17 coalition_v18 reform alignment_executive_strong{
-replace `i'=`i'[_n-1] if `i'==.
+*fill missing observations:
+sort inegi year
+foreach i in reform ife raceafter winning_margin numparties_eff numparties numparties_eff_molinar inc_party_won ///
+ mv_incparty mv_incpartyfor1 inc_party_runsfor1 incumbent_yesterday incumbent_today incumbent_tomorrow ///
+ incumbent_yesterday_w_today incumbent_today_w_tomorrow incumbent_yesterday_w_tomorrow ///
+ incumbent_yesterday_w_tomorrow2 firstword alignment_executive_strong win_governor alignment_governor_strong ///
+ alignment_governor_weak double_alignment{
+by inegi, sort: fillmissing `i', with(previous)
 }
-*/
+
+replace reform=0 if reform==. & year<=2015
 
 save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_wtreatment.dta", replace
 
 *2) ADD OUTCOME
 **2.1) Homicides from SNSP
+preserve
 insheet using "../../Data/ConstructionDatabase/DenunciasSNSP/Municipal-Delitos-2015-2019_dic19/Municipal-Delitos - diciembre 2019.csv", clear
 keep if subtipodedelito=="Homicidio doloso" 
 egen homicidio=rowtotal(enero febrero marzo abril mayo junio julio agosto septiembre octubre noviembre diciembre)
@@ -139,8 +160,9 @@ rename cvemunicipio inegi
 rename homicidio homicide
 label variable homicide "Homicide"
 save "../../Data/ConstructionDatabase/DenunciasSNSP/Municipal-Delitos-2015-2019_dic19/homicides_2015_2019.dta", replace
+restore
 
-use "../../Data/ConstructionDatabase/municipalities_id_2010_2019_wtreatment.dta", clear
+*use "../../Data/ConstructionDatabase/municipalities_id_2010_2019_wtreatment.dta", clear
 merge 1:1 inegi year using "../../Data/ConstructionDatabase/DenunciasSNSP/Municipal-Delitos-2015-2019_dic19/homicides_2015_2019.dta"
 /*
     Result                           # of obs.
@@ -159,6 +181,7 @@ rename _merge missinghomicidedata
 save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew.dta", replace
 
 *merge old homicide methodology
+preserve
 insheet using "../../Data/ConstructionDatabase/DenunciasSNSP/Incidencia municipal 2011 - 2017 oct19.csv", clear
 keep if modalidad=="HOMICIDIOS" & tipo=="DOLOSOS"
 egen homicidio_old=rowtotal(enero febrero marzo abril mayo junio julio agosto septiembre octubre noviembre diciembre)
@@ -170,8 +193,8 @@ label variable year "year"
 rename homicidio_old homicide_old
 label variable homicide_old "Homicide (old measure)"
 save "../../Data/ConstructionDatabase/DenunciasSNSP/homicides_2011_2017.dta", replace
-
-use "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew.dta", clear
+restore
+*use "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew.dta", clear
 merge 1:1 inegi year using "../../Data/ConstructionDatabase/DenunciasSNSP/homicides_2011_2017.dta"
 /*
     Result                           # of obs.
@@ -194,10 +217,24 @@ insheet using "../../Data/ConstructionDatabase/DefuncionPorHomicidioINEGI/INEGI_
 drop if inegi==.
 reshape long defunciones, i(inegi) j(year)
 label variable defunciones "defunciones por homicidio (INEGI)"
+replace defunciones=0 if defunciones==. // this changes the research question to having the control group as no defunciones
+keep if year>=2010
 save "../../Data/ConstructionDatabase/DefuncionPorHomicidioINEGI/defunciones_1990_2018.dta", replace
 restore
 
 merge 1:1 inegi year using "../../Data/ConstructionDatabase/DefuncionPorHomicidioINEGI/defunciones_1990_2018.dta"
+/*
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           648
+        from master                       648  (_merge==1)
+        from using                          0  (_merge==2)
+
+    matched                            21,375  (_merge==3)
+    -----------------------------------------
+
+*/
+
 drop if _merge==2
 drop _merge
 
@@ -264,8 +301,20 @@ collapse (sum) detenidos, by(inegi year)
 save "../../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_winegi.dta", replace
 restore
 
-*final merge with 
+*final merge with effort
 merge 1:1 inegi year using "../../Data/ConstructionDatabase/Effort/Detenciones/effort_policia_winegi.dta"
+/*
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        19,748
+        from master                    18,047  (_merge==1) no detentions
+        from using                      1,701  (_merge==2) this are years different from those between 2010 and 2018
+
+    matched                             3,976  (_merge==3)
+    -----------------------------------------
+
+*/
+
 drop if _merge==2
 rename _merge missingpoliceffort
 label variable detenidos "Detained by local police (in flagrancy, SNSP)"
@@ -459,6 +508,17 @@ save  "../../Data/ConstructionDatabase/Effort/effort_sedena_winegi.dta", replace
 restore
 
 merge 1:1 inegi year using "../../Data/ConstructionDatabase/Effort/effort_sedena_winegi.dta"
+/*
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        17,865
+        from master                    13,985  (_merge==1) no data
+        from using                      3,880  (_merge==2) this are years different from those between 2010 and 2018
+
+
+    matched                             8,038  (_merge==3)
+    -----------------------------------------
+*/
 drop if _merge==2
 rename _merge missingarmyeffort
 label variable missingarmyeffort "Dummy missing army effort"
@@ -478,12 +538,14 @@ merge 1:1 inegi year using "../../Data/ConstructionDatabase/Poblacion/pop_1990_2
 
     Result                           # of obs.
     -----------------------------------------
-    not matched                        19,188
-        from master                    15,870  (_merge==1) *no effort placed by SEDENA
-        from using                      3,318  (_merge==2) *missing values and years prior to 2010
+    not matched                        65,704
+        from master                    19,724  (_merge==1)
+        from using                     45,980  (_merge==2) other years
 
-    matched                             8,600  (_merge==3)
+    matched                             2,299  (_merge==3)
     -----------------------------------------
+
+
 
 */
 drop if _merge==2
@@ -513,6 +575,19 @@ save "../../Data/ConstructionDatabase/Poblacion/CONAPO/pop_conapo_2015_2019.dta"
 restore
 
 merge 1:1 inegi year using "../../Data/ConstructionDatabase/Poblacion/CONAPO/pop_conapo_2015_2019.dta"
+/*
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        14,732
+        from master                    12,235  (_merge==1)
+        from using                      2,497  (_merge==2) other years different from 2015 to 2019
+
+    matched                             9,788  (_merge==3)
+    -----------------------------------------
+
+
+*/
 drop if _merge==2 
 drop _merge
 
@@ -532,6 +607,18 @@ save "../../Data/ConstructionDatabase/Poblacion/pop_inegi_2010.dta", replace
 restore
 
 merge 1:1 inegi year using "../../Data/ConstructionDatabase/Poblacion/pop_inegi_2010.dta"
+/*
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        19,585
+        from master                    19,576  (_merge==1)
+        from using                          9  (_merge==2)
+
+    matched                             2,447  (_merge==3)
+    -----------------------------------------
+
+
+*/
 drop if _merge==2 
 drop _merge
 
@@ -545,6 +632,17 @@ save "../../Data/ConstructionDatabase/Poblacion/pop_salud_2011_2014.dta", replac
 restore
 
 merge 1:1 inegi year using "../../Data/ConstructionDatabase/Poblacion/pop_salud_2011_2014.dta"
+/*
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        12,275
+        from master                    12,235  (_merge==1)
+        from using                         40  (_merge==2) some muns missing
+
+    matched                             9,788  (_merge==3)
+    -----------------------------------------
+
+*/
 drop if _merge==2 
 drop _merge
 
@@ -655,6 +753,11 @@ gen log`i'=log(`i'+1)
 *A.2) ALTERNATIVE OUTCOMES
 ***a) adverse selection
 
+sort inegi year
+foreach i in title{
+by inegi, sort: fillmissing `i', with(previous)
+}
+
 gen incumbent_quality=1 if title!="-" | title!="C."
 replace incumbent_quality=0 if title=="-" | title=="C."
 replace incumbent_quality=. if title==""
@@ -676,7 +779,7 @@ gen `i'pc=(`i'/pop)*100000
 **2) logged(homicides)
 gen log`i'=log(`i'+1)
 
-**3)logged homicides per 100,000 inhabitants (using log((count + 1)/pop))
+**3)logged homicides per capita  (using log((count + 1)/pop))
 gen log`i'pc=log((`i'+1)/pop)
 
 **4) inverse hyperbolic sine homicides 
@@ -687,6 +790,7 @@ foreach i in homicidepc homicide_oldpc homicidecombinedpc defuncionespc detenido
 **5) inverse hyperbolic sine homicides per capita
 gen ihs_`i'=asinh(`i')
 }
+
   
 save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v2.dta", replace
 
@@ -701,12 +805,14 @@ gen adopt=.
 replace adopt=1 if reform>0 & l.reform==0
 replace adopt=0 if adopt==.
 gen adopt_year=year if adopt==1 //the non-treated states do not have leads or lags. 
+
 save "../../Data/ConstructionDatabase/adopt_year.dta", replace
 restore
 
 merge m:m estado year using "../../Data/ConstructionDatabase/adopt_year.dta"
 xtset inegi year
 xfill adopt_year, i(inegi)
+
 
 *Create lead/lag indicators
 order year adopt_year
@@ -823,8 +929,7 @@ replace whichlead="lead_3" if lead_3==1
 *replace whichlead="lead_4" if lead_4==1
 encode whichlead, gen(whichlead_num)
 
-
-
+*following Abraham and Sun (2021):
 drop if logdefuncionespc==.
 
 *E) INDICATORS FOR HET. TREATMENT EFFECTS:
@@ -962,14 +1067,14 @@ gen log`i'pc=log((`i'+1)/pop)
 
 **4) inverse hyperbolic sine homicides 
 gen ihs_`i'=asinh(`i')
-  
-  }
-  
-foreach i in homicidepc homicide_oldpc defuncionespc detenidospc{
+}
+
 **5) inverse hyperbolic sine homicides per capita
+foreach i in homicidepc homicide_oldpc defuncionespc detenidospc{
 gen ihs_`i'=asinh(`i')
 }
-  
+
+*!!! correct this  
 foreach i in homicidepc loghomicide loghomicidepc homicide_oldpc loghomicide_old loghomicide_oldpc{
 replace `i'=. if `i'==0
 }

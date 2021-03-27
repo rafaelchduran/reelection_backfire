@@ -103,7 +103,7 @@ collabels(none) nonotes booktabs nomtitles  nolines
 est clear
 
 eststo:  ivreg2 logdefuncionespc (acuerdo2=reform) $controls_pre year_* inegi_*, cluster(estado) partial(year_* inegi_*)  first
-eststo:  ivreg2 logdefuncionespc (acuerdo2=L.reform) $controls_pre year_* inegi_*, cluster(estado) partial(year_* inegi_*)  first
+eststo:  ivreg2 logdefuncionespc (acuerdo=L.reform)  year_* inegi_*, cluster(estado) partial(year_* inegi_*)  first
 eststo:  ivreg2 logdefuncionespc (acuerdo2=L2.reform) $controls_pre year_* inegi_*, cluster(estado) partial(year_* inegi_*)  first
 eststo:  ivreg2 logdefuncionespc (acuerdo2=L3.reform) $controls_pre year_* inegi_*, cluster(estado) partial(year_* inegi_*)  first
 
@@ -123,6 +123,16 @@ graph export "../Figures/chaisemartin_`outcome'.png", as(png) replace
 ************
 *A) logdefuncionespc:
 ************
+eststo:  xi: areg ihs_defunciones reform  i.year logpop, a(inegi) vce(cluster estado)
+
+foreach outcome in ihs_defunciones {
+did_multiplegt `outcome' group year reform, breps(1000) controls(logpop)  placebo(4) seed(5675) ///
+cluster(inegi) robust_dynamic  dynamic(3) ///
+save_results("../../Data/chaisemartin_`outcome'.dta")
+
+}
+
+
 foreach outcome in logdefuncionespc {
 did_multiplegt `outcome' group year reform, breps(1000) controls($controls_pre) placebo(4) seed(5675) ///
 cluster(estado) robust_dynamic  dynamic(3) ///
