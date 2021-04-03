@@ -18,7 +18,7 @@ cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/reelection_backfire/
 
 *========================================================================
 *LOAD DATA
-use "../../Data/ConstructionDatabase/data_wleads&lags2_weights.dta", clear
+use "../../Data/ConstructionDatabase/data_final.dta", clear
 
 *========================================================================
 *SET PANEL
@@ -26,7 +26,20 @@ xtset inegi year
 
 *========================================================================
 *SET GLOBALS
-	global narco ap4_2_3_lag_8 ap4_2_3_lag_7 ap4_2_3_lag_6 ap4_2_3_lag_5 ap4_2_3_lag_4 ap4_2_3_lag_3 ap4_2_3_lag_2
+
+	global controls_mean logdefuncionespc_mean ap4_2_3_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ///
+	ap5_4_8_b_mean alignment_executive_strong_mean alignment_governor_strong_mean winning_margin_mean ///
+	winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean  acuerdo_mean
+	 
+	global controls2_mean logdefuncionespc_mean ap4_2_3_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ///
+	ap5_4_8_b_mean alignment_executive_strong_mean alignment_governor_strong_mean winning_margin_mean ///
+	winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean  acuerdo2_mean
+
+
+	global controls $controls_mean
+	global controls2 $controls2_mean
+
+	/*global narco ap4_2_3_lag_8 ap4_2_3_lag_7 ap4_2_3_lag_6 ap4_2_3_lag_5 ap4_2_3_lag_4 ap4_2_3_lag_3 ap4_2_3_lag_2
 	global punishment ap4_2_11_lag_8 ap4_2_11_lag_7 ap4_2_11_lag_6 ap4_2_11_lag_5 ap4_2_11_lag_4 ap4_2_11_lag_3 ap4_2_11_lag_2
 	global money ap4_12b_lag_8 ap4_12b_lag_7 ap4_12b_lag_6 ap4_12b_lag_5 ap4_12b_lag_4 ap4_12b_lag_3 ap4_12b_lag_2
 	global police ap5_4_2_b_lag_8 ap5_4_2_b_lag_7 ap5_4_2_b_lag_6 ap5_4_2_b_lag_5 ap5_4_2_b_lag_4 ap5_4_2_b_lag_3 ap5_4_2_b_lag_2
@@ -49,6 +62,7 @@ xtset inegi year
 
 
 	global controls winning_margin_governor_pre governor_alignment_pre logdefuncionespc_prereform $citizens2
+	*/
 
 
 *========================================================================
@@ -60,8 +74,8 @@ sort inegi year
 ***1) INTERACTION WITH DTO PRESENCE: 
 est clear
 global interaction distEntradasPrinc hayCarteles nCarteles
+foreach outcome in acuerdo acuerdo2{
 foreach interaction in $interaction{
-foreach outcome in acuerdo2{
 foreach treatment in L.reform{
 eststo: quietly xi: areg `outcome' c.`treatment'##c.`interaction' $controls i.year, a(inegi) vce(cluster estado)
 	estadd local controls \checkmark
@@ -89,8 +103,8 @@ esttab using "../Tables/DTO_presence.tex", replace f b(%9.4f) se(%9.4f) se  star
 s(N R2 controls munfe yearfe clustermun tot_int se pvalue, fmt(%11.2gc 3) label("Observations" ///
  "R2" "Controls" "Mun. FE" "Year FE" "Cluster S.E." "Tot.Int." "S.E.(Tot. Int.)" "p-value(Tot.Int.)")) ///
 keep(L.reform cL.reform#c.distEntradasPrinc cL.reform#c.hayCarteles cL.reform#c.nCarteles) ///
-mgroups("DV: Security Cooperation Agreement A" "DV: Security Cooperation Agreement B", ///
-pattern(1 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+mgroups("DV: Agreement A" "DV: Agreement B", ///
+pattern(1 0 0 1 0 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 coeflabel(L.reform "Term Limit Reform"  ///
 cL.reform#c.distEntradasPrinc "Term Limit Reform (t-1)*Distance to US" ///
 cL.reform#c.hayCarteles "Term Limit Reform (t-1)*Cartel Presence" cL.reform#c.nCarteles "Term Limit Reform (t-1)*Num. Carteles") ///
@@ -109,7 +123,7 @@ preserve
 foreach outcome in acuerdo {
 keep if hayCarteles==0
 did_multiplegt `outcome' group year reform, breps(1000) controls($controls) placebo(4) seed(5675) ///
-cluster(estado) robust_dynamic  dynamic(3) ///
+cluster(estado) robust_dynamic  dynamic(2) ///
 save_results("../../Data/chaisemartin_hayCarteles_`outcome'.dta")
 
 }
@@ -132,7 +146,7 @@ foreach i in 0 1 2 3{
 }
 
 *Placebos: 
-foreach i in 1 2 3 4{
+foreach i in 1 2 3 4 5{
 	glo pgrados_t_`i': di %5.3f e(N_placebo_`i')-3
 	glo pbeta_t_`i': di %5.3f e(placebo_`i')
 	glo pse_t_`i': di %5.3f e(se_placebo_`i')
@@ -158,7 +172,7 @@ preserve
 foreach outcome in acuerdo {
 keep if hayCarteles==1
 did_multiplegt `outcome' group year reform, breps(1000) controls($controls) placebo(4) seed(5675) ///
-cluster(estado) robust_dynamic  dynamic(3) ///
+cluster(estado) robust_dynamic  dynamic(2) ///
 save_results("../../Data/chaisemartin_hayCarteles1_`outcome'.dta")
 
 }
@@ -182,7 +196,7 @@ foreach i in 0 1 2 3{
 }
 
 *Placebos: 
-foreach i in 1 2 3 4{
+foreach i in 1 2 3 4 5{
 	glo pgrados2_t_`i': di %5.3f e(N_placebo_`i')-3
 	glo pbeta2_t_`i': di %5.3f e(placebo_`i')
 	glo pse2_t_`i': di %5.3f e(se_placebo_`i')
@@ -200,11 +214,11 @@ restore
 
 *Table
 	
-texdoc init  "../Tables/chaisemarting_estimates_DVmandounico_by_hayCarteles.tex", replace force
+texdoc init  "../Tables/chaisemarting_estimates_DVmandounico_by_hayCarteles_acuerdo.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements}
-tex \label{tab:chaisemartin}
+tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, by Cartel Presence}
+tex \label{tab:chaisemartin_bycartelpresence}
 tex \scalebox{1}{    
 tex \begin{tabular}{lcc}  
 tex \hline \hline       
@@ -213,9 +227,10 @@ tex & \multicolumn{1}{c}{No Cartel Presence} & \multicolumn{1}{c}{Cartel Presenc
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
 tex \addlinespace
+tex Lag 5 years &        $ ${pbeta_t_4}^{${pest_t_4}} $ &     $ ${pbeta2_t_4}^{${pest2_t_4}} $ \\
+tex  & ($ ${pse_t_4}$) & ($ ${pse2_t_4} $) \\
 tex Lag 4 years &        $ ${pbeta_t_3}^{${pest_t_3}} $ &     $ ${pbeta2_t_3}^{${pest2_t_3}} $ \\
 tex  & ($ ${pse_t_3}$) & ($ ${pse2_t_3} $) \\
-*tex  & ($ ${pse_t_3}$) & ($ ${pse2_t_3} $) \\
 tex Lag 3 years &        $ ${pbeta_t_2}^{${pest_t_2}} $ &     $ ${pbeta2_t_2}^{${pest2_t_2}} $ \\
 tex  & ($ ${pse_t_2}$) & ($ ${pse2_t_2} $) \\
 tex Lag 2 years &        $ ${pbeta_t_1}^{${pest_t_1}} $ &     $ ${pbeta2_t_1}^{${pest2_t_1}} $ \\
@@ -226,13 +241,11 @@ tex Lead 1 year &         $ ${beta_t_1}^{${est_t_1}} $ &       $ ${beta2_t_1}^{$
 tex  & ($ ${se_t_1}$) & ($ ${se2_t_1} $) \\
 tex Lead 2 years &         $ ${beta_t_2}^{${est_t_2}} $ &      $ ${beta2_t_2}^{${est2_t_2}} $  \\
 tex  & ($ ${se_t_2}$) & ($ ${se2_t_2} $) \\
-tex Lead 3 years &        $ ${beta_t_3}^{${est_t_3}} $ &     $ ${beta2_t_3}^{${est2_t_3}} $ \\
-tex  & ($ ${se_t_3}$) & ($ ${se2_t_3} $) \\
 
 tex \addlinespace
 tex State Controls$^b$   &    \checkmark      &   \checkmark    \\
 tex \hline \hline      
-tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Secondary version of security cooperation agreements. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{3}{p{0.6\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Secondary version of security cooperation agreements. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -394,8 +407,10 @@ texdoc close
 ************
 ***A: acuerdo w/o covariates // GOVERNOR ALIGNMENT
 ************
-quietly	areg  $outcome  $saturated  i.year, a(inegi) vce(cluster inegi)
-keep if e(sample)==1
+
+*	areg  $outcome  $saturated  i.year, a(inegi) vce(cluster inegi)
+*keep if e(sample)==1
+
 
 est clear
 foreach i in hayCarteles{
@@ -495,13 +510,13 @@ lincom _b[1.lead_3_2015] + _b[1.lead_3_2015#c.`i']
 texdoc init  "../Tables/abraham_sun_estimates_heteffects_carteles.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Total Interaction Effect$^a$: the role of Alignment with the Party of the Governor and President}
+tex \caption{Total Interaction Effect$^a$: Difference by Cartel Presence}
 tex \label{tab:abraham_sun_heteffects}
 tex \scalebox{0.8}{    
 tex \begin{tabular}{lcccc}  
 tex \hline \hline       
 tex \\ \multicolumn{5}{l}{Dependent variable:}\\
-tex & \multicolumn{2}{c}{acuerdo} & \multicolumn{2}{c}{acuerdo2$^{b}$} \\  
+tex & \multicolumn{2}{c}{Agreement A} & \multicolumn{2}{c}{Agreement B$^{b}$} \\  
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} \\ 
 
 tex \cmidrule(lrr){2-3}  \cmidrule(lrr){4-5}\\
@@ -533,6 +548,98 @@ tex \end{table}
 texdoc close
 
 *MESSAGE: differential effect with cartel presence
+
+
+*========================================================================
+***4) INTERACTION WITH DTO PRESENCE & PRI
+
+est clear
+global interaction hayCarteles
+global interaction2 pri_mayor2
+foreach outcome in acuerdo {
+foreach interaction in $interaction{
+foreach treatment in reform{
+eststo:  xi: areg `outcome' c.`treatment'##c.`interaction'##c.$interaction2 $controls i.year, a(inegi) vce(cluster estado)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+
+***this is the total interaction effect:
+test  _b[`treatment']+_b[c.`treatment'#c.`interaction'] +_b[c.`treatment'#c.$interaction2] +_b[c.`treatment'#c.`interaction'#c.$interaction2]= 0
+global total_interaction: di %5.4f _b[`treatment']+_b[c.`treatment'#c.`interaction'] +_b[c.`treatment'#c.$interaction2] +_b[c.`treatment'#c.`interaction'#c.$interaction2]
+estadd local tot_int $total_interaction
+global pvalue: di %5.4f r(p)
+estadd local pvalue $pvalue
+lincom _b[`treatment']+_b[c.`treatment'#c.`interaction'] +_b[c.`treatment'#c.$interaction2] +_b[c.`treatment'#c.`interaction'#c.$interaction2]
+global se_`i': di %5.4f r(se)
+estadd local se $se_`i'
+}
+}
+}
+*esttab est*, keep(reform c.reform#c.distEntradasPrinc c.reform#c.hayCarteles ) t star(* 0.1 ** 0.05 *** 0.01)
+esttab est*, keep(L.reform hayCarteles pri_mayor2 cL.reform#c.hayCarteles  cL.reform#c.pri_mayor2 cL.reform#c.hayCarteles#c.pri_mayor2) t star(* 0.1 ** 0.05 *** 0.01)
+*esttab est*, keep(L2.reform cL2.reform#c.distEntradasPrinc cL2.reform#c.hayCarteles  ) t star(* 0.1 ** 0.05 *** 0.01)
+
+esttab using "../Tables/DTO_presence_pri.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N R2 controls munfe yearfe clustermun tot_int se pvalue, fmt(%11.2gc 3) label("Observations" ///
+ "R2" "Controls" "Mun. FE" "Year FE" "Cluster S.E." "Tot.Int." "S.E.(Tot. Int.)" "p-value(Tot.Int.)")) ///
+keep(L.reform hayCarteles pri_mayor2 cL.reform#c.hayCarteles cL.reform#c.pri_mayor2 cL.reform#c.hayCarteles#c.pri_mayor2) ///
+mgroups("DV: Agreement A" "DV: Agreement B", ///
+pattern(1 0 0 1 0 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+coeflabel(L.reform "Term Limit Reform"  ///
+pri_mayor2 "Dummy PRI mayor" ///
+hayCarteles "Dummy Carteles" ///
+cL.reform#c.hayCarteles "Term Limit Reform (t-1)*Carteles" ///
+cL.reform#c.pri_mayor2 "Term Limit Reform (t-1)*Dummy PRI mayor" ///
+cL.reform#c.hayCarteles#c.pri_mayor2 "Term Limit Reform (t-1)*Dummy Carteles*Dummy PRI mayor") /// 
+collabels(none) nonotes booktabs nomtitles  nolines
+
+
+
+*MESSAGE: there are differential effects if there is cartel presence.
+
+***SPLIT SAMPLE BY CARTEL PRESENCE
+est clear
+preserve
+keep if hayCarteles==1
+global interaction pri_mayor2
+foreach outcome in acuerdo acuerdo2{
+foreach interaction in $interaction{
+foreach treatment in L.reform{
+eststo:  xi: areg `outcome' c.`treatment'##c.`interaction' $controls i.year, a(inegi) vce(cluster estado)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+
+***this is the total interaction effect:
+test  _b[`treatment']+_b[c.`treatment'#c.`interaction'] + _b[`interaction'] = 0
+global total_interaction: di %5.4f _b[`treatment']+_b[c.`treatment'#c.`interaction'] + _b[`interaction'] 
+estadd local tot_int $total_interaction
+global pvalue: di %5.4f r(p)
+estadd local pvalue $pvalue
+lincom _b[`treatment']+_b[c.`treatment'#c.`interaction'] + _b[`interaction'] 
+global se_`i': di %5.4f r(se)
+estadd local se $se_`i'
+}
+}
+}
+ 
+ esttab est*, keep(L.reform pri_mayor2 cL.reform#c.pri_mayor2 ) t star(* 0.1 ** 0.05 *** 0.01)
+
+esttab using "../Tables/DTO_presence_pri.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N R2 controls munfe yearfe clustermun tot_int se pvalue, fmt(%11.2gc 3) label("Observations" ///
+ "R2" "Controls" "Mun. FE" "Year FE" "Cluster S.E." "Tot.Int." "S.E.(Tot. Int.)" "p-value(Tot.Int.)")) ///
+keep(L.reform pri_mayor2 cL.reform#c.pri_mayor2) ///
+mgroups("DV: Agreement A" "DV: Agreement B", ///
+pattern(1 0 0 1 0 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+coeflabel(L.reform "Term Limit Reform"  ///
+pri_mayor2 "Dummy PRI mayor" ///
+cL.reform#c.pri_mayor2 "Term Limit Reform (t-1)*Dummy PRI mayor") /// 
+collabels(none) nonotes booktabs nomtitles  nolines
+restore
+
 
 *========================================================================
 

@@ -201,11 +201,11 @@ texdoc close
 *Table: EFFECT OF REFORM ON HOMICIDES, WITH LAGGED DV & COHORT WEIGHTS
 **********************************************
 
-use "../Data/ConstructionDatabase/data_wleads&lags2_weights.dta", clear
+use "../../Data/ConstructionDatabase/data_final.dta", clear
 
 *Set globals: 
 	global controls margin_lag_8 margin_lag_7 margin_lag_6 margin_lag_5 margin_lag_4 margin_lag_3 margin_lag_2 governor_alignment_lag_8 governor_alignment_lag_7 governor_alignment_lag_6 governor_alignment_lag_5 governor_alignment_lag_4 governor_alignment_lag_3 governor_alignment_lag_2 	
-	*global controls margin_lag_8 margin_lag_7 margin_lag_6 margin_lag_5 margin_lag_4 margin_lag_3 margin_lag_2 governor_alignment_lag_8 governor_alignment_lag_7 governor_alignment_lag_6 governor_alignment_lag_5 governor_alignment_lag_4 governor_alignment_lag_3 governor_alignment_lag_2 	logdefuncionespc_lag_8 logdefuncionespc_lag_7 logdefuncionespc_lag_6 logdefuncionespc_lag_5 logdefuncionespc_lag_4 logdefuncionespc_lag_3	
+	global controls margin_lag_8 margin_lag_7 margin_lag_6 margin_lag_5 margin_lag_4 margin_lag_3 margin_lag_2 governor_alignment_lag_8 governor_alignment_lag_7 governor_alignment_lag_6 governor_alignment_lag_5 governor_alignment_lag_4 governor_alignment_lag_3 governor_alignment_lag_2 	logdefuncionespc_lag_8 logdefuncionespc_lag_7 logdefuncionespc_lag_6 logdefuncionespc_lag_5 logdefuncionespc_lag_4 logdefuncionespc_lag_3	
 	global outcome logdefuncionespc
     global saturated lag_7_2017 lag_7_2018 lag_6_2016 lag_6_2017 lag_6_2018 lag_5_2015 lag_5_2016 lag_5_2017 lag_5_2018 lag_4_2015 lag_4_2016 lag_4_2017 lag_4_2018 lag_3_2015 lag_3_2016 lag_3_2017 lag_3_2018 lag_2_2015 lag_2_2016 lag_2_2017 lag_2_2018 date_0_2015 date_0_2016 date_0_2017 date_0_2018 lead_1_2015 lead_1_2016 lead_1_2017 lead_2_2015 lead_2_2016 lead_3_2015
 	global other inegi estado year reform
@@ -219,7 +219,7 @@ use "../Data/ConstructionDatabase/data_wleads&lags2_weights.dta", clear
 ************	
 
 est clear
-quietly	areg  logdefuncionespc  $saturated  i.year, a(inegi) vce(cluster estado)
+quietly	areg  logdefuncionespc  $saturated   i.year, a(inegi) vce(cluster estado)
 	estadd local depcontrols \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -345,7 +345,7 @@ foreach i in lead_3{
 ************
 ***B: ihs(homicides per capita) with covariates
 ************	
-quietly	areg  ihs_defuncionespc  $saturated $lagDV2  i.year, a(inegi) vce(cluster estado)
+quietly	areg  ihs_defuncionespc  $saturated    i.year, a(inegi) vce(cluster estado)
 	estadd local depcontrols \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark

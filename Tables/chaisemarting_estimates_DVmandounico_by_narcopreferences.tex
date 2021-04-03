@@ -1,0 +1,33 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, by Cartel Presence}
+\label{tab:chaisemartin_bycartelpresence}
+\scalebox{1}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{1}{c}{No Cartel Presence} & \multicolumn{1}{c}{Cartel Presence$^{a}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+\addlinespace
+Lag 5 years &        $ -0.052^{} $ &     $ -0.007^{} $ \\
+& ($ 0.074$) & ($ 0.022 $) \\
+Lag 4 years &        $ -0.026^{} $ &     $ 0.063^{} $ \\
+& ($ 0.023$) & ($ 0.066 $) \\
+Lag 3 years &        $ -0.000^{} $ &     $ 0.091^{} $ \\
+& ($ 0.100$) & ($ 0.107 $) \\
+Lag 2 years &        $ 0.136^{*} $ &     $ 0.091^{} $ \\
+& ($ 0.076$) & ($ 0.185 $) \\
+Reform, time 0 &        $ 0.145^{} $ &     $ -0.227^{} $ \\
+& ($ 0.114$) & ($ 0.150 $) \\
+Lead 1 year &         $ 0.050^{} $ &       $ -0.697^{***} $ \\
+& ($ 0.135$) & ($ 0.118 $) \\
+Lead 2 years &         $ -0.022^{} $ &      $ -0.694^{***} $  \\
+& ($ 0.298$) & ($ 0.122 $) \\
+\addlinespace
+State Controls$^b$   &    \checkmark      &   \checkmark    \\
+\hline \hline
+\multicolumn{3}{p{0.6\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Secondary version of security cooperation agreements. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\end{tabular}
+}
+\end{table}

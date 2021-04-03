@@ -25,15 +25,14 @@ gen year=`y'
 save "../../Data/ConstructionDatabase/municipalities_id_`y'.dta", replace
 }
 
-use "../../Data/ConstructionDatabase/municipalities_id_2010.dta", clear
-/*use "../../Data/ConstructionDatabase/municipalities_id_2004.dta", clear
+*use "../../Data/ConstructionDatabase/municipalities_id_2010.dta", clear
+use "../../Data/ConstructionDatabase/municipalities_id_2004.dta", clear
 append using "../../Data/ConstructionDatabase/municipalities_id_2005.dta"
 append using "../../Data/ConstructionDatabase/municipalities_id_2006.dta"
 append using "../../Data/ConstructionDatabase/municipalities_id_2007.dta"
 append using "../../Data/ConstructionDatabase/municipalities_id_2008.dta"
 append using "../../Data/ConstructionDatabase/municipalities_id_2009.dta"
 append using "../../Data/ConstructionDatabase/municipalities_id_2010.dta"
-*/
 append using "../../Data/ConstructionDatabase/municipalities_id_2011.dta"
 append using "../../Data/ConstructionDatabase/municipalities_id_2012.dta"
 append using "../../Data/ConstructionDatabase/municipalities_id_2013.dta"
@@ -705,6 +704,7 @@ drop if _merge==2
 drop _merge
 
 **SAVE DATABASE
+drop if year<2010 //erase years prior to 2010 since are not useful for estimations later on
 save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v1.dta", replace
 
  
@@ -840,50 +840,6 @@ replace pre=1 if lag_8==1 | lag_7==1
 
 gen pre2=0
 replace pre2=1 if lag_8==1 | lag_7==1 | lag_6==1 | lag_5==1 
-
-
-*C.2) Time-varying controls
-
-*Benchmark model:
-tab year, gen(year_)
-foreach var in winning_margin_governor HHI effectiveparties  NP golosov dcoal{
-foreach y in 1 2 3 4 5 6 7 8 9 10{
-capture gen `var'_year_`y'=year_`y'*`var'
-}
-}
-
-*Event case regression: 
-**set controls
-foreach i in 1 2 3 4 5 6 7 8{
-capture gen margin_lag_`i'=lag_`i'*winning_margin_governor
-capture gen margin_lead_`i'=lead_`i'*winning_margin_governor
-capture gen margin_date0=date_0*winning_margin_governor
-}
-
-
-foreach var in ncand effectiveparties HHI num_parties NP golosov dcoal governor_alignment pop logdefuncionespc ihs_defuncionespc{
-foreach i in 1 2 3 4 5 6 7 8{
-capture gen `var'_lag_`i'=lag_`i'*`var'
-capture gen `var'_lead_`i'=lead_`i'*`var'
-capture gen `var'_date0=date_0*`var'
-}
-}
-
-foreach var in areakm2{
-foreach i in 1 2 3 4 5 6 7 8{
-capture gen `var'_lag_`i'=lag_`i'*`var'
-capture gen `var'_lead_`i'=lead_`i'*`var'
-capture gen `var'_date0=date_0*`var'
-}
-}
-
-foreach var in logdefuncionespc{
-foreach i in 1 2 3 4 5 6 7 8{
-capture gen `var'_lag_`i'=lag_`i'*`var'
-capture gen `var'_lead_`i'=lead_`i'*`var'
-capture gen `var'_date0=date_0*`var'
-}
-}
 
 
 save "../../Data/ConstructionDatabase/data_wleads&lags.dta", replace
