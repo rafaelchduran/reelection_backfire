@@ -102,7 +102,7 @@ global controls $controls_2014
 	global defunciones logdefuncionespc_lag_8 logdefuncionespc_lag_7 logdefuncionespc_lag_6 logdefuncionespc_lag_5 logdefuncionespc_lag_4 logdefuncionespc_lag_3 logdefuncionespc_lag_2	
 */
 
-*temporal globals
+/*temporal globals
 	global narco ap4_2_3_lag_8 ap4_2_3_lag_7 ap4_2_3_lag_6 ap4_2_3_lag_5 ap4_2_3_lag_4 ap4_2_3_lag_3 ap4_2_3_lag_2
 	global punishment ap4_2_11_lag_8 ap4_2_11_lag_7 ap4_2_11_lag_6 ap4_2_11_lag_5 ap4_2_11_lag_4 ap4_2_11_lag_3 ap4_2_11_lag_2
 	global money ap4_12b_lag_8 ap4_12b_lag_7 ap4_12b_lag_6 ap4_12b_lag_5 ap4_12b_lag_4 ap4_12b_lag_3 ap4_12b_lag_2
@@ -121,6 +121,9 @@ global controls $controls_2014
 	global controls_time_acuerdo2 $punishment $homicides $executive $governor $margin $margin_governor 
 
 	global controls $controls_time_acuerdo
+	*/
+	
+global controls *_y_*
 	
 	
 *========================================================================
@@ -134,7 +137,7 @@ set matsize 11000
 sort inegi year
 
 est clear
-foreach outcome in acuerdo {
+foreach outcome in acuerdo{
 foreach treatment in reform{
 eststo: quietly  xi: areg `outcome' `treatment' $controls    i.year, a(inegi) vce(cluster estado)
 	estadd local controls \checkmark
@@ -159,31 +162,6 @@ eststo: quietly xi: areg f3.`outcome' `treatment' $controls   i.year, a(inegi) v
 }
 }
 
-/*foreach outcome in acuerdo2 {
-foreach treatment in reform{
-eststo: quietly xi: areg `outcome' `treatment' $controls2    i.year, a(inegi) vce(cluster estado)
-	estadd local controls \checkmark
-	estadd local munfe \checkmark
-	estadd local yearfe \checkmark
-	estadd local clustermun \checkmark
-eststo: quietly xi: areg f.`outcome' `treatment' $controls2    i.year, a(inegi) vce(cluster estado)
-	estadd local controls \checkmark
-	estadd local munfe \checkmark
-	estadd local yearfe \checkmark
-	estadd local clustermun \checkmark
-eststo: quietly xi: areg f2.`outcome' `treatment' $controls2   i.year, a(inegi) vce(cluster estado)
-	estadd local controls \checkmark
-	estadd local munfe \checkmark
-	estadd local yearfe \checkmark
-	estadd local clustermun \checkmark
-eststo: quietly xi: areg f3.`outcome' `treatment' $controls2   i.year, a(inegi) vce(cluster estado)
-	estadd local controls \checkmark
-	estadd local munfe \checkmark
-	estadd local yearfe \checkmark
-	estadd local clustermun \checkmark
-}
-}
-*/
 
 esttab est*, keep(reform) t star(* 0.1 ** 0.05 *** 0.01)
 

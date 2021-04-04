@@ -272,6 +272,25 @@ fillmissing `i', with(previous)
 }
 */
 
+*multiply by year dummies
+
+gen align_pres=alignment_executive_strong_mean
+gen align_gov=alignment_governor_strong_mean
+gen margin_gov=winning_margin_governor_mean
+
+global  controls logdefuncionespc_mean ap4_2_3_mean ap4_2_5_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ap5_4_8_b_mean ///
+align_pres align_gov winning_margin_mean margin_gov ///
+pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles nCarteles
+
+tab year, gen(y_)
+
+global years y_1 y_2 y_3 y_4 y_5 y_6 y_7 y_8 y_9
+foreach i in $controls {
+foreach year in $years{
+gen `i'_`year'=`i'*`year'
+}
+}
+
 *========================================================================
 *ERASE TIME PERIODS PRIOR TO 2010
 drop if year<2010

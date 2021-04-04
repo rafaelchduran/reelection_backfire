@@ -689,7 +689,8 @@ drop if dup>1
 drop dup
 
 **3.10) ENVIPE Citizens demands
-merge m:m estado year using "../../Data/ConstructionDatabase/EncuestaVictimizacion/Stata/envipe_2011_2019_estado.dta"
+merge m:m estado year using "../../Data/ConstructionDatabase/EncuestaVictimizacion/Stata/envipe_2012_2019_estado.dta"
+*merge m:m estado year using "../../Data/ConstructionDatabase/EncuestaVictimizacion/Stata/envipe_2011_2019_estado.dta"
 drop if _merge==2
 drop _merge
 
