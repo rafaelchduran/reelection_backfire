@@ -1038,6 +1038,8 @@ replace `i'=. if `i'==0
    
 rename estado estado_num
 rename nombre_estado state
+
+
   
 save "../../Data/ConstructionDatabase/collapseddata_forR.dta", replace
  

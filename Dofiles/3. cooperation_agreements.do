@@ -13,7 +13,7 @@ Acuerdo2 to the appendix.
 clear all
 set more off  
 set varabbrev off 
-
+set maxvar 30000
 *========================================================================
 *Working Directory
 cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/reelection_backfire/Dofiles"
@@ -25,6 +25,10 @@ use "../../Data/ConstructionDatabase/data_final.dta", clear
 *========================================================================
 *SET PANEL
 xtset inegi year 
+*========================================================================
+*SET MATSIZE
+set matsize 11000 
+
 
 *========================================================================
 *SET GLOBALS
@@ -124,11 +128,15 @@ global controls $controls_2014
 	*/
 	
 global controls *_y_*
+global controls logdefuncionespc_mean_y_1 logdefuncionespc_mean_y_2 logdefuncionespc_mean_y_3 logdefuncionespc_mean_y_4 logdefuncionespc_mean_y_5 logdefuncionespc_mean_y_6 logdefuncionespc_mean_y_7 logdefuncionespc_mean_y_8 ///
+  align_gov_y_1 align_gov_y_2 align_gov_y_3 align_gov_y_4 align_gov_y_5 align_gov_y_6 align_gov_y_7 align_gov_y_8 ///
+  margin_gov_y_1 margin_gov_y_2 margin_gov_y_3 margin_gov_y_4 margin_gov_y_5 margin_gov_y_6 margin_gov_y_7 margin_gov_y_8 ///
+  hayCarteles_y_1 hayCarteles_y_2 hayCarteles_y_3 hayCarteles_y_4 hayCarteles_y_5 hayCarteles_y_6 hayCarteles_y_7 hayCarteles_y_8 ///
+  acuerdo_mean_y_1 acuerdo_mean_y_2 acuerdo_mean_y_3 acuerdo_mean_y_4 acuerdo_mean_y_5 acuerdo_mean_y_6 acuerdo_mean_y_7 acuerdo_mean_y_8
+  *ap4_2_3_mean_y_1 ap4_2_3_mean_y_2 ap4_2_3_mean_y_3 ap4_2_3_mean_y_4 ap4_2_3_mean_y_5 ap4_2_3_mean_y_6 ap4_2_3_mean_y_7 ap4_2_3_mean_y_8 
+
+
 	
-	
-*========================================================================
-*SET MATSIZE
-set matsize 11000 
 
 *========================================================================
 * Main Tables: effect of reform on decentralization
@@ -137,9 +145,9 @@ set matsize 11000
 sort inegi year
 
 est clear
-foreach outcome in acuerdo{
+foreach outcome in acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total{
 foreach treatment in reform{
-eststo: quietly  xi: areg `outcome' `treatment' $controls    i.year, a(inegi) vce(cluster estado)
+eststo: quietly  xi: areg `outcome' `treatment'  $controls  i.year, a(inegi) vce(cluster estado)
 	estadd local controls \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -149,7 +157,7 @@ eststo: quietly xi: areg f.`outcome' `treatment' $controls    i.year, a(inegi) v
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
 	estadd local clustermun \checkmark
-eststo: quietly xi: areg f2.`outcome' `treatment' $controls   i.year, a(inegi) vce(cluster estado)
+eststo: quietly xi: areg f2.`outcome' `treatment'  $controls  i.year, a(inegi) vce(cluster estado)
 	estadd local controls \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -168,7 +176,7 @@ esttab est*, keep(reform) t star(* 0.1 ** 0.05 *** 0.01)
 esttab using "../Tables/twfe_reform_coop_agreements_forpres.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N R2 controls munfe yearfe clustermun, fmt(%11.2gc 3) label("Observations" "R2" "Controls" "Mun. FE" "Year FE" "State Cluster S.E.")) ///
 keep(reform ) ///
-mgroups("Agreement A in t" "in t+1" "in t+2" "in t+3" "Agreement B in t" "in t+1" "in t+2" "in t+3", ///
+mgroups("Agreement A in t" "in t+1" "in t+2" "in t+3", ///
 pattern(1 1 1 1 1 1 1 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 coeflabel(reform "Term Limit Reform") ///
 collabels(none) nonotes booktabs nomtitles  nolines
@@ -181,10 +189,11 @@ collabels(none) nonotes booktabs nomtitles  nolines
 set matsize 11000 
 
 
-/*WILD:
+/WILD:
 est clear
 eststo: clustse reg acuerdo reform year_* $controls, fe(inegi)  cluster(estado) method(wild) reps(1000)
 	estadd local ci "[-0.176, -0.001]"
+	estadd local ci "[-0.091, 0.038]"
 
 eststo: clustse reg acuerdo_post reform year_* $controls, fe(inegi)  cluster(estado) method(wild) reps(1000)
 	estadd local ci "[-0.344, -0.138]"
@@ -195,7 +204,7 @@ eststo: clustse reg acuerdo_post2 reform year_* $controls, fe(inegi)  cluster(es
 eststo: clustse reg acuerdo_post3 reform year_* $controls, fe(inegi)  cluster(estado) method(wild) reps(1000)
 	estadd local ci "[-0.255, 0.056]"
 	
-eststo: clustse reg acuerdo2 reform year_* $controls, fe(inegi)  cluster(estado) method(wild) reps(1000)
+/*eststo: clustse reg acuerdo2 reform year_* $controls, fe(inegi)  cluster(estado) method(wild) reps(1000)
 	estadd local ci "[-0.139, 0.013]"
 
 eststo: clustse reg acuerdo2_post reform year_* $controls, fe(inegi)  cluster(estado) method(wild) reps(1000)
@@ -294,23 +303,82 @@ mgroups("Agreement A in t" "in t+1" "in t+2" "in t+3", ///
 pattern(1 1 1 1 ) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 coeflabel(reform "Term Limit Reform") ///
 collabels(none) nonotes booktabs nomtitles  nolines
-  
+  	
+*========================================================================
+*3) Naive Event study design
+sort inegi year
+
+preserve
+global lagsleads  lag_7 lag_6 lag_5 lag_4 lag_3 lag_2  date_0 lead_1 lead_2 lead_3
+*quietly  xi: areg acuerdo3 $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
+*keep if e(sample)==1 
+est clear
+foreach outcome in acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total{
+eststo: quietly  xi: areg `outcome' $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+**estimate aggregate effect:
+	sum perc if date_0==1, meanonly
+	local a = r(mean)
+	sum perc if lead_1==1, meanonly
+	local b = r(mean)
+	sum perc if lead_2==1, meanonly
+	local c = r(mean)
+	sum perc if lead_3==1, meanonly
+	local d = r(mean)
+	
+	lincom 	(_b[date_0]*`a')+(_b[lead_1]*`b')+(_b[lead_2]*`c') + (_b[lead_3]*`d') 
+	glo aggregate: di %5.4f r(estimate)
+	estadd local aggregate $aggregate
+	glo se_aggregate: di %5.4f r(se)
+	estadd local se_aggregate $se_aggregate
+	test (_b[date_0]*`a')+(_b[lead_1]*`b')+(_b[lead_2]*`c') + (_b[lead_3]*`d') 	=0
+	glo p_aggregate: di %5.4f r(p)
+	estadd local p_aggregate $p_aggregate
+
+}
+
+esttab est*, keep($lagsleads) t star(* 0.1 ** 0.05 *** 0.01)
+restore 
+*wild CIs
+eststo: quietly  xi: areg acuerdo3 $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
+boottest date_0, bootcluster(estado) nograph seed(5675) level(90) // works for acuerdo3 5%
+boottest lead_1, bootcluster(estado) nograph seed(5675) level(90)  // works for acuerdo3 5%
+boottest lead_2, bootcluster(estado) nograph seed(5675) level(90)  // works for acuerdo3 10%
+boottest lead_3, bootcluster(estado) nograph seed(5675) level(90) // works for acuerdo3 5%
+
+esttab using "../Tables/event_study_reform_coop_agreements_forpres.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N R2 controls munfe yearfe clustermun aggregate se_aggregate p_aggregate, fmt(%11.2gc 3) ///
+ label("Observations" "R2" "Controls" "Mun. FE" "Year FE" "State Cluster S.E." "Aggregate beta" "SE (aggregate)" ///
+ "p-value(aggregate)")) ///
+keep($lagsleads ) ///
+mgroups("Agreement A in t" "in t+1" "in t+2" "in t+3", ///
+pattern(1 1 1 1 1 1 1 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+coeflabel(lag_7 lag_6 lag_5 lag_4 lag_3 lag_2  date_0 lead_1 lead_2 lead_3) ///
+collabels(none) nonotes booktabs nomtitles  nolines
+
+*CONCLUSION 1: MANDO UNICO DECREASES AND ITS SIGNIFICANT; SO IS THE AGGREGATE EFFECT
+*CONCLUSION 2: MANDO UNICO SERVICE DECREASES AND ITS SIGNIFICANT; SO IS THE AGGREGATE EFFECT
+*CONCLUION 3: GOB. FEDERAL IS POSITIVE AND NON-SIGNIFICANT
 	
 *========================================================================
 *2) Chaisemartin and D'Haultfoeuille correction
 
-*Graph:
-foreach outcome in  acuerdo acuerdo2{
+*Graph: long dynamic effects
+foreach outcome in  acuerdo3 acuerdo4 acuerdo_federal{
 did_multiplegt `outcome' group year reform, breps(100) controls($controls)  seed(5675) ///
-cluster(estado) robust_dynamic dynamic(2) placebo(2) longdiff_placebo 
+cluster(estado) robust_dynamic dynamic(2) longdiff_placebo 
 graph export "../Figures/chaisemartin_`outcome'.png", as(png) replace
 }
+
 
 ************
 *A) Acuerdo:
 ************
-foreach outcome in acuerdo {
-did_multiplegt `outcome' group year reform, breps(1000) controls($controls)   placebo(5) seed(5675) ///
+foreach outcome in acuerdo3 {
+did_multiplegt `outcome' group year reform, breps(100) controls($controls)   placebo(1) seed(5675) ///
 cluster(estado) robust_dynamic  dynamic(2) average_effect ///
 save_results("../../Data/chaisemartin_`outcome'.dta")
 }
@@ -352,8 +420,8 @@ foreach i in 1 2 3 4 5{
 ************
 *B) Acuerdo2:
 ************
-foreach outcome in acuerdo2 {
-did_multiplegt `outcome' group year reform, breps(1000) controls($controls2) placebo(5) seed(5675) ///
+foreach outcome in acuerdo4 {
+did_multiplegt `outcome' group year reform, breps(100) controls($controls) placebo(1) seed(5675) ///
 cluster(estado) robust_dynamic  dynamic(2) ///
 save_results("../../Data/chaisemartin_`outcome'.dta")
 }
@@ -436,28 +504,56 @@ texdoc close
 *========================================================================
 *3) Saturated Event study design (Abraham and Sun, 2020)
 
+cap program drop correction_se_IV
+program define correction_se_IV		/*it create a program, called correction_se_IV, that corrects the standard errors in IV regressions (reported in tables) to take into account that the instruments depends on estimated parameters from the bilateral trade equation  */
+	args Dep_var Trade Weight outfile		/*this states that the program has 3 arguments (variables to be defined every time we run the program: Dep_var Trade Weight*/
+ ivreg2 `Dep_var' (`Trade'= lpred_TOTAL_trad_5ys)  dummy_C* dummy_Y*   						    `Weight' if  ln_exportGDP~=., cluster(country year) partial(dummy_C* dummy_Y*) noc
+ est sto a1
+ scalar def coef_trade =_b[`Trade'] 
+   foreach YR_Tech in 60sa 65sa 70sa 75sa 80sa 85sa 90sa 95sa 00sa  60st 65st 70st 75st 80st 85st 90st 95st 00st  {
+   ivreg2 `Dep_var' (`Trade'= lpred_TOTAL_trad_5ys_aug_`YR_Tech')  dummy_C* dummy_Y*   			`Weight' if  ln_exportGDP~=., cluster(country year) partial(dummy_C* dummy_Y*) noc
+   scalar def coef_`YR_Tech' =_b[`Trade'] 
+   scalar def der_`YR_Tech'=(coef_`YR_Tech'-coef_trade)/0.001
+   }
+ matrix der_b_a= (der_60sa, der_60st,	der_65sa, der_65st, der_70sa, der_70st, der_75sa, der_75st, der_80sa, der_80st, der_85sa, der_85st, der_90sa, der_90st, der_95sa, der_95st, der_00sa, der_00st)		   
+ matrix err_cor2=der_b_a*rel_var_cov2*der_b_a'
+ matrix list err_cor2
+ ivreg2 `Dep_var' (`Trade'= lpred_TOTAL_trad_5ys)  dummy_C* dummy_Y*   						    `Weight' if  ln_exportGDP~=., cluster(country year) partial(dummy_C* dummy_Y*) noc
+ newcov
+ outreg2 using `outfile', append  e(widstat N) se dec(3) nonotes  excel tex
+ end
+ 
+ 
+matrix var_cov2=e(V)
+matrix rel_var_cov2=var_cov2[1..18,1..18]
+
+capture program drop newcov
+ program define newcov, eclass   /*here create a program called newcov that affects e() variables*/
+ matrix V_corrected=e(V)
+ matrix V_corrected[1,1]=V_corrected[1,1]+err_cor2
+ ereturn repost V= V_corrected       /*this program newcov substitutes the variance-covariance matrix with cov_dep */ 
+end
+
+
 *Set globals: 
-	*global controls  margin_lag_7 margin_lag_6 margin_lag_5 margin_lag_4 margin_lag_3 margin_lag_2 ///
-	*global controls winning_margin_lag_2 winning_margin_lag_3 winning_margin_lag_4 winning_margin_lag_5 winning_margin_lag_6 winning_margin_lag_7 ///
-	*ap4_2_11_lag_2 ap4_2_11_lag_3 ap4_2_11_lag_4 ap4_2_11_lag_5 ap4_2_11_lag_6 ap4_2_11_lag_7 ///
-	*ap4_2_3_lag_2 ap4_2_3_lag_3 ap4_2_3_lag_4 ap4_2_3_lag_5 ap4_2_3_lag_6 ap4_2_3_lag_7
-	*ap5_4_2_b_lag_2 ap5_4_2_b_lag_3 ap5_4_2_b_lag_4 ap5_4_2_b_lag_5 ap5_4_2_b_lag_6 ap5_4_2_b_lag_7 ap5_4_8_b_lag_2 ap5_4_8_b_lag_3 ap5_4_8_b_lag_4 ap5_4_8_b_lag_5 ap5_4_8_b_lag_6 ap5_4_8_b_lag_7
-	
-	global controls winning_margin_governor_lag_2 winning_margin_governor_lag_3 winning_margin_governor_lag_4 winning_margin_governor_lag_5 winning_margin_governor_lag_6 winning_margin_governor_lag_7 ///
-	*alignment_executive_strong_lag_7 alignment_executive_strong_lag_6 alignment_executive_strong_lag_5 alignment_executive_strong_lag_4 alignment_executive_strong_lag_3 alignment_executive_strong_lag_2 ///
-    logdefuncionespc_lag_7 logdefuncionespc_lag_6 logdefuncionespc_lag_5 logdefuncionespc_lag_4 logdefuncionespc_lag_3	 logdefuncionespc_lag_2 ///
-	alignment_governor_strong_lag_2 alignment_governor_strong_lag_3 alignment_governor_strong_lag_4 alignment_governor_strong_lag_5 alignment_governor_strong_lag_6 alignment_governor_strong_lag_7 ///
-	
-	global outcome acuerdo
-	global outcome2 acuerdo2
+preserve
+global lagsleads  lag_7 lag_6 lag_5 lag_4 lag_3 lag_2  date_0 lead_1 lead_2 lead_3
+quietly  xi: areg acuerdo3 $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
+keep if e(sample)==1 
+	global outcome acuerdo3
+	global outcome2 acuerdo4
     global saturated lag_7_2017 lag_7_2018 lag_6_2016 lag_6_2017 lag_6_2018 lag_5_2015 lag_5_2016 lag_5_2017 lag_5_2018 lag_4_2015 lag_4_2016 lag_4_2017 lag_4_2018 lag_3_2015 lag_3_2016 lag_3_2017 lag_3_2018 lag_2_2015 lag_2_2016 lag_2_2017 lag_2_2018 date_0_2015 date_0_2016 date_0_2017 date_0_2018 lead_1_2015 lead_1_2016 lead_1_2017 lead_2_2015 lead_2_2016 lead_3_2015
 
+*=======================================
+	
 ************
 ***A: ACUERDO 
 ************	
 
 est clear
-quietly	areg  $outcome  $saturated $controls   i.year, a(inegi) vce(cluster estado)
+	areg  $outcome  $saturated $controls   i.year, a(inegi) vce(cluster estado)
+*quietly clustse reg $outcome  $saturated $controls year_*, fe(inegi)  cluster(estado) method(wild) reps(1000)
+
 	estadd local depcontrols 
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -465,10 +561,17 @@ quietly	areg  $outcome  $saturated $controls   i.year, a(inegi) vce(cluster esta
 	
 		glo r2_log:  di %5.4f e(r2)
 		glo N_log: di %11.2gc e(N)
+		
+/*wild CIs
+boottest date_0, bootcluster(estado) nograph seed(5675) level(90) // works for acuerdo3 5%
+boottest lead_1, bootcluster(estado) nograph seed(5675) level(90)  // works for acuerdo3 5%
+boottest lead_2, bootcluster(estado) nograph seed(5675) level(90)  // works for acuerdo3 10%
+boottest lead_3_2015, bootcluster(estado) nograph seed(5675) level(90) // works for acuerdo3 5%
+*/
 
 ***estimate linear combination by lead/lag:
 
-foreach i in lag_7{
+cap foreach i in lag_7{
 	sum perc if `i'_2017==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2018==1, meanonly
@@ -485,7 +588,7 @@ foreach i in lag_7{
 	glo se_`i'_log: di %5.4f r(se)
 }
 	
-foreach i in lag_6{
+cap foreach i in lag_6{
 	sum perc if `i'_2016==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2017==1, meanonly
@@ -504,7 +607,7 @@ foreach i in lag_6{
 	glo se_`i'_log: di %5.4f r(se)
 }
 
-foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+cap foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2016==1, meanonly
@@ -526,7 +629,7 @@ foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
 }
 
 
-foreach i in lead_1{
+cap foreach i in lead_1{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2016==1, meanonly
@@ -546,7 +649,7 @@ foreach i in lead_1{
 }
 
 
-foreach i in lead_2{
+cap foreach i in lead_2{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2016==1, meanonly
@@ -564,7 +667,7 @@ foreach i in lead_2{
 }
 
 
-foreach i in lead_3{
+cap foreach i in lead_3{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	di (_b[`i'_2015]*`a')
@@ -580,10 +683,48 @@ foreach i in lead_3{
 }
 
 
+
+**estimate aggregate effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	lincom 	(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_2_2015]*`j')
+	glo aggregate: di %5.4f r(estimate)
+	estadd local aggregate $aggregate
+	glo se_aggregate: di %5.4f r(se)
+	estadd local se_aggregate $se_aggregate
+	test (_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_2_2015]*`j')	=0
+	glo p_aggregate: di %5.4f r(p)
+	estadd local p_aggregate $p_aggregate
+
 ************
 ***B: ACUERDO2
 ************	
-quietly	areg  $outcome2  $saturated $controls  i.year, a(inegi) vce(cluster estado)
+areg  $outcome2  $saturated $controls   i.year, a(inegi) vce(cluster estado)
 	estadd local depcontrols
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -594,7 +735,7 @@ quietly	areg  $outcome2  $saturated $controls  i.year, a(inegi) vce(cluster esta
 		
 ***estimate linear combination by lead/lag:
 
-foreach i in lag_7{
+cap foreach i in lag_7{
 	sum perc if `i'_2017==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2018==1, meanonly
@@ -611,7 +752,7 @@ foreach i in lag_7{
 	glo se_`i'_ihs: di %5.4f r(se)
 }
 	
-foreach i in lag_6{
+cap foreach i in lag_6{
 	sum perc if `i'_2016==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2017==1, meanonly
@@ -630,7 +771,7 @@ foreach i in lag_6{
 	glo se_`i'_ihs: di %5.4f r(se)
 }
 
-foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+cap foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2016==1, meanonly
@@ -652,7 +793,7 @@ foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
 }
 
 
-foreach i in lead_1{
+cap foreach i in lead_1{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2016==1, meanonly
@@ -672,7 +813,7 @@ foreach i in lead_1{
 }
 
 
-foreach i in lead_2{
+cap foreach i in lead_2{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2016==1, meanonly
@@ -690,7 +831,7 @@ foreach i in lead_2{
 }
 
 
-foreach i in lead_3{
+cap foreach i in lead_3{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	di (_b[`i'_2015]*`a')
@@ -706,6 +847,46 @@ foreach i in lead_3{
 }
 
 
+
+
+**estimate aggregate effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	lincom 	(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_2_2015]*`j')
+	glo aggregate: di %5.4f r(estimate)
+	estadd local aggregate2 $aggregate
+	glo se_aggregate: di %5.4f r(se)
+	estadd local se_aggregate2 $se_aggregate
+	test (_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_2_2015]*`j')	=0
+	glo p_aggregate: di %5.4f r(p)
+	estadd local p_aggregate2 $p_aggregate
+	
+*restore
 *Table
 	
 texdoc init  "../Tables/abraham_sun_estimates_DVmandounico.tex", replace force
@@ -748,8 +929,11 @@ tex Observations       &            ${N_log}        &     ${N_ihs}  \\
 tex R-squared        &              ${r2_log}        &           ${r2_ihs}   \\
 tex Mun. FEs       &     \checkmark         &  \checkmark    \\
 tex Year. FEs       &     \checkmark         &  \checkmark   \\
-tex Controls$^b$   &          &       \\
+tex Controls$^b$   &      \checkmark       &      \checkmark    \\
 tex Cohort weighted   &   \checkmark       &   \checkmark    \\
+tex Aggregate effect        &              ${aggregate}        &           ${aggregate2}   \\
+tex SE (aggregate eff.)        &              ${se_aggregate}        &           ${se_aggregate2}   \\
+tex p-value(aggregate eff.)       &              ${p_aggregate}        &           ${p_aggregate2}   \\
 
 tex \hline \hline      
 tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to the inverse hyperbolic sine transformation. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
@@ -764,47 +948,6 @@ texdoc close
 However, the matching exercise shows similar results.  
 Also, if include controls, include all such as past homicides, winning margin and governor alignment. Things look relatively well but weights are wrong.
 */
-
-
-*========================================================================
-***4) TWFE model -Effect of Sec. Coop Agreement on Homicide Related Deaths
-sort inegi year
-
-est clear
-foreach outcome in logdefuncionespc ihs_defuncionespc{
-foreach treatment in acuerdo  acuerdo2{
-/*eststo: quietly xi: areg `outcome' `treatment' $controls  i.year, a(inegi) vce(cluster inegi)
-	estadd local controls \checkmark
-	estadd local munfe \checkmark
-	estadd local yearfe \checkmark
-	estadd local clustermun \checkmark
-	*/
-eststo: quietly xi: areg `outcome' l.`treatment' $controls   i.year, a(inegi) vce(cluster inegi)
-	estadd local controls \checkmark
-	estadd local munfe \checkmark
-	estadd local yearfe \checkmark
-	estadd local clustermun \checkmark
-/*eststo: quietly xi: areg `outcome' l2.`treatment' $controls   i.year, a(inegi) vce(cluster inegi)
-	estadd local controls \checkmark
-	estadd local munfe \checkmark
-	estadd local yearfe \checkmark
-	estadd local clustermun \checkmark
-	*/
-}
-}
-
-esttab est*, keep(L.acuerdo L.acuerdo2) t star(* 0.1 ** 0.05 *** 0.01)
-esttab est*, keep(acuerdo L.acuerdo L2.acuerdo acuerdo2 L.acuerdo2 L2.acuerdo2) t star(* 0.1 ** 0.05 *** 0.01)
-
-esttab using "../Tables/twfe_coop_agreements_homicides.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
-s(N R2 controls munfe yearfe clustermun, fmt(%11.2gc 3) label("Observations" "R2" "Controls" "Mun. FE" "Year FE" "Mun. Cluster S.E.")) ///
-keep( L.acuerdo L.acuerdo2 ) ///
-mgroups("DV: log(homicides per capita)" "DV: IHS(homicides per capita)", ///
-pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
-coeflabel(L.acuerdo "Agreement A in t-1" L.acuerdo2 "Agreement B in t-1") ///
-collabels(none) nonotes booktabs nomtitles  nolines
-	
-*MESSAGE: security cooperation agreements decrease homicides
 
 
 
