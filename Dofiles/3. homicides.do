@@ -46,6 +46,52 @@ ap4_2_5_mean_y_1 ap4_2_5_mean_y_2 ap4_2_5_mean_y_3 ap4_2_5_mean_y_4 ap4_2_5_mean
 */
 
 *========================================================================
+*1) Naive Event study design: Cluster vs Wild corrected errors
+sort inegi year
+
+center logdefuncionespc ihs_defuncionespc loghomicidecombinedpc ihs_homicidecombinedpc, inplace standardize
+
+preserve
+est clear
+*quietly  xi: areg acuerdo3 $lagsleads_short  $controls  i.year, a(inegi) vce(cluster estado)
+*keep if e(sample)==1 
+eststo: quietly  xi: areg logdefuncionespc $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
+macros_tables
+eststo: qui wildcorrection logdefuncionespc
+macros_tables
+eststo: quietly  xi: areg ihs_defuncionespc $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
+macros_tables
+eststo: qui wildcorrection ihs_defuncionespc
+macros_tables
+eststo: quietly  xi: areg loghomicidecombinedpc $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
+macros_tables
+eststo: qui wildcorrection loghomicidecombinedpc
+macros_tables
+eststo: quietly  xi: areg ihs_homicidecombinedpc $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
+macros_tables
+eststo: qui wildcorrection ihs_homicidecombinedpc
+macros_tables
+
+esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
+restore
+
+esttab using "../Tables/event_study_reform_coop_agreements_forpres.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N r2 controls munfe yearfe clustermun aggregate se_aggregate p_aggregate, fmt(%11.2gc 3) ///
+ label("Observations" "R2" "Controls" "Mun. FE" "Year FE" "State Cluster S.E." "Aggregate beta" "SE (aggregate)" ///
+ "p-value(aggregate)")) ///
+keep($lagsleads ) ///
+mgroups("Agreement old" "total" "Mando" "Mando 2", ///
+pattern(1 0 1 0 1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+coeflabel(lag_7 "t-7" lag_6 "t-6" lag_5 "t-5" lag_4 "t-4" lag_3 "t-3" lag_2 "t-2"  date_0 "Reform t=0" ///
+ lead_1 "t+1" lead_2 "t+2" lead_3 "t+3") ///
+collabels(none) nonotes booktabs nomtitles  nolines
+
+*CONCLUSION 1: MANDO UNICO DECREASES AND ITS SIGNIFICANT; SO IS THE AGGREGATE EFFECT
+*CONCLUSION 2: MANDO UNICO SERVICE DECREASES AND ITS SIGNIFICANT; SO IS THE AGGREGATE EFFECT
+*CONCLUION 3: GOB. FEDERAL IS POSITIVE AND NON-SIGNIFICANT
+
+
+*========================================================================
 ***0) TWFE model -Effect of Sec. Coop Agreement on Homicide Related Deaths
 sort inegi year
 

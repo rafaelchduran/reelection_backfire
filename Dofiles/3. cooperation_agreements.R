@@ -44,21 +44,27 @@ theme_set(theme_bw())
 # Event-study estimates:
 
 # isolate the variables that we want to plot
+treatments_short2 <- c("lag_5", "lag_4", "lag_3", "lag_2", "date_0", "lead_1", "lead_2", "lead_3")
 treatments_short <- c("lag_7", "lag_6","lag_5", "lag_4", "lag_3", "lag_2", "date_0", "lead_1", "lead_2", "lead_3")
 treatments_full <- c("lag_8", "lag_7", "lag_6","lag_5", "lag_4", "lag_3", "lag_2", "date_0", "lead_1", "lead_2", "lead_3")
 
+pre_parties<-c("pri_mayor2_y_1", "pri_mayor2_y_2", "pri_mayor2_y_3", "pri_mayor2_y_4", "pri_mayor2_y_5", "pri_mayor2_y_6", "pri_mayor2_y_7", "pri_mayor2_y_8", 
+               "pan_mayor2_y_1", "pan_mayor2_y_2", "pan_mayor2_y_3", "pan_mayor2_y_4", "pan_mayor2_y_5", "pan_mayor2_y_6", "pan_mayor2_y_7", "pan_mayor2_y_8"
+)
 pre_homicides<-c("logdefuncionespc_mean_y_1", "logdefuncionespc_mean_y_2","logdefuncionespc_mean_y_3", "logdefuncionespc_mean_y_4", "logdefuncionespc_mean_y_5", "logdefuncionespc_mean_y_6", "logdefuncionespc_mean_y_7", "logdefuncionespc_mean_y_8", "logdefuncionespc_mean_y_9")
 pre_align_gov<-c("align_gov_y_1", "align_gov_y_2", "align_gov_y_3", "align_gov_y_4", "align_gov_y_5", "align_gov_y_6", "align_gov_y_7", "align_gov_y_8", "align_gov_y_9")
 pre_margin_gov<-c("margin_gov_y_1", "margin_gov_y_2", "margin_gov_y_3", "margin_gov_y_4", "margin_gov_y_5", "margin_gov_y_6", "margin_gov_y_7", "margin_gov_y_8", "margin_gov_y_9")
 pre_caretels<-c("hayCarteles_y_1", "hayCarteles_y_2", "hayCarteles_y_3", "hayCarteles_y_4", "hayCarteles_y_5", "hayCarteles_y_6", "hayCarteles_y_7", "hayCarteles_y_8", "hayCarteles_y_9")
 pre_insecuritypref<-c("ap4_2_3_mean_y_1", "ap4_2_3_mean_y_2", "ap4_2_3_mean_y_3", "ap4_2_3_mean_y_4", "ap4_2_3_mean_y_5", "ap4_2_3_mean_y_6", "ap4_2_3_mean_y_7", "ap4_2_3_mean_y_8", "ap4_2_3_mean_y_9")
+pre_winning_mar<-c("winning_margin_mean_y_1", "winning_margin_mean_y_2", "winning_margin_mean_y_3", "winning_margin_mean_y_4", "winning_margin_mean_y_5", "winning_margin_mean_y_6", "winning_margin_mean_y_7", "winning_margin_mean_y_8")
 pre_acuerdo<-c("acuerdo_mean_y_1", "acuerdo_mean_y_2", "acuerdo_mean_y_3", "acuerdo_mean_y_4", "acuerdo_mean_y_5", "acuerdo_mean_y_6", "acuerdo_mean_y_7", "acuerdo_mean_y_8", "acuerdo_mean_y_9")
 pre_acuerdo2<-c("acuerdo2_mean_y_1", "acuerdo2_mean_y_2", "acuerdo2_mean_y_3", "acuerdo2_mean_y_4", "acuerdo2_mean_y_5", "acuerdo2_mean_y_6", "acuerdo2_mean_y_7", "acuerdo2_mean_y_8", "acuerdo2_mean_y_9")
 pre_acuerdo3<-c("acuerdo3_mean_y_1", "acuerdo3_mean_y_2", "acuerdo3_mean_y_3", "acuerdo3_mean_y_4", "acuerdo3_mean_y_5", "acuerdo3_mean_y_6", "acuerdo3_mean_y_7", "acuerdo3_mean_y_8", "acuerdo3_mean_y_9")
 pre_acuerdo4<-c("acuerdo4_mean_y_1", "acuerdo4_mean_y_2", "acuerdo4_mean_y_3", "acuerdo4_mean_y_4", "acuerdo4_mean_y_5", "acuerdo4_mean_y_6", "acuerdo4_mean_y_7", "acuerdo4_mean_y_8", "acuerdo4_mean_y_9")
 #covariates_all <-do.call(c, list(pre_homicides, pre_align_gov , pre_caretels, pre_insecuritypref, pre_acuerdo))
 #covariates_all <-do.call(c, list(pre_homicides, pre_align_gov, pre_margin_gov, pre_caretels, pre_insecuritypref))
-covariates_all <-do.call(c, list(pre_homicides, pre_align_gov , pre_caretels, pre_insecuritypref, pre_acuerdo))
+covariates_all <-do.call(c, list(pre_homicides, pre_align_gov,pre_margin_gov, pre_caretels, pre_insecuritypref, pre_winning_mar, pre_parties))
+
 
 
 # put in the model formula:

@@ -80,7 +80,7 @@ destring `i', replace
 }
 
 collapse (mean)cuen_con, by (inegi)
-*replace cuen_con=. if cuen_con==0 // no aplica option
+replace cuen_con=. if cuen_con==0 // no aplica option
 replace cuen_con=0 if cuen_con==2
 replace cuen_con=. if cuen_con==9
 replace cuen_con=. if cuen_con==3
@@ -135,7 +135,7 @@ destring `i', replace
 drop if cuen_con==.
 
 collapse (mean)cuen_con, by (inegi)
-*replace cuen_con=. if cuen_con==0 // no aplica option
+replace cuen_con=. if cuen_con==0 // no aplica option
 replace cuen_con=0 if cuen_con==2
 replace cuen_con=. if cuen_con==9
 replace cuen_con=. if cuen_con==10
@@ -220,7 +220,7 @@ drop if conv_mup==.
 
 *2015
 collapse (mean)conv_mup, by (inegi)
-*replace conv_mup=. if conv_mup==0 // no aplica option
+replace conv_mup=. if conv_mup==0 // no aplica option
 replace conv_mup=0 if conv_mup==2
 replace conv_mup=. if conv_mup==8
 replace conv_mup=. if conv_mup==9
@@ -415,7 +415,7 @@ replace `i'=. if `i'==0 // no aplica option
 replace `i'=. if `i'==8
 replace `i'=. if `i'==9
 replace `i'=0 if `i'==2 // used to be flipped with 1
-replace `i'=1 if `i'==1
+replace `i'=1 if `i'==1 // used to be flipped with 2
 }
 
 
@@ -836,7 +836,7 @@ replace acuerdo_total=acuerdo_gobestatal if year==2012
 replace acuerdo_total=acuerdo_gobestatal if year==2013
 replace acuerdo_total=acuerdo_gobestatal3+acuerdo_gobestatal if year==2014
 replace acuerdo_total=acuerdo_gobestatal3 if year==2015
-replace acuerdo_total=acuerdo_gobestatal+acuerdo_gobestatal3 if year==2016
+replace acuerdo_total=acuerdo_gobestatal+ acuerdo_gobestatal3 if year==2016
 replace acuerdo_total=acuerdo_gobestatal3 if year==2017
 replace acuerdo_total=acuerdo_gobestatal+acuerdo_gobestatal3 if year==2018
 

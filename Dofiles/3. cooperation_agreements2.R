@@ -48,32 +48,36 @@ treatments_short2 <- c("lag_5", "lag_4", "lag_3", "lag_2", "date_0", "lead_1", "
 treatments_short <- c("lag_7", "lag_6","lag_5", "lag_4", "lag_3", "lag_2", "date_0", "lead_1", "lead_2", "lead_3")
 treatments_full <- c("lag_8", "lag_7", "lag_6","lag_5", "lag_4", "lag_3", "lag_2", "date_0", "lead_1", "lead_2", "lead_3")
 
+pre_parties<-c("pri_mayor2_y_1", "pri_mayor2_y_2", "pri_mayor2_y_3", "pri_mayor2_y_4", "pri_mayor2_y_5", "pri_mayor2_y_6", "pri_mayor2_y_7", "pri_mayor2_y_8", 
+               "pan_mayor2_y_1", "pan_mayor2_y_2", "pan_mayor2_y_3", "pan_mayor2_y_4", "pan_mayor2_y_5", "pan_mayor2_y_6", "pan_mayor2_y_7", "pan_mayor2_y_8"
+)
 pre_homicides<-c("logdefuncionespc_mean_y_1", "logdefuncionespc_mean_y_2","logdefuncionespc_mean_y_3", "logdefuncionespc_mean_y_4", "logdefuncionespc_mean_y_5", "logdefuncionespc_mean_y_6", "logdefuncionespc_mean_y_7", "logdefuncionespc_mean_y_8", "logdefuncionespc_mean_y_9")
 pre_align_gov<-c("align_gov_y_1", "align_gov_y_2", "align_gov_y_3", "align_gov_y_4", "align_gov_y_5", "align_gov_y_6", "align_gov_y_7", "align_gov_y_8", "align_gov_y_9")
 pre_margin_gov<-c("margin_gov_y_1", "margin_gov_y_2", "margin_gov_y_3", "margin_gov_y_4", "margin_gov_y_5", "margin_gov_y_6", "margin_gov_y_7", "margin_gov_y_8", "margin_gov_y_9")
 pre_caretels<-c("hayCarteles_y_1", "hayCarteles_y_2", "hayCarteles_y_3", "hayCarteles_y_4", "hayCarteles_y_5", "hayCarteles_y_6", "hayCarteles_y_7", "hayCarteles_y_8", "hayCarteles_y_9")
 pre_insecuritypref<-c("ap4_2_3_mean_y_1", "ap4_2_3_mean_y_2", "ap4_2_3_mean_y_3", "ap4_2_3_mean_y_4", "ap4_2_3_mean_y_5", "ap4_2_3_mean_y_6", "ap4_2_3_mean_y_7", "ap4_2_3_mean_y_8", "ap4_2_3_mean_y_9")
+pre_winning_mar<-c("winning_margin_mean_y_1", "winning_margin_mean_y_2", "winning_margin_mean_y_3", "winning_margin_mean_y_4", "winning_margin_mean_y_5", "winning_margin_mean_y_6", "winning_margin_mean_y_7", "winning_margin_mean_y_8")
 pre_acuerdo<-c("acuerdo_mean_y_1", "acuerdo_mean_y_2", "acuerdo_mean_y_3", "acuerdo_mean_y_4", "acuerdo_mean_y_5", "acuerdo_mean_y_6", "acuerdo_mean_y_7", "acuerdo_mean_y_8", "acuerdo_mean_y_9")
 pre_acuerdo2<-c("acuerdo2_mean_y_1", "acuerdo2_mean_y_2", "acuerdo2_mean_y_3", "acuerdo2_mean_y_4", "acuerdo2_mean_y_5", "acuerdo2_mean_y_6", "acuerdo2_mean_y_7", "acuerdo2_mean_y_8", "acuerdo2_mean_y_9")
 pre_acuerdo3<-c("acuerdo3_mean_y_1", "acuerdo3_mean_y_2", "acuerdo3_mean_y_3", "acuerdo3_mean_y_4", "acuerdo3_mean_y_5", "acuerdo3_mean_y_6", "acuerdo3_mean_y_7", "acuerdo3_mean_y_8", "acuerdo3_mean_y_9")
 pre_acuerdo4<-c("acuerdo4_mean_y_1", "acuerdo4_mean_y_2", "acuerdo4_mean_y_3", "acuerdo4_mean_y_4", "acuerdo4_mean_y_5", "acuerdo4_mean_y_6", "acuerdo4_mean_y_7", "acuerdo4_mean_y_8", "acuerdo4_mean_y_9")
 #covariates_all <-do.call(c, list(pre_homicides, pre_align_gov , pre_caretels, pre_insecuritypref, pre_acuerdo))
 #covariates_all <-do.call(c, list(pre_homicides, pre_align_gov, pre_margin_gov, pre_caretels, pre_insecuritypref))
-covariates_all <-do.call(c, list(pre_homicides, pre_align_gov,pre_margin_gov, pre_caretels, pre_insecuritypref))
+covariates_all <-do.call(c, list(pre_homicides, pre_align_gov,pre_margin_gov, pre_caretels, pre_insecuritypref, pre_winning_mar, pre_parties))
 
 
 # put in the model formula:
 ##1. w/o covariates
 model_formula <- as.formula(paste("acuerdo3 ~", 
                                   paste(treatments_short2, collapse = " + "),
-                                  "| estado + year | 0 | estado")
+                                  "| inegi + year | 0 | estado")
 )
 
 ##2. w/ covariates
 treatments.paste<-paste(treatments_full, collapse = " + ")
 model_formula_cov <- as.formula(paste("acuerdo3 ~ lag_5 + lag_4 + lag_3 + lag_2 + date_0 + lead_1 + lead_2 + lead_3 +", 
                                       paste(covariates_all, collapse = " + "), 
-                                      "| estado + year | 0 | estado")
+                                      "| inegi + year | 0 | estado")
 )
 
 
@@ -248,7 +252,7 @@ covariates_interest <- treatments_short2
 weight_leadlags <- function(data){
   
   # fit the model
-  fit = felm(formula_saturated, data = data, exactDOF = TRUE, cmethod = "reghdfe")
+  fit = felm(formula_saturated_cov, data = data, exactDOF = TRUE, cmethod = "reghdfe")
   
   # get the non-missing coefficients
   coefs <- fit$coefficients %>%
@@ -667,27 +671,34 @@ data_CS2 <- data.final2 %>%
   mutate(adopt_year = ifelse(is.na(adopt_year), 0, adopt_year))
 data_CS2 <- data_CS2 %>% 
   filter(!is.na(acuerdo3))
+dropthis<-c(13593, 11343)
+#drop the municipalities with few pre-treatment observations:
+## remove those from dropthis list:
+data_CS2_drop<-data_CS2[apply(data_CS2, 1, function(x)  !any(x %in% dropthis)),]
+
 
 # run the CS algorithm
 CS_out <- att_gt("acuerdo3", idname="inegi", tname="year",
                  data = data_CS,
-                 first.treat.name="adopt_year", panel = T, control.group = "notyettreated",
+                 first.treat.name="adopt_year", panel = T, control.group = "nevertreated",
                  alp = 0.05, cband=T, bstrap=T, biters = 1000,
                  printdetails = F, clustervars = "estado")
 
 
 CS_out.cov <- att_gt("acuerdo3", idname="inegi", tname="year",
-                     data = data_CS2,
-                     #xformla = logdefuncionespc_mean_y_1+logdefuncionespc_mean_y_2+logdefuncionespc_mean_y_3+logdefuncionespc_mean_y_4+logdefuncionespc_mean_y_5+logdefuncionespc_mean_y_6+logdefuncionespc_mean_y_7+logdefuncionespc_mean_y_8
-                     #+align_gov_y_1+align_gov_y_2+align_gov_y_3+align_gov_y_4+align_gov_y_5+align_gov_y_6+align_gov_y_7+align_gov_y_8
-                     #+margin_gov_y_1+margin_gov_y_2+margin_gov_y_3+margin_gov_y_4+margin_gov_y_5+margin_gov_y_6+margin_gov_y_7+margin_gov_y_8
-                     #+hayCarteles_y_1 +hayCarteles_y_2+hayCarteles_y_3+hayCarteles_y_4+hayCarteles_y_5+hayCarteles_y_6+hayCarteles_y_7+hayCarteles_y_8
-                     #+ap4_2_3_mean_y_1+ap4_2_3_mean_y_2+ap4_2_3_mean_y_3+ap4_2_3_mean_y_4+ap4_2_3_mean_y_5+ap4_2_3_mean_y_6+ap4_2_3_mean_y_7+ap4_2_3_mean_y_8,
-                     #xformla = ~logdefuncionespc_mean + hayCarteles+ap4_2_3_mean + margin_gov + align_gov ,                     
-                     xformla = ~logdefuncionespc_mean + hayCarteles+ap4_2_3_mean + margin_gov  + align_gov , 
-                     first.treat.name="adopt_year", panel = T, control.group = "notyettreated",
+                     data = data_CS2_drop,
+                     xformla = ~logdefuncionespc_mean + hayCarteles  + align_gov ,                     
+                     first.treat.name="adopt_year", panel = T, control.group = "nevertreated",
                      alp = 0.05, cband=T, bstrap=T, biters = 1000,
                      printdetails = F, clustervars = "estado")
+
+#xformla = logdefuncionespc_mean_y_1+logdefuncionespc_mean_y_2+logdefuncionespc_mean_y_3+logdefuncionespc_mean_y_4+logdefuncionespc_mean_y_5+logdefuncionespc_mean_y_6+logdefuncionespc_mean_y_7+logdefuncionespc_mean_y_8
+#+align_gov_y_1+align_gov_y_2+align_gov_y_3+align_gov_y_4+align_gov_y_5+align_gov_y_6+align_gov_y_7+align_gov_y_8
+#+margin_gov_y_1+margin_gov_y_2+margin_gov_y_3+margin_gov_y_4+margin_gov_y_5+margin_gov_y_6+margin_gov_y_7+margin_gov_y_8
+#+hayCarteles_y_1 +hayCarteles_y_2+hayCarteles_y_3+hayCarteles_y_4+hayCarteles_y_5+hayCarteles_y_6+hayCarteles_y_7+hayCarteles_y_8
+#+ap4_2_3_mean_y_1+ap4_2_3_mean_y_2+ap4_2_3_mean_y_3+ap4_2_3_mean_y_4+ap4_2_3_mean_y_5+ap4_2_3_mean_y_6+ap4_2_3_mean_y_7+ap4_2_3_mean_y_8,
+#xformla = ~logdefuncionespc_mean + hayCarteles+ap4_2_3_mean + margin_gov + align_gov ,                     
+# xformla = ~logdefuncionespc_mean + hayCarteles + margin_gov  + align_gov + winning_margin_mean + pan_mayor2_mean + pri_mayor2_mean , 
 
 summary(CS_out)
 summary(CS_out.cov)
@@ -732,7 +743,7 @@ ggdid(example.attgt.reg)
 #Table:
 #1. w/o covariates
 tibble(
-  t = -6:3,
+  t = -4:3,
   estimate = agg.es$att.egt,
   se = agg.es$se.egt,
   conf.low = estimate - 1.96*se,
@@ -750,7 +761,7 @@ tibble(
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high)) + 
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = -0.5, linetype = "dashed") + 
-  scale_x_continuous(breaks = -6:3) + 
+  scale_x_continuous(breaks = -4:3) + 
   theme(axis.title.x = element_blank()) + 
   theme_bw()
 dev.copy(png,'../Figures/callaway_santana_acuerdo.png')
@@ -759,7 +770,7 @@ dev.off()
 
 #2. w/ covariates
 tibble(
-  t = -6:3,
+  t = -4:3,
   estimate = agg.es2$att.egt,
   se = agg.es2$se.egt,
   conf.low = estimate - 1.96*se,
@@ -781,7 +792,7 @@ tibble(
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high)) + 
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = -0.5, linetype = "dashed") + 
-  scale_x_continuous(breaks = -6:3) + 
+  scale_x_continuous(breaks = -4:3) + 
   theme(axis.title.x = element_blank()) + 
   theme_bw()
 dev.copy(png,'../Figures/callaway_santana_wcovariates.png')
@@ -847,7 +858,7 @@ out.acuerdo_cov <- gsynth(logdefuncionespc ~ reform, X= paste(covariates_all, co
 out.acuerdo2 <- gsynth(acuerdo2 ~ reform, data = data_noNAdet, index = c("inegi", "year"),
                        force = "two-way", CV = TRUE, se = TRUE, nboots = 1000, cores = 8, r = c(0, 3), 
                        min.T0 = 5)
-out.acuerdo3 <- gsynth(acuerdo3 ~ reform, data = data_noNAinc, index = c("inegi", "year"),
+out.acuerdo3 <- gsynth(acuerdo3 ~ reform, X= paste(covariates_all, collapse= "+"), data = data_noNAinc, index = c("inegi", "year"),
                        force = "two-way", CV = TRUE, se = TRUE, nboots = 1000, cores = 8, r = c(0, 3), 
                        min.T0 = 5)
 out.acuerdo4 <- gsynth(acuerdo4 ~ reform, data = data_noNAinc2, index = c("inegi", "year"),
