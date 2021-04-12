@@ -230,7 +230,7 @@ gen `i'_post3=F3.`i'
 
 global  controls logdefuncionespc ap4_2_3 ap4_2_5 ap4_2_11 ap4_12b ap5_4_2_b ap5_4_8_b ///
 alignment_executive_strong alignment_governor_strong winning_margin winning_margin_governor ///
-pan_mayor2 pri_mayor2 morena_mayor2
+pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles
 
 *========================================================================
 *2) LAGGED ONE PERIODS
@@ -263,12 +263,13 @@ xfill `j', i(inegi)
 
 *========================================================================
 *6) Average prior to treatment
-foreach i in $controls  logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total {
-bysort inegi: egen `i'_mean=mean(`i') if year<=2014
-foreach j in  `i'_mean{
-xfill `j', i(inegi)
+cap foreach i in $controls  logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total {
+cap bysort inegi: egen `i'_mean=mean(`i') if year<=2014
+cap foreach j in  `i'_mean{
+cap xfill `j', i(inegi)
 }
 }
+
 
 /*foreach i in pri_mayor2  morena_mayor2 pan_mayor2{
 fillmissing `i', with(previous)
@@ -281,16 +282,17 @@ gen align_pres=alignment_executive_strong_mean
 gen align_gov=alignment_governor_strong_mean
 gen margin_gov=winning_margin_governor_mean
 
-global  controls logdefuncionespc_mean ap4_2_3_mean ap4_2_5_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ap5_4_8_b_mean ///
+cap global  controls logdefuncionespc_mean ap4_2_3_mean ap4_2_5_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ap5_4_8_b_mean ///
 align_pres align_gov winning_margin_mean margin_gov ///
 pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles nCarteles acuerdo_mean acuerdo2_mean acuerdo3_mean acuerdo4_mean acuerdo5_mean acuerdo_federal_mean acuerdo_total_mean
 
 tab year, gen(y_)
 
-global years y_1 y_2 y_3 y_4 y_5 y_6 y_7 y_8 y_9
-foreach i in $controls {
-foreach year in $years{
-gen `i'_`year'=`i'*`year'
+*global years y_1 y_2 y_3 y_4 y_5 y_6 y_7 y_8 y_9
+cap global years y_1 y_2 y_3 y_4 y_5 y_6 
+cap foreach i in $controls {
+cap foreach year in $years{
+cap gen `i'_`year'=`i'*`year'
 }
 }
 
@@ -460,9 +462,9 @@ capture gen `var'_date0=date_0*`var'
 }
 
 
-global agreements acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total
+cap global agreements acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total
 *global agreements acuerdo acuerdo2 
-foreach var in $agreements{
+cap foreach var in $agreements{
 foreach i in 1 2 3 4 5 6 7 8{
 capture gen `var'_lag_`i'=lag_`i'*`var'
 capture gen `var'_lead_`i'=lead_`i'*`var'
@@ -489,7 +491,7 @@ gen `i'_pre=L.`i'
 
 sort inegi year
 *foreach i in acuerdo acuerdo2 acuerdo3 acuerdo4{
-foreach i in acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 logdefuncionespc{
+cap foreach i in acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 logdefuncionespc{
 gen `i'_post=F.`i'
 gen `i'_post2=F2.`i'
 gen `i'_post3=F3.`i'
@@ -502,7 +504,7 @@ gen `i'_post3=F3.`i'
 
 global  controls logdefuncionespc ap4_2_3 ap4_2_5 ap4_2_11 ap4_12b ap5_4_2_b ap5_4_8_b ///
 alignment_executive_strong alignment_governor_strong winning_margin winning_margin_governor ///
-pan_mayor2 pri_mayor2 morena_mayor2
+pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles
 
 *========================================================================
 *2) LAGGED ONE PERIODS
@@ -536,8 +538,8 @@ xfill `j', i(inegi)
 *========================================================================
 *6) Average prior to treatment
 *foreach i in $controls ap4_2_5 logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4{
-foreach i in $controls logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total{
-bysort inegi: egen `i'_mean=mean(`i') if year<=2014
+cap foreach i in $controls logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total{
+cap bysort inegi: egen `i'_mean=mean(`i') if year<=2014
 foreach j in  `i'_mean{
 xfill `j', i(inegi)
 }
@@ -554,16 +556,17 @@ gen align_pres=alignment_executive_strong_mean
 gen align_gov=alignment_governor_strong_mean
 gen margin_gov=winning_margin_governor_mean
 
-global  controls logdefuncionespc_mean ap4_2_3_mean ap4_2_5_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ap5_4_8_b_mean ///
+cap global  controls logdefuncionespc_mean ap4_2_3_mean ap4_2_5_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ap5_4_8_b_mean ///
 align_pres align_gov winning_margin_mean margin_gov ///
 pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles nCarteles acuerdo_mean acuerdo2_mean acuerdo3_mean acuerdo4_mean acuerdo5_mean acuerdo_federal_mean acuerdo_total_mean
 
 tab year, gen(y_)
 
-global years y_1 y_2 y_3 y_4 y_5 y_6 y_7 y_8 y_9
-foreach i in $controls {
-foreach year in $years{
-gen `i'_`year'=`i'*`year'
+*global years y_1 y_2 y_3 y_4 y_5 y_6 y_7 y_8 y_9
+cap global years y_1 y_2 y_3 y_4 y_5 y_6 
+cap foreach i in $controls {
+cap foreach year in $years{
+cap gen `i'_`year'=`i'*`year'
 }
 }
 *========================================================================
@@ -573,13 +576,20 @@ save "../../Data/ConstructionDatabase/data_final2_forR.dta", replace
 *ssc install xtbalance
 *ssc install xtbalance2
 xtset inegi year
-xtbalance2 $controls logdefuncionespc ihs_defuncionespc *_y_* reform, gen(balance)
+cap xtbalance2 $controls logdefuncionespc ihs_defuncionespc *_y_* reform, gen(balance)
 keep if balance==1
-keep inegi year logdefuncionespc ihs_defuncionespc logdefuncionespc_mean_y_1 logdefuncionespc_mean_y_2 logdefuncionespc_mean_y_3 logdefuncionespc_mean_y_4 logdefuncionespc_mean_y_5 logdefuncionespc_mean_y_6 logdefuncionespc_mean_y_7 logdefuncionespc_mean_y_8 logdefuncionespc_mean_y_9  ///
+/*keep inegi year logdefuncionespc ihs_defuncionespc logdefuncionespc_mean_y_1 logdefuncionespc_mean_y_2 logdefuncionespc_mean_y_3 logdefuncionespc_mean_y_4 logdefuncionespc_mean_y_5 logdefuncionespc_mean_y_6 logdefuncionespc_mean_y_7 logdefuncionespc_mean_y_8 logdefuncionespc_mean_y_9  ///
  align_gov_y_1 align_gov_y_2 align_gov_y_3 align_gov_y_4 align_gov_y_5 align_gov_y_6 align_gov_y_7 align_gov_y_8 align_gov_y_9 ///
  margin_gov_y_1 margin_gov_y_2 margin_gov_y_3 margin_gov_y_4 margin_gov_y_5 margin_gov_y_6 margin_gov_y_7 margin_gov_y_8 margin_gov_y_9 ///
  hayCarteles_y_1 hayCarteles_y_2 hayCarteles_y_3 hayCarteles_y_4 hayCarteles_y_5 hayCarteles_y_6 hayCarteles_y_7 hayCarteles_y_8 hayCarteles_y_9 ///
 ap4_2_3_mean_y_1 ap4_2_3_mean_y_2 ap4_2_3_mean_y_3 ap4_2_3_mean_y_4 ap4_2_3_mean_y_5 ap4_2_3_mean_y_6 ap4_2_3_mean_y_7 ap4_2_3_mean_y_8 ap4_2_3_mean_y_9
+*/
+
+keep inegi year logdefuncionespc ihs_defuncionespc logdefuncionespc_mean_y_1 logdefuncionespc_mean_y_2 logdefuncionespc_mean_y_3 logdefuncionespc_mean_y_4 logdefuncionespc_mean_y_5 logdefuncionespc_mean_y_6  ///
+ align_gov_y_1 align_gov_y_2 align_gov_y_3 align_gov_y_4 align_gov_y_5 align_gov_y_6  ///
+ margin_gov_y_1 margin_gov_y_2 margin_gov_y_3 margin_gov_y_4 margin_gov_y_5 margin_gov_y_6  ///
+ hayCarteles_y_1 hayCarteles_y_2 hayCarteles_y_3 hayCarteles_y_4 hayCarteles_y_5 hayCarteles_y_6 ///
+ap4_2_3_mean_y_1 ap4_2_3_mean_y_2 ap4_2_3_mean_y_3 ap4_2_3_mean_y_4 ap4_2_3_mean_y_5 ap4_2_3_mean_y_6 
 
 *xtbalance, range(2010 2018) miss($controls logdefuncionespc ihs_defuncionespc *_y_* reform)
 *keep inegi year $controls logdefuncionespc ihs_defuncionespc *_y_* reform

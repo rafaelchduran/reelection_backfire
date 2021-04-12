@@ -821,7 +821,7 @@ gen rel_year=year-adopt_year
 order year adopt_year rel_year
 
 *turn lead/lags to indicator variables
-tab rel_year, gen(rel_year_) // recall rel_year_9 is the year_zero
+tab rel_year, gen(rel_year_) 
 rename rel_year_1 lag_8
 rename rel_year_2 lag_7
 rename rel_year_3 lag_6
@@ -834,7 +834,6 @@ rename rel_year_9 date_0
 rename rel_year_10 lead_1
 rename rel_year_11 lead_2
 rename rel_year_12 lead_3
-*rename rel_year_13 lead_4
 
 gen pre=0
 replace pre=1 if lag_8==1 | lag_7==1 
@@ -861,7 +860,6 @@ replace whichlead="date_0" if date_0==1
 replace whichlead="lead_1" if lead_1==1
 replace whichlead="lead_2" if lead_2==1
 replace whichlead="lead_3" if lead_3==1
-*replace whichlead="lead_4" if lead_4==1
 encode whichlead, gen(whichlead_num)
 
 drop if incumbent_yesterday_w_tomorrow==.
@@ -883,11 +881,11 @@ replace whichlead="date_0" if date_0==1
 replace whichlead="lead_1" if lead_1==1
 replace whichlead="lead_2" if lead_2==1
 replace whichlead="lead_3" if lead_3==1
-*replace whichlead="lead_4" if lead_4==1
 encode whichlead, gen(whichlead_num)
 
-*following Abraham and Sun (2021):
-drop if logdefuncionespc==.
+*following Abraham and Sun (2021) we keep only effective observations:
+drop if logdefuncionespc==. // this changes per DV 
+*drop if acuerdo3==. // this changes per DV 
 
 *E) INDICATORS FOR HET. TREATMENT EFFECTS:
 

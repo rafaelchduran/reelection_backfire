@@ -254,8 +254,12 @@ foreach i in conv_mup aso_gfdm serv_pub inst_reg tipo_gob raz_conv tt_gobas est_
 replace `i'="." if `i'=="NA"
 destring `i', replace
 }
-* aso_gfdm es el total de acuerdos, incluidos el mando unico 
-* el resto debe tener el mismo numero de 0s. La diferencia es el mando unico. 
+
+/*TEST
+aso_gfdm es el total de acuerdos, incluidos el mando unico 
+el resto debe tener el mismo numero de 0s. La diferencia es el mando unico. 
+*/
+preserve
 collapse (mean) aso_gfdm raz_conv serv_pub inst_reg, by(inegi)
 foreach i in aso_gfdm {
 replace `i'=. if `i'==8
@@ -268,8 +272,8 @@ replace `i'=. if `i'==9
 replace `i'=0 if `i'==0
 replace `i'=1 if `i'>0
 }
-
-tab aso_gfdm raz_conv
+corr raz_conv serv_pub inst_reg
+restore
 
 *2015
 preserve
@@ -283,7 +287,8 @@ replace conv_mup=. if conv_mup==9
 bysort inegi:  gen dup = cond(_N==1,0,_n)
 tab dup
 drop dup
-rename conv_mup acuerdo_gobestatal3
+rename conv_mup acuerdo_gobestatal
+label variable acuerdo_gobestatal "Gob. Estatal realiza funciones de seguridad publica"
 gen year=2015
 save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2015.dta", replace
 restore
@@ -301,7 +306,8 @@ replace aso_gfdm=. if aso_gfdm==9
 bysort inegi:  gen dup = cond(_N==1,0,_n)
 tab dup
 drop dup
-rename aso_gfdm acuerdo_gobestatal gen year=2014
+rename aso_gfdm acuerdo_gobfederal // same as  ND_NSNN1 in 2017 survey
+gen year=2014 
 order inegi year
 save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2014a.dta", replace
 restore
@@ -333,12 +339,12 @@ foreach i in 1 2 3 4 {
 replace funciones_`i'=1 if funciones_`i'>0
 }
 gen year=2014
-gen acuerdo_gobestatal4=0 if funciones_1==1
-replace acuerdo_gobestatal4=1 if funciones_2==1 | funciones_3==1 | funciones_4==1 // may change this to only funciones_4
+gen acuerdo_gobestatal3=0 if funciones_1==1
+replace acuerdo_gobestatal3=1 if funciones_2==1 | funciones_3==1 | funciones_4==1 // may change this to only funciones_4
 rename funciones_1 servicio_noaplica
 rename funciones_2 servicio_segpublica
 rename funciones_3 servicio_transito
-rename funciones_4 acuerdo_gobestatal3
+rename funciones_4 servicio_mandounico
 
 order inegi year
 save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2014c.dta", replace
@@ -360,6 +366,8 @@ rename tipoacuerdo_2 tipoacuerdo_convenio
 rename tipoacuerdo_3 tipoacuerdo_contrato
 rename tipoacuerdo_4 tipoacuerdo_acuerdo
 rename tipoacuerdo_5 tipoacuerdo_otro
+gen acuerdo_gobestatal4=0 if tipoacuerdo_noaplica==1
+replace acuerdo_gobestatal4=1 if tipoacuerdo_convenio==1 | tipoacuerdo_contrato==1 | tipoacuerdo_acuerdo==1 | tipoacuerdo_otro==1 
 order inegi year
 save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2014d.dta", replace
 restore
@@ -431,14 +439,18 @@ rename motivo_6 motivo_coordinacion
 rename motivo_7 motivo_crimen
 rename motivo_8 motivo_otros
 order inegi year
-tab acuerdo_gobestatal acuerdo_gobestatal2
 
-label variable acuerdo_gobestatal "Acuerdo realizar funciones de seguridad publica"
-label variable acuerdo_gobestatal2 "Acuerdo realizar funciones de seguridad publica, por alguna necesidad (NA option)"
-label variable acuerdo_gobestatal3 "Mando unico"
-label variable acuerdo_gobestatal4 "Acuerdo realizar funciones de seguridad publica (2)"
+*gen dummy if acuerdo with gob estatal and federal
+gen acuerdo_gobestatal_federal=0
+replace acuerdo_gobestatal_federal=1 if acuerdo_gobestatal2==1 & acuerdo_gobfederal==1 
 
-order inegi year  acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3  acuerdo_gobestatal4
+order inegi year acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_gobfederal acuerdo_gobestatal_federal
+
+label variable acuerdo_gobestatal2 "Gob. Estatal realiza funciones de seguridad publica, por motivo"
+label variable acuerdo_gobestatal3 "Gob. Estatal realiza funciones de seguridad publica, por servicios"
+label variable acuerdo_gobestatal4 "Gob. Estatal realiza funciones de seguridad publica, por convenio"
+label variable acuerdo_gobfederal "Gob. Federal realiza funciones de seguridad publica"
+label variable acuerdo_gobestatal_federal "Gob. Federal y Estatal realizan funciones de seguridad publica"
 
 
 save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2014.dta", replace
@@ -471,17 +483,6 @@ replace `i'=. if `i'==9
 replace `i'=0 if `i'==2 // used to be flipped with 1
 replace `i'=1 if `i'==1 // used to be flipped with 2
 }
-/*
-           |       ND_NSNN2
-  ND_NSNN1 |         0          1 |     Total
------------+----------------------+----------
-         0 |     1,563        290 |     1,853 
-         1 |       191         93 |       284 
------------+----------------------+----------
-     Total |     1,754        383 |     2,137 
-
-
-*/
 
 
 preserve
@@ -490,8 +491,8 @@ collapse (mean)nd_nsnn2, by (inegi)
 bysort inegi:  gen dup = cond(_N==1,0,_n)
 tab dup
 drop dup
-rename nd_nsnn2 acuerdo_gobestatal3
-label variable acuerdo_gobestatal3 "Mando unico"
+rename nd_nsnn2 acuerdo_gobestatal // same as conv_mup from 2015
+label variable acuerdo_gobestatal "Gob. Estatal realiza funciones de seguridad publica"
 gen year=2017
 save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2017.dta", replace
 restore
@@ -502,7 +503,7 @@ collapse (mean)nd_nsnn1, by (inegi)
 bysort inegi:  gen dup = cond(_N==1,0,_n)
 tab dup
 drop dup
-rename nd_nsnn1 acuerdo_gobestatal
+rename nd_nsnn1 acuerdo_gobfederal // same as aso_gfdm
 gen year=2016
 save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2016a.dta", replace
 restore
@@ -516,7 +517,124 @@ asociación intergubernamental durante el año 2016.
 gobier1 = poder ejecutivo federal
 
 */
-*GOBIERNO.dbf file:
+
+******
+*PARA ACUERDO GOB FEDERAL U OTROS  
+******
+**found in GOBIERNO.dbf
+insheet using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/CSVs/mando_unico_2017e.csv", clear
+rename ubic_geo inegi
+sort inegi
+
+
+****CHECK THE NAs and other things. So what are missings and zeros. 
+foreach i in gobier1 gobier2 gobier3 gobier4 gobier5 gobier6 gobier7 gobier8 gobier9 gobier10 gobier11 gobier12 gobier13 gobier15 totalca1{
+replace `i'="0" if `i'=="NA"
+replace `i'="." if `i'=="ND"
+replace `i'="." if `i'=="NSS"
+destring `i', replace
+*replace `i'=0 if `i'==.
+}
+
+**motives behind signature
+foreach i in racoac1 racoac2 racoac3 racoac4 racoac5 racoac6 racoac7 racoac8 {
+*replace `i'="." if `i'=="NA"
+replace `i'="." if `i'=="ND"
+replace `i'="." if `i'=="NSS"
+*destring `i', replace
+}
+
+gen racoac0=.
+replace racoac0=0 if racoac1=="NA" & racoac2=="NA" & racoac3=="NA" & racoac4=="NA" & racoac5=="NA" & racoac6=="NA" ///
+& racoac7=="NA" & racoac8=="NA"
+replace racoac0=1 if racoac1=="1" | racoac2=="1" | racoac3=="1" | racoac4=="1" | racoac5=="1" | racoac6=="1" ///
+| racoac7=="1" | racoac8=="1"
+rename racoac0 acuerdo_gobfederal2
+
+foreach i in racoac1 racoac2 racoac3 racoac4 racoac5 racoac6 racoac7 racoac8 {
+replace `i'="0" if `i'=="NA"
+destring `i', replace
+}
+
+foreach i in 1 2 3 4 5 6 7 8{
+replace racoac`i'=1 if racoac`i'>0
+}
+
+rename racoac1 motivo_reformacons
+rename racoac2 motivo_reformaley
+rename racoac3 motivo_faltarecursos
+rename racoac4 motivo_profesioalizacion
+rename racoac5 motivo_coordinacion
+rename racoac6 motivo_crimen
+rename racoac7 motivo_otros
+rename racoac8 motivo_nosabe
+
+**type of agreement services
+rename nd_segpu nd_segpu
+replace nd_segpu=. if nd_segpu==97
+replace nd_segpu=. if nd_segpu==98
+replace nd_segpu=. if nd_segpu==99
+tab nd_segpu, gen(servicio_)
+rename servicio_1 servicio_noaplica
+rename servicio_2 servicio_segpublica
+rename servicio_3 servicio_transito
+rename servicio_4 servicio_prevencion
+rename servicio_5 servicio_capacitacion
+rename servicio_6 servicio_equiptec
+rename servicio_7 servicio_investigacion
+rename servicio_8 servicio_inteligencia
+rename servicio_9 servicio_unificacion
+*rename servicio_10 servicio_nosesabe
+
+
+*convenios:
+rename nd_insre inst_reg
+replace inst_reg=. if inst_reg==8
+replace inst_reg=. if inst_reg==9
+replace inst_reg=. if inst_reg==97
+replace inst_reg=. if inst_reg==98
+tab inst_reg, gen(tipoacuerdo_)
+rename tipoacuerdo_1 tipoacuerdo_noaplica
+rename tipoacuerdo_2 tipoacuerdo_convenio
+rename tipoacuerdo_3 tipoacuerdo_contrato
+rename tipoacuerdo_4 tipoacuerdo_acuerdo
+rename tipoacuerdo_5 tipoacuerdo_otro
+gen acuerdo_gobfederal4=0 if tipoacuerdo_noaplica==1
+replace acuerdo_gobfederal4=1 if tipoacuerdo_convenio==1 | tipoacuerdo_contrato==1 | tipoacuerdo_acuerdo==1 | tipoacuerdo_otro==1 
+order inegi 
+
+
+collapse (mean)gobier* motivo_* nd_segpu acuerdo_gobfederal2 acuerdo_gobfederal4 servicio_*, by (inegi)
+
+replace nd_segpu=1 if nd_segpu>0
+
+foreach i in gobier1 gobier2 gobier3 gobier4 gobier5 gobier6 gobier7 gobier8 gobier9 gobier10 gobier11 gobier12 gobier13 gobier15{
+replace `i'=1 if `i'>0
+}
+
+
+foreach i in motivo_reformacons motivo_reformaley motivo_faltarecursos motivo_profesioalizacion motivo_coordinacion motivo_crimen motivo_otros motivo_nosabe{
+replace `i'=1 if `i'>0
+}
+
+
+foreach i in servicio_noaplica servicio_segpublica servicio_transito servicio_prevencion servicio_capacitacion servicio_equiptec servicio_investigacion servicio_inteligencia servicio_unificacion{
+replace `i'=1 if `i'>0
+}
+
+
+order inegi 
+rename nd_segpu acuerdo_gobfederal3 
+tab acuerdo_gobfederal3
+
+save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2016c.dta", replace
+
+
+
+****************
+*FOR MANDO UNICO
+****************
+*CONVEFUN.dbf file:
 insheet using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/CSVs/mando_unico_2017a.csv", clear
 rename ubic_geo inegi
 sort inegi
@@ -544,7 +662,7 @@ replace racoac0=0 if racoac1=="NA" & racoac2=="NA" & racoac3=="NA" & racoac4=="N
 & racoac7=="NA" & racoac8=="NA"
 replace racoac0=1 if racoac1=="1" | racoac2=="1" | racoac3=="1" | racoac4=="1" | racoac5=="1" | racoac6=="1" ///
 | racoac7=="1" | racoac8=="1"
-rename racoac0 acuerdo_gobestatal2
+rename racoac0 acuerdo_gobestatal2 // motives
 
 foreach i in racoac1 racoac2 racoac3 racoac4 racoac5 racoac6 racoac7 racoac8 {
 replace `i'="0" if `i'=="NA"
@@ -578,7 +696,22 @@ rename servicio_7 servicio_investigacion
 rename servicio_8 servicio_inteligencia
 rename servicio_9 servicio_unificacion
 
-collapse (mean)gobier* motivo_* nd_segpu acuerdo_gobestatal2 servicio_*, by (inegi)
+*convenios:
+rename nd_insre inst_reg
+replace inst_reg=. if inst_reg==8
+replace inst_reg=. if inst_reg==9
+tab inst_reg, gen(tipoacuerdo_)
+rename tipoacuerdo_1 tipoacuerdo_noaplica
+rename tipoacuerdo_2 tipoacuerdo_convenio
+rename tipoacuerdo_3 tipoacuerdo_contrato
+rename tipoacuerdo_4 tipoacuerdo_acuerdo
+rename tipoacuerdo_5 tipoacuerdo_otro
+gen acuerdo_gobestatal4=0 if tipoacuerdo_noaplica==1
+replace acuerdo_gobestatal4=1 if tipoacuerdo_convenio==1 | tipoacuerdo_contrato==1 | tipoacuerdo_acuerdo==1 | tipoacuerdo_otro==1 
+order inegi 
+
+*collapse mun level
+collapse (mean)gobier* motivo_* nd_segpu acuerdo_gobestatal2 acuerdo_gobestatal4 servicio_*, by (inegi)
 
 replace nd_segpu=1 if nd_segpu>0
 gen year=2016
@@ -594,20 +727,32 @@ replace `i'=1 if `i'>0
 
 
 order inegi year
-rename nd_segpu acuerdo_gobestatal4 // so acuerdo_gobestatal4 determined by no aplica but this is wrong
-tab acuerdo_gobestatal4
+rename nd_segpu acuerdo_gobestatal3 // 
+tab acuerdo_gobestatal3
 save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2016b.dta", replace
 
 ***merge 2016
 use "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2016a.dta", clear
 merge 1:1 inegi using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2016b.dta"
 drop _merge
-order inegi year  acuerdo_gobestatal acuerdo_gobestatal2  acuerdo_gobestatal4
+merge 1:1 inegi using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2016c.dta"
+drop _merge
+*gen dummy if acuerdo with gob estatal and federal
+gen acuerdo_gobestatal_federal=0
+replace acuerdo_gobestatal_federal=1 if acuerdo_gobestatal2==1 & acuerdo_gobfederal==1 
 
-label variable acuerdo_gobestatal "Acuerdo realizar funciones de seguridad publica"
-label variable acuerdo_gobestatal2 "Acuerdo realizar funciones de seguridad publica, por alguna necesidad"
-label variable acuerdo_gobestatal4 "Acuerdo realizar funciones de seguridad publica (2)"
+order inegi year acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4  acuerdo_gobfederal acuerdo_gobestatal_federal
 
+label variable acuerdo_gobestatal2 "Gob. Estatal realiza funciones de seguridad publica, por motivo"
+label variable acuerdo_gobestatal3 "Gob. Estatal realiza funciones de seguridad publica, por servicios"
+label variable acuerdo_gobestatal4 "Gob. Estatal realiza funciones de seguridad publica, por convenio"
+label variable acuerdo_gobfederal2 "Gob. Federal u otros realiza funciones de seguridad publica, por motivo"
+label variable acuerdo_gobfederal3 "Gob. Federal u otros realiza funciones de seguridad publica, por servicios"
+label variable acuerdo_gobfederal4 "Gob. Federal u otros realiza funciones de seguridad publica, por convenio"
+label variable acuerdo_gobfederal "Gob. Federal u otros realiza funciones de seguridad publica"
+label variable acuerdo_gobestatal_federal "Gob. Federal y Estatal realizan funciones de seguridad publica"
+
+*other vars:
 gen gobier1_4=0 if gobier1==0 & gobier2==0 & gobier3==0 & gobier4==0
 replace gobier1_4=1 if gobier1==1 | gobier2==1 | gobier3==1 | gobier4==1
 
@@ -658,7 +803,7 @@ collapse (mean)nd_nsnn1, by (inegi)
 bysort inegi:  gen dup = cond(_N==1,0,_n)
 tab dup
 drop dup
-rename nd_nsnn1 acuerdo_gobestatal
+rename nd_nsnn1 acuerdo_gobfederal
 save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2018a.dta", replace
 restore
 
@@ -667,14 +812,124 @@ collapse (mean)nd_nsnn2, by (inegi)
 bysort inegi:  gen dup = cond(_N==1,0,_n)
 tab dup
 drop dup
-rename nd_nsnn2 acuerdo_gobestatal3
-label variable acuerdo_gobestatal3 "Mando unico"
+rename nd_nsnn2 acuerdo_gobestatal
+label variable acuerdo_gobestatal "Gob. Estatal realiza funciones de seguridad publica"
 save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2018b.dta", replace
 restore
 
-*create acuerdo_gobestatal2 from reasons to sign an agreement: 
+******
+*PARA ACUERDO GOB FEDERAL U OTROS  
+******
 **found in GOBIERNO.dbf
 insheet using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/CSVs/mando_unico_2019b.csv", clear
+rename ubic_geo inegi
+sort inegi
+
+
+****CHECK THE NAs and other things. So what are missings and zeros. 
+foreach i in gobier1 gobier2 gobier3 gobier4 gobier5 gobier6 gobier7 gobier8 gobier9 gobier10 gobier11 gobier12 gobier13 gobier15 totalca1{
+replace `i'="0" if `i'=="NA"
+replace `i'="." if `i'=="ND"
+replace `i'="." if `i'=="NSS"
+destring `i', replace
+*replace `i'=0 if `i'==.
+}
+
+**motives behind signature
+foreach i in racoac1 racoac2 racoac3 racoac4 racoac5 racoac6 racoac7 racoac8 {
+*replace `i'="." if `i'=="NA"
+replace `i'="." if `i'=="ND"
+replace `i'="." if `i'=="NSS"
+*destring `i', replace
+}
+
+gen racoac0=.
+replace racoac0=0 if racoac1=="NA" & racoac2=="NA" & racoac3=="NA" & racoac4=="NA" & racoac5=="NA" & racoac6=="NA" ///
+& racoac7=="NA" & racoac8=="NA"
+replace racoac0=1 if racoac1=="1" | racoac2=="1" | racoac3=="1" | racoac4=="1" | racoac5=="1" | racoac6=="1" ///
+| racoac7=="1" | racoac8=="1"
+rename racoac0 acuerdo_gobfederal2
+
+foreach i in racoac1 racoac2 racoac3 racoac4 racoac5 racoac6 racoac7 racoac8 {
+replace `i'="0" if `i'=="NA"
+destring `i', replace
+}
+
+foreach i in 1 2 3 4 5 6 7 8{
+replace racoac`i'=1 if racoac`i'>0
+}
+
+rename racoac1 motivo_reformacons
+rename racoac2 motivo_reformaley
+rename racoac3 motivo_faltarecursos
+rename racoac4 motivo_profesioalizacion
+rename racoac5 motivo_coordinacion
+rename racoac6 motivo_crimen
+rename racoac7 motivo_otros
+rename racoac8 motivo_nosabe
+
+**type of agreement services
+rename segplfun nd_segpu
+replace nd_segpu=. if nd_segpu==97
+replace nd_segpu=. if nd_segpu==98
+tab nd_segpu, gen(servicio_)
+rename servicio_1 servicio_noaplica
+rename servicio_2 servicio_segpublica
+rename servicio_3 servicio_transito
+rename servicio_4 servicio_prevencion
+rename servicio_5 servicio_capacitacion
+rename servicio_6 servicio_equiptec
+rename servicio_7 servicio_investigacion
+rename servicio_8 servicio_inteligencia
+rename servicio_9 servicio_unificacion
+rename servicio_10 servicio_nosesabe
+
+
+*convenios:
+replace inst_reg=. if inst_reg==9
+replace inst_reg=. if inst_reg==97
+replace inst_reg=. if inst_reg==98
+tab inst_reg, gen(tipoacuerdo_)
+rename tipoacuerdo_1 tipoacuerdo_noaplica
+rename tipoacuerdo_2 tipoacuerdo_convenio
+rename tipoacuerdo_3 tipoacuerdo_contrato
+rename tipoacuerdo_4 tipoacuerdo_acuerdo
+rename tipoacuerdo_5 tipoacuerdo_otro
+gen acuerdo_gobfederal4=0 if tipoacuerdo_noaplica==1
+replace acuerdo_gobfederal4=1 if tipoacuerdo_convenio==1 | tipoacuerdo_contrato==1 | tipoacuerdo_acuerdo==1 | tipoacuerdo_otro==1 
+order inegi 
+
+
+collapse (mean)gobier* motivo_* nd_segpu acuerdo_gobfederal2 acuerdo_gobfederal4 servicio_*, by (inegi)
+
+replace nd_segpu=1 if nd_segpu>0
+
+foreach i in gobier1 gobier2 gobier3 gobier4 gobier5 gobier6 gobier7 gobier8 gobier9 gobier10 gobier11 gobier12 gobier13 gobier15{
+replace `i'=1 if `i'>0
+}
+
+
+foreach i in motivo_reformacons motivo_reformaley motivo_faltarecursos motivo_profesioalizacion motivo_coordinacion motivo_crimen motivo_otros motivo_nosabe{
+replace `i'=1 if `i'>0
+}
+
+
+foreach i in servicio_noaplica servicio_segpublica servicio_transito servicio_prevencion servicio_capacitacion servicio_equiptec servicio_investigacion servicio_inteligencia servicio_unificacion{
+replace `i'=1 if `i'>0
+}
+
+
+order inegi 
+rename nd_segpu acuerdo_gobfederal3 
+tab acuerdo_gobfederal3
+
+save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2018c.dta", replace
+
+******
+*PARA MANDO UNICO 
+******
+**found in CONVEFUN.dbf
+insheet using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/CSVs/mando_unico_2019e.csv", clear
 rename ubic_geo inegi
 sort inegi
 
@@ -735,9 +990,25 @@ rename servicio_6 servicio_equiptec
 rename servicio_7 servicio_investigacion
 rename servicio_8 servicio_inteligencia
 rename servicio_9 servicio_unificacion
-rename servicio_10 servicio_nosesabe
+*rename servicio_10 servicio_nosesabe
 
-collapse (mean)gobier* motivo_* nd_segpu acuerdo_gobestatal2 servicio_*, by (inegi)
+
+*convenios:
+replace inst_reg=. if inst_reg==9
+replace inst_reg=. if inst_reg==97
+replace inst_reg=. if inst_reg==98
+tab inst_reg, gen(tipoacuerdo_)
+rename tipoacuerdo_1 tipoacuerdo_noaplica
+rename tipoacuerdo_2 tipoacuerdo_convenio
+rename tipoacuerdo_3 tipoacuerdo_contrato
+rename tipoacuerdo_4 tipoacuerdo_acuerdo
+rename tipoacuerdo_5 tipoacuerdo_otro
+gen acuerdo_gobestatal4=0 if tipoacuerdo_noaplica==1
+replace acuerdo_gobestatal4=1 if tipoacuerdo_convenio==1 | tipoacuerdo_contrato==1 | tipoacuerdo_acuerdo==1 | tipoacuerdo_otro==1 
+order inegi 
+
+
+collapse (mean)gobier* motivo_* nd_segpu acuerdo_gobestatal2 acuerdo_gobestatal4 servicio_*, by (inegi)
 
 replace nd_segpu=1 if nd_segpu>0
 
@@ -757,10 +1028,11 @@ replace `i'=1 if `i'>0
 
 
 order inegi 
-rename nd_segpu acuerdo_gobestatal4 // so acuerdo_gobestatal4 determined by no aplica but this is wrong
-tab acuerdo_gobestatal4
+rename nd_segpu acuerdo_gobestatal3 
+tab acuerdo_gobestatal3
 
-save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2018c.dta", replace
+save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2018d.dta", replace
+
 
 ***merge 2018
 use "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2018a.dta", clear
@@ -770,12 +1042,25 @@ drop _merge
 merge 1:1 inegi using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2018c.dta"
 drop _merge
 
-order inegi  acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4
+merge 1:1 inegi using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2018d.dta"
+drop _merge
 
-label variable acuerdo_gobestatal "Acuerdo realizar funciones de seguridad publica"
-label variable acuerdo_gobestatal2 "Acuerdo realizar funciones de seguridad publica, por alguna necesidad"
-label variable acuerdo_gobestatal3 "Mando Unico"
-label variable acuerdo_gobestatal4 "Acuerdo realizar funciones de seguridad publica (2)"
+*gen dummy if acuerdo with gob estatal and federal
+gen acuerdo_gobestatal_federal=0
+replace acuerdo_gobestatal_federal=1 if acuerdo_gobestatal2==1 & acuerdo_gobfederal==1 
+
+order inegi acuerdo_gobestatal  acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_gobfederal acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4  acuerdo_gobfederal acuerdo_gobestatal_federal
+
+label variable acuerdo_gobestatal "Gob. Estatal realiza funciones de seguridad publica"
+label variable acuerdo_gobestatal2 "Gob. Estatal realiza funciones de seguridad publica, por motivo"
+label variable acuerdo_gobestatal3 "Gob. Estatal realiza funciones de seguridad publica, por servicios"
+label variable acuerdo_gobestatal4 "Gob. Estatal realiza funciones de seguridad publica, por convenio"
+label variable acuerdo_gobfederal "Gob. Estatal realiza funciones de seguridad publica"
+label variable acuerdo_gobfederal2 "Gob. Federal u otros realiza funciones de seguridad publica, por motivo"
+label variable acuerdo_gobfederal3 "Gob. Federal u otros realiza funciones de seguridad publica, por servicios"
+label variable acuerdo_gobfederal4 "Gob. Federal u otros realiza funciones de seguridad publica, por convenio"
+label variable acuerdo_gobfederal "Gob. Federal u otros realiza funciones de seguridad publica"
+label variable acuerdo_gobestatal_federal "Gob. Federal y Estatal realizan funciones de seguridad publica"
 
 gen year=2018
 
@@ -795,6 +1080,21 @@ save "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/ma
 *********************
 *Merge all .dta files
 *********************
+/*
+Acuerdos by year:
+acuerdo_gobestatal (mando unico): 2011, 2013, 2015, 2017, 2018
+acuerdo_gobestatal2 (mando unico, motives): 2011, 2013, 2014, 2016, 2018
+acuerdo_gobestatal3 (mando unico, services):  2014, 2016, 2018
+acuerdo_gobestatal4 (seg publica, agreements):  2014, 2016, 2018
+
+acuerdo_gobfederal (mando unico): 2014, 2016, 2018
+acuerdo_gobfederal2 (mando unico, motives):  2016, 2018
+acuerdo_gobfederal3 (mando unico, services):  2016, 2018
+acuerdo_gobfederal4 (seg publica, agreements):  2016, 2018
+
+acuerdo_gobestatal_federal: 2014, 2016, 2018
+*/
+
 use "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2011.dta", clear
 preserve
 replace year=2012 if year==2011
@@ -808,26 +1108,41 @@ append using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/
 append using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2017.dta"
 append using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2018.dta"
 
-order inegi year acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4
+order inegi year acuerdo_gobestatal  acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_gobfederal acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4  acuerdo_gobfederal acuerdo_gobestatal_federal
+
+label variable acuerdo_gobestatal "Gob. Estatal realiza funciones de seguridad publica"
+label variable acuerdo_gobestatal2 "Gob. Estatal realiza funciones de seguridad publica, por motivo"
+label variable acuerdo_gobestatal3 "Gob. Estatal realiza funciones de seguridad publica, por servicios"
+label variable acuerdo_gobestatal4 "Gob. Estatal realiza funciones de seguridad publica, por convenio"
+
+label variable acuerdo_gobfederal "Gob. Estatal realiza funciones de seguridad publica"
+label variable acuerdo_gobfederal2 "Gob. Federal u otros realiza funciones de seguridad publica, por motivo"
+label variable acuerdo_gobfederal3 "Gob. Federal u otros realiza funciones de seguridad publica, por servicios"
+label variable acuerdo_gobfederal4 "Gob. Federal u otros realiza funciones de seguridad publica, por convenio"
+label variable acuerdo_gobfederal "Gob. Federal u otros realiza funciones de seguridad publica"
+label variable acuerdo_gobestatal_federal "Gob. Federal y Estatal realizan funciones de seguridad publica"
+
 
 rename gobier1_4 ac_gob_fed
 rename gobier5_7 ac_gob_est
 rename gobier8 ac_gob_mun
 rename gobier9_12 ac_gob_otroest
-
-order inegi year acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 ac_gob_fed ac_gob_est ac_gob_mun ac_gob_otroest
  
-
-/*
-Acuerdos by year:
-acuerdo_gobestatal (seg publica): 2011, 2013, 2014, 2016, 2018
-acuerdo_gobestatal2 (seg publica, based on needs): 2011, 2013, 2014, 2016, 2018
-acuerdo_gobestatal3 (mando unico): 2014, 2015, 2017, 2018
-acuerdo_gobestatal4 (seg publica, based on services): 2014, 2016, 2018
-*/
 
 sort inegi year 
 xtset inegi year 
+
+*New variables:
+gen acuerdo_estcom=.
+replace acuerdo_estcom=acuerdo_gobestatal if year==2011
+replace acuerdo_estcom=acuerdo_gobestatal if year==2012
+replace acuerdo_estcom=acuerdo_gobestatal if year==2013
+replace acuerdo_estcom=acuerdo_gobestatal2 if year==2014
+replace acuerdo_estcom=acuerdo_gobestatal if year==2015
+replace acuerdo_estcom=acuerdo_gobestatal2 if year==2016
+replace acuerdo_estcom=acuerdo_gobestatal if year==2017
+replace acuerdo_estcom=acuerdo_gobestatal if year==2018
+
 
 *Sign security agreement
 gen acuerdo=.

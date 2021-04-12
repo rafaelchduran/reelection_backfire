@@ -125,7 +125,7 @@ end
 *ABRAHAM AND SUN REGRESSIONS CORRECTION: 
 capture program drop getvcov_as_short
  program define getvcov_as_short, eclass 
-  boottest {lag_5_2018}  {lag_4_2017}  {lag_4_2018 } {lag_3_2016} {lag_3_2017} ///
+ boottest {lag_5_2018}  {lag_4_2017}  {lag_4_2018 } {lag_3_2016} {lag_3_2017} ///
   {lag_3_2018} {lag_2_2016} {lag_2_2017} {lag_2_2018} {date_0_2015} {date_0_2016} {date_0_2017} ///
   {date_0_2018} {lead_1_2015} {lead_1_2016} {lead_1_2017} {lead_2_2015} {lead_2_2016} /// 
   {lead_3_2015}, bootcluster(estado year) seed(5675) level(95) boottype(wild)   nograph 
@@ -364,5 +364,85 @@ capture program drop wildcorrection_as_long
 	newcov_as_long
 end
  
+
+***NEW ESTIMATES
+capture program drop getvcov_as_new
+ program define getvcov_as_new, eclass 
+ boottest {lag_5_2018}  {lag_4_2017} {lag_3_2016} ///
+  {lag_3_2018} {lag_2_2017} {date_0_2015} {date_0_2017} ///
+  {date_0_2018} {lead_1_2016} {lead_1_2017} {lead_2_2015} {lead_2_2016} /// 
+  {lead_3_2015}, bootcluster(estado year) seed(5675) level(95) boottype(wild)   nograph 
+ 
+		
+		matrix bounds_13=r(CI_1)
+		matrix vbeta_13=((bounds_13[1,2]-bounds_13[1,1])/(2*1.96))^2
+			matrix list vbeta_13			
+		matrix bounds_12=r(CI_2)
+		matrix vbeta_12=((bounds_12[1,2]-bounds_12[1,1])/(2*1.96))^2
+			matrix list vbeta_12	
+		matrix bounds_11=r(CI_3)
+		matrix vbeta_11=((bounds_11[1,2]-bounds_11[1,1])/(2*1.96))^2
+			matrix list vbeta_11			
+		matrix bounds_10=r(CI_4)
+		matrix vbeta_10=((bounds_10[1,2]-bounds_10[1,1])/(2*1.96))^2
+			matrix list vbeta_10		
+		matrix bounds_9=r(CI_5)
+		matrix vbeta_9=((bounds_9[1,2]-bounds_9[1,1])/(2*1.96))^2
+			matrix list vbeta_9			
+		matrix bounds_8=r(CI_6)
+		matrix vbeta_8=((bounds_8[1,2]-bounds_8[1,1])/(2*1.86))^2
+			matrix list vbeta_8			
+		matrix bounds_7=r(CI_7)
+		matrix vbeta_7=((bounds_7[1,2]-bounds_7[1,1])/(2*1.96))^2
+			matrix list vbeta_7
+		matrix bounds_6=r(CI_8)
+		matrix vbeta_6=((bounds_6[1,2]-bounds_6[1,1])/(2*1.96))^2
+			matrix list vbeta_6
+		matrix bounds_5=r(CI_9)
+		matrix vbeta_5=((bounds_5[1,2]-bounds_5[1,1])/(2*1.96))^2
+			matrix list vbeta_5
+		matrix bounds_4=r(CI_10)
+		matrix vbeta_4=((bounds_4[1,2]-bounds_4[1,1])/(2*1.96))^2
+			matrix list vbeta_4
+		matrix bounds_3=r(CI_11)
+		matrix vbeta_3=((bounds_3[1,2]-bounds_3[1,1])/(2*1.96))^2
+			matrix list vbeta_3
+		matrix bounds_2=r(CI_12)
+		matrix vbeta_2=((bounds_2[1,2]-bounds_2[1,1])/(2*1.96))^2
+			matrix list vbeta_2
+		matrix bounds_1=r(CI_13)
+		matrix vbeta_1=((bounds_1[1,2]-bounds_1[1,1])/(2*1.96))^2
+			matrix list vbeta_1					
+end
+
+capture program drop newcov_as_new
+ program define newcov_as_new, eclass   /*here create a program called newcov that affects e() variables*/
+ matrix V_corrected=e(V)
+ matrix V_corrected[1,1]=vbeta_13[1,1]
+ matrix V_corrected[2,2]=vbeta_12[1,1]
+ matrix V_corrected[3,3]=vbeta_11[1,1]
+ matrix V_corrected[4,4]=vbeta_10[1,1]
+ matrix V_corrected[5,5]=vbeta_9[1,1]
+ matrix V_corrected[6,6]=vbeta_8[1,1]
+ matrix V_corrected[7,7]=vbeta_7[1,1]
+ matrix V_corrected[8,8]=vbeta_6[1,1]
+ matrix V_corrected[9,9]=vbeta_5[1,1]
+ matrix V_corrected[10,10]=vbeta_4[1,1]
+ matrix V_corrected[11,11]=vbeta_3[1,1]
+ matrix V_corrected[12,12]=vbeta_2[1,1]
+ matrix V_corrected[13,13]=vbeta_1[1,1]
+
+
+ ereturn repost V= V_corrected       /*this program newcov substitutes the variance-covariance matrix with new var-cov */ 
+end
+
+*program to get results: AS (2021)
+capture program drop wildcorrection_as_new
+ program define wildcorrection_as_new, eclass 
+  args Dep_var
+  quietly  xi: areg `Dep_var' $sat $controls  i.year, a(inegi) vce(cluster estado)
+	getvcov_as_new
+	newcov_as_new
+end
 
 
