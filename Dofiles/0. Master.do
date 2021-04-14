@@ -26,7 +26,8 @@ it should not have a lag DV since we have a twfe model, and it should control fo
 *ssc install clustse, replace
 *ssc install fillmissing, replace
 *ssc install did_multiplegt, replace
-
+*net install did, from("https://raw.githubusercontent.com/NickCH-K/did/master/")
+* didsetup (and type Yes and Yes)
 
 *========================================================================
 *Working Directory

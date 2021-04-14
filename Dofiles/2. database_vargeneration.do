@@ -36,6 +36,10 @@ xtset inegi year
 
 *========================================================================
 *MISCELANEOUS
+
+*0) pop
+gen logpop=ln(pop)
+
 *1) party variables:
 gen pri_mayor2=.
 replace  pri_mayor2=1 if firstword=="pri"
@@ -99,6 +103,16 @@ global alignment alignment_executive_strong alignment_governor_strong double_ali
 
 *========================================================================
 *LEADS AND LAGS
+** homicides
+global homicides logdefunciones ihs_defunciones loghomicide loghomicide_old loghomicidecombined
+foreach var in $homicides{
+foreach i in 1 2 3 4 5 6 7 8{
+capture gen `var'_lag_`i'=lag_`i'*`var'
+capture gen `var'_lead_`i'=lead_`i'*`var'
+capture gen `var'_date0=date_0*`var'
+}
+}
+
 **create citizen demands as controls:
 global insecurityperception ap4_2_3 ap4_2_5 ap4_2_11 ap4_3_1 ap4_3_2 ap4_3_3 ap4_7_1 ap4_7_2 ap4_7_3 ap4_12b ap5_1_6 ap5_1_7 ap5_1_8 ap5_1_10 ap5_1_12 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap4_7_1_b ap4_7_2_b ap4_7_3_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b
 foreach var in $insecurityperception{
@@ -179,7 +193,7 @@ capture gen `var'_date0=date_0*`var'
 }
 }
 
-foreach var in areakm2{
+foreach var in areakm2 logpop{
 foreach i in 1 2 3 4 5 6 7 8{
 capture gen `var'_lag_`i'=lag_`i'*`var'
 capture gen `var'_lead_`i'=lead_`i'*`var'
@@ -230,7 +244,7 @@ gen `i'_post3=F3.`i'
 
 global  controls logdefuncionespc ap4_2_3 ap4_2_5 ap4_2_11 ap4_12b ap5_4_2_b ap5_4_8_b ///
 alignment_executive_strong alignment_governor_strong winning_margin winning_margin_governor ///
-pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles
+pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles logpop
 
 *========================================================================
 *2) LAGGED ONE PERIODS
@@ -283,13 +297,13 @@ gen align_gov=alignment_governor_strong_mean
 gen margin_gov=winning_margin_governor_mean
 
 cap global  controls logdefuncionespc_mean ap4_2_3_mean ap4_2_5_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ap5_4_8_b_mean ///
-align_pres align_gov winning_margin_mean margin_gov ///
+align_pres align_gov winning_margin_mean margin_gov logpop_mean ///
 pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles nCarteles acuerdo_mean acuerdo2_mean acuerdo3_mean acuerdo4_mean acuerdo5_mean acuerdo_federal_mean acuerdo_total_mean
 
 tab year, gen(y_)
 
-*global years y_1 y_2 y_3 y_4 y_5 y_6 y_7 y_8 y_9
-cap global years y_1 y_2 y_3 y_4 y_5 y_6 
+cap global years y_1 y_2 y_3 y_4 y_5 y_6 y_7 y_8 y_9
+*cap global years y_1 y_2 y_3 y_4 y_5 y_6 
 cap foreach i in $controls {
 cap foreach year in $years{
 cap gen `i'_`year'=`i'*`year'
@@ -310,6 +324,9 @@ save "../../Data/ConstructionDatabase/data_final.dta", replace
 *FOR R
 use "../../Data/ConstructionDatabase/data_wleads&lags2.dta", clear
 *MISCELANEOUS
+*0) pop
+gen logpop=ln(pop)
+
 *1) party variables:
 gen pri_mayor2=.
 replace  pri_mayor2=1 if firstword=="pri"
@@ -373,6 +390,16 @@ global alignment alignment_executive_strong alignment_governor_strong double_ali
 
 *========================================================================
 *LEADS AND LAGS
+** homicides
+global homicides logdefunciones ihs_defunciones loghomicide loghomicide_old loghomicidecombined
+foreach var in $homicides{
+foreach i in 1 2 3 4 5 6 7 8{
+capture gen `var'_lag_`i'=lag_`i'*`var'
+capture gen `var'_lead_`i'=lead_`i'*`var'
+capture gen `var'_date0=date_0*`var'
+}
+}
+
 **create citizen demands as controls:
 global insecurityperception ap4_2_3 ap4_2_5 ap4_2_11 ap4_3_1 ap4_3_2 ap4_3_3 ap4_7_1 ap4_7_2 ap4_7_3 ap4_12b ap5_1_6 ap5_1_7 ap5_1_8 ap5_1_10 ap5_1_12 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap4_7_1_b ap4_7_2_b ap4_7_3_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b
 foreach var in $insecurityperception{
@@ -453,7 +480,7 @@ capture gen `var'_date0=date_0*`var'
 }
 }
 
-foreach var in areakm2{
+foreach var in areakm2 logpop{
 foreach i in 1 2 3 4 5 6 7 8{
 capture gen `var'_lag_`i'=lag_`i'*`var'
 capture gen `var'_lead_`i'=lead_`i'*`var'
@@ -504,7 +531,7 @@ gen `i'_post3=F3.`i'
 
 global  controls logdefuncionespc ap4_2_3 ap4_2_5 ap4_2_11 ap4_12b ap5_4_2_b ap5_4_8_b ///
 alignment_executive_strong alignment_governor_strong winning_margin winning_margin_governor ///
-pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles
+pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles logpop
 
 *========================================================================
 *2) LAGGED ONE PERIODS
@@ -557,13 +584,13 @@ gen align_gov=alignment_governor_strong_mean
 gen margin_gov=winning_margin_governor_mean
 
 cap global  controls logdefuncionespc_mean ap4_2_3_mean ap4_2_5_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ap5_4_8_b_mean ///
-align_pres align_gov winning_margin_mean margin_gov ///
+align_pres align_gov winning_margin_mean margin_gov logpop_mean ///
 pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles nCarteles acuerdo_mean acuerdo2_mean acuerdo3_mean acuerdo4_mean acuerdo5_mean acuerdo_federal_mean acuerdo_total_mean
 
 tab year, gen(y_)
 
-*global years y_1 y_2 y_3 y_4 y_5 y_6 y_7 y_8 y_9
-cap global years y_1 y_2 y_3 y_4 y_5 y_6 
+cap global years y_1 y_2 y_3 y_4 y_5 y_6 y_7 y_8 y_9
+*cap global years y_1 y_2 y_3 y_4 y_5 y_6 
 cap foreach i in $controls {
 cap foreach year in $years{
 cap gen `i'_`year'=`i'*`year'

@@ -54,6 +54,16 @@ xtset inegi year
 	global controls_pre winning_margin_governor_pre governor_alignment_pre  winning_margin_pre alignment_executive_strong_pre $citizens3
 
 *NOTE: similar results using pre-treatment controls
+*========================================================================
+*0) Naive event study
+
+est clear
+global variables logdetenidospc logdetenidos_2pc logheroina_kg logheroina_kg_2 logmetanfetamina_kg logmetanfetamina_kg_2 logcocaina_kg logcocaina_kg_2 logamapola_kghec logamapola_kghec_2 loglaboratorio loglaboratorio_2 logdrugs logdrugs_2
+foreach i in $variables{
+eststo: qui areg `i' $lagsleads $controls i.year, a(inegi) cluster(estado)
+}
+esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
+
 
 *========================================================================
 

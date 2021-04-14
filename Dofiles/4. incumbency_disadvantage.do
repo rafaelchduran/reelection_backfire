@@ -60,26 +60,23 @@ xtset inegi year
 **********************************************
 *Table: RDD estimates
 **********************************************
-use "../Data/municipal_elections_incumbent_mexico_1989_present_v2.dta", clear
+use "../../Data/municipal_elections_incumbent_mexico_1989_present_v2.dta", clear
 
 *Merge with Dube, Garcia-Ponce and Thoms (2016): data from 1990 to 2010
 gen muncode=inegi
 
-merge 1:1 muncode year using "../Mexico/Data/Dube, Garcia-Ponce and Thom (2016)/jeea12172-sup-0002-replication-data/Dube_Garcia_ Thom_ReplicationData/MaizeToHaze_JEEA_ReplicationData.dta"
+merge 1:1 muncode year using "../../Mexico/Data/Dube, Garcia-Ponce and Thom (2016)/jeea12172-sup-0002-replication-data/Dube_Garcia_ Thom_ReplicationData/MaizeToHaze_JEEA_ReplicationData.dta"
 drop if _merge==2
 drop _merge
 
-merge m:m inegi year using "../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2011_2018.dta"
+merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/Stata/mando_unico_2011_2018.dta"
 drop if _merge==2
 drop _merge
-
-
 
 est clear
-foreach pol in 1 2 3 4{
+foreach pol in 1 2 {
 eststo: quietly rdrobust incumbent_yesterday_w_tomorrow2 mv_incparty if reform==0 & year<2015, c(0) p(`pol') kernel(tri) bwselect(CCT) 
 	estadd local postreform 
-	
 eststo: quietly rdrobust incumbent_yesterday_w_tomorrow2 mv_incparty if reform==1, c(0) p(`pol') kernel(tri) bwselect(CCT)
 	estadd local postreform \checkmark
 
@@ -156,7 +153,7 @@ capture global interacted_pol4 date_0_2015_pol4  date_0_2016_pol4  date_0_2017_p
 *A)WITH incumbent_yesterday_w_tomorrow2
 *------------------
 foreach j in incumbent_yesterday_w_tomorrow2 {
-foreach pol in 1 2 3 4 {
+foreach pol in 1 2 3 4{
 
 rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT) 
 
@@ -279,7 +276,7 @@ _b[reform]-b[_cons]  = A+B-A=B=personal incumbency advantage =  -.0441984  (no s
 eststo: areg  incumbent_yesterday_w_tomorrow2 reform  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 	lincom 	(_b[reform]/2)-(_b[_cons]/2 )
 	
-	*generate group
+	/*generate group
 	gen group=0
 	replace group=1 if adopt_year==2015
 	replace group=2 if adopt_year==2016
@@ -287,7 +284,7 @@ eststo: areg  incumbent_yesterday_w_tomorrow2 reform  i.year if mv_incparty<${op
 	replace group=4 if adopt_year==2018
 
 did_multiplegt incumbent_yesterday_w_tomorrow2 group year reform, placebo(1)  breps(50) cluster(estado)
-
+*/
 
 *------------------
 *B)WITH inc_party_won

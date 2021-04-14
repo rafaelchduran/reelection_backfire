@@ -45,6 +45,10 @@ ap4_2_11_mean_y_1 ap4_2_11_mean_y_2 ap4_2_11_mean_y_3 ap4_2_11_mean_y_4 ap4_2_11
 ap4_2_5_mean_y_1 ap4_2_5_mean_y_2 ap4_2_5_mean_y_3 ap4_2_5_mean_y_4 ap4_2_5_mean_y_5 ap4_2_5_mean_y_6 ap4_2_5_mean_y_7 ap4_2_5_mean_y_8 ap4_2_5_mean_y_9
 */
 
+global controls logdefuncionespc winning_margin_governor  ///
+	alignment_governor_strong winning_margin ///
+	pan_mayor2 pri_mayor2 hayCarteles 
+
 *========================================================================
 *1) Naive Event study design: Cluster vs Wild corrected errors
 sort inegi year
@@ -89,6 +93,68 @@ collabels(none) nonotes booktabs nomtitles  nolines
 *CONCLUSION 1: MANDO UNICO DECREASES AND ITS SIGNIFICANT; SO IS THE AGGREGATE EFFECT
 *CONCLUSION 2: MANDO UNICO SERVICE DECREASES AND ITS SIGNIFICANT; SO IS THE AGGREGATE EFFECT
 *CONCLUION 3: GOB. FEDERAL IS POSITIVE AND NON-SIGNIFICANT
+*========================================================================
+*0.1) effect of agreements on violence 
+*new agreements on violence 
+global acuerdos3 acuerdo_gobestatal acuerdo_estcom acuerdo_gobfederal  
+global acuerdos2 acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_estcom acuerdo_gobfederal  
+global acuerdos acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_estcom acuerdo_gobfederal acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4 acuerdo_gobestatal_federal 
+
+est clear
+foreach i in $acuerdos{
+eststo: qui reghdfe ihs_defuncionespc `i'  , a(inegi year) vce(cluster inegi)
+
+esttab est*, keep(`i') t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
+}
+
+eststo: qui areg ihs_defuncionespc acuerdo_gobfederal $controls  i.year, a(inegi) vce(cluster inegi)
+boottest {acuerdo_gobfederal} , bootcluster(estado year) seed(5675) level(95) boottype(wild)   nograph 
+*CONCLUSION: WITH GOB. FEDERAL THERE IS AN EFFECT, BUT NOT WITH GOB. ESTATAL.  ARE THERE DIFFERENCES IN CAPTURE. 
+
+global variables logdetenidospc logdetenidos_2pc logheroina_kg logheroina_kg_2 logmetanfetamina_kg logmetanfetamina_kg_2 logcocaina_kg logcocaina_kg_2 logamapola_kghec logamapola_kghec_2 loglaboratorio loglaboratorio_2 logdrugs logdrugs_2
+est clear
+foreach var in $acuerdos3{
+foreach i in $variables{
+eststo: qui reghdfe `i' `var'  , a(inegi year) vce(cluster inegi)
+
+}
+}
+esttab est*, keep($acuerdos3) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
+
+
+***IDENTIFICATION: DIFF IN DIFF USING PENA REFORM AND THEN IT DIDN'T PASS. 
+***SEE THE CHAISEMARTIN STUFF. 
+*ssc install twowayfeweights, replace
+
+
+
+*=======================================================================
+*Interactions
+cap drop inter
+cap drop base
+gen base=urban_100pc
+gen inter=base*lpred_ltariff_revenues
+sum base, meanonly
+local median_base= r(mean)
+
+* Using tariffs:
+eststo clear
+foreach i in $acuerdos3{
+eststo: qui areg ihs_defuncionespc c.`i'##c.hayCarteles  i.year, a(inegi) cluster(estado)
+
+	
+lincom (_b[lpred_ltariff_revenues]) + (`median_base'*_b[inter])  
+glo beta_reduced: di %5.4f r(estimate)
+	estadd local beta_reduced $beta_reduced
+glo se_reduce: di %5.4f r(se)
+	estadd local se_reduce $se_reduce
+test _b[lpred_ltariff_revenues] + (`median_base'*_b[inter]) =0
+glo p_reduce: di %5.4f r(p)
+	estadd local p_reduce $p_reduce
+
+}
+
+esttab est*, keep(lpred_ltariff_revenues base inter) t star("*" 0.10 "**" 0.05 "***" 0.01) 
 
 
 *========================================================================

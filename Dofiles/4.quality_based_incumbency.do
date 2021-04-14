@@ -64,6 +64,17 @@ xtset inegi year
 	global controls winning_margin_governor_pre governor_alignment_pre logdefuncionespc_prereform $citizens2
 	*/
 
+	global controls logdefuncionespc_mean_y_1 logdefuncionespc_mean_y_2 logdefuncionespc_mean_y_3 logdefuncionespc_mean_y_4 logdefuncionespc_mean_y_5 logdefuncionespc_mean_y_6 logdefuncionespc_mean_y_7 logdefuncionespc_mean_y_8 ///
+	align_gov_y_1 align_gov_y_2 align_gov_y_3 align_gov_y_4 align_gov_y_5 align_gov_y_6 align_gov_y_7 align_gov_y_8 ///
+	margin_gov_y_1 margin_gov_y_2 margin_gov_y_3 margin_gov_y_4 margin_gov_y_5 margin_gov_y_6 margin_gov_y_7 margin_gov_y_8 ///
+	hayCarteles_y_1 hayCarteles_y_2 hayCarteles_y_3 hayCarteles_y_4 hayCarteles_y_5 hayCarteles_y_6 hayCarteles_y_7 hayCarteles_y_8 ///
+	pri_mayor2_y_1 pri_mayor2_y_2 pri_mayor2_y_3 pri_mayor2_y_4 pri_mayor2_y_5 pri_mayor2_y_6 pri_mayor2_y_7 pri_mayor2_y_8 ///
+	pan_mayor2_y_1 pan_mayor2_y_2 pan_mayor2_y_3 pan_mayor2_y_4 pan_mayor2_y_5 pan_mayor2_y_6 pan_mayor2_y_7 pan_mayor2_y_8 ///
+	winning_margin_mean_y_1 winning_margin_mean_y_2 winning_margin_mean_y_3 winning_margin_mean_y_4 winning_margin_mean_y_5 winning_margin_mean_y_6 winning_margin_mean_y_7 winning_margin_mean_y_8 
+	*DOESN'T WORK WITH THIS [Nickel bias]: acuerdo3_mean_y_1 acuerdo3_mean_y_2 acuerdo3_mean_y_3 acuerdo3_mean_y_4 acuerdo3_mean_y_5 acuerdo3_mean_y_6 acuerdo3_mean_y_7 acuerdo3_mean_y_8
+	*WORKS WITH THIS BUT POTENTIAL NICKEL BIAS: acuerdo_mean_y_1 acuerdo_mean_y_2 acuerdo_mean_y_3 acuerdo_mean_y_4 acuerdo_mean_y_5 acuerdo_mean_y_6 acuerdo_mean_y_7 acuerdo_mean_y_8
+	*DOESN'T WORK WITH THIS [its the mechanism]: ap4_2_3_mean_y_1 ap4_2_3_mean_y_2 ap4_2_3_mean_y_3 ap4_2_3_mean_y_4 ap4_2_3_mean_y_5 ap4_2_3_mean_y_6 ap4_2_3_mean_y_7 ap4_2_3_mean_y_8 
+
 
 *========================================================================
 *SET MATSIZE
@@ -188,9 +199,28 @@ gen `var'_`i'=`var'*`i'
 }
 
 *========================================================================
+*Naive event study
+preserve
+est clear
+global variables incumbent_quality
+foreach i in $variables{
+rdbwselect  `i' mv_incparty, c(0) p(1) kernel(tri) bwselect(CCT) 
+global optimal = e(h_CCT)
+eststo: qui reghdfe `i' $lagsleads $controls pol1 reform_pol1 i.year if mv_incparty<${optimal} & mv_incparty>-${optimal} ///
+, a(inegi) vce(cluster estado)
+
+rdbwselect  `i' mv_incparty, c(0) p(2) kernel(tri) bwselect(CCT) 
+global optimal = e(h_CCT)
+eststo: qui reghdfe `i' $lagsleads $controls pol2 reform_pol2 i.year if mv_incparty<${optimal} & mv_incparty>-${optimal} ///
+, a(inegi)  vce(cluster estado)
+}
+
+esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
+restore
+
+*========================================================================
 ***1) Naive
 sort inegi year
-
 
 est clear
 foreach outcome in incumbent_quality {

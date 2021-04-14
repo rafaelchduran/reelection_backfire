@@ -32,8 +32,8 @@ xtset inegi year
 	winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean  acuerdo_mean
 	 
 	global controls2_mean logdefuncionespc_mean ap4_2_3_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ///
-	ap5_4_8_b_mean alignment_executive_strong_mean alignment_governor_strong_mean winning_margin_mean ///
-	winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean  acuerdo2_mean
+	ap5_4_8_b_mean alignment_executive_strong_mean alignment_governor_strong_mean  ///
+	winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean 
 
 
 	global controls $controls_mean
@@ -63,6 +63,18 @@ xtset inegi year
 
 	global controls winning_margin_governor_pre governor_alignment_pre logdefuncionespc_prereform $citizens2
 	*/
+
+	global controls logdefuncionespc_mean_y_1 logdefuncionespc_mean_y_2 logdefuncionespc_mean_y_3 logdefuncionespc_mean_y_4 logdefuncionespc_mean_y_5 logdefuncionespc_mean_y_6 logdefuncionespc_mean_y_7 logdefuncionespc_mean_y_8 ///
+	align_gov_y_1 align_gov_y_2 align_gov_y_3 align_gov_y_4 align_gov_y_5 align_gov_y_6 align_gov_y_7 align_gov_y_8 ///
+	margin_gov_y_1 margin_gov_y_2 margin_gov_y_3 margin_gov_y_4 margin_gov_y_5 margin_gov_y_6 margin_gov_y_7 margin_gov_y_8 
+	*hayCarteles_y_1 hayCarteles_y_2 hayCarteles_y_3 hayCarteles_y_4 hayCarteles_y_5 hayCarteles_y_6 hayCarteles_y_7 hayCarteles_y_8 ///
+	*pri_mayor2_y_1 pri_mayor2_y_2 pri_mayor2_y_3 pri_mayor2_y_4 pri_mayor2_y_5 pri_mayor2_y_6 pri_mayor2_y_7 pri_mayor2_y_8 ///
+	*pan_mayor2_y_1 pan_mayor2_y_2 pan_mayor2_y_3 pan_mayor2_y_4 pan_mayor2_y_5 pan_mayor2_y_6 pan_mayor2_y_7 pan_mayor2_y_8 
+	*winning_margin_mean_y_1 winning_margin_mean_y_2 winning_margin_mean_y_3 winning_margin_mean_y_4 winning_margin_mean_y_5 winning_margin_mean_y_6 winning_margin_mean_y_7 winning_margin_mean_y_8 
+	*DOESN'T WORK WITH THIS [Nickel bias]: acuerdo3_mean_y_1 acuerdo3_mean_y_2 acuerdo3_mean_y_3 acuerdo3_mean_y_4 acuerdo3_mean_y_5 acuerdo3_mean_y_6 acuerdo3_mean_y_7 acuerdo3_mean_y_8
+	*WORKS WITH THIS BUT POTENTIAL NICKEL BIAS: acuerdo_mean_y_1 acuerdo_mean_y_2 acuerdo_mean_y_3 acuerdo_mean_y_4 acuerdo_mean_y_5 acuerdo_mean_y_6 acuerdo_mean_y_7 acuerdo_mean_y_8
+	*DOESN'T WORK WITH THIS [its the mechanism]: ap4_2_3_mean_y_1 ap4_2_3_mean_y_2 ap4_2_3_mean_y_3 ap4_2_3_mean_y_4 ap4_2_3_mean_y_5 ap4_2_3_mean_y_6 ap4_2_3_mean_y_7 ap4_2_3_mean_y_8 
+
 
 
 *========================================================================
@@ -117,6 +129,80 @@ areg  `i'  $saturated pol1 $interacted_pol1 $controls  i.year if mv_incparty<${o
 *keep if e(sample)==1
 }
 
+foreach i in pol1 pol2{
+foreach var in  reform{
+gen `var'_`i'=`var'*`i'
+}
+}
+
+*========================================================================
+*Naive event study
+preserve
+est clear
+global variables incumbent_yesterday_w_tomorrow2
+foreach i in $variables{
+rdbwselect  `i' mv_incparty, c(0) p(1) kernel(tri) bwselect(CCT) 
+global optimal = e(h_CCT)/4
+eststo: qui reghdfe `i' $lagsleads  pol1 reform_pol1 i.year if mv_incparty<${optimal} & mv_incparty>-${optimal} ///
+, a(inegi) vce(cluster estado)
+eststo: qui reghdfe `i' $lagsleads $controls pol1 reform_pol1 i.year if mv_incparty<${optimal} & mv_incparty>-${optimal} ///
+, a(inegi) vce(cluster estado)
+
+rdbwselect  `i' mv_incparty, c(0) p(2) kernel(tri) bwselect(CCT) 
+global optimal = e(h_CCT)/4
+eststo: qui reghdfe `i' $lagsleads  pol2 reform_pol2 i.year if mv_incparty<${optimal} & mv_incparty>-${optimal} ///
+, a(inegi)  vce(cluster estado)
+eststo: qui reghdfe `i' $lagsleads $controls pol2 reform_pol2 i.year if mv_incparty<${optimal} & mv_incparty>-${optimal} ///
+, a(inegi)  vce(cluster estado)
+}
+
+esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
+restore
+
+*========================================================================
+***1) Naive OLS
+sort inegi year
+
+est clear
+foreach outcome in incumbent_yesterday_w_tomorrow2 {
+foreach treatment in reform{
+eststo: quietly xi: areg `outcome' `treatment' $controls    i.year, a(inegi) vce(cluster estado)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+eststo: quietly xi: areg f.`outcome' `treatment' $controls    i.year, a(inegi) vce(cluster estado)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+eststo: quietly xi: areg f2.`outcome' `treatment' $controls   i.year, a(inegi) vce(cluster estado)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+eststo: quietly xi: areg f3.`outcome' `treatment' $controls   i.year, a(inegi) vce(cluster estado)
+	estadd local controls \checkmark
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+}
+}
+
+
+
+esttab est*, keep(reform) t star(* 0.1 ** 0.05 *** 0.01)
+
+esttab using "../Tables/naive_reform_quality.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N R2 controls munfe yearfe clustermun, fmt(%11.2gc 3) label("Observations" "R2" "Controls" "Mun. FE" "Year FE" "State Cluster S.E.")) ///
+keep(reform ) ///
+mgroups("Agreement A in t" "in t+1" "in t+2" "in t+3" , ///
+pattern(1 1 1 1 ) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+coeflabel(reform "Term Limit Reform") ///
+collabels(none) nonotes booktabs nomtitles  nolines
+
+
+
 *========================================================================
 *1) Chaisemartin and D'Haultfoeuille correction
 
@@ -140,12 +226,12 @@ save_results("../../Data/chaisemartin_`outcome'.dta")
 *Graph:
 foreach i in incumbent_yesterday_w_tomorrow2{
 rdbwselect  `i' mv_incparty, c(0) p(1) kernel(tri) bwselect(CCT) 
-global optimal = e(h_CCT)
+global optimal = e(h_CCT)/4
 }
 preserve
 foreach outcome in  incumbent_yesterday_w_tomorrow2{
 keep if mv_incparty<${optimal} & mv_incparty>-${optimal}
-did_multiplegt `outcome' group year reform, breps(100) controls( pol1 reform_pol1)  seed(5675) ///
+did_multiplegt `outcome' group year reform, breps(100) controls($controls2 pol1 reform_pol1)  seed(5675) ///
 cluster(estado) robust_dynamic dynamic(2) placebo(2) longdiff_placebo
 graph export "../Figures/chaisemartin_`outcome'_pol1.png", as(png) replace
 }
@@ -213,7 +299,7 @@ preserve
 foreach outcome in  incumbent_yesterday_w_tomorrow2{
 keep if mv_incparty<${optimal} & mv_incparty>-${optimal}
 did_multiplegt `outcome' group year reform, breps(100) controls( pol2 reform_pol2)  seed(5675) ///
-cluster(estado) robust_dynamic dynamic(2) placebo(2) longdiff_placebo
+cluster(estado) robust_dynamic dynamic(3) placebo(2) longdiff_placebo
 graph export "../Figures/chaisemartin_`outcome'_pol1.png", as(png) replace
 }
 

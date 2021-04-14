@@ -114,6 +114,13 @@ mgroups("log(detained pc)" "log(heroine kg)" "log(methanphetamine kg)" "log(labo
 pattern(1 0 1 0 1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 coeflabel(acuerdo "Agreement A" acuerdo2 "Agreement B") ///
 collabels(none) nonotes booktabs nomtitles  nolines
+*========================================================================
+*2) with leads and lags
+est clear
+foreach i in ap4_2_3 ap4_2_5 ap4_2_11{
+eststo: qui areg `i' $lagsleads $controls_time_acuerdo i.year, a(inegi) cluster(estado)
+}
+esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
 
 
 *========================================================================
@@ -149,7 +156,7 @@ collabels(none) nonotes booktabs nomtitles  nolines
 *2) Chaisemartin and D'Haultfoeuille correction
 
 *Graph:
-foreach outcome in ap4_2_3  ap4_2_5 ap4_2_11{
+foreach outcome in ap4_2_3 ap4_2_5 ap4_2_11{
 did_multiplegt `outcome' group year reform, breps(100) controls($controls)  seed(5675) ///
 cluster(estado) robust_dynamic dynamic(2) placebo(2) longdiff_placebo 
 graph export "../Figures/chaisemartin_`outcome'.png", as(png) replace
