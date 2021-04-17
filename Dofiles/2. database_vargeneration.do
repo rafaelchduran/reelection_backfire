@@ -193,7 +193,7 @@ capture gen `var'_date0=date_0*`var'
 }
 }
 
-foreach var in areakm2 logpop{
+foreach var in areakm2 logpop hayCarteles{
 foreach i in 1 2 3 4 5 6 7 8{
 capture gen `var'_lag_`i'=lag_`i'*`var'
 capture gen `var'_lead_`i'=lead_`i'*`var'
@@ -202,8 +202,7 @@ capture gen `var'_date0=date_0*`var'
 }
 
 
-*global agreements acuerdo acuerdo2 acuerdo3 acuerdo4
-global agreements acuerdo acuerdo2 
+global agreements acuerdo acuerdo2nacuerdo3 acuerdo4 acuerdo5 acuerdo_total acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_gobfederal acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4 acuerdo_gobestatal_federal acuerdo_estcom
 foreach var in $agreements{
 foreach i in 1 2 3 4 5 6 7 8{
 capture gen `var'_lag_`i'=lag_`i'*`var'
@@ -480,7 +479,7 @@ capture gen `var'_date0=date_0*`var'
 }
 }
 
-foreach var in areakm2 logpop{
+foreach var in areakm2 logpop hayCarteles{
 foreach i in 1 2 3 4 5 6 7 8{
 capture gen `var'_lag_`i'=lag_`i'*`var'
 capture gen `var'_lead_`i'=lead_`i'*`var'
@@ -489,8 +488,7 @@ capture gen `var'_date0=date_0*`var'
 }
 
 
-cap global agreements acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total
-*global agreements acuerdo acuerdo2 
+global agreements acuerdo acuerdo2nacuerdo3 acuerdo4 acuerdo5 acuerdo_total acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_gobfederal acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4 acuerdo_gobestatal_federal acuerdo_estcom
 cap foreach var in $agreements{
 foreach i in 1 2 3 4 5 6 7 8{
 capture gen `var'_lag_`i'=lag_`i'*`var'

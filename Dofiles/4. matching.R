@@ -161,7 +161,7 @@ covariates.paste<-paste(covariates_all, collapse = " + ")
 mando.unico <- PanelMatch(lag = 5, time.id = "year2", unit.id = "inegi", 
                           treatment = "reform", refinement.method = "none", # use Mahalanobis distance 
                           data = data.final, match.missing = TRUE, 
-                          covs.formula = ~ I(lag(logpop, 1:5)) + I(lag(logdefuncionespc, 1:5)) + I(lag(winning_margin_governor, 1:5)) + I(lag(alignment_governor_strong, 1:5)) + I(lag(winning_margin, 1:5)) + I(lag(hayCarteles, 1:5)) + I(lag(pan_mayor2, 1:5)) + I(lag(pri_mayor2, 1:5)), 
+                          covs.formula = ~ I(lag(acuerdo_estcom, 1:5)) + I(lag(logpop, 1:5)) + I(lag(logdefuncionespc, 1:5)) + I(lag(winning_margin_governor, 1:5)) + I(lag(alignment_governor_strong, 1:5)) + I(lag(winning_margin, 1:5)) + I(lag(hayCarteles, 1:5)) + I(lag(pan_mayor2, 1:5)) + I(lag(pri_mayor2, 1:5)), 
                           size.match = 5, qoi = "att" , outcome.var = "acuerdo_estcom",
                           lead = 0:3, forbid.treatment.reversal = FALSE, 
                           use.diagonal.variance.matrix = TRUE)
@@ -170,13 +170,30 @@ mando.unico <- PanelMatch(lag = 5, time.id = "year2", unit.id = "inegi",
 mando.unico.results <- PanelEstimate(sets = mando.unico, data = data.final)
 summary(mando.unico.results) #negative effect with acuerdo_estcom
 plot(mando.unico.results)
-dev.copy(png,'../Figures/mando_unico.png')
+dev.copy(png,'../Figures/acuerdo_estcom.png')
 dev.off()
 
+#with acuerdo_gobestatal
+mando.unico2 <- PanelMatch(lag = 5, time.id = "year2", unit.id = "inegi", 
+                          treatment = "reform", refinement.method = "none", # use Mahalanobis distance 
+                          data = data.final, match.missing = TRUE, 
+                          covs.formula = ~   I(lag(logpop, 1:5)) + I(lag(logdefuncionespc, 1:5)) + I(lag(winning_margin_governor, 1:5)) + I(lag(alignment_governor_strong, 1:5)) + I(lag(winning_margin, 1:5)) + I(lag(hayCarteles, 1:5)) + I(lag(pan_mayor2, 1:5)) + I(lag(pri_mayor2, 1:5)), 
+                          size.match = 5, qoi = "att" , outcome.var = "acuerdo_gobestatal2",
+                          lead = 0:3, forbid.treatment.reversal = FALSE, 
+                          use.diagonal.variance.matrix = TRUE)
+
+
+mando.unico2.results <- PanelEstimate(sets = mando.unico2, data = data.final)
+summary(mando.unico2.results) #negative effect with acuerdo_estcom
+plot(mando.unico2.results)
+dev.copy(png,'../Figures/acuerdo_gobestatal.png')
+dev.off()
+
+#Placebo
 mando.unico.placebo <- PanelMatch(lag = 5, time.id = "year2", unit.id = "inegi", 
                           treatment = "lead3reform", refinement.method = "none", # use Mahalanobis distance 
                           data = data.final, match.missing = TRUE, 
-                          covs.formula = ~I(lag(logpop, 1:5)) + I(lag(logdefuncionespc, 1:5)) + I(lag(winning_margin_governor, 1:5)) + I(lag(alignment_governor_strong, 1:5)) + I(lag(winning_margin, 1:5)) + I(lag(hayCarteles, 1:5)) + I(lag(pan_mayor2, 1:5)) + I(lag(pri_mayor2, 1:5)), 
+                          covs.formula = ~I(lag(acuerdo_estcom, 1:5)) + I(lag(logpop, 1:5)) + I(lag(logdefuncionespc, 1:5)) + I(lag(winning_margin_governor, 1:5)) + I(lag(alignment_governor_strong, 1:5)) + I(lag(winning_margin, 1:5)) + I(lag(hayCarteles, 1:5)) + I(lag(pan_mayor2, 1:5)) + I(lag(pri_mayor2, 1:5)), 
                           size.match = 3, qoi = "att" , outcome.var = "acuerdo_estcom",
                           lead = 0:3, forbid.treatment.reversal = FALSE, 
                           use.diagonal.variance.matrix = TRUE)

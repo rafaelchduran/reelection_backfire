@@ -9,11 +9,6 @@ set more off
 set varabbrev off 
 *========================================================================
 /*Notes
-1. check that the main tables file is the last one I worked on. Basically, 
-it should not have a lag DV since we have a twfe model, and it should control for pretreatment homicides by cohort. 
-2. check the difference between acuerdo and acuerdo2 
-3. check why do I have half of the observations in my regressions. tab year reform
-4. check incumbency advantage: put it on fire
 */
 
 *========================================================================

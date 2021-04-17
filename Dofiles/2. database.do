@@ -862,6 +862,21 @@ replace whichlead="lead_2" if lead_2==1
 replace whichlead="lead_3" if lead_3==1
 encode whichlead, gen(whichlead_num)
 
+gen whichlead2="" 
+replace whichlead2="lag_8" if lag_8==1
+replace whichlead2="lag_7" if lag_7==1
+replace whichlead2="lag_6" if lag_6==1
+replace whichlead2="lag_5" if lag_5==1
+replace whichlead2="lag_4" if lag_4==1
+replace whichlead2="lag_3" if lag_3==1
+replace whichlead2="lag_2" if lag_2==1
+replace whichlead2="lag_1" if lag_1==1
+*replace whichlead2="date_0" if date_0==1
+replace whichlead2="lead_1" if lead_1==1
+replace whichlead2="lead_2" if lead_2==1
+replace whichlead2="lead_3" if lead_3==1
+encode whichlead2, gen(whichlead2_num)
+
 drop if incumbent_yesterday_w_tomorrow==.
 save "../../Data/ConstructionDatabase/data_wleads&lags_incumbency.dta", replace
 
@@ -882,6 +897,21 @@ replace whichlead="lead_1" if lead_1==1
 replace whichlead="lead_2" if lead_2==1
 replace whichlead="lead_3" if lead_3==1
 encode whichlead, gen(whichlead_num)
+
+gen whichlead2="" 
+replace whichlead2="lag_8" if lag_8==1
+replace whichlead2="lag_7" if lag_7==1
+replace whichlead2="lag_6" if lag_6==1
+replace whichlead2="lag_5" if lag_5==1
+replace whichlead2="lag_4" if lag_4==1
+replace whichlead2="lag_3" if lag_3==1
+replace whichlead2="lag_2" if lag_2==1
+replace whichlead2="lag_1" if lag_1==1
+*replace whichlead2="date_0" if date_0==1
+replace whichlead2="lead_1" if lead_1==1
+replace whichlead2="lead_2" if lead_2==1
+replace whichlead2="lead_3" if lead_3==1
+encode whichlead2, gen(whichlead2_num)
 
 *following Abraham and Sun (2021) we keep only effective observations:
 drop if logdefuncionespc==. // this changes per DV 
@@ -911,6 +941,7 @@ save "../../Data/ConstructionDatabase/data_wleads&lags2.dta", replace
 **************************************************** 
 use "../../Data/ConstructionDatabase/data_wleads&lags2.dta", replace
 
+*REMOVING LAG_1
 preserve
 **c) get counts; recall that four states don't have lead and lags (the non-treated)
 foreach i in adopt_year{
@@ -950,6 +981,48 @@ foreach n of local names {
     gen byte `n' = (indic_name == "`n'")
 }
 
+*REMOVING DATE_0
+preserve
+**c) get counts; recall that four states don't have lead and lags (the non-treated)
+foreach i in adopt_year{
+***c.1) Get n: n is the count of observations by adoption year and lead/lag:
+****group observations by adoption year and type of lead/lag
+order `i' whichlead2
+egen group_`i'_leadlag2=group(`i' whichlead2)
+****count the number of times each group appears
+bysort group_`i'_leadlag2: egen n2=count(group_`i'_leadlag2)
+
+***c.2) Get percentage: n / total
+****group observations by type of lead/lag
+egen group_leadlag2=group(whichlead2)
+****
+bysort group_leadlag2: egen total2=count(n2) //total is the total number of leads/lags in the effective sample 
+bysort group_leadlag2: gen perc2= n2/total2
+keep whichlead2 `i' perc2
+drop if whichlead2==""
+sort whichlead2 `i'
+collapse (mean)perc2, by(`i' whichlead2)
+order whichlead2 `i' perc2
+sort whichlead2 `i' perc2
+
+**d) make variable name to merge in for indicators; we want only the effective indicators that we need for estimation
+ tostring `i', generate(`i'_s2)
+gen indic2=whichlead2+"_"+`i'_s2
+
+save "../../Data/ConstructionDatabase/weights2.dta", replace
+restore
+
+rename _merge _mergeold2
+merge m:m whichlead2 `i' using "../../Data/ConstructionDatabase/weights2.dta" //we do not merge the lag_8 and lag_1
+gen indic_name2 = strtoname(indic2)
+}
+
+replace indic_name2="" if indic_name2!="lag_1_2015" & indic_name2!="lag_1_2016" & indic_name2!="lag_1_2017" & indic_name2!="lag_1_2018"
+
+levelsof indic_name2, local(names2)
+foreach n of local names2 {
+    gen byte `n' = (indic_name2 == "`n'")
+}
 
 
 save "../../Data/ConstructionDatabase/data_wleads&lags2_weights.dta", replace
@@ -998,6 +1071,50 @@ levelsof indic_name, local(names)
 foreach n of local names {
     gen byte `n' = (indic_name == "`n'")
 }
+
+*REMOVING DATE_0
+preserve
+**c) get counts; recall that four states don't have lead and lags (the non-treated)
+foreach i in adopt_year{
+***c.1) Get n: n is the count of observations by adoption year and lead/lag:
+****group observations by adoption year and type of lead/lag
+order `i' whichlead2
+egen group_`i'_leadlag2=group(`i' whichlead2)
+****count the number of times each group appears
+bysort group_`i'_leadlag2: egen n2=count(group_`i'_leadlag2)
+
+***c.2) Get percentage: n / total
+****group observations by type of lead/lag
+egen group_leadlag2=group(whichlead2)
+****
+bysort group_leadlag2: egen total2=count(n2) //total is the total number of leads/lags in the effective sample 
+bysort group_leadlag2: gen perc2= n2/total2
+keep whichlead2 `i' perc2
+drop if whichlead2==""
+sort whichlead2 `i'
+collapse (mean)perc2, by(`i' whichlead2)
+order whichlead2 `i' perc2
+sort whichlead2 `i' perc2
+
+**d) make variable name to merge in for indicators; we want only the effective indicators that we need for estimation
+ tostring `i', generate(`i'_s2)
+gen indic2=whichlead2+"_"+`i'_s2
+
+save "../../Data/ConstructionDatabase/weights2.dta", replace
+restore
+
+rename _merge _mergeold2
+merge m:m whichlead2 `i' using "../../Data/ConstructionDatabase/weights2.dta" //we do not merge the lag_8 and lag_1
+gen indic_name2 = strtoname(indic2)
+}
+
+replace indic_name2="" if indic_name2!="lag_1_2015" & indic_name2!="lag_1_2016" & indic_name2!="lag_1_2017" & indic_name2!="lag_1_2018"
+
+levelsof indic_name2, local(names2)
+foreach n of local names2 {
+    gen byte `n' = (indic_name2 == "`n'")
+}
+
 
 save "../../Data/ConstructionDatabase/data_wleads&lags_incumbency_weights.dta", replace
 

@@ -1143,6 +1143,25 @@ replace acuerdo_estcom=acuerdo_gobestatal2 if year==2016
 replace acuerdo_estcom=acuerdo_gobestatal if year==2017
 replace acuerdo_estcom=acuerdo_gobestatal if year==2018
 
+gen acuerdo_estcom2=.
+replace acuerdo_estcom2=acuerdo_gobestatal if year==2011
+replace acuerdo_estcom2=acuerdo_gobestatal if year==2012
+replace acuerdo_estcom2=acuerdo_gobestatal if year==2013
+replace acuerdo_estcom2=acuerdo_gobestatal3 if year==2014
+replace acuerdo_estcom2=acuerdo_gobestatal if year==2015
+replace acuerdo_estcom2=acuerdo_gobestatal3 if year==2016
+replace acuerdo_estcom2=acuerdo_gobestatal if year==2017
+replace acuerdo_estcom2=acuerdo_gobestatal if year==2018
+
+gen acuerdo_estcom3=.
+replace acuerdo_estcom3=acuerdo_gobestatal if year==2011
+replace acuerdo_estcom3=acuerdo_gobestatal if year==2012
+replace acuerdo_estcom3=acuerdo_gobestatal if year==2013
+replace acuerdo_estcom3=acuerdo_gobestatal4 if year==2014
+replace acuerdo_estcom3=acuerdo_gobestatal if year==2015
+replace acuerdo_estcom3=acuerdo_gobestatal4 if year==2016
+replace acuerdo_estcom3=acuerdo_gobestatal if year==2017
+replace acuerdo_estcom3=acuerdo_gobestatal if year==2018
 
 *Sign security agreement
 gen acuerdo=.

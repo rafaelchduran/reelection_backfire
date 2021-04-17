@@ -3,10 +3,7 @@
 *Author: Rafael Ch (rafael.ch@nyu.edu)
 *========================================================================
 /*NOTES
-
 */
-
-
 *========================================================================
 *Environment
 clear all
@@ -29,7 +26,7 @@ xtset inegi year
 *========================================================================
 *SET GLOBALS
 *1) controls
-	global controlsall *_y_*
+	*global controlsall *_y_*
 	*global controls logdefunciones_mean_y_1 logdefunciones_mean_y_2 logdefunciones_mean_y_3 logdefunciones_mean_y_4 logdefunciones_mean_y_5 logdefunciones_mean_y_6 logdefunciones_mean_y_7 logdefunciones_mean_y_8 ///
 	global controls logdefuncionespc_mean_y_1 logdefuncionespc_mean_y_2 logdefuncionespc_mean_y_3 logdefuncionespc_mean_y_4 logdefuncionespc_mean_y_5 logdefuncionespc_mean_y_6 logdefuncionespc_mean_y_7 logdefuncionespc_mean_y_8 ///
 	align_gov_y_1 align_gov_y_2 align_gov_y_3 align_gov_y_4 align_gov_y_5 align_gov_y_6 align_gov_y_7 align_gov_y_8 ///
@@ -45,7 +42,7 @@ xtset inegi year
 	*DOESN'T WORK WITH THIS [its the mechanism]: ap4_2_3_mean_y_1 ap4_2_3_mean_y_2 ap4_2_3_mean_y_3 ap4_2_3_mean_y_4 ap4_2_3_mean_y_5 ap4_2_3_mean_y_6 ap4_2_3_mean_y_7 ap4_2_3_mean_y_8 
 
 	
-*WITH NO y_6 onwards
+/*WITH NO y_6 onwards
 	global controls logdefuncionespc_mean_y_1 logdefuncionespc_mean_y_2 logdefuncionespc_mean_y_3 logdefuncionespc_mean_y_4 logdefuncionespc_mean_y_5  ///
 	align_gov_y_1 align_gov_y_2 align_gov_y_3 align_gov_y_4 align_gov_y_5 ///
 	margin_gov_y_1 margin_gov_y_2 margin_gov_y_3 margin_gov_y_4 margin_gov_y_5  ///
@@ -66,7 +63,7 @@ xtset inegi year
 	* ///
 	*alignment_executive_strong_mean
 	*ap4_2_3_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ap5_4_8_b_mean
-	
+	*/
 *temporal globals
 	global narco ap4_2_3_lag_8 ap4_2_3_lag_7 ap4_2_3_lag_6 ap4_2_3_lag_5 ap4_2_3_lag_4 ap4_2_3_lag_3 ap4_2_3_lag_2
 	global punishment ap4_2_11_lag_8 ap4_2_11_lag_7 ap4_2_11_lag_6 ap4_2_11_lag_5 ap4_2_11_lag_4 ap4_2_11_lag_3 ap4_2_11_lag_2
@@ -82,13 +79,42 @@ xtset inegi year
 	global acuerdo acuerdo_lag_2 acuerdo_lag_3 acuerdo_lag_4 acuerdo_lag_5 acuerdo_lag_6 acuerdo_lag_7 acuerdo_lag_8
 	global acuerdo2 acuerdo2_lag_2 acuerdo2_lag_3 acuerdo2_lag_4 acuerdo2_lag_5 acuerdo2_lag_6 acuerdo2_lag_7 acuerdo2_lag_8
 	global logpop logpop_lag_2 logpop_lag_3 logpop_lag_4 logpop_lag_5 logpop_lag_6 logpop_lag_7 logpop_lag_8
-	global homicides logdefunciones_lag_2 logdefunciones_lag_3 logdefunciones_lag_4 logdefunciones_lag_5 logdefunciones_lag_6 logdefunciones_lag_7 logdefunciones_lag_8
+	global carteles hayCarteles_lag_2 hayCarteles_lag_3 hayCarteles_lag_4 hayCarteles_lag_5 hayCarteles_lag_6 hayCarteles_lag_7 hayCarteles_lag_8
+	*global homicides logdefunciones_lag_2 logdefunciones_lag_3 logdefunciones_lag_4 logdefunciones_lag_5 logdefunciones_lag_6 logdefunciones_lag_7 logdefunciones_lag_8
 
-	global controls_time_acuerdo $punishment $homicides $executive $governor $margin $margin_governor $logpop
-	global controls_time_acuerdo2 $punishment $homicides $executive $governor $margin $margin_governor $logpop
+	global controls_time_acuerdo  $homicides $executive $governor $margin $margin_governor $logpop $carteles
 
-	global controls $controls_time_acuerdo
+*temporal globals with lag_1
+
+	global narco2 ap4_2_3_lag_8 ap4_2_3_lag_7 ap4_2_3_lag_6 ap4_2_3_lag_5 ap4_2_3_lag_4 ap4_2_3_lag_3 ap4_2_3_lag_2 ap4_2_3_lag_1
+	global punishment2 ap4_2_11_lag_8 ap4_2_11_lag_7 ap4_2_11_lag_6 ap4_2_11_lag_5 ap4_2_11_lag_4 ap4_2_11_lag_3 ap4_2_11_lag_2 ap4_2_11_lag_1
+	global money2 ap4_12b_lag_8 ap4_12b_lag_7 ap4_12b_lag_6 ap4_12b_lag_5 ap4_12b_lag_4 ap4_12b_lag_3 ap4_12b_lag_2 ap4_12b_lag_1
+	global police2 ap5_4_2_b_lag_8 ap5_4_2_b_lag_7 ap5_4_2_b_lag_6 ap5_4_2_b_lag_5 ap5_4_2_b_lag_4 ap5_4_2_b_lag_3 ap5_4_2_b_lag_2 ap5_4_2_b_lag_1
+	global army2 ap5_4_8_b_lag_8 ap5_4_8_b_lag_7 ap5_4_8_b_lag_6 ap5_4_8_b_lag_5 ap5_4_8_b_lag_4 ap5_4_8_b_lag_3 ap5_4_8_b_lag_2 ap5_4_8_b_lag_1
+	global citizens2 $narco $punishment $money $police $army
+	global homicides2 logdefuncionespc_lag_1 logdefuncionespc_lag_2 logdefuncionespc_lag_3 logdefuncionespc_lag_4 logdefuncionespc_lag_5 logdefuncionespc_lag_6 logdefuncionespc_lag_7 logdefuncionespc_lag_8
+	global executive2 alignment_executive_strong_lag_1 alignment_executive_strong_lag_2 alignment_executive_strong_lag_3 alignment_executive_strong_lag_4 alignment_executive_strong_lag_5 alignment_executive_strong_lag_6 alignment_executive_strong_lag_7 alignment_executive_strong_lag_8
+	global governor2 alignment_governor_strong_lag_1 alignment_governor_strong_lag_2 alignment_governor_strong_lag_3 alignment_governor_strong_lag_4 alignment_governor_strong_lag_5 alignment_governor_strong_lag_6 alignment_governor_strong_lag_7 alignment_governor_strong_lag_8
+	global margin2 winning_margin_lag_1 winning_margin_lag_2 winning_margin_lag_3 winning_margin_lag_4 winning_margin_lag_5 winning_margin_lag_6 winning_margin_lag_7 winning_margin_lag_8
+	global margin_governor2 winning_margin_governor_lag_1 winning_margin_governor_lag_2 winning_margin_governor_lag_3 winning_margin_governor_lag_4 winning_margin_governor_lag_5 winning_margin_governor_lag_6 winning_margin_governor_lag_7 winning_margin_governor_lag_8
+	global logpop2 logpop_lag_1 logpop_lag_2 logpop_lag_3 logpop_lag_4 logpop_lag_5 logpop_lag_6 logpop_lag_7 logpop_lag_8
+	global carteles2 hayCarteles_lag_1 hayCarteles_lag_2 hayCarteles_lag_3 hayCarteles_lag_4 hayCarteles_lag_5 hayCarteles_lag_6 hayCarteles_lag_7 hayCarteles_lag_8
+
+	global controls_time_acuerdo2  $homicides2 $executive2 $governor2 $margin2 $margin_governor2 $logpop2 $carteles2
+	
+
+
+
+
+	*global controls $controls_time_acuerdo
 	 
+	global controls_mean logdefuncionespc_mean  ///
+	  alignment_executive_strong_mean alignment_governor_strong_mean winning_margin_mean ///
+	 winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean 
+
+	global controls2 logdefuncionespc  ///
+	  alignment_executive_strong alignment_governor_strong winning_margin ///
+	 winning_margin_governor pan_mayor2 pri_mayor2 
 
 	
 *2) treatment
@@ -100,131 +126,33 @@ xtset inegi year
 
 *3) outcomes
 	*global acuerdos acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total
-	global acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_gobfederal acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4 acuerdo_gobestatal_federal acuerdo_estcom{
+	global acuerdos acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_gobfederal acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4 acuerdo_gobestatal_federal acuerdo_estcom
 
 *========================================================================
 *Run .ado 
-
 do "wild_areg.do"
 do "macros_tables.do"
-*========================================================================
-*1) Naive OLS
-areg acuerdo_gobestatal_federal $lagsleads $controls_time_acuerdo i.year, a(inegi) cluster(estado)
-boottest {lag_4} {lag_3} {date_0} {lead_1} {lead_2} {lead_3}, bootcluster(estado) seed(5675) level(95) boottype(wild)   nograph 
 
-areg acuerdo_gobfederal $lagsleads $controls_time_acuerdo i.year, a(inegi) cluster(estado)
-boottest  {lag_2} {date_0} {lead_1} {lead_3} , bootcluster(estado) seed(5675) level(95) boottype(wild)   nograph 
 
-areg acuerdo_gobestatal $lagsleads $controls_time_acuerdo i.year, a(inegi) cluster(estado)
-boottest  {lag_2} {date_0} {lead_1} {lead_3} , bootcluster(estado) seed(5675) level(95) boottype(wild)   nograph 
-
-areg acuerdo_gobestatal3 $lagsleads $controls_time_acuerdo i.year, a(inegi) cluster(estado)
-boottest {lag_4} {lag_3} {date_0} {lead_1} {lead_2} {lead_3}, bootcluster(estado) seed(5675) level(95) boottype(wild)   nograph 
-
+*Final:
 est clear
-foreach i in acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_gobfederal acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4 acuerdo_gobestatal_federal acuerdo_estcom{
-eststo: qui areg `i' $lagsleads $controls_time_acuerdo i.year, a(inegi) cluster(estado)
+foreach i in acuerdo_gobestatal acuerdo_estcom2 acuerdo_estcom{
+eststo: qui reghdfe `i' $lagsleads $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+macros_tables
+eststo: qui wildcorrection `i'
+macros_tables2
 }
+
 esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
 
-est clear
-foreach i in servicio_segpublica servicio_transito  servicio_prevencion servicio_capacitacion servicio_equiptec servicio_investigacion servicio_inteligencia servicio_unificacion{
-eststo: qui areg `i' $lagsleads $controls i.year, a(inegi) cluster(estado)
-}
-esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
-
-est clear
-foreach i in motivo_reformacons motivo_reformaley motivo_faltarecursos motivo_profesioalizacion motivo_coordinacion motivo_crimen motivo_otros{
-eststo: qui areg `i' $lagsleads $controls i.year, a(inegi) cluster(estado)
-}
-esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
-
-
-est clear
-foreach i in acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_gobfederal acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4 acuerdo_gobestatal_federal acuerdo_estcom{
-eststo: qui areg `i' reform $controls_time_acuerdo i.year, a(inegi) cluster(estado)
-}
-esttab est*, keep(reform) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
-
-*========================================================================
-*Differences in packages (FINAL ESTIMATES)
-**there is no difference: what matters is the reference period
-*char varname[omit] # 
-est clear
-
-global years  year_2 year_3 year_4 year_5 year_6 year_7 year_8 
-
-foreach i in acuerdo_gobestatal acuerdo_estcom {
-eststo: quietly  xi: areg `i' $lagsleads  $controls  $years, a(inegi) vce(cluster estado)
-eststo: quietly  xi: areg `i'  $lagsleads  $controls  i.year, a(inegi) cluster(estado)
-eststo: quietly  xi: reghdfe `i'  $lagsleads    i.year, a(inegi) vce(cluster estado)
-eststo: quietly  xi: reghdfe `i'  $lagsleads  $controls  i.year, a(inegi) vce(cluster estado) // significant with $controls_time_acuerdo
-eststo: quietly  xi: reghdfe `i' $lagsleads  $controls, a(inegi year) vce(cluster estado)
-*eststo: quietly wildcorrection `i'
-}
-esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
-
-*CONCLUSION: THERE IS SOM ASHFELTER DIP IN LAG_2 AND WEIRD STUFF ON LAG_5
-
-**trimming:
-gen pre3=0
-replace pre3=1 if lag_8==1 | lag_7==1 |  lag_6==1 |  lag_5==1
-
-est clear
-foreach i in acuerdo_gobestatal acuerdo_estcom{
-eststo: quietly  xi: reghdfe `i'  $lagsleads    i.year, a(inegi) vce(cluster estado)
-eststo: quietly  xi: reghdfe `i'  $lagsleads  $controls  i.year, a(inegi) vce(cluster estado) // significant with $controls_time_acuerdo
-*eststo: quietly wildcorrection `i'
-}
-esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
-
-
-*========================================================================
-*1) Naive Event study design: Cluster vs Wild corrected errors
-sort inegi year
-
-est clear
-foreach i in acuerdo_gobestatal acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 acuerdo_gobfederal acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4 acuerdo_gobestatal_federal acuerdo_estcom{
-eststo: quietly  xi: areg `i' $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
-}
-esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
-
-
-preserve
-est clear
-*quietly  xi: areg acuerdo3 $lagsleads_short  $controls  i.year, a(inegi) vce(cluster estado)
-*keep if e(sample)==1 
-eststo: quietly  xi: areg acuerdo_federal $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
-macros_tables
-*eststo: qui wildcorrection acuerdo_federal
-*macros_tables
-eststo: quietly  xi: areg acuerdo5 $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
-macros_tables
-eststo: qui wildcorrection acuerdo5
-macros_tables
-eststo: quietly  xi: areg acuerdo_total $lagsleads  $controls  i.year, a(inegi) vce(cluster estado)
-macros_tables
-eststo: qui wildcorrection acuerdo_total
-macros_tables
-eststo: quietly  xi: areg acuerdo3 $lagsleads_short  $controls  i.year, a(inegi) vce(cluster estado)
-macros_tables
-eststo: qui wildcorrection_short acuerdo3
-macros_tables
-eststo: quietly  xi: areg acuerdo4 $lagsleads_short  $controls  i.year, a(inegi) vce(cluster estado)
-macros_tables
-eststo: qui wildcorrection_short acuerdo4
-macros_tables
-
-esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
-restore
 
 esttab using "../Tables/event_study_reform_coop_agreements_forpres.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
-s(N r2 controls munfe yearfe clustermun aggregate se_aggregate p_aggregate, fmt(%11.2gc 3) ///
- label("Observations" "R2" "Controls" "Mun. FE" "Year FE" "State Cluster S.E." "Aggregate beta" "SE (aggregate)" ///
+s(N r2 controls munfe yearfe clustermun wildci aggregate se_aggregate p_aggregate, fmt(%11.2gc 3) ///
+ label("Observations" "R2" "Controls" "Mun. FE" "Year FE" "State Cluster S.E." "Wild corr." "Aggregate beta" "SE (aggregate)" ///
  "p-value(aggregate)")) ///
 keep($lagsleads ) ///
-mgroups("Federal" "Agreement old" "total" "Mando" "Mando 2", ///
-pattern(1 0 1 0 1 0 1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+mgroups("Acuerdo" "Acuerdo2" "Acuerdo_estcom", ///
+pattern(1 0 1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 coeflabel(lag_7 "t-7" lag_6 "t-6" lag_5 "t-5" lag_4 "t-4" lag_3 "t-3" lag_2 "t-2"  date_0 "Reform t=0" ///
  lead_1 "t+1" lead_2 "t+2" lead_3 "t+3") ///
 collabels(none) nonotes booktabs nomtitles  nolines
@@ -232,172 +160,11 @@ collabels(none) nonotes booktabs nomtitles  nolines
 *CONCLUSION 1: MANDO UNICO DECREASES AND ITS SIGNIFICANT; SO IS THE AGGREGATE EFFECT
 *CONCLUSION 2: MANDO UNICO SERVICE DECREASES AND ITS SIGNIFICANT; SO IS THE AGGREGATE EFFECT
 *CONCLUION 3: GOB. FEDERAL IS POSITIVE AND NON-SIGNIFICANT
-*========================================================================
-*1) Callaway and Sant'Ana (2020)
-*help did
-rcall clear
-gen group2=.
-replace group2=0 if group==1
-replace group2=1 if group==2
-replace group2=2 if group==3
-replace group2=3 if group==4
-replace group2=4 if group==5
-
- att_gt acuerdo_estcom year group2, idname(inegi) allow_unbalanced_panel  anticipation(0)
-*doesn't work	
-*========================================================================
-*2) Chaisemartin and D'Haultfoeuille correction
-global outcome acuerdo_gobestatal
-global outcome2 acuerdo_estcom
-
-*Graph: long dynamic effects
-foreach outcome in  $outcome  {
-did_multiplegt `outcome' group year reform, breps(100)  placebo(2) seed(5675) ///
-cluster(estado) robust_dynamic dynamic(3) longdiff_placebo 
-graph export "../Figures/chaisemartin_`outcome'.png", as(png) replace
-}
-
-
-*Graph: long dynamic effects
-foreach outcome in  $outcome2 {
-did_multiplegt `outcome' group year reform, breps(100)  placebo(3)  seed(5675) ///
-cluster(estado) robust_dynamic dynamic(3) longdiff_placebo 
-graph export "../Figures/chaisemartin_`outcome'.png", as(png) replace
-}
-
-
-
-************
-*A) Acuerdo:
-************
-foreach outcome in $outcome {
-did_multiplegt `outcome' group year reform, breps(100)   placebo(3) seed(5675) ///
-cluster(estado) robust_dynamic  dynamic(3) average_effect ///
-save_results("../../Data/chaisemartin_`outcome'.dta")
-}
-
-
-ereturn list
-return list
-
-*save results to globals:
-foreach i in 0 1 2 3{
-	glo grados_t_`i': di %5.3f e(N_effect_`i')-3
-	glo beta_t_`i': di %5.3f e(effect_`i')
-	glo se_t_`i': di %5.3f e(se_effect_`i')
-	glo t_t_`i': di e(effect_`i')/e(se_effect_`i')
-	glo pval_t_`i': di 2*ttail(${grados_t_`i'},abs(${t_t_`i'})) 
-	glo est_t_`i'= "" 
-			if (${pval_t_`i'}<=0.1) global est_t_`i' = "*"
-			if (${pval_t_`i'}<=0.05) global est_t_`i' = "**"
-			if (${pval_t_`i'}<=0.01) global est_t_`i' = "***"
-			*if (${pval_t_`i'}=0) global est_t_`i' = "***"
-}
-
-*Placebos: 
-foreach i in 1 2 3 4 5{
-	glo pgrados_t_`i': di %5.3f e(N_placebo_`i')-3
-	glo pbeta_t_`i': di %5.3f e(placebo_`i')
-	glo pse_t_`i': di %5.3f e(se_placebo_`i')
-	glo pt_t_`i': di e(placebo_`i')/e(se_placebo_`i')
-	glo ppval_t_`i': di 2*ttail(${pgrados_t_`i'},abs(${pt_t_`i'})) 
-	glo pest_t_`i'= "" 
-			if (${ppval_t_`i'}<=0.1) global pest_t_`i' = "*"
-			if (${ppval_t_`i'}<=0.05) global pest_t_`i' = "**"
-			if (${ppval_t_`i'}<=0.01) global pest_t_`i' = "***"
-			*if (${ppval_t_`i'}=0) global pest_t_`i' = "***"
-}
-
-	
-
-************
-*B) Acuerdo2:
-************
-foreach outcome in $outcome2 {
-did_multiplegt `outcome' group year reform, breps(100) controls($controls_mean) placebo(2) seed(5675) ///
-cluster(estado) robust_dynamic  dynamic(2) ///
-save_results("../../Data/chaisemartin_`outcome'.dta")
-}
-
-ereturn list
-return list
-
-*save results to globals:
-foreach i in 0 1 2 3{
-	glo grados2_t_`i': di %5.3f e(N_effect_`i')-3
-	glo beta2_t_`i': di %5.3f e(effect_`i')
-	glo se2_t_`i': di %5.3f e(se_effect_`i')
-	glo t2_t_`i': di e(effect_`i')/e(se_effect_`i')
-	glo pval2_t_`i': di 2*ttail(${grados2_t_`i'},abs(${t2_t_`i'})) 
-	glo est2_t_`i'= "" 
-			if (${pval2_t_`i'}<=0.1) global est2_t_`i' = "*"
-			if (${pval2_t_`i'}<=0.05) global est2_t_`i' = "**"
-			if (${pval2_t_`i'}<=0.01) global est2_t_`i' = "***"
-			*if (${pval2_t_`i'}=0) global est2_t_`i' = "***"
-
-}
-
-*Placebos: 
-foreach i in 1 2 3 4 5{
-	glo pgrados2_t_`i': di %5.3f e(N_placebo_`i')-3
-	glo pbeta2_t_`i': di %5.3f e(placebo_`i')
-	glo pse2_t_`i': di %5.3f e(se_placebo_`i')
-	glo pt2_t_`i': di e(placebo_`i')/e(se_placebo_`i')
-	glo ppval2_t_`i': di 2*ttail(${pgrados2_t_`i'},abs(${pt2_t_`i'})) 
-	glo pest2_t_`i'= "" 
-			if (${ppval2_t_`i'}<=0.1) global pest2_t_`i' = "*"
-			if (${ppval2_t_`i'}<=0.05) global pest2_t_`i' = "**"
-			if (${ppval2_t_`i'}<=0.01) global pest2_t_`i' = "***"
-			*if (${ppval2_t_`i'}=0) global pest2_t_`i' = "***"
-}
-
-*Table
-	
-texdoc init  "../Tables/chaisemarting_estimates_DVmandounico.tex", replace force
-tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements}
-tex \label{tab:chaisemartin}
-tex \scalebox{1}{    
-tex \begin{tabular}{lcc}  
-tex \hline \hline       
-tex \\ \multicolumn{3}{l}{Dependent variable:}\\
-tex & \multicolumn{1}{c}{Agreement A} & \multicolumn{1}{c}{Agreement B$^{a}$} \\
-tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
-tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
-tex \addlinespace
-tex Lag 5 years &        $ ${pbeta_t_4}^{${pest_t_4}} $ &     $ ${pbeta2_t_4}^{${pest2_t_4}} $ \\
-tex  & ($ ${pse_t_4}$) & ($ ${pse2_t_4} $) \\
-tex Lag 4 years &        $ ${pbeta_t_3}^{${pest_t_3}} $ &     $ ${pbeta2_t_3}^{${pest2_t_3}} $ \\
-tex  & ($ ${pse_t_3}$) & ($ ${pse2_t_3} $) \\
-tex Lag 3 years &        $ ${pbeta_t_2}^{${pest_t_2}} $ &     $ ${pbeta2_t_2}^{${pest2_t_2}} $ \\
-tex  & ($ ${pse_t_2}$) & ($ ${pse2_t_2} $) \\
-tex Lag 2 years &        $ ${pbeta_t_1}^{${pest_t_1}} $ &     $ ${pbeta2_t_1}^{${pest2_t_1}} $ \\
-tex  & ($ ${pse_t_1}$) & ($ ${pse2_t_1} $) \\
-tex Reform, time 0 &        $ ${beta_t_0}^{${est_t_0}} $ &     $ ${beta2_t_0}^{${est2_t_0}} $ \\
-tex  & ($ ${se_t_0}$) & ($ ${se2_t_0} $) \\
-tex Lead 1 year &         $ ${beta_t_1}^{${est_t_1}} $ &       $ ${beta2_t_1}^{${est2_t_1}} $ \\
-tex  & ($ ${se_t_1}$) & ($ ${se2_t_1} $) \\
-tex Lead 2 years &         $ ${beta_t_2}^{${est_t_2}} $ &      $ ${beta2_t_2}^{${est2_t_2}} $  \\
-tex  & ($ ${se_t_2}$) & ($ ${se2_t_2} $) \\
-
-tex \addlinespace
-tex Controls$^b$   &    \checkmark      &   \checkmark    \\
-tex \hline \hline      
-tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Secondary version of security cooperation agreements. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
-tex \end{tabular}
-tex } 
-tex \end{table}
-texdoc close
-
-
-*MESSAGE: Reform decreases the likelihood of signing security cooperation agreements.
-
 
 *========================================================================
 *3) Saturated Event study design (Abraham and Sun, 2020)
-	global outcome acuerdo_gobestatal
-	global outcome2 acuerdo_estcom
+	global outcome acuerdo_estcom
+	global outcome2 acuerdo_estcom2
    
    global saturated lag_7_2017 lag_7_2018 lag_6_2016 lag_6_2017 lag_6_2018 lag_5_2015 lag_5_2016 lag_5_2017 lag_5_2018 lag_4_2015 lag_4_2016 lag_4_2017 lag_4_2018 lag_3_2015 lag_3_2016 lag_3_2017 lag_3_2018 lag_2_2015 lag_2_2016 lag_2_2017 lag_2_2018 date_0_2015 date_0_2016 date_0_2017 date_0_2018 lead_1_2015 lead_1_2016 lead_1_2017 lead_2_2015 lead_2_2016 lead_3_2015
 
@@ -411,15 +178,12 @@ texdoc close
 	date_0_2018 lead_1_2015 lead_1_2016 lead_1_2017 lead_2_2015 lead_2_2016 /// 
 	lead_3_2015
 	
-	**effect for: acuerdo_gobestatal2 acuerdo_gobestatal3 acuerdo_gobestatal4 (negative) but no parallel
-
 ************
 ***A: ACUERDO 
 ************	
 est clear 
-*eststo: qui wildcorrection_as_new2 $outcome2
+*eststo: qui wildcorrection_as_new2 $outcome
 xi: reghdfe  $outcome  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
-
 	estadd local depcontrols 
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -590,12 +354,8 @@ cap foreach i in lead_3{
 ************
 ***B: ACUERDO2
 ************	
-*qui wildcorrection_as_new2 $outcome2
-preserve
-reghdfe  $outcome2  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
-keep if e(sample)==1
-xi: reghdfe  $outcome2  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
-*areg  $outcome2  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+eststo: qui wildcorrection_as_new2 $outcome
+*xi: reghdfe  $outcome2  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
 	estadd local depcontrols
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -757,9 +517,7 @@ cap foreach i in lead_3{
 	glo p_aggregate2: di %5.4f r(p)
 	estadd local p_aggregate2 $p_aggregate2
 	
-restore
 *Table
-	
 texdoc init  "../Tables/abraham_sun_estimates_DVmandounico.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
@@ -817,17 +575,952 @@ texdoc close
 
 *MESSAGE: Reform decreases the likelihood of signing security cooperation agreements. VBut non significant.
 
+*========================================================================
+*3) Saturated Event study design (Abraham and Sun, 2020) WITH DATE_0 AS REFERENCE PERIOD
+	global outcome acuerdo_estcom
+	global outcome2 acuerdo_estcom2
+   
+   global saturated lag_7_2017 lag_7_2018 lag_6_2016 lag_6_2017 lag_6_2018 lag_5_2015 lag_5_2016 lag_5_2017 lag_5_2018 lag_4_2015 lag_4_2016 lag_4_2017 lag_4_2018 lag_3_2015 lag_3_2016 lag_3_2017 lag_3_2018 lag_2_2015 lag_2_2016 lag_2_2017 lag_2_2018 lag_1_2015 lag_1_2016 lag_1_2017 lag_1_2018 lead_1_2015 lead_1_2016 lead_1_2017 lead_2_2015 lead_2_2016 lead_3_2015
+   *global saturated lag_6_2016 lag_6_2017 lag_6_2018 lag_5_2015 lag_5_2016 lag_5_2017 lag_5_2018 lag_4_2015 lag_4_2016 lag_4_2017 lag_4_2018 lag_3_2015 lag_3_2016 lag_3_2017 lag_3_2018 lag_2_2015 lag_2_2016 lag_2_2017 lag_2_2018 lag_1_2015 lag_1_2016 lag_1_2017 lag_1_2018 lead_1_2015 lead_1_2016 lead_1_2017 lead_2_2015 lead_2_2016 lead_3_2015
+	
+************
+***A: ACUERDO 
+************	
+est clear 
+*eststo: qui wildcorrection_as_long2 $outcome
+xi: areg  $outcome  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado) 
+	estadd local depcontrols 
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+	
+		glo r2_log:  di %5.4f e(r2)
+		glo N_log: di %11.2gc e(N)
+		
+/*wild CIs
+boottest lag_1, bootcluster(estado) nograph seed(5675) level(90) // works for acuerdo3 5%
+boottest lead_1, bootcluster(estado) nograph seed(5675) level(90)  // works for acuerdo3 5%
+boottest lead_2, bootcluster(estado) nograph seed(5675) level(90)  // works for acuerdo3 10%
+boottest lead_3_2015, bootcluster(estado) nograph seed(5675) level(90) // works for acuerdo3 5%
+*/
+
+***estimate linear combination by lead/lag:
+
+cap foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di (_b[`i'_2017]*`a') + (_b[`i'_2018]*`b')
+	test (_b[`i'_2017]*`a') + (_b[`i'_2018]*`b')=0
+	glo p_`i'_log: di r(p)
+	glo beta_`i'_log: di %5.4f (_b[`i'_2017]*`a') + (_b[`i'_2018]*`b')
+	glo est_`i'_log= "" 
+			if (${p_`i'_log}<=0.1) global est_`i'_log = "*"
+			if (${p_`i'_log}<=0.05) global est_`i'_log = "**"
+			if (${p_`i'_log}<=0.01) global est_`i'_log = "***"
+	lincom 	(_b[`i'_2017]*`a') + (_b[`i'_2018]*`b')
+	glo se_`i'_log: di %5.4f r(se)
+}
+	
+cap foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di (_b[`i'_2016]*`a')+(_b[`i'_2017]*`b') + (_b[`i'_2018]*`c')
+	test (_b[`i'_2016]*`a')+(_b[`i'_2017]*`b') + (_b[`i'_2018]*`c')=0
+	glo p_`i'_log: di r(p)
+	glo beta_`i'_log: di %5.4f (_b[`i'_2016]*`a')+(_b[`i'_2017]*`b') + (_b[`i'_2018]*`c')
+	glo est_`i'_log= "" 
+			if (${p_`i'_log}<=0.1) global est_`i'_log = "*"
+			if (${p_`i'_log}<=0.05) global est_`i'_log = "**"
+			if (${p_`i'_log}<=0.01) global est_`i'_log = "***"
+	lincom 	(_b[`i'_2016]*`a')+(_b[`i'_2017]*`b') + (_b[`i'_2018]*`c')
+	glo se_`i'_log: di %5.4f r(se)
+}
+
+cap foreach i in lag_5 lag_4 lag_3 lag_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')=0
+	glo p_`i'_log: di r(p)
+	glo beta_`i'_log: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo est_`i'_log= "" 
+			if (${p_`i'_log}<=0.1) global est_`i'_log = "*"
+			if (${p_`i'_log}<=0.05) global est_`i'_log = "**"
+			if (${p_`i'_log}<=0.01) global est_`i'_log = "***"
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo se_`i'_log: di %5.4f r(se)
+}
+
+cap foreach i in lag_1{
+	sum perc2 if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc2 if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc2 if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc2 if `i'_2018==1, meanonly
+	local d = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')=0
+	glo p_`i'_log: di r(p)
+	glo beta_`i'_log: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo est_`i'_log= "" 
+			if (${p_`i'_log}<=0.1) global est_`i'_log = "*"
+			if (${p_`i'_log}<=0.05) global est_`i'_log = "**"
+			if (${p_`i'_log}<=0.01) global est_`i'_log = "***"
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo se_`i'_log: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')=0
+	glo p_`i'_log: di r(p)
+	glo beta_`i'_log: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	glo est_`i'_log= "" 
+			if (${p_`i'_log}<=0.1) global est_`i'_log = "*"
+			if (${p_`i'_log}<=0.05) global est_`i'_log = "**"
+			if (${p_`i'_log}<=0.01) global est_`i'_log = "***"
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	glo se_`i'_log: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')=0
+	glo p_`i'_log: di r(p)
+	glo beta_`i'_log: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	glo est_`i'_log= "" 
+			if (${p_`i'_log}<=0.1) global est_`i'_log = "*"
+			if (${p_`i'_log}<=0.05) global est_`i'_log = "**"
+			if (${p_`i'_log}<=0.01) global est_`i'_log = "***"	
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	glo se_`i'_log: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di (_b[`i'_2015]*`a')
+	test (_b[`i'_2015]*`a')=0
+	glo p_`i'_log: di r(p)
+	glo beta_`i'_log: di %5.4f (_b[`i'_2015]*`a')
+	glo est_`i'_log= "" 
+			if (${p_`i'_log}<=0.1) global est_`i'_log = "*"
+			if (${p_`i'_log}<=0.05) global est_`i'_log = "**"
+			if (${p_`i'_log}<=0.01) global est_`i'_log = "***"	
+	lincom 	(_b[`i'_2015]*`a')
+	glo se_`i'_log: di %5.4f r(se)
+}
+
+
+
+**estimate aggregate effect:
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	lincom 	[ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j')]/3
+	glo aggregate: di %5.4f r(estimate)
+	estadd local aggregate $aggregate
+	glo se_aggregate: di %5.4f r(se)
+	estadd local se_aggregate $se_aggregate
+	test [ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j')]/3=0
+	glo p_aggregate: di %5.4f r(p)
+	estadd local p_aggregate $p_aggregate
+
+************
+***B: ACUERDO2
+************	
+eststo: qui wildcorrection_as_long2 $outcome
+*xi: areg  $outcome  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado) 
+	estadd local depcontrols
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+
+		glo r2_ihs:  di %5.4f e(r2)
+		glo N_ihs: di %11.2gc e(N)
+		
+***estimate linear combination by lead/lag:
+
+cap foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di (_b[`i'_2017]*`a') + (_b[`i'_2018]*`b')
+	test (_b[`i'_2017]*`a') + (_b[`i'_2018]*`b')=0
+	glo p_`i'_ihs: di r(p)
+	glo beta_`i'_ihs: di %5.4f (_b[`i'_2017]*`a') + (_b[`i'_2018]*`b')
+	glo est_`i'_ihs= "" 
+			if (${p_`i'_ihs}<=0.1) global est_`i'_ihs = "*"
+			if (${p_`i'_ihs}<=0.05) global est_`i'_ihs = "**"
+			if (${p_`i'_ihs}<=0.01) global est_`i'_ihs = "***"
+	lincom 	(_b[`i'_2017]*`a') + (_b[`i'_2018]*`b')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+	
+cap foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di (_b[`i'_2016]*`a')+(_b[`i'_2017]*`b') + (_b[`i'_2018]*`c')
+	test (_b[`i'_2016]*`a')+(_b[`i'_2017]*`b') + (_b[`i'_2018]*`c')=0
+	glo p_`i'_ihs: di r(p)
+	glo beta_`i'_ihs: di %5.4f (_b[`i'_2016]*`a')+(_b[`i'_2017]*`b') + (_b[`i'_2018]*`c')
+	glo est_`i'_ihs= "" 
+			if (${p_`i'_ihs}<=0.1) global est_`i'_ihs = "*"
+			if (${p_`i'_ihs}<=0.05) global est_`i'_ihs = "**"
+			if (${p_`i'_ihs}<=0.01) global est_`i'_ihs = "***"
+	lincom 	(_b[`i'_2016]*`a')+(_b[`i'_2017]*`b') + (_b[`i'_2018]*`c')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+cap foreach i in lag_5 lag_4 lag_3 lag_2 {
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')=0
+	glo p_`i'_ihs: di r(p)
+	glo beta_`i'_ihs: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo est_`i'_ihs= "" 
+			if (${p_`i'_ihs}<=0.1) global est_`i'_ihs = "*"
+			if (${p_`i'_ihs}<=0.05) global est_`i'_ihs = "**"
+			if (${p_`i'_ihs}<=0.01) global est_`i'_ihs = "***"
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+cap foreach i in lag_1{
+	sum perc2 if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc2 if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc2 if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc2 if `i'_2018==1, meanonly
+	local d = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')=0
+	glo p_`i'_ihs: di r(p)
+	glo beta_`i'_ihs: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo est_`i'_ihs= "" 
+			if (${p_`i'_ihs}<=0.1) global est_`i'_ihs = "*"
+			if (${p_`i'_ihs}<=0.05) global est_`i'_ihs = "**"
+			if (${p_`i'_ihs}<=0.01) global est_`i'_ihs = "***"
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')=0
+	glo p_`i'_ihs: di r(p)
+	glo beta_`i'_ihs: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	glo est_`i'_ihs= "" 
+			if (${p_`i'_ihs}<=0.1) global est_`i'_ihs = "*"
+			if (${p_`i'_ihs}<=0.05) global est_`i'_ihs = "**"
+			if (${p_`i'_ihs}<=0.01) global est_`i'_ihs = "***"
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')=0
+	glo p_`i'_ihs: di r(p)
+	glo beta_`i'_ihs: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	glo est_`i'_ihs= "" 
+			if (${p_`i'_ihs}<=0.1) global est_`i'_ihs = "*"
+			if (${p_`i'_ihs}<=0.05) global est_`i'_ihs = "**"
+			if (${p_`i'_ihs}<=0.01) global est_`i'_ihs = "***"	
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di (_b[`i'_2015]*`a')
+	test (_b[`i'_2015]*`a')=0
+	glo p_`i'_ihs: di r(p)
+	glo beta_`i'_ihs: di %5.4f (_b[`i'_2015]*`a')
+	glo est_`i'_ihs= "" 
+			if (${p_`i'_ihs}<=0.1) global est_`i'_ihs = "*"
+			if (${p_`i'_ihs}<=0.05) global est_`i'_ihs = "**"
+			if (${p_`i'_ihs}<=0.01) global est_`i'_ihs = "***"	
+	lincom 	(_b[`i'_2015]*`a')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
 
 
 
 
+**estimate aggregate effect:
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	lincom 	[(_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j')] / 3
+	glo aggregate2: di %5.4f r(estimate)
+	estadd local aggregate2 $aggregate2
+	glo se_aggregate2: di %5.4f r(se)
+	estadd local se_aggregate2 $se_aggregate2
+	test [(_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j')] / 3	=0
+	glo p_aggregate2: di %5.4f r(p)
+	estadd local p_aggregate2 $p_aggregate2
+	
+*Table
+texdoc init  "../Tables/abraham_sun_estimates_DVmandounico_wlag1.tex", replace force
+tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+tex \centering
+tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, \citet{chaisemarting_etal_2019} correction}
+tex \label{tab:chaisemartin_agreements}
+tex \scalebox{1}{    
+tex \begin{tabular}{lcc}  
+tex \hline \hline       
+tex \\ \multicolumn{3}{l}{Dependent variable:}\\
+tex & \multicolumn{1}{c}{Agreement A} & \multicolumn{1}{c}{Agreement B$^{a}$} \\
+tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
+
+tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+tex \addlinespace
+*tex t-7 &      $ ${beta_lag_7_log}^{${est_lag_7_log}} $ &  $ ${beta_lag_7_ihs}^{${est_lag_7_ihs}} $   \\
+*tex  & ($ ${se_lag_7_log}$) & ($ ${se_lag_7_ihs} $) \\
+tex t-6 &          $ ${beta_lag_6_log}^{${est_lag_6_log}} $ &   $ ${beta_lag_6_ihs}^{${est_lag_6_ihs}} $  \\
+tex  & ($ ${se_lag_6_log}$) & ($ ${se_lag_6_ihs} $) \\
+tex t-5 &        $ ${beta_lag_5_log}^{${est_lag_5_log}} $ &   $ ${beta_lag_5_ihs}^{${est_lag_5_ihs}} $ \\
+tex  & ($ ${se_lag_5_log}$) & ($ ${se_lag_5_ihs} $) \\
+tex t-4 &         $ ${beta_lag_4_log}^{${est_lag_4_log}} $ &      $ ${beta_lag_4_ihs}^{${est_lag_4_ihs}} $  \\
+tex  & ($ ${se_lag_4_log}$) & ($ ${se_lag_4_ihs} $) \\
+tex t-3 &        $ ${beta_lag_3_log}^{${est_lag_3_log}} $ &     $ ${beta_lag_3_ihs}^{${est_lag_3_ihs}} $ \\
+tex  & ($ ${se_lag_3_log}$) & ($ ${se_lag_3_ihs} $) \\
+tex t-2 &        $ ${beta_lag_2_log}^{${est_lag_2_log}} $ &    $ ${beta_lag_2_ihs}^{${est_lag_2_ihs}} $  \\
+tex  & ($ ${se_lag_2_log}$) & ($ ${se_lag_3_ihs} $) \\
+tex t-1 &        $ ${beta_lag_1_log}^{${est_lag_1_log}} $ &     $ ${beta_lag_1_ihs}^{${est_lag_1_ihs}} $ \\
+tex  & ($ ${se_lag_1_log}$) & ($ ${se_lag_1_ihs} $) \\
+tex t+1 &         $ ${beta_lead_1_log}^{${est_lead_1_log}} $ &       $ ${beta_lead_1_ihs}^{${est_lead_1_ihs}} $ \\
+tex  & ($ ${se_lead_1_log}$) & ($ ${se_lead_1_ihs} $) \\
+tex t+2 &         $ ${beta_lead_2_log}^{${est_lead_2_log}} $ &      $ ${beta_lead_2_ihs}^{${est_lead_2_ihs}} $  \\
+tex  & ($ ${se_lead_2_log}$) & ($ ${se_lead_2_ihs} $) \\
+tex t+3 &        $ ${beta_lead_3_log}^{${est_lead_3_log}} $ &     $ ${beta_lead_3_ihs}^{${est_lead_3_ihs}} $ \\
+tex  & ($ ${se_lead_3_log}$) & ($ ${se_lead_3_ihs} $) \\
+
+tex \addlinespace
+tex Observations       &            ${N_log}        &     ${N_ihs}  \\
+tex R-squared        &              ${r2_log}        &           ${r2_ihs}   \\
+tex Mun. FEs       &     \checkmark         &  \checkmark    \\
+tex Year. FEs       &     \checkmark         &  \checkmark   \\
+tex Controls$^b$   &      \checkmark       &      \checkmark    \\
+tex Cohort weighted   &   \checkmark       &   \checkmark    \\
+tex WILD CI   &          &   \checkmark    \\
+tex Aggregate effect        &              ${aggregate}        &           ${aggregate2}   \\
+tex SE (aggregate eff.)        &              ${se_aggregate}        &           ${se_aggregate2}   \\
+tex p-value(aggregate eff.)       &              ${p_aggregate}        &           ${p_aggregate2}   \\
+
+tex \hline \hline      
+tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to the inverse hyperbolic sine transformation. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \end{tabular}
+tex } 
+tex \end{table}
+texdoc close
+
+
+*========================================================================
+*3) Trim
+	global outcome acuerdo_estcom
+	global outcome2 acuerdo_estcom2
+   
+   global trim lag_4_2015 lag_4_2016 lag_4_2017 lag_4_2018 lag_3_2015 lag_3_2016 lag_3_2017 lag_3_2018 lag_2_2015 lag_2_2016 lag_2_2017 lag_2_2018 date_0_2015 date_0_2016 date_0_2017 date_0_2018 lead_1_2015 lead_1_2016 lead_1_2017 lead_2_2015 lead_2_2016 lead_3_2015
+
+	
+************
+***A: ACUERDO 
+************	
+est clear 
+*eststo: qui wildcorrection_as_new2 $outcome
+xi: reghdfe  $outcome  $trim $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+	estadd local depcontrols 
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+	
+		glo r2_log:  di %5.4f e(r2)
+		glo N_log: di %11.2gc e(N)
+		
+/*wild CIs
+boottest date_0, bootcluster(estado) nograph seed(5675) level(90) // works for acuerdo3 5%
+boottest lead_1, bootcluster(estado) nograph seed(5675) level(90)  // works for acuerdo3 5%
+boottest lead_2, bootcluster(estado) nograph seed(5675) level(90)  // works for acuerdo3 10%
+boottest lead_3_2015, bootcluster(estado) nograph seed(5675) level(90) // works for acuerdo3 5%
+*/
+
+***estimate linear combination by lead/lag:
+
+cap foreach i in lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')=0
+	glo p_`i'_log: di r(p)
+	glo beta_`i'_log: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo est_`i'_log= "" 
+			if (${p_`i'_log}<=0.1) global est_`i'_log = "*"
+			if (${p_`i'_log}<=0.05) global est_`i'_log = "**"
+			if (${p_`i'_log}<=0.01) global est_`i'_log = "***"
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo se_`i'_log: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')=0
+	glo p_`i'_log: di r(p)
+	glo beta_`i'_log: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	glo est_`i'_log= "" 
+			if (${p_`i'_log}<=0.1) global est_`i'_log = "*"
+			if (${p_`i'_log}<=0.05) global est_`i'_log = "**"
+			if (${p_`i'_log}<=0.01) global est_`i'_log = "***"
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	glo se_`i'_log: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')=0
+	glo p_`i'_log: di r(p)
+	glo beta_`i'_log: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	glo est_`i'_log= "" 
+			if (${p_`i'_log}<=0.1) global est_`i'_log = "*"
+			if (${p_`i'_log}<=0.05) global est_`i'_log = "**"
+			if (${p_`i'_log}<=0.01) global est_`i'_log = "***"	
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	glo se_`i'_log: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di (_b[`i'_2015]*`a')
+	test (_b[`i'_2015]*`a')=0
+	glo p_`i'_log: di r(p)
+	glo beta_`i'_log: di %5.4f (_b[`i'_2015]*`a')
+	glo est_`i'_log= "" 
+			if (${p_`i'_log}<=0.1) global est_`i'_log = "*"
+			if (${p_`i'_log}<=0.05) global est_`i'_log = "**"
+			if (${p_`i'_log}<=0.01) global est_`i'_log = "***"	
+	lincom 	(_b[`i'_2015]*`a')
+	glo se_`i'_log: di %5.4f r(se)
+}
+
+
+
+**estimate aggregate effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	lincom 	[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j')]/4
+	glo aggregate: di %5.4f r(estimate)
+	estadd local aggregate $aggregate
+	glo se_aggregate: di %5.4f r(se)
+	estadd local se_aggregate $se_aggregate
+	test [(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j')]/4	=0
+	glo p_aggregate: di %5.4f r(p)
+	estadd local p_aggregate $p_aggregate
+
+************
+***B: ACUERDO2
+************	
+eststo: qui wildcorrection_as_trim $outcome
+*xi: reghdfe  $outcome2  $trim $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+	estadd local depcontrols
+	estadd local munfe \checkmark
+	estadd local yearfe \checkmark
+	estadd local clustermun \checkmark
+
+		glo r2_ihs:  di %5.4f e(r2)
+		glo N_ihs: di %11.2gc e(N)
+		
+***estimate linear combination by lead/lag:
+cap foreach i in lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')=0
+	glo p_`i'_ihs: di r(p)
+	glo beta_`i'_ihs: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo est_`i'_ihs= "" 
+			if (${p_`i'_ihs}<=0.1) global est_`i'_ihs = "*"
+			if (${p_`i'_ihs}<=0.05) global est_`i'_ihs = "**"
+			if (${p_`i'_ihs}<=0.01) global est_`i'_ihs = "***"
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')=0
+	glo p_`i'_ihs: di r(p)
+	glo beta_`i'_ihs: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	glo est_`i'_ihs= "" 
+			if (${p_`i'_ihs}<=0.1) global est_`i'_ihs = "*"
+			if (${p_`i'_ihs}<=0.05) global est_`i'_ihs = "**"
+			if (${p_`i'_ihs}<=0.01) global est_`i'_ihs = "***"
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')=0
+	glo p_`i'_ihs: di r(p)
+	glo beta_`i'_ihs: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	glo est_`i'_ihs= "" 
+			if (${p_`i'_ihs}<=0.1) global est_`i'_ihs = "*"
+			if (${p_`i'_ihs}<=0.05) global est_`i'_ihs = "**"
+			if (${p_`i'_ihs}<=0.01) global est_`i'_ihs = "***"	
+	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+
+cap foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di (_b[`i'_2015]*`a')
+	test (_b[`i'_2015]*`a')=0
+	glo p_`i'_ihs: di r(p)
+	glo beta_`i'_ihs: di %5.4f (_b[`i'_2015]*`a')
+	glo est_`i'_ihs= "" 
+			if (${p_`i'_ihs}<=0.1) global est_`i'_ihs = "*"
+			if (${p_`i'_ihs}<=0.05) global est_`i'_ihs = "**"
+			if (${p_`i'_ihs}<=0.01) global est_`i'_ihs = "***"	
+	lincom 	(_b[`i'_2015]*`a')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+
+
+
+**estimate aggregate effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	lincom 	[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j')] / 4
+	glo aggregate2: di %5.4f r(estimate)
+	estadd local aggregate2 $aggregate2
+	glo se_aggregate2: di %5.4f r(se)
+	estadd local se_aggregate2 $se_aggregate2
+	test [(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j')]/4	=0
+	glo p_aggregate2: di %5.4f r(p)
+	estadd local p_aggregate2 $p_aggregate2
+	
+*Table
+texdoc init  "../Tables/abraham_sun_estimates_DVmandounico_trim.tex", replace force
+tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+tex \centering
+tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, \citet{chaisemarting_etal_2019} correction}
+tex \label{tab:chaisemartin_agreements}
+tex \scalebox{1}{    
+tex \begin{tabular}{lcc}  
+tex \hline \hline       
+tex \\ \multicolumn{3}{l}{Dependent variable:}\\
+tex & \multicolumn{1}{c}{Agreement A} & \multicolumn{1}{c}{Agreement B$^{a}$} \\
+tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
+
+tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+tex \addlinespace
+tex t-4 years &         $ ${beta_lag_4_log}^{${est_lag_4_log}} $ &      $ ${beta_lag_4_ihs}^{${est_lag_4_ihs}} $  \\
+tex  & ($ ${se_lag_4_log}$) & ($ ${se_lag_4_ihs} $) \\
+tex t-3 &        $ ${beta_lag_3_log}^{${est_lag_3_log}} $ &     $ ${beta_lag_3_ihs}^{${est_lag_3_ihs}} $ \\
+tex  & ($ ${se_lag_3_log}$) & ($ ${se_lag_3_ihs} $) \\
+tex t-2 &        $ ${beta_lag_2_log}^{${est_lag_2_log}} $ &    $ ${beta_lag_2_ihs}^{${est_lag_2_ihs}} $  \\
+tex  & ($ ${se_lag_2_log}$) & ($ ${se_lag_3_ihs} $) \\
+tex t=0 (Reform) &        $ ${beta_date_0_log}^{${est_date_0_log}} $ &     $ ${beta_date_0_ihs}^{${est_date_0_ihs}} $ \\
+tex  & ($ ${se_date_0_log}$) & ($ ${se_date_0_ihs} $) \\
+tex t+1 &         $ ${beta_lead_1_log}^{${est_lead_1_log}} $ &       $ ${beta_lead_1_ihs}^{${est_lead_1_ihs}} $ \\
+tex  & ($ ${se_lead_1_log}$) & ($ ${se_lead_1_ihs} $) \\
+tex t+2 &         $ ${beta_lead_2_log}^{${est_lead_2_log}} $ &      $ ${beta_lead_2_ihs}^{${est_lead_2_ihs}} $  \\
+tex  & ($ ${se_lead_2_log}$) & ($ ${se_lead_2_ihs} $) \\
+tex t+3  &        $ ${beta_lead_3_log}^{${est_lead_3_log}} $ &     $ ${beta_lead_3_ihs}^{${est_lead_3_ihs}} $ \\
+tex  & ($ ${se_lead_3_log}$) & ($ ${se_lead_3_ihs} $) \\
+
+tex \addlinespace
+tex Observations       &            ${N_log}        &     ${N_ihs}  \\
+tex R-squared        &              ${r2_log}        &           ${r2_ihs}   \\
+tex Mun. FEs       &     \checkmark         &  \checkmark    \\
+tex Year. FEs       &     \checkmark         &  \checkmark   \\
+tex Controls$^b$   &      \checkmark       &      \checkmark    \\
+tex Cohort weighted   &   \checkmark       &   \checkmark    \\
+tex WILD CI   &   \checkmark       &   \checkmark    \\
+tex Aggregate effect        &              ${aggregate}        &           ${aggregate2}   \\
+tex SE (aggregate eff.)        &              ${se_aggregate}        &           ${se_aggregate2}   \\
+tex p-value(aggregate eff.)       &              ${p_aggregate}        &           ${p_aggregate2}   \\
+
+tex \hline \hline      
+tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to the inverse hyperbolic sine transformation. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \end{tabular}
+tex } 
+tex \end{table}
+texdoc close
+
+
+*MESSAGE: Reform decreases the likelihood of signing security cooperation agreements. VBut non significant.
+
 *========================================================================
 *========================================================================
 *========================================================================
 *========================================================================
 *========================================================================
+
 *========================================================================
+*1) Naive OLS
+est clear
+foreach i in $acuerdos{
+eststo: qui reghdfe `i' reform $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+eststo: qui reghdfe F.`i' reform $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+eststo: qui reghdfe F2.`i' reform $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+eststo: qui reghdfe F3.`i' reform $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+
+}
+esttab est*, keep(reform ) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
+
+est clear
+foreach i in $acuerdos{
+eststo: qui reghdfe `i' $lagsleads $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+}
+
+esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
+
+
+*Wild CI correction:
+est clear
+eststo: qui wildcorrection acuerdo_gobestatal
+eststo: qui wildcorrection acuerdo_gobestatal2
+eststo: qui wildcorrection acuerdo_estcom
+
+esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
+
 *========================================================================
+*1) Callaway and Sant'Ana (2020)
+*help did
+rcall clear
+gen group2=.
+replace group2=0 if group==1
+replace group2=1 if group==2
+replace group2=2 if group==3
+replace group2=3 if group==4
+replace group2=4 if group==5
+
+att_gt acuerdo_estcom year group2, idname(inegi) allow_unbalanced_panel  anticipation(0)
+*doesn't work	
+*========================================================================
+*2) Chaisemartin and D'Haultfoeuille correction
+global outcome acuerdo_estcom
+global outcome2 acuerdo_estcom2
+
+*Graph: long dynamic effects
+foreach outcome in  $outcome  {
+did_multiplegt `outcome' group year reform, breps(100) controls($controls2) placebo(2) seed(5675) ///
+cluster(estado) robust_dynamic dynamic(3) longdiff_placebo 
+graph export "../Figures/chaisemartin_`outcome'.png", as(png) replace
+}
+
+
+*Graph: long dynamic effects
+foreach outcome in  $outcome2 {
+did_multiplegt `outcome' group year reform, breps(100) controls($controls2)  placebo(3)  seed(5675) ///
+cluster(estado) robust_dynamic dynamic(3) longdiff_placebo 
+graph export "../Figures/chaisemartin_`outcome'.png", as(png) replace
+}
+
+
+
+************
+*A) Acuerdo:
+************
+foreach outcome in $outcome {
+did_multiplegt `outcome' group year reform, breps(100) controls($controls2)   placebo(3) seed(5675) ///
+cluster(estado) robust_dynamic  dynamic(3) average_effect ///
+save_results("../../Data/chaisemartin_`outcome'.dta")
+}
+
+
+ereturn list
+return list
+
+*save results to globals:
+foreach i in 0 1 2 3{
+	glo grados_t_`i': di %5.3f e(N_effect_`i')-3
+	glo beta_t_`i': di %5.3f e(effect_`i')
+	glo se_t_`i': di %5.3f e(se_effect_`i')
+	glo t_t_`i': di e(effect_`i')/e(se_effect_`i')
+	glo pval_t_`i': di 2*ttail(${grados_t_`i'},abs(${t_t_`i'})) 
+	glo est_t_`i'= "" 
+			if (${pval_t_`i'}<=0.1) global est_t_`i' = "*"
+			if (${pval_t_`i'}<=0.05) global est_t_`i' = "**"
+			if (${pval_t_`i'}<=0.01) global est_t_`i' = "***"
+			*if (${pval_t_`i'}=0) global est_t_`i' = "***"
+}
+
+*Placebos: 
+foreach i in 1 2 3 4 5{
+	glo pgrados_t_`i': di %5.3f e(N_placebo_`i')-3
+	glo pbeta_t_`i': di %5.3f e(placebo_`i')
+	glo pse_t_`i': di %5.3f e(se_placebo_`i')
+	glo pt_t_`i': di e(placebo_`i')/e(se_placebo_`i')
+	glo ppval_t_`i': di 2*ttail(${pgrados_t_`i'},abs(${pt_t_`i'})) 
+	glo pest_t_`i'= "" 
+			if (${ppval_t_`i'}<=0.1) global pest_t_`i' = "*"
+			if (${ppval_t_`i'}<=0.05) global pest_t_`i' = "**"
+			if (${ppval_t_`i'}<=0.01) global pest_t_`i' = "***"
+			*if (${ppval_t_`i'}=0) global pest_t_`i' = "***"
+}
+
+	
+
+************
+*B) Acuerdo2:
+************
+foreach outcome in $outcome2 {
+did_multiplegt `outcome' group year reform, breps(100) controls($controls_mean) placebo(2) seed(5675) ///
+cluster(estado) robust_dynamic  dynamic(2) ///
+save_results("../../Data/chaisemartin_`outcome'.dta")
+}
+
+ereturn list
+return list
+
+*save results to globals:
+foreach i in 0 1 2 3{
+	glo grados2_t_`i': di %5.3f e(N_effect_`i')-3
+	glo beta2_t_`i': di %5.3f e(effect_`i')
+	glo se2_t_`i': di %5.3f e(se_effect_`i')
+	glo t2_t_`i': di e(effect_`i')/e(se_effect_`i')
+	glo pval2_t_`i': di 2*ttail(${grados2_t_`i'},abs(${t2_t_`i'})) 
+	glo est2_t_`i'= "" 
+			if (${pval2_t_`i'}<=0.1) global est2_t_`i' = "*"
+			if (${pval2_t_`i'}<=0.05) global est2_t_`i' = "**"
+			if (${pval2_t_`i'}<=0.01) global est2_t_`i' = "***"
+			*if (${pval2_t_`i'}=0) global est2_t_`i' = "***"
+
+}
+
+*Placebos: 
+foreach i in 1 2 3 4 5{
+	glo pgrados2_t_`i': di %5.3f e(N_placebo_`i')-3
+	glo pbeta2_t_`i': di %5.3f e(placebo_`i')
+	glo pse2_t_`i': di %5.3f e(se_placebo_`i')
+	glo pt2_t_`i': di e(placebo_`i')/e(se_placebo_`i')
+	glo ppval2_t_`i': di 2*ttail(${pgrados2_t_`i'},abs(${pt2_t_`i'})) 
+	glo pest2_t_`i'= "" 
+			if (${ppval2_t_`i'}<=0.1) global pest2_t_`i' = "*"
+			if (${ppval2_t_`i'}<=0.05) global pest2_t_`i' = "**"
+			if (${ppval2_t_`i'}<=0.01) global pest2_t_`i' = "***"
+			*if (${ppval2_t_`i'}=0) global pest2_t_`i' = "***"
+}
+
+*Table
+	
+texdoc init  "../Tables/chaisemarting_estimates_DVmandounico.tex", replace force
+tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+tex \centering
+tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements}
+tex \label{tab:chaisemartin}
+tex \scalebox{1}{    
+tex \begin{tabular}{lcc}  
+tex \hline \hline       
+tex \\ \multicolumn{3}{l}{Dependent variable:}\\
+tex & \multicolumn{1}{c}{Agreement A} & \multicolumn{1}{c}{Agreement B$^{a}$} \\
+tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
+tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+tex \addlinespace
+tex Lag 5 years &        $ ${pbeta_t_4}^{${pest_t_4}} $ &     $ ${pbeta2_t_4}^{${pest2_t_4}} $ \\
+tex  & ($ ${pse_t_4}$) & ($ ${pse2_t_4} $) \\
+tex Lag 4 years &        $ ${pbeta_t_3}^{${pest_t_3}} $ &     $ ${pbeta2_t_3}^{${pest2_t_3}} $ \\
+tex  & ($ ${pse_t_3}$) & ($ ${pse2_t_3} $) \\
+tex Lag 3 years &        $ ${pbeta_t_2}^{${pest_t_2}} $ &     $ ${pbeta2_t_2}^{${pest2_t_2}} $ \\
+tex  & ($ ${pse_t_2}$) & ($ ${pse2_t_2} $) \\
+tex Lag 2 years &        $ ${pbeta_t_1}^{${pest_t_1}} $ &     $ ${pbeta2_t_1}^{${pest2_t_1}} $ \\
+tex  & ($ ${pse_t_1}$) & ($ ${pse2_t_1} $) \\
+tex Reform, time 0 &        $ ${beta_t_0}^{${est_t_0}} $ &     $ ${beta2_t_0}^{${est2_t_0}} $ \\
+tex  & ($ ${se_t_0}$) & ($ ${se2_t_0} $) \\
+tex Lead 1 year &         $ ${beta_t_1}^{${est_t_1}} $ &       $ ${beta2_t_1}^{${est2_t_1}} $ \\
+tex  & ($ ${se_t_1}$) & ($ ${se2_t_1} $) \\
+tex Lead 2 years &         $ ${beta_t_2}^{${est_t_2}} $ &      $ ${beta2_t_2}^{${est2_t_2}} $  \\
+tex  & ($ ${se_t_2}$) & ($ ${se2_t_2} $) \\
+
+tex \addlinespace
+tex Controls$^b$   &    \checkmark      &   \checkmark    \\
+tex \hline \hline      
+tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Secondary version of security cooperation agreements. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \end{tabular}
+tex } 
+tex \end{table}
+texdoc close
+
+
+*MESSAGE: Reform decreases the likelihood of signing security cooperation agreements.
+
 
 
 *========================================================================
