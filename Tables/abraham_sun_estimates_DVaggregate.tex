@@ -1,0 +1,27 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of 2014 Term Limit Reform on Signing Security Cooperation Agreements, Average Effect }
+\label{tab:as_aggregate}
+\scalebox{1}{
+\begin{tabular}{lcccc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable: Signing a Security Cooperation Agreement w/ Governor}\\
+Model: & CATTs & CATTs w/ WILD CIs & Change ref. period (t=0) & Trim < t-4 \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)}  & \multicolumn{1}{c}{(4)}  \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}  \cmidrule(lrr){4-4} \cmidrule(lrr){5-5}\\
+\addlinespace
+Average effect (from t to t+3)       & $-0.4197^{***} $$ & $-0.4197 ^{***} $$ & $-0.4605 ^{**} $$ & $-0.3553 ^{***} $$   \\
+& (0.0457( & (0.0473)  & (0.1973) & (0.0466)  \\
+\addlinespace
+Observations       &      12,173 &      12,173 &      12,173 &      12,173 \\
+R-squared         & 0.4542 & 0.4542 & 0.4542 & 0.4542 \\
+Mun. FEs       &     \checkmark         &  \checkmark &     \checkmark         &  \checkmark     \\
+Year. FEs       &     \checkmark         &  \checkmark  &     \checkmark         &  \checkmark \\
+Controls$^b$   &      \checkmark       &      \checkmark &      \checkmark       &      \checkmark    \\
+Cohort weighted   &   \checkmark       &   \checkmark  &   \checkmark       &   \checkmark  \\
+Parallel trend holds   &   \checkmark       &   \checkmark  &   \checkmark       &   \checkmark   \\
+\hline \hline
+\multicolumn{5}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\end{tabular}
+}
+\end{table}

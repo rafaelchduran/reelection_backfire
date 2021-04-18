@@ -21,7 +21,7 @@ set varabbrev off
 *ssc install clustse, replace
 *ssc install fillmissing, replace
 *ssc install did_multiplegt, replace
-*net install did, from("https://raw.githubusercontent.com/NickCH-K/did/master/")
+*net install did, from("https://raw.githubusercontent.com/NickCH-K/did/master/") replace
 * didsetup (and type Yes and Yes)
 
 *========================================================================

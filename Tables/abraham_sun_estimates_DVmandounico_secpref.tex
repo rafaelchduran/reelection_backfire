@@ -1,0 +1,48 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, \citet{chaisemarting_etal_2019} correction}
+\label{tab:chaisemartin_agreements}
+\scalebox{1}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{1}{c}{Below mean} & \multicolumn{1}{c}{Above mean} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+\addlinespace
+Lag 7 years &      $ 0.4372^{***} $ &  $ -1.3662^{*} $   \\
+& ($ 0.1143$) & ($ 0.8013 $) \\
+Lag 6 years &          $ 0.0020^{} $ &   $ -0.0821^{} $  \\
+& ($ 0.1486$) & ($ 0.2609 $) \\
+Lag 5 years &        $ 0.0115^{} $ &   $ -0.0757^{} $ \\
+& ($ 0.1376$) & ($ 0.1368 $) \\
+Lag 4 years &         $ 0.0740^{} $ &      $ 0.0714^{} $  \\
+& ($ 0.2453$) & ($ 0.4883 $) \\
+Lag 3 years &        $ 0.3613^{*} $ &     $ 0.0219^{} $ \\
+& ($ 0.2036$) & ($ 0.4459 $) \\
+Lag 2 years &        $ 0.0876^{} $ &    $ -0.1007^{} $  \\
+& ($ 0.1609$) & ($ 0.4459 $) \\
+Reform, time 0 &        $ -0.2488^{***} $ &     $ -0.1852^{***} $ \\
+& ($ 0.0556$) & ($ 0.0514 $) \\
+Lead 1 year &         $ -0.4117^{***} $ &       $ -0.3803^{***} $ \\
+& ($ 0.0736$) & ($ 0.0589 $) \\
+Lead 2 years &         $ -0.4144^{***} $ &      $ -0.4375^{***} $  \\
+& ($ 0.0691$) & ($ 0.0476 $) \\
+Lead 3 years &        $ -0.6180^{***} $ &     $ -0.5557^{***} $ \\
+& ($ 0.0734$) & ($ 0.0576 $) \\
+\addlinespace
+Observations       &                  7,701        &           4,539  \\
+R-squared        &              0.4513        &           0.4425   \\
+Mun. FEs       &     \checkmark         &  \checkmark    \\
+Year. FEs       &     \checkmark         &  \checkmark   \\
+Controls$^b$   &      \checkmark       &      \checkmark    \\
+Cohort weighted   &   \checkmark       &   \checkmark    \\
+WILD CI   &   \checkmark       &   \checkmark    \\
+Aggregate effect        &              -0.4232        &           -0.3897   \\
+SE (aggregate eff.)        &              0.0583        &           0.0324   \\
+p-value(aggregate eff.)       &              0.0000        &           0.0000   \\
+\hline \hline
+\multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to the inverse hyperbolic sine transformation. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\end{tabular}
+}
+\end{table}

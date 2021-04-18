@@ -31,7 +31,7 @@ global controls_2014 logdefuncionespc_2014 ap4_2_3_2014 ap4_2_11_2014 ap4_12b_20
   
 global controls_mean logdefuncionespc_mean ap4_2_3_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ///
  ap5_4_8_b_mean alignment_executive_strong_mean alignment_governor_strong_mean winning_margin_mean ///
- winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean  acuerdo_mean
+ winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean  logpop_
  
 global controls2_mean logdefuncionespc_mean ap4_2_3_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ///
  ap5_4_8_b_mean alignment_executive_strong_mean alignment_governor_strong_mean winning_margin_mean ///

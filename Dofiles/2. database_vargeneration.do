@@ -276,7 +276,7 @@ xfill `j', i(inegi)
 
 *========================================================================
 *6) Average prior to treatment
-cap foreach i in $controls  logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total {
+cap foreach i in $controls  logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_9 ap4_2_10 ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9{
 cap bysort inegi: egen `i'_mean=mean(`i') if year<=2014
 cap foreach j in  `i'_mean{
 cap xfill `j', i(inegi)
@@ -308,6 +308,47 @@ cap foreach year in $years{
 cap gen `i'_`year'=`i'*`year'
 }
 }
+
+*========================================================================
+*Create various agreement measures:
+
+gen acuerdo_estyfed=0
+replace acuerdo_estyfed=1 if acuerdo_gobestatal2==1 & acuerdo_gobfederal==1
+replace acuerdo_estyfed=. if acuerdo_gobestatal2==. | acuerdo_gobfederal==.
+
+gen acuerdo_estnofed=0
+replace acuerdo_estnofed=1 if acuerdo_gobestatal2==1 & acuerdo_gobfederal==0
+replace acuerdo_estnofed=. if acuerdo_gobestatal2==. | acuerdo_gobfederal==.
+
+gen acuerdo_fednoest=0
+replace acuerdo_fednoest=1 if acuerdo_gobestatal2==0 & acuerdo_gobfederal==1
+replace acuerdo_fednoest=. if acuerdo_gobestatal2==. | acuerdo_gobfederal==.
+
+gen acuerdo_estyfed2=0
+replace acuerdo_estyfed2=1 if acuerdo_gobestatal3==1 & acuerdo_gobfederal==1
+replace acuerdo_estyfed2=. if acuerdo_gobestatal3==. | acuerdo_gobfederal==.
+
+gen acuerdo_estnofed2=0
+replace acuerdo_estnofed2=1 if acuerdo_gobestatal3==1 & acuerdo_gobfederal==0
+replace acuerdo_estnofed2=. if acuerdo_gobestatal3==. | acuerdo_gobfederal==.
+
+gen acuerdo_fednoest2=0
+replace acuerdo_fednoest2=1 if acuerdo_gobestatal3==0 & acuerdo_gobfederal==1
+replace acuerdo_fednoest2=. if acuerdo_gobestatal3==. | acuerdo_gobfederal==.
+
+gen acuerdo_estyfed3=0
+replace acuerdo_estyfed3=1 if acuerdo_gobestatal4==1 & acuerdo_gobfederal==1
+replace acuerdo_estyfed3=. if acuerdo_gobestatal4==. | acuerdo_gobfederal==.
+
+gen acuerdo_estnofed3=0
+replace acuerdo_estnofed3=1 if acuerdo_gobestatal4==1 & acuerdo_gobfederal==0
+replace acuerdo_estnofed3=. if acuerdo_gobestatal4==. | acuerdo_gobfederal==.
+
+gen acuerdo_fednoest3=0
+replace acuerdo_fednoest3=1 if acuerdo_gobestatal4==0 & acuerdo_gobfederal==1
+replace acuerdo_fednoest3=. if acuerdo_gobestatal4==. | acuerdo_gobfederal==.
+
+
 
 *========================================================================
 *ERASE TIME PERIODS PRIOR TO 2010
@@ -563,7 +604,7 @@ xfill `j', i(inegi)
 *========================================================================
 *6) Average prior to treatment
 *foreach i in $controls ap4_2_5 logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4{
-cap foreach i in $controls logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total{
+cap foreach i in $controls logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_9 ap4_2_10 ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9{
 cap bysort inegi: egen `i'_mean=mean(`i') if year<=2014
 foreach j in  `i'_mean{
 xfill `j', i(inegi)
@@ -594,6 +635,46 @@ cap foreach year in $years{
 cap gen `i'_`year'=`i'*`year'
 }
 }
+*========================================================================
+*Create various agreement measures:
+
+gen acuerdo_estyfed=0
+replace acuerdo_estyfed=1 if acuerdo_gobestatal2==1 & acuerdo_gobfederal==1
+replace acuerdo_estyfed=. if acuerdo_gobestatal2==. | acuerdo_gobfederal==.
+
+gen acuerdo_estnofed=0
+replace acuerdo_estnofed=1 if acuerdo_gobestatal2==1 & acuerdo_gobfederal==0
+replace acuerdo_estnofed=. if acuerdo_gobestatal2==. | acuerdo_gobfederal==.
+
+gen acuerdo_fednoest=0
+replace acuerdo_fednoest=1 if acuerdo_gobestatal2==0 & acuerdo_gobfederal==1
+replace acuerdo_fednoest=. if acuerdo_gobestatal2==. | acuerdo_gobfederal==.
+
+gen acuerdo_estyfed2=0
+replace acuerdo_estyfed2=1 if acuerdo_gobestatal3==1 & acuerdo_gobfederal==1
+replace acuerdo_estyfed2=. if acuerdo_gobestatal3==. | acuerdo_gobfederal==.
+
+gen acuerdo_estnofed2=0
+replace acuerdo_estnofed2=1 if acuerdo_gobestatal3==1 & acuerdo_gobfederal==0
+replace acuerdo_estnofed2=. if acuerdo_gobestatal3==. | acuerdo_gobfederal==.
+
+gen acuerdo_fednoest2=0
+replace acuerdo_fednoest2=1 if acuerdo_gobestatal3==0 & acuerdo_gobfederal==1
+replace acuerdo_fednoest2=. if acuerdo_gobestatal3==. | acuerdo_gobfederal==.
+
+gen acuerdo_estyfed3=0
+replace acuerdo_estyfed3=1 if acuerdo_gobestatal4==1 & acuerdo_gobfederal==1
+replace acuerdo_estyfed3=. if acuerdo_gobestatal4==. | acuerdo_gobfederal==.
+
+gen acuerdo_estnofed3=0
+replace acuerdo_estnofed3=1 if acuerdo_gobestatal4==1 & acuerdo_gobfederal==0
+replace acuerdo_estnofed3=. if acuerdo_gobestatal4==. | acuerdo_gobfederal==.
+
+gen acuerdo_fednoest3=0
+replace acuerdo_fednoest3=1 if acuerdo_gobestatal4==0 & acuerdo_gobfederal==1
+replace acuerdo_fednoest3=. if acuerdo_gobestatal4==. | acuerdo_gobfederal==.
+
+
 *========================================================================
 *SAVE DATA
 save "../../Data/ConstructionDatabase/data_final2_forR.dta", replace

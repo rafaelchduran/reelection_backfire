@@ -373,14 +373,13 @@ xtset inegi year
 *Set globals: 
 global saturated lag_7_2017 lag_7_2018 lag_6_2016 lag_6_2017 lag_6_2018 lag_5_2015 lag_5_2016 lag_5_2017 lag_5_2018 lag_4_2015 lag_4_2016 lag_4_2017 lag_4_2018 lag_3_2015 lag_3_2016 lag_3_2017 lag_3_2018 lag_2_2015 lag_2_2016 lag_2_2017 lag_2_2018 date_0_2015 date_0_2016 date_0_2017 date_0_2018 lead_1_2015 lead_1_2016 lead_1_2017 lead_2_2015 lead_2_2016 lead_3_2015
 
-
 ************
 ***A: w/o covariates
 ************	
 
 est clear
 preserve
-quietly	areg  logdefuncionespc  $saturated $controls  i.year, a(inegi) vce(cluster estado)
+xi: reghdfe  $acuerdo_estcom  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
 keep if e(sample)==1
 quietly	areg  logdefuncionespc  $saturated  i.year, a(inegi) vce(cluster estado)
 	estadd local depcontrols \checkmark
@@ -507,11 +506,11 @@ foreach i in lead_3{
 
 
 
-restore
+
 ************
 ***B: with covariates
 ************	
-quietly	areg  logdefuncionespc  $saturated $controls  i.year, a(inegi) vce(cluster estado)
+quietly	areg  logdefuncionespc  $saturated $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 	estadd local depcontrols \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -632,6 +631,7 @@ foreach i in lead_3{
 	lincom 	(_b[`i'_2015]*`a')
 	glo se_`i'_ihs: di %5.4f r(se)
 }
+restore
 *Table
 	
 texdoc init  "../Tables/abraham_sun_estimates_lagDV.tex", replace force
@@ -818,7 +818,7 @@ restore
 *6) Chaisemartin and D'Haultfoeuille correction
 *Graph:
 foreach outcome in  logdefuncionespc ihs_defuncionespc{
-did_multiplegt `outcome' group year reform, breps(100) controls($controls)  seed(5675) ///
+did_multiplegt `outcome' group year reform, breps(100)  seed(5675) ///
 cluster(estado) robust_dynamic dynamic(2) placebo(2) longdiff_placebo 
 graph export "../Figures/chaisemartin_`outcome'.png", as(png) replace
 }
