@@ -1,8 +1,8 @@
-*Regressions: HET EFFECTS BY SECURITY PREFERENCES
+*Regressions: HET EFFECTS SECURITY CITIZEN TASTES (STATE LEVEL)
 *Paper: Reelection Backfire
 *Author: Rafael Ch (rafael.ch@nyu.edu)
 *========================================================================
-/*
+/*NOTES
 ENVIPE variables: state-year level
 ap4_2_3  = tema que más me preocupa - narcotráfico 
 ap4_2_5  = tema que más me preocupa - inseguridad 
@@ -11,13 +11,13 @@ ap4_12b = ¿Cuánto gastaron en total por esas medidas durante 2018?
 ap5_4_2_b  = ¿Cuánta confianza le inspira la (el) (AUTORIDAD)? policia preventiva municipal
 ap5_4_8_b = ¿Cuánta confianza le inspira la (el) (AUTORIDAD)? ejercito
 */
-
 *========================================================================
 *Environment
 clear all
 set more off  
 set varabbrev off 
-
+set maxvar 30000
+set matsize 11000 
 *========================================================================
 *Working Directory
 cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/reelection_backfire/Dofiles"
@@ -32,29 +32,8 @@ xtset inegi year
 
 *========================================================================
 *SET GLOBALS
-
-	global controls_mean logdefuncionespc_mean ap4_2_3_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ///
-	ap5_4_8_b_mean alignment_executive_strong_mean alignment_governor_strong_mean winning_margin_mean ///
-	winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean  acuerdo_mean
-	 
-	global controls2_mean logdefuncionespc_mean ap4_2_3_mean ap4_2_11_mean ap4_12b_mean ap5_4_2_b_mean ///
-	ap5_4_8_b_mean alignment_executive_strong_mean alignment_governor_strong_mean winning_margin_mean ///
-	winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean  acuerdo2_mean
-
-	global controls2_mean logdefuncionespc_mean  ///
-	 alignment_executive_strong_mean alignment_governor_strong_mean winning_margin_mean ///
-	winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean  acuerdo2_mean
-
-	global controls $controls_mean
-	global controls $controls2_mean
-
-*temporal globals
-	global narco ap4_2_3_lag_8 ap4_2_3_lag_7 ap4_2_3_lag_6 ap4_2_3_lag_5 ap4_2_3_lag_4 ap4_2_3_lag_3 ap4_2_3_lag_2
-	global punishment ap4_2_11_lag_8 ap4_2_11_lag_7 ap4_2_11_lag_6 ap4_2_11_lag_5 ap4_2_11_lag_4 ap4_2_11_lag_3 ap4_2_11_lag_2
-	global money ap4_12b_lag_8 ap4_12b_lag_7 ap4_12b_lag_6 ap4_12b_lag_5 ap4_12b_lag_4 ap4_12b_lag_3 ap4_12b_lag_2
-	global police ap5_4_2_b_lag_8 ap5_4_2_b_lag_7 ap5_4_2_b_lag_6 ap5_4_2_b_lag_5 ap5_4_2_b_lag_4 ap5_4_2_b_lag_3 ap5_4_2_b_lag_2
-	global army ap5_4_8_b_lag_8 ap5_4_8_b_lag_7 ap5_4_8_b_lag_6 ap5_4_8_b_lag_5 ap5_4_8_b_lag_4 ap5_4_8_b_lag_3 ap5_4_8_b_lag_2
-	global citizens $narco $punishment $money $police $army
+*1) controls
+*temporal globals with date_0
 	global homicides logdefuncionespc_lag_2 logdefuncionespc_lag_3 logdefuncionespc_lag_4 logdefuncionespc_lag_5 logdefuncionespc_lag_6 logdefuncionespc_lag_7 logdefuncionespc_lag_8
 	global executive alignment_executive_strong_lag_2 alignment_executive_strong_lag_3 alignment_executive_strong_lag_4 alignment_executive_strong_lag_5 alignment_executive_strong_lag_6 alignment_executive_strong_lag_7 alignment_executive_strong_lag_8
 	global governor alignment_governor_strong_lag_2 alignment_governor_strong_lag_3 alignment_governor_strong_lag_4 alignment_governor_strong_lag_5 alignment_governor_strong_lag_6 alignment_governor_strong_lag_7 alignment_governor_strong_lag_8
@@ -62,20 +41,27 @@ xtset inegi year
 	global margin_governor winning_margin_governor_lag_2 winning_margin_governor_lag_3 winning_margin_governor_lag_4 winning_margin_governor_lag_5 winning_margin_governor_lag_6 winning_margin_governor_lag_7 winning_margin_governor_lag_8
 	global acuerdo acuerdo_lag_2 acuerdo_lag_3 acuerdo_lag_4 acuerdo_lag_5 acuerdo_lag_6 acuerdo_lag_7 acuerdo_lag_8
 	global acuerdo2 acuerdo2_lag_2 acuerdo2_lag_3 acuerdo2_lag_4 acuerdo2_lag_5 acuerdo2_lag_6 acuerdo2_lag_7 acuerdo2_lag_8
+	global logpop logpop_lag_2 logpop_lag_3 logpop_lag_4 logpop_lag_5 logpop_lag_6 logpop_lag_7 logpop_lag_8
+	global carteles hayCarteles_lag_2 hayCarteles_lag_3 hayCarteles_lag_4 hayCarteles_lag_5 hayCarteles_lag_6 hayCarteles_lag_7 hayCarteles_lag_8
+
+	global controls_time_acuerdo  $homicides $margin $margin_governor $logpop $carteles
+
 	
-	global controls_time_acuerdo $punishment $homicides $executive $governor $margin $margin_governor 
-	global controls_time_acuerdo2 $punishment $homicides $executive $governor $margin $margin_governor 
+*2) treatment
+    global saturated lag_7_2017 lag_7_2018 lag_6_2016 lag_6_2017 lag_6_2018 lag_5_2015 lag_5_2016 lag_5_2017 lag_5_2018 lag_4_2015 lag_4_2016 lag_4_2017 lag_4_2018 lag_3_2015 lag_3_2016 lag_3_2017 lag_3_2018 lag_2_2015 lag_2_2016 lag_2_2017 lag_2_2018 date_0_2015 date_0_2016 date_0_2017 date_0_2018 lead_1_2015 lead_1_2016 lead_1_2017 lead_2_2015 lead_2_2016 lead_3_2015
 
-	global controls $controls_time_acuerdo
+*3) outcomes
+	global outcome acuerdo_estcom
+
+	
+*========================================================================
+*Run .ado 
+do "wild_areg.do"
+do "macros_tables.do"
 
 *========================================================================
-*SET MATSIZE
-set matsize 11000 
-sort inegi year
-
-*========================================================================
-*2) AS(2021) split NARCO
-global split_variable ap4_2_3_mean  // ap4_2_3_mean ap4_2_5_mean  ap4_2_11_mean ap4_12b_mean
+*2) AS(2021) split 
+global split_variable ap4_12b_mean  // ap4_2_3_mean ap4_2_5_mean  ap4_2_11_mean ap4_12b_mean
 
 preserve
 sum $split_variable
@@ -260,7 +246,7 @@ local outcome_mean = r(mean)
 keep if $split_variable >= `outcome_mean'
 
 *eststo: qui wildcorrection_as_new2 $outcome
-xi: reghdfe  $outcome2  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+xi: reghdfe  $outcome  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
 	estadd local depcontrols
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -1861,151 +1847,3207 @@ texdoc close
 
 *========================================================================
 ***3) Interactions
-
-*Set globals: 
-	global outcome acuerdo_estcom
+global split_variable ap4_12b_mean  // ap4_2_3_mean ap4_2_5_mean  ap4_2_11_mean ap4_12b_mean
 
 ************
-***A: acuerdo w/o covariates // GOVERNOR ALIGNMENT
+***A: ap4_2_3_mean
 ************
-est clear
-foreach i in ap4_2_3_mean{
+cap drop inter_*
+global split_variable ap4_2_3_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
 
-areg   $outcome c.$saturated##c.`i' $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
-		glo r2_`i'1:  di %5.4f e(r2)
-		glo N_`i'1: di %11.2gc e(N)	
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_logdet:  di %5.4f e(r2)
+		glo N_logdet: di %11.2gc e(N)
 		
+*total interaction effects: leads and lags
 
-lincom _b[1.lead_3_2015] + _b[1.lead_3_2015#c.`i'] 
-	glo beta_`i'1: di %5.4f r(estimate)
-	glo se_`i'1: di %5.4f r(se)
-	glo g_`i'1: di r(df)
-	glo t_`i'1: di  %5.4f ${beta_`i'1}/${se_`i'1}
-	glo p_`i'1: di 2*ttail(${g_`i'1},abs(${t_`i'1})) 
-	glo est_`i'1= "" 
-			if (${p_`i'1}<=0.1) global est_`i'1  = "*"
-			if (${p_`i'1}<=0.05) global est_`i'1 = "**"
-			if (${p_`i'1}<=0.01) global est_`i'1 = "***"	
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_logdet: di %5.4f r(se)
 }
 	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_logdet: di %5.4f r(se)
+}
 
-************
-***B: acuerdo2 w/o covariates // GOVERNOR ALIGNMENT
-************
-est clear
-foreach i in ap4_2_5_mean{
-
-areg   $outcome c.${saturated}##c.`i' $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
-		glo r2_`i'2:  di %5.4f e(r2)
-		glo N_`i'2: di %11.2gc e(N)	
-
-lincom _b[1.lead_3_2015] + _b[1.lead_3_2015#c.`i'] 
-	glo beta_`i'2: di %5.4f r(estimate)
-	glo se_`i'2: di %5.4f r(se)
-	glo g_`i'2: di r(df)
-	glo t_`i'2: di  %5.4f ${beta_`i'2}/${se_`i'2}
-	glo p_`i'2: di 2*ttail(${g_`i'2},abs(${t_`i'2})) 
-	glo est_`i'2= "" 
-			if (${p_`i'2}<=0.1) global est_`i'2  = "*"
-			if (${p_`i'2}<=0.05) global est_`i'2 = "**"
-			if (${p_`i'2}<=0.01) global est_`i'2 = "***"	
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_logdet: di %5.4f r(se)
 }
 
 
-************
-***C: acuerdo w/o covariates // FEDERAL ALIGNMENT
-************
-est clear
-foreach i in ap4_2_11_mean{
-
-areg   $outcome c.${saturated}##c.`i' $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
-		glo r2_`i'3:  di %5.4f e(r2)
-		glo N_`i'3: di %11.2gc e(N)	
-
-lincom _b[1.lead_3_2015] + _b[1.lead_3_2015#c.`i'] 
-	glo beta_`i'3: di %5.4f r(estimate)
-	glo se_`i'3: di %5.4f r(se)
-	glo g_`i'3: di r(df)
-	glo t_`i'3: di  %5.4f ${beta_`i'3}/${se_`i'3}
-	glo p_`i'3: di 2*ttail(${g_`i'3},abs(${t_`i'3})) 
-	glo est_`i'3= "" 
-			if (${p_`i'3}<=0.1) global est_`i'3  = "*"
-			if (${p_`i'3}<=0.05) global est_`i'3 = "**"
-			if (${p_`i'3}<=0.01) global est_`i'3 = "***"	
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_logdet: di %5.4f r(se)
 }
 
 
-************
-***D: acuerdo2 w/o covariates // FEDERAL ALIGNMENT
-************
-est clear
-foreach i in ap4_12b_mean{
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_logdet: di %5.4f r(se)
+}
 
-areg   $outcome c.${saturated}##c.`i' $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
-		glo r2_`i'4:  di %5.4f e(r2)
-		glo N_`i'4: di %11.2gc e(N)	
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_logdet: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_logdet: di %5.4f r(estimate)
+	estadd local aggregate_logdet $aggregate_logdet
+	glo se_aggregate_logdet: di %5.4f r(se)
+	estadd local se_aggregate_logdet $se_aggregate_logdet
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_logdet: di %5.4f r(p)
+	estadd local p_aggregate_logdet $p_aggregate_logdet
+					glo est_aggregate_logdet= "" 
+			if (${p_aggregate_logdet}<=0.11) global est_aggregate_logdet = "*"
+			if (${p_aggregate_logdet}<=0.05) global est_aggregate_logdet = "**"
+			if (${p_aggregate_logdet}<=0.01) global est_aggregate_logdet = "***"	
+
+
+************
+***B: ap4_2_5_mean
+************
+cap drop inter_*
+global split_variable ap4_2_5_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_ihsdet:  di %5.4f e(r2)
+		glo N_ihsdet: di %11.2gc e(N)
 		
+*total interaction effects: leads and lags
 
-lincom _b[1.lead_3_2015] + _b[1.lead_3_2015#c.`i'] 
-	glo beta_`i'4: di %5.4f r(estimate)
-	glo se_`i'4: di %5.4f r(se)
-	glo g_`i'4: di r(df)
-	glo t_`i'4: di  %5.4f ${beta_`i'4}/${se_`i'4}
-	glo p_`i'4: di 2*ttail(${g_`i'4},abs(${t_`i'4})) 
-	glo est_`i'4= "" 
-			if (${p_`i'4}<=0.1) global est_`i'4  = "*"
-			if (${p_`i'4}<=0.05) global est_`i'4 = "**"
-			if (${p_`i'4}<=0.01) global est_`i'4 = "***"	
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_ihsdet: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_ihsdet: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_ihsdet: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_ihsdet: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_ihsdet: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_ihsdet: di %5.4f r(se)
 }
 
 
 
 
-texdoc init  "../Tables/abraham_sun_estimates_heteffects_carteles.tex", replace force
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_ihsdet: di %5.4f r(estimate)
+	estadd local aggregate_ihsdet $aggregate_ihsdet
+	glo se_aggregate_ihsdet: di %5.4f r(se)
+	estadd local se_aggregate_ihsdet $se_aggregate_ihsdet
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_ihsdet: di %5.4f r(p)
+	estadd local p_aggregate_ihsdet $p_aggregate_ihsdet
+					glo est_aggregate_ihsdet= "" 
+			if (${p_aggregate_ihsdet}<=0.11) global est_aggregate_ihsdet = "*"
+			if (${p_aggregate_ihsdet}<=0.05) global est_aggregate_ihsdet = "**"
+			if (${p_aggregate_ihsdet}<=0.01) global est_aggregate_ihsdet = "***"	
+
+************
+***C: ap4_2_11_mean
+************
+cap drop inter_*
+global split_variable ap4_2_11_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_her:  di %5.4f e(r2)
+		glo N_her: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_her: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_her: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_her: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_her: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_her: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_her: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_her: di %5.4f r(estimate)
+	estadd local aggregate_her $aggregate_her
+	glo se_aggregate_her: di %5.4f r(se)
+	estadd local se_aggregate_her $se_aggregate_her
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_her: di %5.4f r(p)
+	estadd local p_aggregate_her $p_aggregate_her
+					glo est_aggregate_her= "" 
+			if (${p_aggregate_her}<=0.11) global est_aggregate_her = "*"
+			if (${p_aggregate_her}<=0.05) global est_aggregate_her = "**"
+			if (${p_aggregate_her}<=0.01) global est_aggregate_her = "***"	
+
+			
+************
+***D: ap4_12b_mean
+************
+cap drop inter_*
+global split_variable ap4_12b_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_her_2:  di %5.4f e(r2)
+		glo N_her_2: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_her_2: di %5.4f r(estimate)
+	estadd local aggregate_her_2 $aggregate_her_2
+	glo se_aggregate_her_2: di %5.4f r(se)
+	estadd local se_aggregate_her_2 $se_aggregate_her_2
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_her_2: di %5.4f r(p)
+	estadd local p_aggregate_her_2 $p_aggregate_her_2
+					glo est_aggregate_her_2= "" 
+			if (${p_aggregate_her_2}<=0.11) global est_aggregate_her_2 = "*"
+			if (${p_aggregate_her_2}<=0.05) global est_aggregate_her_2 = "**"
+			if (${p_aggregate_her_2}<=0.01) global est_aggregate_her_2 = "***"	
+			
+			
+************
+***A: ap4_2_1_mean
+************
+cap drop inter_*
+global split_variable ap4_2_1_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_met:  di %5.4f e(r2)
+		glo N_met: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_met: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_met: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_met: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_met: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_met: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_met: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_met: di %5.4f r(estimate)
+	estadd local aggregate_met $aggregate_met
+	glo se_aggregate_met: di %5.4f r(se)
+	estadd local se_aggregate_met $se_aggregate_met
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_met: di %5.4f r(p)
+	estadd local p_aggregate_met $p_aggregate_met
+					glo est_aggregate_met= "" 
+			if (${p_aggregate_met}<=0.11) global est_aggregate_met = "*"
+			if (${p_aggregate_met}<=0.05) global est_aggregate_met = "**"
+			if (${p_aggregate_met}<=0.01) global est_aggregate_met = "***"	
+
+
+************
+***B: ap4_2_2_mean
+************
+cap drop inter_*
+global split_variable ap4_2_2_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_met_2:  di %5.4f e(r2)
+		glo N_met_2: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_met_2: di %5.4f r(estimate)
+	estadd local aggregate_met_2 $aggregate_met_2
+	glo se_aggregate_met_2: di %5.4f r(se)
+	estadd local se_aggregate_met_2 $se_aggregate_met_2
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_met_2: di %5.4f r(p)
+	estadd local p_aggregate_met_2 $p_aggregate_met_2
+					glo est_aggregate_met_2= "" 
+			if (${p_aggregate_met_2}<=0.11) global est_aggregate_met_2 = "*"
+			if (${p_aggregate_met_2}<=0.05) global est_aggregate_met_2 = "**"
+			if (${p_aggregate_met_2}<=0.01) global est_aggregate_met_2 = "***"	
+
+************
+***C: ap4_2_4_mean
+************
+cap drop inter_*
+global split_variable ap4_2_4_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_lab:  di %5.4f e(r2)
+		glo N_lab: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_lab: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_lab: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_lab: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_lab: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_lab: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_lab: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_lab: di %5.4f r(estimate)
+	estadd local aggregate_lab $aggregate_lab
+	glo se_aggregate_lab: di %5.4f r(se)
+	estadd local se_aggregate_lab $se_aggregate_lab
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_lab: di %5.4f r(p)
+	estadd local p_aggregate_lab $p_aggregate_lab
+					glo est_aggregate_lab= "" 
+			if (${p_aggregate_lab}<=0.11) global est_aggregate_lab = "*"
+			if (${p_aggregate_lab}<=0.05) global est_aggregate_lab = "**"
+			if (${p_aggregate_lab}<=0.01) global est_aggregate_lab = "***"	
+
+			
+************
+***D: ap4_2_6
+************
+cap drop inter_*
+global split_variable ap4_2_6_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_lab_2:  di %5.4f e(r2)
+		glo N_lab_2: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_lab_2: di %5.4f r(estimate)
+	estadd local aggregate_lab_2 $aggregate_lab_2
+	glo se_aggregate_lab_2: di %5.4f r(se)
+	estadd local se_aggregate_lab_2 $se_aggregate_lab_2
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_lab_2: di %5.4f r(p)
+	estadd local p_aggregate_lab_2 $p_aggregate_lab_2
+					glo est_aggregate_lab_2= "" 
+			if (${p_aggregate_lab_2}<=0.11) global est_aggregate_lab_2 = "*"
+			if (${p_aggregate_lab_2}<=0.05) global est_aggregate_lab_2 = "**"
+			if (${p_aggregate_lab_2}<=0.01) global est_aggregate_lab_2 = "***"	
+			
+*Table			
+texdoc init  "../Tables/interaction_sec_preferences.tex", replace force
+tex \begin{landscape}
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Total Interaction Effect$^a$: Difference by Cartel Presence}
-tex \label{tab:abraham_sun_heteffects}
-tex \scalebox{0.8}{    
-tex \begin{tabular}{lcccc}  
+tex \caption{Effect of 2014 Term Limit Reform on Services Delegated to the Governor}
+tex \label{tab:interaction_sec_preferences}
+tex \scalebox{0.70}{    
+tex \begin{tabular}{lcccccccc}  
 tex \hline \hline       
-tex \\ \multicolumn{5}{l}{Dependent variable:}\\
-tex & \multicolumn{2}{c}{Agreement A} & \multicolumn{2}{c}{Agreement B$^{b}$} \\  
-tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} \\ 
+tex \\ \multicolumn{9}{l}{Dependent variable:}\\
+tex Service delegated: & Narco  & Insecurity & Punishment & Private sec expenditure  & Poverty & Unemployment & Inflation & Natural disaster \\
+tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)} & \multicolumn{1}{c}{(7)} & \multicolumn{1}{c}{(8)} \\ 
 
-tex \cmidrule(lrr){2-3}  \cmidrule(lrr){4-5}\\
+tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \cmidrule(lrr){5-5} \cmidrule(lrr){6-6} \cmidrule(lrr){7-7} \cmidrule(lrr){8-8} \cmidrule(lrr){9-9} \\
 tex \addlinespace
 
-tex Reform (t+3)*Dummy Cartel presence &     $ ${beta_hayCarteles1}^{${est_hayCarteles1}} $ &  &  $ ${beta_hayCarteles2}^{${est_hayCarteles2}} $  & \\
-tex  &     ($ ${se_hayCarteles1} $) &  & ($ ${se_hayCarteles2} $)  & \\
-
-tex Reform (t+3)*Num. Carteles  &    &   $ ${beta_nCarteles3}^{${est_nCarteles3}} $ &  &  $ ${beta_nCarteles4}^{${est_nCarteles4}} $ \\
-tex  &    &     ($ ${se_nCarteles3} $) & & ($ ${se_nCarteles4} $)  \\
-
-
+tex t-7 &     $ ${beta_lag_7_logdet}^{${est_lag_7_logdet}} $ &     $ ${beta_lag_7_ihsdet}^{${est_lag_7_ihsdet}} $ &  $ ${beta_lag_7_her}^{${est_lag_7_her}} $  &  $ ${beta_lag_7_her_2}^{${est_lag_7_her_2}} $  &     $ ${beta_lag_7_met}^{${est_lag_7_met}} $ &     $ ${beta_lag_7_met_2}^{${est_lag_7_met_2}} $ & $ ${beta_lag_7_lab}^{${est_lag_7_lab}} $ & $ ${beta_lag_7_lab_2}^{${est_lag_7_lab_2}} $   \\
+tex &     ($${se_lag_7_logdet}$) &     ($${se_lag_7_ihsdet}$) & ($${se_lag_7_her}$)& ($ ${se_lag_7_her_2}$)  &    ($${se_lag_7_met}$)   &   ($${se_lag_7_met_2}$) \\
+tex t-6 &     $ ${beta_lag_6_logdet}^{${est_lag_6_logdet}} $ &     $ ${beta_lag_6_ihsdet}^{${est_lag_6_ihsdet}} $ &  $ ${beta_lag_6_her}^{${est_lag_6_her}} $  &  $ ${beta_lag_6_her_2}^{${est_lag_6_her_2}} $  &     $ ${beta_lag_6_met}^{${est_lag_6_met}} $ &     $ ${beta_lag_6_met_2}^{${est_lag_6_met_2}} $ & $ ${beta_lag_6_lab}^{${est_lag_6_lab}} $ & $ ${beta_lag_6_lab_2}^{${est_lag_6_lab_2}} $   \\
+tex &     ($${se_lag_6_logdet}$) &     ($${se_lag_6_ihsdet}$) & ($${se_lag_6_her}$)& ($ ${se_lag_6_her_2}$)  &    ($${se_lag_6_met}$)   &   ($${se_lag_6_met_2}$) \\
+tex t-5 &     $ ${beta_lag_5_logdet}^{${est_lag_5_logdet}} $ &     $ ${beta_lag_5_ihsdet}^{${est_lag_5_ihsdet}} $ &  $ ${beta_lag_5_her}^{${est_lag_5_her}} $  &  $ ${beta_lag_5_her_2}^{${est_lag_5_her_2}} $  &     $ ${beta_lag_5_met}^{${est_lag_5_met}} $ &     $ ${beta_lag_5_met_2}^{${est_lag_5_met_2}} $ & $ ${beta_lag_5_lab}^{${est_lag_5_lab}} $ & $ ${beta_lag_5_lab_2}^{${est_lag_5_lab_2}} $   \\
+tex &     ($${se_lag_5_logdet}$) &     ($${se_lag_5_ihsdet}$) & ($${se_lag_5_her}$)& ($ ${se_lag_5_her_2}$)  &    ($${se_lag_5_met}$)   &   ($${se_lag_5_met_2}$) \\
+tex t-4 &     $ ${beta_lag_4_logdet}^{${est_lag_4_logdet}} $ &     $ ${beta_lag_4_ihsdet}^{${est_lag_4_ihsdet}} $ &  $ ${beta_lag_4_her}^{${est_lag_4_her}} $  &  $ ${beta_lag_4_her_2}^{${est_lag_4_her_2}} $  &     $ ${beta_lag_4_met}^{${est_lag_4_met}} $ &     $ ${beta_lag_4_met_2}^{${est_lag_4_met_2}} $ & $ ${beta_lag_4_lab}^{${est_lag_4_lab}} $ & $ ${beta_lag_4_lab_2}^{${est_lag_4_lab_2}} $   \\
+tex &     ($${se_lag_4_logdet}$) &     ($${se_lag_4_ihsdet}$) & ($${se_lag_4_her}$)& ($ ${se_lag_4_her_2}$)  &    ($${se_lag_4_met}$)   &   ($${se_lag_4_met_2}$) \\
+tex t-3 &     $ ${beta_lag_3_logdet}^{${est_lag_3_logdet}} $ &     $ ${beta_lag_3_ihsdet}^{${est_lag_3_ihsdet}} $ &  $ ${beta_lag_3_her}^{${est_lag_3_her}} $  &  $ ${beta_lag_3_her_2}^{${est_lag_3_her_2}} $  &     $ ${beta_lag_3_met}^{${est_lag_3_met}} $ &     $ ${beta_lag_3_met_2}^{${est_lag_3_met_2}} $ & $ ${beta_lag_3_lab}^{${est_lag_3_lab}} $ & $ ${beta_lag_3_lab_2}^{${est_lag_3_lab_2}} $   \\
+tex &     ($${se_lag_3_logdet}$) &     ($${se_lag_3_ihsdet}$) & ($${se_lag_3_her}$)& ($ ${se_lag_3_her_2}$)  &    ($${se_lag_3_met}$)   &   ($${se_lag_3_met_2}$) \\
+tex t-2 &     $ ${beta_lag_2_logdet}^{${est_lag_2_logdet}} $ &     $ ${beta_lag_2_ihsdet}^{${est_lag_2_ihsdet}} $ &  $ ${beta_lag_2_her}^{${est_lag_2_her}} $  &  $ ${beta_lag_2_her_2}^{${est_lag_2_her_2}} $  &     $ ${beta_lag_2_met}^{${est_lag_2_met}} $ &     $ ${beta_lag_2_met_2}^{${est_lag_2_met_2}} $ & $ ${beta_lag_2_lab}^{${est_lag_2_lab}} $ & $ ${beta_lag_2_lab_2}^{${est_lag_2_lab_2}} $   \\
+tex &     ($${se_lag_2_logdet}$) &     ($${se_lag_2_ihsdet}$) & ($${se_lag_2_her}$)& ($ ${se_lag_2_her_2}$)  &    ($${se_lag_2_met}$)   &   ($${se_lag_2_met_2}$) \\
+tex Reform (t=0) &     $ ${beta_date_0_logdet}^{${est_date_0_logdet}} $ &     $ ${beta_date_0_ihsdet}^{${est_date_0_ihsdet}} $ &   $ ${beta_date_0_her}^{${est_date_0_her}} $   &   $ ${beta_date_0_her_2}^{${est_date_0_her_2}} $  &     $ ${beta_date_0_met}^{${est_date_0_met}} $ &     $ ${beta_date_0_met_2}^{${est_date_0_met_2}} $ & $ ${beta_date_0_lab}^{${est_date_0_lab}} $ & $ ${beta_date_0_lab_2}^{${est_date_0_lab_2}} $   \\
+tex &     ($${se_date_0_logdet}$) &     ($${se_date_0_ihsdet}$) & ($${se_date_0_her}$)& ($ ${se_date_0_her_2}$)  &    ($${se_date_0_met}$)   &   ($${se_date_0_met_2}$) \\
+tex t+1 &     $ ${beta_lead_1_logdet}^{${est_lead_1_logdet}} $ &     $ ${beta_lead_1_ihsdet}^{${est_lead_1_ihsdet}} $ &    $ ${beta_lead_1_her}^{${est_lead_1_her}} $ &    $ ${beta_lead_1_her_2}^{${est_lead_1_her_2}} $ &     $ ${beta_lead_1_met}^{${est_lead_1_met}} $ &     $ ${beta_lead_1_met_2}^{${est_lead_1_met_2}} $  & $ ${beta_lead_1_lab}^{${est_lead_1_lab}} $ & $ ${beta_lead_1_lab_2}^{${est_lead_1_lab_2}} $   \\
+tex &     ($${se_lead_1_logdet}$) &     ($${se_lead_1_ihsdet}$) & ($${se_lead_1_her}$)& ($ ${se_lead_1_her_2}$)  &    ($${se_lead_1_met}$)   &   ($${se_lead_1_met_2}$) \\
+tex t+2 &     $ ${beta_lead_2_logdet}^{${est_lead_2_logdet}} $ &     $ ${beta_lead_2_ihsdet}^{${est_lead_2_ihsdet}} $  \\
+tex &     ($${se_lead_2_logdet}$) &     ($${se_lead_2_ihsdet}$)  \\
+tex t+3 &     $ ${beta_lead_3_logdet}^{${est_lead_3_logdet}} $ &     $ ${beta_lead_3_ihsdet}^{${est_lead_3_ihsdet}} $  \\
+tex &     ($${se_lead_3_logdet}$) &     ($${se_lead_3_ihsdet}$)  \\
 tex \\
 tex \addlinespace
-tex Observations       &        ${N_hayCarteles1}    &        ${N_hayCarteles2}    &     ${N_nCarteles3}      &     ${N_nCarteles4}  \\
-tex R-squared       &        ${r2_hayCarteles1}    &        ${r2_hayCarteles2}    &     ${r2_nCarteles3}      &     ${r2_nCarteles4}  \\
+tex Observations       &        ${N_logdet}    &        ${N_ihsdet}    &     ${N_her}      &     ${N_her_2}  &        ${N_met}    &        ${N_met_2}  &        ${N_lab}    &        ${N_lab_2}   \\
+tex R-squared        &          ${r2_logdet} &          ${r2_ihsdet}    &    ${r2_her}       &           ${r2_her_2} &          ${r2_met} &          ${r2_met_2}     &        ${r2_lab}    &        ${r2_lab_2}   \\
 
 
-tex Mun. FEs      &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark    \\
-tex Year. FEs    &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
-tex State Controls$^c$  &  \checkmark       &       \checkmark  &  \checkmark        &   \checkmark    \\
-tex Cohort weighted$^d$  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark    \\
+tex Mun. FEs      &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark  &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
+tex Year. FEs    &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
+tex Controls$^b$  &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark     \\
+tex Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark    \\
+tex Reform average effect         & $${aggregate_logdet}^{${est_aggregate_logdet}} $$      & $${aggregate_ihsdet}^{${est_aggregate_ihsdet}} $$     & $${aggregate_her}^{${est_aggregate_her}} $$        & $${aggregate_her_2}^{${est_aggregate_her_2}} $$       & $${aggregate_met}^{${est_aggregate_met}} $$        & $${aggregate_met_2}^{${est_aggregate_met_2}} $$    & $${aggregate_lab}^{${est_aggregate_lab}} $$      & $${aggregate_lab_2}^{${est_aggregate_lab_2}} $$     \\
+tex SE (average effect)      & (${se_aggregate_logdet})  & (${se_aggregate_ihsdet}) & (${se_aggregate_her})  & (${se_aggregate_her_2})  & (${se_aggregate_met})  & (${se_aggregate_met_2})    & (${se_aggregate_lab})  & (${se_aggregate_lab_2})   \\
+*tex p-value  & [${p_aggregate_logdet}]   & [${p_aggregate_ihsdet}]  & [${p_aggregate_her}]   & [${p_aggregate_her_2}]   & [${p_aggregate_met}]   & [${p_aggregate_met_2}]     & [${p_aggregate_lab}]   & [${p_aggregate_lab_2}]    \\
 
 tex \hline \hline      
-tex \multicolumn{5}{p{1\textwidth}}{\footnotesize{Notes:$^a$ Total interaction effect tests the linear hypothesis of the estimated coefficient of alignment with Federal Government indicator (winning margin) + estimated coefficient of the interaction of alignment (winning margin)*lead t=3. This is a post-estimation test using the same specification as that of Table \ref{tab:abraham_sun_lagdv} column (1). Other leads and the indicator at time t=0 when reform came to effect are omitted due to collinearity. Standard errors of linear hypothesis test in parentheses with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided test with the null hypothesis equal to 0. Main regression with standard errors clustered at the state-level. $^b$ Refers to the inverse hyperbolic sine transformation. $^c$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party. I also include the lag of the outcome, i.e. logged homicides per capita as control. $^d$ Estimates weighted by each cohort's relative share of the sample following \citet{abraham_sun_2020}.}} \\
+tex \multicolumn{9}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
 tex \end{tabular}
 tex } 
-tex \end{table} 
+tex \end{table}
+tex \end{landscape}
 texdoc close
 
-*MESSAGE: differential effect with cartel presence
+
+*ONLY AGGREGATES:	
+texdoc init  "../Tables/interaction_sec_preferences_average.tex", replace force
+tex \begin{landscape}
+tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+tex \centering
+tex \caption{Effect of 2014 Term Limit Reform on Services Delegated to the Governor}
+tex \label{tab:interaction_sec_preferences_average}
+tex \scalebox{0.70}{    
+tex \begin{tabular}{lcccccccc}  
+tex \hline \hline       
+tex \\ \multicolumn{9}{l}{Dependent variable:}\\
+tex Service delegated: & Public security  & Traffic & Prevention & Training  & Technology & Research & Inteligence & Unify procedures \\
+tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)} & \multicolumn{1}{c}{(7)} & \multicolumn{1}{c}{(8)} \\ 
+
+tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \cmidrule(lrr){5-5} \cmidrule(lrr){6-6} \cmidrule(lrr){7-7} \cmidrule(lrr){8-8} \cmidrule(lrr){9-9} \\
+tex \addlinespace
+
+tex Reform average effect         & $${aggregate_logdet}^{${est_aggregate_logdet}} $$      & $${aggregate_ihsdet}^{${est_aggregate_ihsdet}} $$     & $${aggregate_her}^{${est_aggregate_her}} $$        & $${aggregate_her_2}^{${est_aggregate_her_2}} $$       & $${aggregate_met}^{${est_aggregate_met}} $$        & $${aggregate_met_2}^{${est_aggregate_met_2}} $$    & $${aggregate_lab}^{${est_aggregate_lab}} $$      & $${aggregate_lab_2}^{${est_aggregate_lab_2}} $$     \\
+tex SE       & (${se_aggregate_logdet})  & (${se_aggregate_ihsdet}) & (${se_aggregate_her})  & (${se_aggregate_her_2})  & (${se_aggregate_met})  & (${se_aggregate_met_2})    & (${se_aggregate_lab})  & (${se_aggregate_lab_2})   \\
+*tex p-value  & [${p_aggregate_logdet}]   & [${p_aggregate_ihsdet}]  & [${p_aggregate_her}]   & [${p_aggregate_her_2}]   & [${p_aggregate_met}]   & [${p_aggregate_met_2}]     & [${p_aggregate_lab}]   & [${p_aggregate_lab_2}]    \\
+
+
+tex \addlinespace
+tex Observations       &        ${N_logdet}    &        ${N_ihsdet}    &     ${N_her}      &     ${N_her_2}  &        ${N_met}    &        ${N_met_2}  &        ${N_lab}    &        ${N_lab_2}   \\
+tex R-squared        &          ${r2_logdet} &          ${r2_ihsdet}    &    ${r2_her}       &           ${r2_her_2} &          ${r2_met} &          ${r2_met_2}     &        ${r2_lab}    &        ${r2_lab_2}   \\
+
+
+tex Mun. FEs      &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark  &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
+tex Year. FEs    &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
+tex Controls$^b$  &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark     \\
+tex Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark    \\
+tex Parallel trend holds &   \checkmark      &       \checkmark  &          &     &         &       &          &       \\
+
+tex \hline \hline      
+tex \multicolumn{9}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \end{tabular}
+tex } 
+tex \end{table}
+tex \end{landscape}
+texdoc close
+			
+			
 
 
 
 *=========================================================================
+************
+***A: ap4_2_7_mean
+************
+cap drop inter_*
+global split_variable ap4_2_7_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_logdet:  di %5.4f e(r2)
+		glo N_logdet: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_logdet: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_logdet: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_logdet: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_logdet: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_logdet: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_logdet: di r(p)
+	glo beta_`i'_logdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_logdet= "" 
+			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
+			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
+			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_logdet: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_logdet: di %5.4f r(estimate)
+	estadd local aggregate_logdet $aggregate_logdet
+	glo se_aggregate_logdet: di %5.4f r(se)
+	estadd local se_aggregate_logdet $se_aggregate_logdet
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_logdet: di %5.4f r(p)
+	estadd local p_aggregate_logdet $p_aggregate_logdet
+					glo est_aggregate_logdet= "" 
+			if (${p_aggregate_logdet}<=0.11) global est_aggregate_logdet = "*"
+			if (${p_aggregate_logdet}<=0.05) global est_aggregate_logdet = "**"
+			if (${p_aggregate_logdet}<=0.01) global est_aggregate_logdet = "***"	
+
+
+************
+***B: ap4_2_8_mean
+************
+cap drop inter_*
+global split_variable ap4_2_8_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_ihsdet:  di %5.4f e(r2)
+		glo N_ihsdet: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_ihsdet: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_ihsdet: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_ihsdet: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_ihsdet: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_ihsdet: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_ihsdet: di r(p)
+	glo beta_`i'_ihsdet: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_ihsdet= "" 
+			if (${p_`i'_ihsdet}<=0.1) global est_`i'_ihsdet = "*"
+			if (${p_`i'_ihsdet}<=0.05) global est_`i'_ihsdet = "**"
+			if (${p_`i'_ihsdet}<=0.01) global est_`i'_ihsdet = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_ihsdet: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_ihsdet: di %5.4f r(estimate)
+	estadd local aggregate_ihsdet $aggregate_ihsdet
+	glo se_aggregate_ihsdet: di %5.4f r(se)
+	estadd local se_aggregate_ihsdet $se_aggregate_ihsdet
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_ihsdet: di %5.4f r(p)
+	estadd local p_aggregate_ihsdet $p_aggregate_ihsdet
+					glo est_aggregate_ihsdet= "" 
+			if (${p_aggregate_ihsdet}<=0.11) global est_aggregate_ihsdet = "*"
+			if (${p_aggregate_ihsdet}<=0.05) global est_aggregate_ihsdet = "**"
+			if (${p_aggregate_ihsdet}<=0.01) global est_aggregate_ihsdet = "***"	
+
+************
+***C: ap4_2_9_mean
+************
+cap drop inter_*
+global split_variable ap4_2_9_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_her:  di %5.4f e(r2)
+		glo N_her: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_her: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_her: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_her: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_her: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_her: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_her: di r(p)
+	glo beta_`i'_her: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_her= "" 
+			if (${p_`i'_her}<=0.1) global est_`i'_her = "*"
+			if (${p_`i'_her}<=0.05) global est_`i'_her = "**"
+			if (${p_`i'_her}<=0.01) global est_`i'_her = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_her: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_her: di %5.4f r(estimate)
+	estadd local aggregate_her $aggregate_her
+	glo se_aggregate_her: di %5.4f r(se)
+	estadd local se_aggregate_her $se_aggregate_her
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_her: di %5.4f r(p)
+	estadd local p_aggregate_her $p_aggregate_her
+					glo est_aggregate_her= "" 
+			if (${p_aggregate_her}<=0.11) global est_aggregate_her = "*"
+			if (${p_aggregate_her}<=0.05) global est_aggregate_her = "**"
+			if (${p_aggregate_her}<=0.01) global est_aggregate_her = "***"	
+
+			
+************
+***D: ap4_2_10_mean
+************
+cap drop inter_*
+global split_variable ap4_2_10_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_her_2:  di %5.4f e(r2)
+		glo N_her_2: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_her_2: di r(p)
+	glo beta_`i'_her_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_her_2= "" 
+			if (${p_`i'_her_2}<=0.1) global est_`i'_her_2 = "*"
+			if (${p_`i'_her_2}<=0.05) global est_`i'_her_2 = "**"
+			if (${p_`i'_her_2}<=0.01) global est_`i'_her_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_her_2: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_her_2: di %5.4f r(estimate)
+	estadd local aggregate_her_2 $aggregate_her_2
+	glo se_aggregate_her_2: di %5.4f r(se)
+	estadd local se_aggregate_her_2 $se_aggregate_her_2
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_her_2: di %5.4f r(p)
+	estadd local p_aggregate_her_2 $p_aggregate_her_2
+					glo est_aggregate_her_2= "" 
+			if (${p_aggregate_her_2}<=0.11) global est_aggregate_her_2 = "*"
+			if (${p_aggregate_her_2}<=0.05) global est_aggregate_her_2 = "**"
+			if (${p_aggregate_her_2}<=0.01) global est_aggregate_her_2 = "***"	
+			
+			
+************
+***A: ap5_4_1_mean
+************
+cap drop inter_*
+global split_variable ap5_4_1_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_met:  di %5.4f e(r2)
+		glo N_met: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_met: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_met: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_met: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_met: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_met: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_met: di r(p)
+	glo beta_`i'_met: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_met= "" 
+			if (${p_`i'_met}<=0.1) global est_`i'_met = "*"
+			if (${p_`i'_met}<=0.05) global est_`i'_met = "**"
+			if (${p_`i'_met}<=0.01) global est_`i'_met = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_met: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_met: di %5.4f r(estimate)
+	estadd local aggregate_met $aggregate_met
+	glo se_aggregate_met: di %5.4f r(se)
+	estadd local se_aggregate_met $se_aggregate_met
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_met: di %5.4f r(p)
+	estadd local p_aggregate_met $p_aggregate_met
+					glo est_aggregate_met= "" 
+			if (${p_aggregate_met}<=0.11) global est_aggregate_met = "*"
+			if (${p_aggregate_met}<=0.05) global est_aggregate_met = "**"
+			if (${p_aggregate_met}<=0.01) global est_aggregate_met = "***"	
+
+
+************
+***B: ap5_4_2_mean
+************
+cap drop inter_*
+global split_variable ap5_4_2_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_met_2:  di %5.4f e(r2)
+		glo N_met_2: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_met_2: di r(p)
+	glo beta_`i'_met_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_met_2= "" 
+			if (${p_`i'_met_2}<=0.1) global est_`i'_met_2 = "*"
+			if (${p_`i'_met_2}<=0.05) global est_`i'_met_2 = "**"
+			if (${p_`i'_met_2}<=0.01) global est_`i'_met_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_met_2: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_met_2: di %5.4f r(estimate)
+	estadd local aggregate_met_2 $aggregate_met_2
+	glo se_aggregate_met_2: di %5.4f r(se)
+	estadd local se_aggregate_met_2 $se_aggregate_met_2
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_met_2: di %5.4f r(p)
+	estadd local p_aggregate_met_2 $p_aggregate_met_2
+					glo est_aggregate_met_2= "" 
+			if (${p_aggregate_met_2}<=0.11) global est_aggregate_met_2 = "*"
+			if (${p_aggregate_met_2}<=0.05) global est_aggregate_met_2 = "**"
+			if (${p_aggregate_met_2}<=0.01) global est_aggregate_met_2 = "***"	
+
+************
+***C: ap5_4_3_mean
+************
+cap drop inter_*
+global split_variable ap5_4_3_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_lab:  di %5.4f e(r2)
+		glo N_lab: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_lab: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_lab: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_lab: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_lab: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_lab: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_lab: di r(p)
+	glo beta_`i'_lab: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_lab= "" 
+			if (${p_`i'_lab}<=0.1) global est_`i'_lab = "*"
+			if (${p_`i'_lab}<=0.05) global est_`i'_lab = "**"
+			if (${p_`i'_lab}<=0.01) global est_`i'_lab = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_lab: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_lab: di %5.4f r(estimate)
+	estadd local aggregate_lab $aggregate_lab
+	glo se_aggregate_lab: di %5.4f r(se)
+	estadd local se_aggregate_lab $se_aggregate_lab
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_lab: di %5.4f r(p)
+	estadd local p_aggregate_lab $p_aggregate_lab
+					glo est_aggregate_lab= "" 
+			if (${p_aggregate_lab}<=0.11) global est_aggregate_lab = "*"
+			if (${p_aggregate_lab}<=0.05) global est_aggregate_lab = "**"
+			if (${p_aggregate_lab}<=0.01) global est_aggregate_lab = "***"	
+
+			
+************
+***D: ap5_4_4_mean
+************
+cap drop inter_*
+global split_variable ap5_4_4_mean
+foreach i in $split_variable{
+foreach j in $saturated{
+gen inter_`j'=`i'*`j'
+}
+}
+
+areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+		glo r2_lab_2:  di %5.4f e(r2)
+		glo N_lab_2: di %11.2gc e(N)
+		
+*total interaction effects: leads and lags
+
+foreach i in lag_7{
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	test [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']=0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"
+	lincom 	[(_b[`i'_2017]+_b[inter_`i'_2017])*`a'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`b']
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	test [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']=0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"
+	lincom 	[(_b[`i'_2016]+_b[inter_`i'_2016])*`a'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`b'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`c']
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']=0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c'] + [(_b[`i'_2018]+_b[inter_`i'_2018])*`d']
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']=0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] + [(_b[`i'_2017]+_b[inter_`i'_2017])*`c']
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] =0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a'] + [(_b[`i'_2016]+_b[inter_`i'_2016])*`b'] 
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	di [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	test [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']=0
+	glo p_`i'_lab_2: di r(p)
+	glo beta_`i'_lab_2: di %5.4f [(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo est_`i'_lab_2= "" 
+			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
+			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
+			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"	
+	lincom 	[(_b[`i'_2015]+_b[inter_`i'_2015])*`a']
+	glo se_`i'_lab_2: di %5.4f r(se)
+}
+
+
+
+
+
+
+
+
+**estimate average effect of total interaction effect:
+	sum perc if date_0_2015==1, meanonly
+	local a = r(mean)
+	sum perc if date_0_2016==1, meanonly
+	local b = r(mean)
+	sum perc if date_0_2017==1, meanonly
+	local c = r(mean)
+	sum perc if date_0_2018==1, meanonly
+	local d = r(mean)
+	sum perc if lead_1_2015==1, meanonly
+	local e = r(mean)
+	sum perc if lead_1_2016==1, meanonly
+	local f = r(mean)
+	sum perc if lead_1_2017==1, meanonly
+	local g = r(mean)
+	sum perc if lead_2_2015==1, meanonly
+	local h = r(mean)
+	sum perc if lead_2_2016==1, meanonly
+	local i = r(mean)
+	sum perc if lead_3_2015==1, meanonly
+	local j = r(mean)
+	
+	*evaluate at the median
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	lincom 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4
+	glo aggregate_lab_2: di %5.4f r(estimate)
+	estadd local aggregate_lab_2 $aggregate_lab_2
+	glo se_aggregate_lab_2: di %5.4f r(se)
+	estadd local se_aggregate_lab_2 $se_aggregate_lab_2
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	test 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j') ///
+		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')])/ 4=0
+	glo p_aggregate_lab_2: di %5.4f r(p)
+	estadd local p_aggregate_lab_2 $p_aggregate_lab_2
+					glo est_aggregate_lab_2= "" 
+			if (${p_aggregate_lab_2}<=0.11) global est_aggregate_lab_2 = "*"
+			if (${p_aggregate_lab_2}<=0.05) global est_aggregate_lab_2 = "**"
+			if (${p_aggregate_lab_2}<=0.01) global est_aggregate_lab_2 = "***"	
+			
+*Table			
+texdoc init  "../Tables/interaction_sec_preferences2.tex", replace force
+tex \begin{landscape}
+tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+tex \centering
+tex \caption{Effect of 2014 Term Limit Reform on Services Delegated to the Governor}
+tex \label{tab:interaction_sec_preferences2}
+tex \scalebox{0.70}{    
+tex \begin{tabular}{lcccccccc}  
+tex \hline \hline       
+tex \\ \multicolumn{9}{l}{Dependent variable:}\\
+tex Service delegated: & Narco  & Insecurity & Punishment & Private sec expenditure  & Poverty & Unemployment & Inflation & Natural disaster \\
+tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)} & \multicolumn{1}{c}{(7)} & \multicolumn{1}{c}{(8)} \\ 
+
+tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \cmidrule(lrr){5-5} \cmidrule(lrr){6-6} \cmidrule(lrr){7-7} \cmidrule(lrr){8-8} \cmidrule(lrr){9-9} \\
+tex \addlinespace
+
+tex t-7 &     $ ${beta_lag_7_logdet}^{${est_lag_7_logdet}} $ &     $ ${beta_lag_7_ihsdet}^{${est_lag_7_ihsdet}} $ &  $ ${beta_lag_7_her}^{${est_lag_7_her}} $  &  $ ${beta_lag_7_her_2}^{${est_lag_7_her_2}} $  &     $ ${beta_lag_7_met}^{${est_lag_7_met}} $ &     $ ${beta_lag_7_met_2}^{${est_lag_7_met_2}} $ & $ ${beta_lag_7_lab}^{${est_lag_7_lab}} $ & $ ${beta_lag_7_lab_2}^{${est_lag_7_lab_2}} $   \\
+tex &     ($${se_lag_7_logdet}$) &     ($${se_lag_7_ihsdet}$) & ($${se_lag_7_her}$)& ($ ${se_lag_7_her_2}$)  &    ($${se_lag_7_met}$)   &   ($${se_lag_7_met_2}$) \\
+tex t-6 &     $ ${beta_lag_6_logdet}^{${est_lag_6_logdet}} $ &     $ ${beta_lag_6_ihsdet}^{${est_lag_6_ihsdet}} $ &  $ ${beta_lag_6_her}^{${est_lag_6_her}} $  &  $ ${beta_lag_6_her_2}^{${est_lag_6_her_2}} $  &     $ ${beta_lag_6_met}^{${est_lag_6_met}} $ &     $ ${beta_lag_6_met_2}^{${est_lag_6_met_2}} $ & $ ${beta_lag_6_lab}^{${est_lag_6_lab}} $ & $ ${beta_lag_6_lab_2}^{${est_lag_6_lab_2}} $   \\
+tex &     ($${se_lag_6_logdet}$) &     ($${se_lag_6_ihsdet}$) & ($${se_lag_6_her}$)& ($ ${se_lag_6_her_2}$)  &    ($${se_lag_6_met}$)   &   ($${se_lag_6_met_2}$) \\
+tex t-5 &     $ ${beta_lag_5_logdet}^{${est_lag_5_logdet}} $ &     $ ${beta_lag_5_ihsdet}^{${est_lag_5_ihsdet}} $ &  $ ${beta_lag_5_her}^{${est_lag_5_her}} $  &  $ ${beta_lag_5_her_2}^{${est_lag_5_her_2}} $  &     $ ${beta_lag_5_met}^{${est_lag_5_met}} $ &     $ ${beta_lag_5_met_2}^{${est_lag_5_met_2}} $ & $ ${beta_lag_5_lab}^{${est_lag_5_lab}} $ & $ ${beta_lag_5_lab_2}^{${est_lag_5_lab_2}} $   \\
+tex &     ($${se_lag_5_logdet}$) &     ($${se_lag_5_ihsdet}$) & ($${se_lag_5_her}$)& ($ ${se_lag_5_her_2}$)  &    ($${se_lag_5_met}$)   &   ($${se_lag_5_met_2}$) \\
+tex t-4 &     $ ${beta_lag_4_logdet}^{${est_lag_4_logdet}} $ &     $ ${beta_lag_4_ihsdet}^{${est_lag_4_ihsdet}} $ &  $ ${beta_lag_4_her}^{${est_lag_4_her}} $  &  $ ${beta_lag_4_her_2}^{${est_lag_4_her_2}} $  &     $ ${beta_lag_4_met}^{${est_lag_4_met}} $ &     $ ${beta_lag_4_met_2}^{${est_lag_4_met_2}} $ & $ ${beta_lag_4_lab}^{${est_lag_4_lab}} $ & $ ${beta_lag_4_lab_2}^{${est_lag_4_lab_2}} $   \\
+tex &     ($${se_lag_4_logdet}$) &     ($${se_lag_4_ihsdet}$) & ($${se_lag_4_her}$)& ($ ${se_lag_4_her_2}$)  &    ($${se_lag_4_met}$)   &   ($${se_lag_4_met_2}$) \\
+tex t-3 &     $ ${beta_lag_3_logdet}^{${est_lag_3_logdet}} $ &     $ ${beta_lag_3_ihsdet}^{${est_lag_3_ihsdet}} $ &  $ ${beta_lag_3_her}^{${est_lag_3_her}} $  &  $ ${beta_lag_3_her_2}^{${est_lag_3_her_2}} $  &     $ ${beta_lag_3_met}^{${est_lag_3_met}} $ &     $ ${beta_lag_3_met_2}^{${est_lag_3_met_2}} $ & $ ${beta_lag_3_lab}^{${est_lag_3_lab}} $ & $ ${beta_lag_3_lab_2}^{${est_lag_3_lab_2}} $   \\
+tex &     ($${se_lag_3_logdet}$) &     ($${se_lag_3_ihsdet}$) & ($${se_lag_3_her}$)& ($ ${se_lag_3_her_2}$)  &    ($${se_lag_3_met}$)   &   ($${se_lag_3_met_2}$) \\
+tex t-2 &     $ ${beta_lag_2_logdet}^{${est_lag_2_logdet}} $ &     $ ${beta_lag_2_ihsdet}^{${est_lag_2_ihsdet}} $ &  $ ${beta_lag_2_her}^{${est_lag_2_her}} $  &  $ ${beta_lag_2_her_2}^{${est_lag_2_her_2}} $  &     $ ${beta_lag_2_met}^{${est_lag_2_met}} $ &     $ ${beta_lag_2_met_2}^{${est_lag_2_met_2}} $ & $ ${beta_lag_2_lab}^{${est_lag_2_lab}} $ & $ ${beta_lag_2_lab_2}^{${est_lag_2_lab_2}} $   \\
+tex &     ($${se_lag_2_logdet}$) &     ($${se_lag_2_ihsdet}$) & ($${se_lag_2_her}$)& ($ ${se_lag_2_her_2}$)  &    ($${se_lag_2_met}$)   &   ($${se_lag_2_met_2}$) \\
+tex Reform (t=0) &     $ ${beta_date_0_logdet}^{${est_date_0_logdet}} $ &     $ ${beta_date_0_ihsdet}^{${est_date_0_ihsdet}} $ &   $ ${beta_date_0_her}^{${est_date_0_her}} $   &   $ ${beta_date_0_her_2}^{${est_date_0_her_2}} $  &     $ ${beta_date_0_met}^{${est_date_0_met}} $ &     $ ${beta_date_0_met_2}^{${est_date_0_met_2}} $ & $ ${beta_date_0_lab}^{${est_date_0_lab}} $ & $ ${beta_date_0_lab_2}^{${est_date_0_lab_2}} $   \\
+tex &     ($${se_date_0_logdet}$) &     ($${se_date_0_ihsdet}$) & ($${se_date_0_her}$)& ($ ${se_date_0_her_2}$)  &    ($${se_date_0_met}$)   &   ($${se_date_0_met_2}$) \\
+tex t+1 &     $ ${beta_lead_1_logdet}^{${est_lead_1_logdet}} $ &     $ ${beta_lead_1_ihsdet}^{${est_lead_1_ihsdet}} $ &    $ ${beta_lead_1_her}^{${est_lead_1_her}} $ &    $ ${beta_lead_1_her_2}^{${est_lead_1_her_2}} $ &     $ ${beta_lead_1_met}^{${est_lead_1_met}} $ &     $ ${beta_lead_1_met_2}^{${est_lead_1_met_2}} $  & $ ${beta_lead_1_lab}^{${est_lead_1_lab}} $ & $ ${beta_lead_1_lab_2}^{${est_lead_1_lab_2}} $   \\
+tex &     ($${se_lead_1_logdet}$) &     ($${se_lead_1_ihsdet}$) & ($${se_lead_1_her}$)& ($ ${se_lead_1_her_2}$)  &    ($${se_lead_1_met}$)   &   ($${se_lead_1_met_2}$) \\
+tex t+2 &     $ ${beta_lead_2_logdet}^{${est_lead_2_logdet}} $ &     $ ${beta_lead_2_ihsdet}^{${est_lead_2_ihsdet}} $  \\
+tex &     ($${se_lead_2_logdet}$) &     ($${se_lead_2_ihsdet}$)  \\
+tex t+3 &     $ ${beta_lead_3_logdet}^{${est_lead_3_logdet}} $ &     $ ${beta_lead_3_ihsdet}^{${est_lead_3_ihsdet}} $  \\
+tex &     ($${se_lead_3_logdet}$) &     ($${se_lead_3_ihsdet}$)  \\
+tex \\
+tex \addlinespace
+tex Observations       &        ${N_logdet}    &        ${N_ihsdet}    &     ${N_her}      &     ${N_her_2}  &        ${N_met}    &        ${N_met_2}  &        ${N_lab}    &        ${N_lab_2}   \\
+tex R-squared        &          ${r2_logdet} &          ${r2_ihsdet}    &    ${r2_her}       &           ${r2_her_2} &          ${r2_met} &          ${r2_met_2}     &        ${r2_lab}    &        ${r2_lab_2}   \\
+
+
+tex Mun. FEs      &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark  &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
+tex Year. FEs    &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
+tex Controls$^b$  &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark     \\
+tex Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark    \\
+tex Reform average effect         & $${aggregate_logdet}^{${est_aggregate_logdet}} $$      & $${aggregate_ihsdet}^{${est_aggregate_ihsdet}} $$     & $${aggregate_her}^{${est_aggregate_her}} $$        & $${aggregate_her_2}^{${est_aggregate_her_2}} $$       & $${aggregate_met}^{${est_aggregate_met}} $$        & $${aggregate_met_2}^{${est_aggregate_met_2}} $$    & $${aggregate_lab}^{${est_aggregate_lab}} $$      & $${aggregate_lab_2}^{${est_aggregate_lab_2}} $$     \\
+tex SE (average effect)      & (${se_aggregate_logdet})  & (${se_aggregate_ihsdet}) & (${se_aggregate_her})  & (${se_aggregate_her_2})  & (${se_aggregate_met})  & (${se_aggregate_met_2})    & (${se_aggregate_lab})  & (${se_aggregate_lab_2})   \\
+*tex p-value  & [${p_aggregate_logdet}]   & [${p_aggregate_ihsdet}]  & [${p_aggregate_her}]   & [${p_aggregate_her_2}]   & [${p_aggregate_met}]   & [${p_aggregate_met_2}]     & [${p_aggregate_lab}]   & [${p_aggregate_lab_2}]    \\
+
+tex \hline \hline      
+tex \multicolumn{9}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \end{tabular}
+tex } 
+tex \end{table}
+tex \end{landscape}
+texdoc close
+
 *=========================================================================
 *============================OLD==========================================
 *=========================================================================

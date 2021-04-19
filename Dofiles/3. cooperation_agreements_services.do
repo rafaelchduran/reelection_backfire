@@ -830,12 +830,12 @@ tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \cmidrule(lrr){5-5} \cmidrule(lrr){6-6} \cmidrule(lrr){7-7} \cmidrule(lrr){8-8} \cmidrule(lrr){9-9} \\
 tex \addlinespace
 
-tex t-2 &     $ ${beta_lag_2_logdet}^{${est_lag_2_logdet}} $ &     $ ${beta_lag_2_ihsdet}^{${est_lag_2_ihsdet}} $ &  $ ${beta_lag_2_her}^{${est_lag_2_her}} $  &  $ ${beta_lag_2_her2}^{${est_lag_2_her2}} $  &     $ ${beta_lag_2_met}^{${est_lag_2_met}} $ &     $ ${beta_lag_2_met_2}^{${est_lag_2_met_2}} $ & $ ${beta_lag_2_lab}^{${est_lag_2_lab}} $ & $ ${beta_lag_2_lab_2}^{${est_lag_2_lab_2}} $   \\
-tex &     ($${se_lag_2_logdet}$) &     ($${se_lag_2_ihsdet}$) & ($${se_lag_2_her}$)& ($ ${se_lag_2_her2}$)  &    ($${se_lag_2_met}$)   &   ($${se_lag_2_met2}$) \\
-tex Reform (t=0) &     $ ${beta_date_0_logdet}^{${est_date_0_logdet}} $ &     $ ${beta_date_0_ihsdet}^{${est_date_0_ihsdet}} $ &   $ ${beta_date_0_her}^{${est_date_0_her}} $   &   $ ${beta_date_0_her2}^{${est_date_0_her2}} $  &     $ ${beta_date_0_met}^{${est_date_0_met}} $ &     $ ${beta_date_0_met_2}^{${est_date_0_met_2}} $ & $ ${beta_date_0_lab}^{${est_date_0_lab}} $ & $ ${beta_date_0_lab_2}^{${est_date_0_lab_2}} $   \\
-tex &     ($${se_date_0_logdet}$) &     ($${se_date_0_ihsdet}$) & ($${se_date_0_her}$)& ($ ${se_date_0_her2}$)  &    ($${se_date_0_met}$)   &   ($${se_date_0_met2}$) \\
-tex t+1 &     $ ${beta_lead_1_logdet}^{${est_lead_1_logdet}} $ &     $ ${beta_lead_1_ihsdet}^{${est_lead_1_ihsdet}} $ &    $ ${beta_lead_1_her}^{${est_lead_1_her}} $ &    $ ${beta_lead_1_her2}^{${est_lead_1_her2}} $ &     $ ${beta_lead_1_met}^{${est_lead_1_met}} $ &     $ ${beta_lead_1_met_2}^{${est_lead_1_met_2}} $  & $ ${beta_lead_1_lab}^{${est_lead_1_lab}} $ & $ ${beta_lead_1_lab_2}^{${est_lead_1_lab_2}} $   \\
-tex &     ($${se_lead_1_logdet}$) &     ($${se_lead_1_ihsdet}$) & ($${se_lead_1_her}$)& ($ ${se_lead_1_her2}$)  &    ($${se_lead_1_met}$)   &   ($${se_lead_1_met2}$) \\
+tex t-2 &     $ ${beta_lag_2_logdet}^{${est_lag_2_logdet}} $ &     $ ${beta_lag_2_ihsdet}^{${est_lag_2_ihsdet}} $ &  $ ${beta_lag_2_her}^{${est_lag_2_her}} $  &  $ ${beta_lag_2_her_2}^{${est_lag_2_her_2}} $  &     $ ${beta_lag_2_met}^{${est_lag_2_met}} $ &     $ ${beta_lag_2_met_2}^{${est_lag_2_met_2}} $ & $ ${beta_lag_2_lab}^{${est_lag_2_lab}} $ & $ ${beta_lag_2_lab_2}^{${est_lag_2_lab_2}} $   \\
+tex &     ($${se_lag_2_logdet}$) &     ($${se_lag_2_ihsdet}$) & ($${se_lag_2_her}$)& ($ ${se_lag_2_her_2}$)  &    ($${se_lag_2_met}$)   &   ($${se_lag_2_met_2}$) \\
+tex Reform (t=0) &     $ ${beta_date_0_logdet}^{${est_date_0_logdet}} $ &     $ ${beta_date_0_ihsdet}^{${est_date_0_ihsdet}} $ &   $ ${beta_date_0_her}^{${est_date_0_her}} $   &   $ ${beta_date_0_her_2}^{${est_date_0_her_2}} $  &     $ ${beta_date_0_met}^{${est_date_0_met}} $ &     $ ${beta_date_0_met_2}^{${est_date_0_met_2}} $ & $ ${beta_date_0_lab}^{${est_date_0_lab}} $ & $ ${beta_date_0_lab_2}^{${est_date_0_lab_2}} $   \\
+tex &     ($${se_date_0_logdet}$) &     ($${se_date_0_ihsdet}$) & ($${se_date_0_her}$)& ($ ${se_date_0_her_2}$)  &    ($${se_date_0_met}$)   &   ($${se_date_0_met_2}$) \\
+tex t+1 &     $ ${beta_lead_1_logdet}^{${est_lead_1_logdet}} $ &     $ ${beta_lead_1_ihsdet}^{${est_lead_1_ihsdet}} $ &    $ ${beta_lead_1_her}^{${est_lead_1_her}} $ &    $ ${beta_lead_1_her_2}^{${est_lead_1_her_2}} $ &     $ ${beta_lead_1_met}^{${est_lead_1_met}} $ &     $ ${beta_lead_1_met_2}^{${est_lead_1_met_2}} $  & $ ${beta_lead_1_lab}^{${est_lead_1_lab}} $ & $ ${beta_lead_1_lab_2}^{${est_lead_1_lab_2}} $   \\
+tex &     ($${se_lead_1_logdet}$) &     ($${se_lead_1_ihsdet}$) & ($${se_lead_1_her}$)& ($ ${se_lead_1_her_2}$)  &    ($${se_lead_1_met}$)   &   ($${se_lead_1_met_2}$) \\
 tex t+3 &     $ ${beta_lead_3_logdet}^{${est_lead_3_logdet}} $ &     $ ${beta_lead_3_ihsdet}^{${est_lead_3_ihsdet}} $  \\
 tex &     ($${se_lead_3_logdet}$) &     ($${se_lead_3_ihsdet}$)  \\
 tex \\
@@ -862,12 +862,12 @@ texdoc close
 
 
 *ONLY AGGREGATES:	
-texdoc init  "../Tables/abraham_sun_services_aggregates.tex", replace force
+texdoc init  "../Tables/abraham_sun_services_average.tex", replace force
 tex \begin{landscape}
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
 tex \caption{Effect of 2014 Term Limit Reform on Services Delegated to the Governor}
-tex \label{tab:services_aggregates}
+tex \label{tab:services_average}
 tex \scalebox{0.70}{    
 tex \begin{tabular}{lcccccccc}  
 tex \hline \hline       
@@ -892,6 +892,7 @@ tex Mun. FEs      &     \checkmark         &  \checkmark   &     \checkmark     
 tex Year. FEs    &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
 tex Controls$^b$  &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark     \\
 tex Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark    \\
+tex Parallel trend holds &   \checkmark      &       \checkmark  &          &     &         &       &          &       \\
 
 tex \hline \hline      
 tex \multicolumn{9}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
@@ -901,7 +902,7 @@ tex \end{table}
 tex \end{landscape}
 texdoc close
 
-
+ 
 
 *========================================================================
 *FIGURE WITH AGGREGATES
@@ -941,23 +942,25 @@ qui xi: reghdfe `i'  $sat_services $controls_time_acuerdo i.year, a(inegi) vce(c
 preserve
 label variable reform " "
 
-coefplot (est1, rename((1) = "Public security") msize(large) mcolor(red) ciopts(color(black))) ///
- (est2, rename((1) = "Traffic") msize(large) mcolor(red) ciopts(color(black))) ///
- (est3, rename((1) = "Prevention") msize(large) mcolor(red) ciopts(color(black))) ///
- (est4, rename((1) = "Training") msize(large) mcolor(red) ciopts(color(black))) ///
- (est5, rename((1) = "Technology") msize(large) mcolor(red) ciopts(color(black))) ///
- (est6, rename((1) = "Research") msize(large) mcolor(red) ciopts(color(black))) ///
- (est7, rename((1) = "Inteligence") msize(large) mcolor(red) ciopts(color(black))) ///
- (est8, rename((1) = "Unify procedures") msize(large) mcolor(red) ciopts(color(black))) ///
+coefplot (est1, rename((1) = "Public security") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est2, rename((1) = "Traffic") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est3, rename((1) = "Prevention") mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est4, rename((1) = "Training")  mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est5, rename((1) = "Technology")  mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est6, rename((1) = "Research")  mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est7, rename((1) = "Inteligence")  mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est8, rename((1) = "Unify procedures")  mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  , ///
  horizontal scheme(s1color)  xline(0)    ///
-ytitle("Outcome: Service delegated to Governor")  xtitle("Term Limit Reform aggregate effect") ///
-subtitle("-95% confidence intervals-") legend(off)
+ytitle("Outcome: Service delegated to Governor")  xtitle("Term Limit Reform Average Effect (t={0, 1 & 3})") ///
+subtitle(" ") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI") rows(1)) 
 graph export "../Figures/services.png", as(png) replace
 graph export "../Figures/services.pdf", as(pdf) replace
 graph export "../Figures/services.tif", as(tif) replace
 graph save "../Figures/services.gph", replace
 restore
+
+
 
 
 

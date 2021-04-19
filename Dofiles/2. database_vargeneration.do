@@ -276,7 +276,7 @@ xfill `j', i(inegi)
 
 *========================================================================
 *6) Average prior to treatment
-cap foreach i in $controls  logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_9 ap4_2_10 ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9{
+cap foreach i in $controls logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_9 ap4_2_10 ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap5_4_1_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b{
 cap bysort inegi: egen `i'_mean=mean(`i') if year<=2014
 cap foreach j in  `i'_mean{
 cap xfill `j', i(inegi)
@@ -604,7 +604,7 @@ xfill `j', i(inegi)
 *========================================================================
 *6) Average prior to treatment
 *foreach i in $controls ap4_2_5 logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4{
-cap foreach i in $controls logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_9 ap4_2_10 ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9{
+cap foreach i in $controls logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_9 ap4_2_10 ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap5_4_1_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b{
 cap bysort inegi: egen `i'_mean=mean(`i') if year<=2014
 foreach j in  `i'_mean{
 xfill `j', i(inegi)

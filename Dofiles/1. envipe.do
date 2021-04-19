@@ -281,7 +281,7 @@ ap5_3_7 PGR
 ap5_3_8 ejercito
 ap5_3_9 marina
 
-5.4 ¿Cuánta confianza le inspira la (el) (AUTORIDAD)? Goes from 1 (mucha), 2(alguna), 2 (poca) to 4 (nada). The dummy indicator goes from negative to positive.
+5.4 ¿Cuánta confianza le inspira la (el) (AUTORIDAD)? Goes from 1 (mucha), 2(alguna), 3 (poca) to 4 (nada). The dummy indicator goes from negative to positive.
 ap5_4_1 policia tránsito
 ap5_4_2 policia preventiva municipal
 ap5_4_3 policia estatal

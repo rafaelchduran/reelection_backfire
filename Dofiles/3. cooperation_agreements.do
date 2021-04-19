@@ -1752,12 +1752,12 @@ xi: reghdfe  $outcome  $trim $controls_time_acuerdo i.year, a(inegi) vce(cluster
 preserve
 label variable reform " "
 
-coefplot (est1, rename((1) = "TWFE") msize(large) mfcolor(white) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
- (est2, rename((1) = "TWFE + Wild CIs") msize(large) mfcolor(white)  mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
- (est3, rename((1) = "CATTs") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
- (est4, rename((1) = "CATTs + Wild CIs") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
- (est5, rename((1) = "CATTs + Reference period t=0") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
- (est6, rename((1) = "CATTs + Trim if t<-4") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+coefplot (est1, rename((1) = "TWFE") msize(large) mfcolor(white) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est2, rename((1) = "TWFE + Wild CIs") msize(large) mfcolor(white)  mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est3, rename((1) = "CATTs") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est4, rename((1) = "CATTs + Wild CIs") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est5, rename((1) = "CATTs + Reference period t=0") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est6, rename((1) = "CATTs + Trim if t<-4") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  , ///
  horizontal scheme(s1color)  xline(0)   ///
 ytitle(" ")  xtitle("Term Limit Reform average treatment effect" "from t to t+3") ///

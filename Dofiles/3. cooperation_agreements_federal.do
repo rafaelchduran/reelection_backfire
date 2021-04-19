@@ -50,9 +50,9 @@ xtset inegi year
 
 *3) outcomes
 	global acuerdos acuerdo_gobfederal acuerdo_gobfederal2 acuerdo_gobfederal3 acuerdo_gobfederal4 acuerdo_gobestatal_federal
+	global acuerdos2 acuerdo_estcom acuerdo_fednoest
 	global outcome acuerdo_estcom
    	global outcome2 acuerdo_fednoest
-	global acuerdos2 acuerdo_estcom acuerdo_fednoest
 
 	
 *========================================================================
@@ -373,8 +373,6 @@ foreach i in lead_1{
 	glo se_`i'_log: di %5.4f r(se)
 }
 
-
-
 foreach i in lead_3{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
@@ -545,7 +543,7 @@ tex Year. FEs       &     \checkmark         &  \checkmark  &     \checkmark    
 tex Controls$^b$   &      \checkmark       &      \checkmark   &      \checkmark       &      \checkmark   \\
 tex Cohort weighted   &          &   \checkmark   &          &   \checkmark   \\
 tex WILD CI  &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
-tex Parallel trend holds   &   \checkmark       &   \checkmark  &   \checkmark       &   \checkmark   \\
+tex Parallel trend holds   &   \checkmark       &     &   \checkmark       &   \checkmark   \\
 
 tex \hline \hline      
 tex \multicolumn{5}{p{1.2\textwidth}}{\footnotesize{Notes: Coefficients in columns (2) and (4) show IW estimators following \citet{abraham_sun_2020}. In those models, two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the governor only. $^b$ Refers to security cooperation agreements signed with other instituions but not the governor. $^c$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
@@ -558,7 +556,7 @@ texdoc close
 *Figure
 est clear
 
-*1) Wild: agreement w/ governor:
+*1) Wild: agreement w/ governor: there are parallel trends
 est clear
 qui wildcorrection_short2 $outcome
 	sum perc if date_0==1, meanonly
@@ -570,7 +568,7 @@ qui wildcorrection_short2 $outcome
 eststo:lincomest  	[(_b[date_0]*`a')+(_b[lead_1]*`b') + (_b[lead_3]*`d')]/3 
 
 
-*2) CATTs + Wild: agreement w/ governor
+*2) CATTs + Wild: agreement w/ governor: parallel trend not in one year
 qui wildcorrection_as_trim2 $outcome
 	sum perc if date_0_2016==1, meanonly
 	local b = r(mean)
@@ -584,7 +582,7 @@ eststo:lincomest  		[(_b[date_0_2016]*`b') ///
 		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2017]*`g') ///
 		+ (_b[lead_3_2015]*`j')] / 3
 		
-*3) Wild: agreement w/ other:
+*3) Wild: agreement w/ other: : pretrends 
 qui wildcorrection_short2 $outcome2
 	sum perc if date_0==1, meanonly
 	local a = r(mean)
@@ -594,7 +592,7 @@ qui wildcorrection_short2 $outcome2
 	local d = r(mean)
 eststo:lincomest  	[(_b[date_0]*`a')+(_b[lead_1]*`b') + (_b[lead_3]*`d')]/3 
 
-*4) CATTs + Wild: agreement w/ other:
+*4) CATTs + Wild: agreement w/ other: parallel trends
 qui wildcorrection_as_trim3 $outcome2
 	sum perc if date_0_2016==1, meanonly
 	local b = r(mean)
@@ -612,19 +610,20 @@ eststo: lincomest 	[(_b[date_0_2016]*`b') ///
 preserve
 label variable reform " "
 
-coefplot (est1, rename((1) = "w/ Governor + Wild CIs") msize(large) mcolor(red) ciopts(color(black))) ///
- (est2, rename((1) = "w/ Governor + CATTs + Wild CIs") msize(large) mcolor(red) ciopts(color(black))) ///
- (est3, rename((1) = "w/ other actor + Wild CIs") msize(large) mcolor(red) ciopts(color(black))) ///
- (est4, rename((1) = "w/ other actor + CATTs + Wild CIs") msize(large) mcolor(red) ciopts(color(black))) ///
+coefplot (est1, rename((1) = "w/ Governor + Wild CIs") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est2, rename((1) = "w/ Governor + CATTs + Wild CIs") mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est3, rename((1) = "w/ other actors + Wild CIs") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est4, rename((1) = "w/ other actors + CATTs + Wild CIs") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
  , ///
  horizontal scheme(s1color)  xline(0)    ///
-ytitle(" ")  xtitle("Term Limit Reform average treatment effect") ///
-subtitle("-95% confidence intervals-") legend(off)
+ytitle(" ")  xtitle("Term Limit Reform Average Effect (t={0, 1 & 3})") ///
+subtitle(" ") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI") rows(1)) 
 graph export "../Figures/average_effects_comparisonfedest.png", as(png) replace
 graph export "../Figures/average_effects_comparisonfedest.pdf", as(pdf) replace
 graph export "../Figures/average_effects_comparisonfedest.tif", as(tif) replace
 graph save "../Figures/average_effects_comparisonfedest.gph", replace
 restore
+
 
 *========================================================================
 *========================================================================

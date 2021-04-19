@@ -1292,6 +1292,7 @@ foreach i in lead_1{
 	glo se_`i'_met_2: di %5.4f r(se)
 }
 
+
 foreach i in lead_3{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
@@ -1306,7 +1307,6 @@ foreach i in lead_3{
 	lincom 	(_b[`i'_2015]*`a') 
 	glo se_`i'_met_2: di %5.4f r(se)
 }
-
 
 	sum perc if date_0_2016==1, meanonly
 	local b = r(mean)
@@ -1806,24 +1806,24 @@ tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \cmidrule(lrr){5-5} \cmidrule(lrr){6-6} \cmidrule(lrr){7-7} \\
 tex \addlinespace
 
-tex t-7 &     $ ${beta_lag_7_logdet}^{${est_lag_7_logdet}} $ &     $ ${beta_lag_7_ihsdet}^{${est_lag_7_ihsdet}} $ & $ ${beta_lag_7_her}^{${est_lag_7_her}} $ & $ ${beta_lag_7_her2}^{${est_lag_7_her2}} $  &     $ ${beta_lag_7_met}^{${est_lag_7_met}} $   &     $ ${beta_lag_7_met2}^{${est_lag_7_met2}} $ \\
-tex &     ($${se_lag_7_logdet}$) &     ($${se_lag_7_ihsdet}$) & ($${se_lag_7_her}$)& ($ ${se_lag_7_her2}$)  &    ($${se_lag_7_met}$)   &   ($${se_lag_7_met2}$) \\
-tex t-6 &     $ ${beta_lag_6_logdet}^{${est_lag_6_logdet}} $ &     $ ${beta_lag_6_ihsdet}^{${est_lag_6_ihsdet}} $ &  $ ${beta_lag_6_her}^{${est_lag_6_her}} $ &  $ ${beta_lag_6_her2}^{${est_lag_6_her2}} $  &     $ ${beta_lag_6_met}^{${est_lag_6_met}} $ &     $ ${beta_lag_6_met2}^{${est_lag_6_met2}} $ \\
-tex &     ($${se_lag_6_logdet}$) &     ($${se_lag_6_ihsdet}$) & ($${se_lag_6_her}$)& ($ ${se_lag_6_her2}$)  &    ($${se_lag_6_met}$)   &   ($${se_lag_6_met2}$) \\
-tex t-5 &     $ ${beta_lag_5_logdet}^{${est_lag_5_logdet}} $ &     $ ${beta_lag_5_ihsdet}^{${est_lag_5_ihsdet}} $ &  $ ${beta_lag_5_her}^{${est_lag_5_her}} $ &  $ ${beta_lag_5_her2}^{${est_lag_5_her2}} $ &     $ ${beta_lag_5_met}^{${est_lag_5_met}} $  &     $ ${beta_lag_5_met2}^{${est_lag_5_met2}} $ \\ 
-tex &     ($${se_lag_5_logdet}$) &     ($${se_lag_5_ihsdet}$) & ($${se_lag_5_her}$)& ($ ${se_lag_5_her2}$)  &    ($${se_lag_5_met}$)   &   ($${se_lag_5_met2}$) \\
-tex t-4 &     $ ${beta_lag_4_logdet}^{${est_lag_4_logdet}} $ &     $ ${beta_lag_4_ihsdet}^{${est_lag_4_ihsdet}} $ &   $ ${beta_lag_4_her}^{${est_lag_4_her}} $ &   $ ${beta_lag_4_her2}^{${est_lag_4_her2}} $  &     $ ${beta_lag_4_met}^{${est_lag_4_met}} $ &     $ ${beta_lag_4_met2}^{${est_lag_4_met2}} $ \\
-tex &     ($${se_lag_4_logdet}$) &     ($${se_lag_4_ihsdet}$) & ($${se_lag_4_her}$)& ($ ${se_lag_4_her2}$)  &    ($${se_lag_4_met}$)   &   ($${se_lag_4_met2}$) \\
-tex t-3 &     $ ${beta_lag_3_logdet}^{${est_lag_3_logdet}} $ &     $ ${beta_lag_3_ihsdet}^{${est_lag_3_ihsdet}} $ &   $ ${beta_lag_3_her}^{${est_lag_3_her}} $ &   $ ${beta_lag_3_her2}^{${est_lag_3_her2}} $  &     $ ${beta_lag_3_met}^{${est_lag_3_met}} $ &     $ ${beta_lag_3_met2}^{${est_lag_3_met2}} $ \\
-tex &     ($${se_lag_3_logdet}$) &     ($${se_lag_3_ihsdet}$) & ($${se_lag_3_her}$)& ($ ${se_lag_3_her2}$)  &    ($${se_lag_3_met}$)   &   ($${se_lag_3_met2}$) \\
-tex t-2 &     $ ${beta_lag_2_logdet}^{${est_lag_2_logdet}} $ &     $ ${beta_lag_2_ihsdet}^{${est_lag_2_ihsdet}} $ &  $ ${beta_lag_2_her}^{${est_lag_2_her}} $  &  $ ${beta_lag_2_her2}^{${est_lag_2_her2}} $  &     $ ${beta_lag_2_met}^{${est_lag_2_met}} $ &     $ ${beta_lag_2_met2}^{${est_lag_2_met2}} $ \\
-tex &     ($${se_lag_2_logdet}$) &     ($${se_lag_2_ihsdet}$) & ($${se_lag_2_her}$)& ($ ${se_lag_2_her2}$)  &    ($${se_lag_2_met}$)   &   ($${se_lag_2_met2}$) \\
-tex Reform (t=0) &     $ ${beta_date_0_logdet}^{${est_date_0_logdet}} $ &     $ ${beta_date_0_ihsdet}^{${est_date_0_ihsdet}} $ &   $ ${beta_date_0_her}^{${est_date_0_her}} $   &   $ ${beta_date_0_her2}^{${est_date_0_her2}} $  &     $ ${beta_date_0_met}^{${est_date_0_met}} $ &     $ ${beta_date_0_met2}^{${est_date_0_met2}} $ \\
-tex &     ($${se_date_0_logdet}$) &     ($${se_date_0_ihsdet}$) & ($${se_date_0_her}$)& ($ ${se_date_0_her2}$)  &    ($${se_date_0_met}$)   &   ($${se_date_0_met2}$) \\
-tex t+1 &     $ ${beta_lead_1_logdet}^{${est_lead_1_logdet}} $ &     $ ${beta_lead_1_ihsdet}^{${est_lead_1_ihsdet}} $ &    $ ${beta_lead_1_her}^{${est_lead_1_her}} $ &    $ ${beta_lead_1_her2}^{${est_lead_1_her2}} $ &     $ ${beta_lead_1_met}^{${est_lead_1_met}} $ &     $ ${beta_lead_1_met2}^{${est_lead_1_met2}} $  \\
-tex &     ($${se_lead_1_logdet}$) &     ($${se_lead_1_ihsdet}$) & ($${se_lead_1_her}$)& ($ ${se_lead_1_her2}$)  &    ($${se_lead_1_met}$)   &   ($${se_lead_1_met2}$) \\
-tex t+3 &     $ ${beta_lead_3_logdet}^{${est_lead_3_logdet}} $ &     $ ${beta_lead_3_ihsdet}^{${est_lead_3_ihsdet}} $ &   $ ${beta_lead_3_her}^{${est_lead_3_her}} $  &   $ ${beta_lead_3_her2}^{${est_lead_3_her2}} $ &     $ ${beta_lead_3_met}^{${est_lead_3_met}} $ &     $ ${beta_lead_3_met2}^{${est_lead_3_met2}} $ \\
-tex &     ($${se_lead_3_logdet}$) &     ($${se_lead_3_ihsdet}$) & ($${se_lead_3_her}$)& ($ ${se_lead_3_her2}$)  &    ($${se_lead_3_met}$)   &   ($${se_lead_3_met2}$) \\
+tex t-7 &     $ ${beta_lag_7_logdet}^{${est_lag_7_logdet}} $ &     $ ${beta_lag_7_ihsdet}^{${est_lag_7_ihsdet}} $ & $ ${beta_lag_7_her}^{${est_lag_7_her}} $ & $ ${beta_lag_7_her_2}^{${est_lag_7_her_2}} $  &     $ ${beta_lag_7_met}^{${est_lag_7_met}} $   &     $ ${beta_lag_7_met_2}^{${est_lag_7_met_2}} $ \\
+tex &     ($${se_lag_7_logdet}$) &     ($${se_lag_7_ihsdet}$) & ($${se_lag_7_her}$)& ($ ${se_lag_7_her_2}$)  &    ($${se_lag_7_met}$)   &   ($${se_lag_7_met_2}$) \\
+tex t-6 &     $ ${beta_lag_6_logdet}^{${est_lag_6_logdet}} $ &     $ ${beta_lag_6_ihsdet}^{${est_lag_6_ihsdet}} $ &  $ ${beta_lag_6_her}^{${est_lag_6_her}} $ &  $ ${beta_lag_6_her_2}^{${est_lag_6_her_2}} $  &     $ ${beta_lag_6_met}^{${est_lag_6_met}} $ &     $ ${beta_lag_6_met_2}^{${est_lag_6_met_2}} $ \\
+tex &     ($${se_lag_6_logdet}$) &     ($${se_lag_6_ihsdet}$) & ($${se_lag_6_her}$)& ($ ${se_lag_6_her_2}$)  &    ($${se_lag_6_met}$)   &   ($${se_lag_6_met_2}$) \\
+tex t-5 &     $ ${beta_lag_5_logdet}^{${est_lag_5_logdet}} $ &     $ ${beta_lag_5_ihsdet}^{${est_lag_5_ihsdet}} $ &  $ ${beta_lag_5_her}^{${est_lag_5_her}} $ &  $ ${beta_lag_5_her_2}^{${est_lag_5_her_2}} $ &     $ ${beta_lag_5_met}^{${est_lag_5_met}} $  &     $ ${beta_lag_5_met_2}^{${est_lag_5_met_2}} $ \\ 
+tex &     ($${se_lag_5_logdet}$) &     ($${se_lag_5_ihsdet}$) & ($${se_lag_5_her}$)& ($ ${se_lag_5_her_2}$)  &    ($${se_lag_5_met}$)   &   ($${se_lag_5_met_2}$) \\
+tex t-4 &     $ ${beta_lag_4_logdet}^{${est_lag_4_logdet}} $ &     $ ${beta_lag_4_ihsdet}^{${est_lag_4_ihsdet}} $ &   $ ${beta_lag_4_her}^{${est_lag_4_her}} $ &   $ ${beta_lag_4_her_2}^{${est_lag_4_her_2}} $  &     $ ${beta_lag_4_met}^{${est_lag_4_met}} $ &     $ ${beta_lag_4_met_2}^{${est_lag_4_met_2}} $ \\
+tex &     ($${se_lag_4_logdet}$) &     ($${se_lag_4_ihsdet}$) & ($${se_lag_4_her}$)& ($ ${se_lag_4_her_2}$)  &    ($${se_lag_4_met}$)   &   ($${se_lag_4_met_2}$) \\
+tex t-3 &     $ ${beta_lag_3_logdet}^{${est_lag_3_logdet}} $ &     $ ${beta_lag_3_ihsdet}^{${est_lag_3_ihsdet}} $ &   $ ${beta_lag_3_her}^{${est_lag_3_her}} $ &   $ ${beta_lag_3_her_2}^{${est_lag_3_her_2}} $  &     $ ${beta_lag_3_met}^{${est_lag_3_met}} $ &     $ ${beta_lag_3_met_2}^{${est_lag_3_met_2}} $ \\
+tex &     ($${se_lag_3_logdet}$) &     ($${se_lag_3_ihsdet}$) & ($${se_lag_3_her}$)& ($ ${se_lag_3_her_2}$)  &    ($${se_lag_3_met}$)   &   ($${se_lag_3_met_2}$) \\
+tex t-2 &     $ ${beta_lag_2_logdet}^{${est_lag_2_logdet}} $ &     $ ${beta_lag_2_ihsdet}^{${est_lag_2_ihsdet}} $ &  $ ${beta_lag_2_her}^{${est_lag_2_her}} $  &  $ ${beta_lag_2_her_2}^{${est_lag_2_her_2}} $  &     $ ${beta_lag_2_met}^{${est_lag_2_met}} $ &     $ ${beta_lag_2_met_2}^{${est_lag_2_met_2}} $ \\
+tex &     ($${se_lag_2_logdet}$) &     ($${se_lag_2_ihsdet}$) & ($${se_lag_2_her}$)& ($ ${se_lag_2_her_2}$)  &    ($${se_lag_2_met}$)   &   ($${se_lag_2_met_2}$) \\
+tex Reform (t=0) &     $ ${beta_date_0_logdet}^{${est_date_0_logdet}} $ &     $ ${beta_date_0_ihsdet}^{${est_date_0_ihsdet}} $ &   $ ${beta_date_0_her}^{${est_date_0_her}} $   &   $ ${beta_date_0_her_2}^{${est_date_0_her_2}} $  &     $ ${beta_date_0_met}^{${est_date_0_met}} $ &     $ ${beta_date_0_met_2}^{${est_date_0_met_2}} $ \\
+tex &     ($${se_date_0_logdet}$) &     ($${se_date_0_ihsdet}$) & ($${se_date_0_her}$)& ($ ${se_date_0_her_2}$)  &    ($${se_date_0_met}$)   &   ($${se_date_0_met_2}$) \\
+tex t+1 &     $ ${beta_lead_1_logdet}^{${est_lead_1_logdet}} $ &     $ ${beta_lead_1_ihsdet}^{${est_lead_1_ihsdet}} $ &    $ ${beta_lead_1_her}^{${est_lead_1_her}} $ &    $ ${beta_lead_1_her_2}^{${est_lead_1_her_2}} $ &     $ ${beta_lead_1_met}^{${est_lead_1_met}} $ &     $ ${beta_lead_1_met_2}^{${est_lead_1_met_2}} $  \\
+tex &     ($${se_lead_1_logdet}$) &     ($${se_lead_1_ihsdet}$) & ($${se_lead_1_her}$)& ($ ${se_lead_1_her_2}$)  &    ($${se_lead_1_met}$)   &   ($${se_lead_1_met_2}$) \\
+tex t+3 &     $ ${beta_lead_3_logdet}^{${est_lead_3_logdet}} $ &     $ ${beta_lead_3_ihsdet}^{${est_lead_3_ihsdet}} $ &   $ ${beta_lead_3_her}^{${est_lead_3_her}} $  &   $ ${beta_lead_3_her_2}^{${est_lead_3_her_2}} $ &     $ ${beta_lead_3_met}^{${est_lead_3_met}} $ &     $ ${beta_lead_3_met_2}^{${est_lead_3_met_2}} $ \\
+tex &     ($${se_lead_3_logdet}$) &     ($${se_lead_3_ihsdet}$) & ($${se_lead_3_her}$)& ($ ${se_lead_3_her_2}$)  &    ($${se_lead_3_met}$)   &   ($${se_lead_3_met_2}$) \\
 tex \\
 tex \addlinespace
 tex Observations       &        ${N_logdet}    &        ${N_ihsdet}    &     ${N_her}      &     ${N_her_2}  &        ${N_met}    &        ${N_met_2}     \\
@@ -1836,7 +1836,7 @@ tex Controls$^b$  &    \checkmark     &       \checkmark  &    \checkmark      &
 tex Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark    \\
 tex Reform aggregate effect         & $${aggregate_logdet}^{${est_aggregate_logdet}} $$      & $${aggregate_ihsdet}^{${est_aggregate_ihsdet}} $$    & $${aggregate_her}^{${est_aggregate_her}} $$      & $${aggregate_her_2}^{${est_aggregate_her_2}} $$     & $${aggregate_met}^{${est_aggregate_met}} $$      & $${aggregate_met_2}^{${est_aggregate_met_2}} $$     \\
 tex SE       & (${se_aggregate_logdet})  & (${se_aggregate_ihsdet}) & (${se_aggregate_her})  & (${se_aggregate_her_2})  & (${se_aggregate_met})  & (${se_aggregate_met_2})   \\
-tex p-value  & [${p_aggregate_logdet}]   & [${p_aggregate_ihsdet}]  & [${p_aggregate_her}]   & [${p_aggregate_her_2}]   & [${p_aggregate_met}]   & [${p_aggregate_met_2}]    \\
+*tex p-value  & [${p_aggregate_logdet}]   & [${p_aggregate_ihsdet}]  & [${p_aggregate_her}]   & [${p_aggregate_her_2}]   & [${p_aggregate_met}]   & [${p_aggregate_met_2}]    \\
 
 tex \hline \hline      
 tex \multicolumn{7}{p{1.2\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
@@ -1848,12 +1848,12 @@ texdoc close
 
 
 *ONLY AGGREGATES:	
-texdoc init  "../Tables/abraham_sun_motives_final.tex", replace force
+texdoc init  "../Tables/abraham_sun_motives_average.tex", replace force
 tex \begin{landscape}
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
 tex \caption{Effect of 2014 Term Limit Reform on Motives to Sign Security Agreements w/ Governor}
-tex \label{tab:motives_final}
+tex \label{tab:motives_average_final}
 tex \scalebox{0.70}{    
 tex \begin{tabular}{lcccccc}  
 tex \hline \hline       
@@ -1912,21 +1912,23 @@ qui xi: reghdfe `i'  $sat_motives $controls_time_acuerdo i.year, a(inegi) vce(cl
 preserve
 label variable reform " "
 
-coefplot (est5, rename((1) = "Coordination") msize(large) mcolor(red) ciopts(color(black))) ///
- (est2, rename((1) = "Law reform") msize(large) mcolor(red) ciopts(color(black))) ///
- (est1, rename((1) = "Constitutional reform") msize(large) mcolor(red) ciopts(color(black))) ///
- (est4, rename((1) = "Professionalization") msize(large) mcolor(red) ciopts(color(black))) ///
- (est3, rename((1) = "Lack resources") msize(large) mcolor(red) ciopts(color(black))) ///
- (est6, rename((1) = "Crime") msize(large) mcolor(red) ciopts(color(black))) ///
+coefplot (est5, rename((1) = "Coordination") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est2, rename((1) = "Law reform") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est1, rename((1) = "Constitutional reform") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est4, rename((1) = "Professionalization") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est3, rename((1) = "Lack resources") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est6, rename((1) = "Crime") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
  , ///
  horizontal scheme(s1color)  xline(0)    ///
-ytitle("Outcome: Motive to sign" "security cooperation agreement")  xtitle("Term Limit Reform aggregate effect (t={0, 1 & 3})") ///
-subtitle("-95% confidence intervals-") legend(off)
+ytitle("Outcome: Motive to sign" "security cooperation agreement")  xtitle("Term Limit Reform Average Effect (t={0, 1 & 3})") ///
+subtitle(" ") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI") rows(1)) 
 graph export "../Figures/motives.png", as(png) replace
 graph export "../Figures/motives.pdf", as(pdf) replace
 graph export "../Figures/motives.tif", as(tif) replace
 graph save "../Figures/motives.gph", replace
 restore
+
+
 
 
 

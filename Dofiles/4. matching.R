@@ -206,6 +206,21 @@ dev.copy(png,'../Figures/mando_unico_placeboleadreform.png')
 dev.off()
 
 #Covariate balance:
+cov_bal <- get_covariate_balance(mando.unico$att, data.final, 
+                                 covariates = "acuerdo_estcom", plot = F) %>%
+  as.data.frame() %>%
+  mutate(t = c(-4:0))
+
+bal_dv <- ggplot(cov_bal, aes(t, stdmean)) +
+  geom_line() +
+  annotate("rect", xmin = -4, xmax = 0, ymin = 0.2, ymax = -0.2,  alpha = .3, fill = "grey") + # this is conventional acceptance thresholds
+  geom_vline(xintercept = -0, linetype = 3) +
+  geom_hline(yintercept = 0, linetype = 3) +
+  xlim(-4,0) +
+  labs(x = "Years Before Treatment", y = "Std. Mean Diff.") +
+  scale_y_continuous(breaks = c(-0.4, -0.2, 0, 0.2, 0.4), limits = c(-0.4,0.4)) +
+  theme_bw()
+
 get_covariate_balance(mando.unico$att,
                                   data = data.final,
                                   covariates = c("acuerdo_estcom"),

@@ -291,7 +291,7 @@ capture program drop getvcov_as_long
   {lag_2_2015} {lag_2_2016} {lag_2_2017} {lag_2_2018} ///
   {date_0_2015} {date_0_2016} {date_0_2017} {date_0_2018} ///
   {lead_1_2015} {lead_1_2016} {lead_1_2017} {lead_2_2015} {lead_2_2016} /// 
-  {lead_3_2015}, bootcluster(estado) seed(5675) level(95) boottype(wild)   nograph 
+  {lead_3_2015}, bootcluster(estado year) seed(5675) level(95) boottype(wild)   nograph 
   		matrix bounds_28=r(CI_1)
 		matrix vbeta_28=((bounds_28[1,2]-bounds_28[1,1])/(2*1.96))^2
 			matrix list vbeta_28
@@ -417,7 +417,8 @@ end
 capture program drop wildcorrection_as_long
  program define wildcorrection_as_long, eclass 
   args Dep_var
-  quietly  xi: areg `Dep_var' $saturated $controls  i.year, a(inegi) vce(cluster estado)
+xi: reghdfe  `Dep_var'  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+  *quietly  xi: areg `Dep_var' $saturated $controls  i.year, a(inegi) vce(cluster estado)
 	getvcov_as_long
 	newcov_as_long
 end

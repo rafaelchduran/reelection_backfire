@@ -1,0 +1,39 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, \citet{chaisemarting_etal_2019} correction}
+\label{tab:withotheractors_alignment}
+\scalebox{1}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{2}{c}{Security Cooperation Agreement w/ Governor$^{a}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+\addlinespace
+Lag 4 years &         $ -0.0191^{***} $ &      $ -0.1367^{***} $  \\
+& ($ 0.0035$) & ($ 0.0028 $) \\
+Lag 3 years &        $ -0.0021^{} $ &     $ -0.0000^{} $ \\
+& ($ 0.0000$) & ($ 0.0000 $) \\
+Lag 2 years &        $ -0.0319^{} $ &    $ -0.0512^{} $  \\
+& ($ 0.0285$) & ($ 0.0406 $) \\
+Reform, time 0 &        $ -0.0117^{*} $ &     $ 0.0000^{} $ \\
+& ($ 0.0064$) & ($ 0.0001 $) \\
+Lead 1 year &         $ 0.0605^{} $ &       $ 0.0992^{*} $ \\
+& ($ 0.0386$) & ($ 0.0526 $) \\
+Lead 3 years &        $ 0.1428^{*} $ &     $ 0.2944^{} $ \\
+& ($ 0.0805$) & ($ 0.1730 $) \\
+\addlinespace
+Observations       &                    933        &           4,363  \\
+R-squared        &              0.6552        &           0.5291   \\
+Mun. FEs       &     \checkmark         &  \checkmark    \\
+Year. FEs       &     \checkmark         &  \checkmark   \\
+Controls$^b$   &      \checkmark       &      \checkmark    \\
+Cohort weighted   &   \checkmark       &   \checkmark    \\
+WILD CI   &          &       \\
+Aggregate effect        &              $0.0639^{} $$         &            $0.1312^{*} $$   \\
+SE (aggregate eff.)        &              (0.0396)       &           (0.0749)   \\
+\hline \hline
+\multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the governor. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\end{tabular}
+}
+\end{table}
