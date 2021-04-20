@@ -46,6 +46,7 @@ capture rename ap5_1_06 ap5_1_6
 capture rename ap5_1_07 ap5_1_7 
 capture rename ap5_1_08 ap5_1_8 
 
+*identifica
 capture rename ap5_3_01 ap5_3_1 
 capture rename ap5_3_02 ap5_3_2 
 capture rename ap5_3_03 ap5_3_3 
@@ -55,7 +56,7 @@ capture rename ap5_3_06 ap5_3_6
 capture rename ap5_3_07 ap5_3_7 
 capture rename ap5_3_08 ap5_3_8 
 capture rename ap5_3_09 ap5_3_9
-
+*confianza
 capture rename ap5_4_01 ap5_4_1 
 capture rename ap5_4_02 ap5_4_2 
 capture rename ap5_4_03 ap5_4_3 
@@ -65,6 +66,28 @@ capture rename ap5_4_06 ap5_4_6
 capture rename ap5_4_07 ap5_4_7 
 capture rename ap5_4_08 ap5_4_8 
 capture rename ap5_4_09 ap5_4_9
+*corrupta
+capture rename ap5_5_01 ap5_5_1 
+capture rename ap5_5_02 ap5_5_2 
+capture rename ap5_5_03 ap5_5_3 
+capture rename ap5_5_04 ap5_5_4 
+capture rename ap5_5_05 ap5_5_5 
+capture rename ap5_5_06 ap5_5_6 
+capture rename ap5_5_07 ap5_5_7 
+capture rename ap5_5_08 ap5_5_8 
+capture rename ap5_5_09 ap5_5_9 
+*desempeno
+capture rename ap5_6_01 ap5_6_1 
+capture rename ap5_6_02 ap5_6_2 
+capture rename ap5_6_03 ap5_6_3 
+capture rename ap5_6_04 ap5_6_4 
+capture rename ap5_6_05 ap5_6_5 
+capture rename ap5_6_06 ap5_6_6 
+capture rename ap5_6_07 ap5_6_7 
+capture rename ap5_6_08 ap5_6_8 
+capture rename ap5_6_09 ap5_6_9 
+
+*gasto
 capture gen  ap4_12b=ap4_11 if envipe==2011
 capture gen  ap4_12b=ap4_12 if envipe>=2012
 
@@ -89,14 +112,18 @@ ap4_2_1 ap4_2_2 ap4_2_3 ap4_2_4 ap4_2_5 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_8  ap4_2_9
 ap4_3_1 ap4_3_2 ap4_3_3 ap4_7_1 ap4_7_2 ap4_7_3 ap4_12b ///
 ap5_1_6 ap5_1_7 ap5_1_8 ap5_1_10 ap5_1_12 ///
 ap5_3_1 ap5_3_2 ap5_3_3 ap5_3_4 ap5_3_5 ap5_3_6 ap5_3_7 ap5_3_8 ap5_3_8 ap5_3_9 ///
-ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_8 ap5_4_9
+ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_8 ap5_4_9 ///
+ap5_5_1 ap5_5_2 ap5_5_3 ap5_5_4 ap5_5_5 ap5_5_6 ap5_5_7 ap5_5_8 ap5_5_8 ap5_5_9 ///
+ap5_6_1 ap5_6_2 ap5_6_3 ap5_6_4 ap5_6_5 ap5_6_6 ap5_6_7 ap5_6_8 ap5_6_8 ap5_6_9
 
 order envipe v1 id_viv upm viv_sel hogar cve_ent cve_mun dominio  ///
 ap4_2_1 ap4_2_2 ap4_2_3 ap4_2_4 ap4_2_5 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_8  ap4_2_9 ap4_2_10 ap4_2_11 ///
 ap4_3_1 ap4_3_2 ap4_3_3 ap4_7_1 ap4_7_2 ap4_7_3 ap4_12b ///
 ap5_1_6 ap5_1_7 ap5_1_8 ap5_1_10 ap5_1_12 ///
 ap5_3_1 ap5_3_2 ap5_3_3 ap5_3_4 ap5_3_5 ap5_3_6 ap5_3_7 ap5_3_8 ap5_3_8 ap5_3_9 ///
-ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_8 ap5_4_9
+ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_8 ap5_4_9 ///
+ap5_5_1 ap5_5_2 ap5_5_3 ap5_5_4 ap5_5_5 ap5_5_6 ap5_5_7 ap5_5_8 ap5_5_8 ap5_5_9 ///
+ap5_6_1 ap5_6_2 ap5_6_3 ap5_6_4 ap5_6_5 ap5_6_6 ap5_6_7 ap5_6_8 ap5_6_8 ap5_6_9
 
 sort v1 envipe
 
@@ -215,14 +242,34 @@ foreach i in ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5
 replace `i'=. if `i'==8
 replace `i'=. if `i'==9
 }
-
 **1=mucha o alguna, 0=poco o nada
 foreach i in ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9{
 gen `i'_b=1 if `i'<3
 replace `i'_b=0 if `i'>2
 }
 
-collapse (mean) ap4_2_1-ap5_4_9_b   [aweight=fac_viv], by(estado year)
+**corrupta: 1=si, 0=no
+foreach i in ap5_5_1 ap5_5_2 ap5_5_3 ap5_5_4 ap5_5_5 ap5_5_6 ap5_5_7 ap5_5_8 ap5_5_9{
+replace `i'=0 if `i'==2
+replace `i'=1 if `i'==1
+}
+
+**desempeno de la autoridad
+foreach i in ap5_6_1 ap5_6_2 ap5_6_3 ap5_6_4 ap5_6_5 ap5_6_6 ap5_6_7 ap5_6_8 ap5_6_9{
+replace `i'=. if `i'==8
+replace `i'=. if `i'==9
+}
+**1=mucha o alguna, 0=poco o nada
+foreach i in ap5_6_1 ap5_6_2 ap5_6_3 ap5_6_4 ap5_6_5 ap5_6_6 ap5_6_7 ap5_6_8 ap5_6_9{
+gen `i'_b=1 if `i'<3
+replace `i'_b=0 if `i'>2
+}
+
+
+
+
+
+collapse (mean) ap4_2_1-ap5_6_9_b   [aweight=fac_viv], by(estado year)
  
 *save "../../Data/ConstructionDatabase/EncuestaVictimizacion/Stata/envipe_2011_2019_estado.dta", replace
 save "../../Data/ConstructionDatabase/EncuestaVictimizacion/Stata/envipe_2012_2019_estado.dta", replace

@@ -114,7 +114,7 @@ capture gen `var'_date0=date_0*`var'
 }
 
 **create citizen demands as controls:
-global insecurityperception ap4_2_3 ap4_2_5 ap4_2_11 ap4_3_1 ap4_3_2 ap4_3_3 ap4_7_1 ap4_7_2 ap4_7_3 ap4_12b ap5_1_6 ap5_1_7 ap5_1_8 ap5_1_10 ap5_1_12 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap4_7_1_b ap4_7_2_b ap4_7_3_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b
+global insecurityperception ap4_2_3 ap4_2_5 ap4_2_11 ap4_2_8 ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_9 ap4_2_10 ap4_3_1 ap4_3_2 ap4_3_3 ap4_7_1 ap4_7_2 ap4_7_3 ap4_12b ap5_1_6 ap5_1_7 ap5_1_8 ap5_1_10 ap5_1_12 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap4_7_1_b ap4_7_2_b ap4_7_3_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b
 foreach var in $insecurityperception{
 foreach i in 1 2 3 4 5 6 7 8{
 capture gen `var'_lag_`i'=lag_`i'*`var'
@@ -276,7 +276,11 @@ xfill `j', i(inegi)
 
 *========================================================================
 *6) Average prior to treatment
-cap foreach i in $controls logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_9 ap4_2_10 ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap5_4_1_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b{
+cap foreach i in $controls logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_9 ap4_2_10 ///
+ ap5_3_1 ap5_3_2 ap5_3_3 ap5_3_4 ap5_3_5 ap5_3_6 ap5_3_7 ap5_3_8 ap5_3_9 ap5_3_1_b ap5_3_2_b ap5_3_3_b ap5_3_4_b ap5_3_5_b ap5_3_6_b ap5_3_7_b ap5_3_8_b ap5_3_9_b ///
+ ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap5_4_1_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b ///
+ ap5_5_1 ap5_5_2 ap5_5_3 ap5_5_4 ap5_5_5 ap5_5_6 ap5_5_7 ap5_5_8 ap5_5_9 ap5_5_1_b ap5_5_2_b ap5_5_3_b ap5_5_4_b ap5_5_5_b ap5_5_6_b ap5_5_7_b ap5_5_8_b ap5_5_9_b ///
+ ap5_6_1 ap5_6_2 ap5_6_3 ap5_6_4 ap5_6_5 ap5_6_6 ap5_6_7 ap5_6_8 ap5_6_9 ap5_6_1_b ap5_6_2_b ap5_6_3_b ap5_6_4_b ap5_6_5_b ap5_6_6_b ap5_6_7_b ap5_6_8_b ap5_6_9_b{
 cap bysort inegi: egen `i'_mean=mean(`i') if year<=2014
 cap foreach j in  `i'_mean{
 cap xfill `j', i(inegi)
@@ -441,7 +445,7 @@ capture gen `var'_date0=date_0*`var'
 }
 
 **create citizen demands as controls:
-global insecurityperception ap4_2_3 ap4_2_5 ap4_2_11 ap4_3_1 ap4_3_2 ap4_3_3 ap4_7_1 ap4_7_2 ap4_7_3 ap4_12b ap5_1_6 ap5_1_7 ap5_1_8 ap5_1_10 ap5_1_12 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap4_7_1_b ap4_7_2_b ap4_7_3_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b
+global insecurityperception ap4_2_3 ap4_2_5 ap4_2_11 ap4_2_8 ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_9 ap4_2_10 ap4_3_1 ap4_3_2 ap4_3_3 ap4_7_1 ap4_7_2 ap4_7_3 ap4_12b ap5_1_6 ap5_1_7 ap5_1_8 ap5_1_10 ap5_1_12 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap4_7_1_b ap4_7_2_b ap4_7_3_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b
 foreach var in $insecurityperception{
 foreach i in 1 2 3 4 5 6 7 8{
 capture gen `var'_lag_`i'=lag_`i'*`var'
@@ -604,7 +608,11 @@ xfill `j', i(inegi)
 *========================================================================
 *6) Average prior to treatment
 *foreach i in $controls ap4_2_5 logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4{
-cap foreach i in $controls logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_9 ap4_2_10 ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap5_4_1_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b{
+cap foreach i in $controls logdetenidos_2pc acuerdo acuerdo2 acuerdo3 acuerdo4 acuerdo5 acuerdo_federal acuerdo_total ap4_2_1 ap4_2_2 ap4_2_4 ap4_2_6 ap4_2_7 ap4_2_8 ap4_2_9 ap4_2_10 ///
+ ap5_3_1 ap5_3_2 ap5_3_3 ap5_3_4 ap5_3_5 ap5_3_6 ap5_3_7 ap5_3_8 ap5_3_9 ap5_3_1_b ap5_3_2_b ap5_3_3_b ap5_3_4_b ap5_3_5_b ap5_3_6_b ap5_3_7_b ap5_3_8_b ap5_3_9_b ///
+ ap5_4_1 ap5_4_2 ap5_4_3 ap5_4_4 ap5_4_5 ap5_4_6 ap5_4_7 ap5_4_8 ap5_4_9 ap5_4_1_b ap5_4_2_b ap5_4_3_b ap5_4_4_b ap5_4_5_b ap5_4_6_b ap5_4_7_b ap5_4_8_b ap5_4_9_b ///
+ ap5_5_1 ap5_5_2 ap5_5_3 ap5_5_4 ap5_5_5 ap5_5_6 ap5_5_7 ap5_5_8 ap5_5_9 ap5_5_1_b ap5_5_2_b ap5_5_3_b ap5_5_4_b ap5_5_5_b ap5_5_6_b ap5_5_7_b ap5_5_8_b ap5_5_9_b ///
+ ap5_6_1 ap5_6_2 ap5_6_3 ap5_6_4 ap5_6_5 ap5_6_6 ap5_6_7 ap5_6_8 ap5_6_9 ap5_6_1_b ap5_6_2_b ap5_6_3_b ap5_6_4_b ap5_6_5_b ap5_6_6_b ap5_6_7_b ap5_6_8_b ap5_6_9_b{
 cap bysort inegi: egen `i'_mean=mean(`i') if year<=2014
 foreach j in  `i'_mean{
 xfill `j', i(inegi)

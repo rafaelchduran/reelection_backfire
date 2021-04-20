@@ -17,15 +17,18 @@ capture program drop macros_tables
 	sum perc if lead_3==1, meanonly
 	local d = r(mean)
 	
-lincom 	[(_b[date_0]*`a')+(_b[lead_1]*`b')+(_b[lead_2]*`c') + (_b[lead_3]*`d')]/4 
-	glo aggregate: di %5.3f r(estimate)
-	estadd local aggregate $aggregate
-	glo se_aggregate: di %5.3f r(se)
-	estadd local se_aggregate $se_aggregate
 test [(_b[date_0]*`a')+(_b[lead_1]*`b')+(_b[lead_2]*`c') + (_b[lead_3]*`d')]/4 	=0
 	glo p_aggregate: di %5.3f r(p)
 	estadd local p_aggregate $p_aggregate
-	
+	glo est_aggregate= "" 
+			if (${p_aggregate}<=0.11) global est_aggregate = "*"
+			if (${p_aggregate}<=0.05) global est_aggregate = "**"
+			if (${p_aggregate}<=0.01) global est_aggregate = "***"	
+lincom 	[(_b[date_0]*`a')+(_b[lead_1]*`b')+(_b[lead_2]*`c') + (_b[lead_3]*`d')]/4 
+	glo aggregate: di %5.3f r(estimate)
+	estadd local aggregate $${aggregate}^{${est_aggregate}}$$	
+	glo se_aggregate: di %5.3f r(se)
+	estadd local se_aggregate $se_aggregate	
 end
 
 *Program macros for tables

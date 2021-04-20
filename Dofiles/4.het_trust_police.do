@@ -72,7 +72,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_logdet:  di %5.4f e(r2)
 		glo N_logdet: di %11.2gc e(N)
 		
@@ -271,7 +271,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_ihsdet:  di %5.4f e(r2)
 		glo N_ihsdet: di %11.2gc e(N)
 		
@@ -469,7 +469,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_her:  di %5.4f e(r2)
 		glo N_her: di %11.2gc e(N)
 		
@@ -667,8 +667,8 @@ foreach j in $saturated{
 gen inter_`j'=`i'*`j'
 }
 }
-
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+ 
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_her_2:  di %5.4f e(r2)
 		glo N_her_2: di %11.2gc e(N)
 		
@@ -867,7 +867,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_met:  di %5.4f e(r2)
 		glo N_met: di %11.2gc e(N)
 		
@@ -1066,7 +1066,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_met_2:  di %5.4f e(r2)
 		glo N_met_2: di %11.2gc e(N)
 		
@@ -1184,12 +1184,6 @@ foreach i in lead_3{
 }
 
 
-
-
-
-
-
-
 **estimate average effect of total interaction effect:
 	sum perc if date_0_2015==1, meanonly
 	local a = r(mean)
@@ -1264,7 +1258,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_lab:  di %5.4f e(r2)
 		glo N_lab: di %11.2gc e(N)
 		
@@ -1464,7 +1458,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_lab_2:  di %5.4f e(r2)
 		glo N_lab_2: di %11.2gc e(N)
 		
@@ -1793,7 +1787,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_met_2:  di %5.4f e(r2)
 		glo N_met_2: di %11.2gc e(N)
 		
@@ -1991,7 +1985,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_lab:  di %5.4f e(r2)
 		glo N_lab: di %11.2gc e(N)
 		
@@ -2191,7 +2185,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_lab_2:  di %5.4f e(r2)
 		glo N_lab_2: di %11.2gc e(N)
 		

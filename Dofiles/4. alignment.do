@@ -684,6 +684,7 @@ restore
 
 *========================================================================
 *2) Interaction effects:
+est clear
 preserve
 rename alignment_executive_strong alig_pres
 rename alignment_governor_strong alig_gov
@@ -704,7 +705,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_logdet:  di %5.4f e(r2)
 		glo N_logdet: di %11.2gc e(N)
 		
@@ -881,17 +882,30 @@ foreach i in lead_3{
 			if (${p_aggregate_logdet}<=0.11) global est_aggregate_logdet = "*"
 			if (${p_aggregate_logdet}<=0.05) global est_aggregate_logdet = "**"
 			if (${p_aggregate_logdet}<=0.01) global est_aggregate_logdet = "***"	
-
 	sum $split_variable, meanonly
 	local median_$split_variable= r(mean)
-		eststo:lincomest 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+	eststo: lincomest [(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j')]/ 4	
+qui areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	eststo: lincomest [(_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')]/ 4	
+qui areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	eststo: lincomest 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
 		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
 		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
 		+ (_b[lead_3_2015]*`j') ///
 		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
 		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
 		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
-		+ (_b[inter_lead_3_2015]*`j')])/ 4
+		+ (_b[inter_lead_3_2015]*`j')])/ 4	
 ************
 ***B: Alignment Governor
 ************
@@ -903,7 +917,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_ihsdet:  di %5.4f e(r2)
 		glo N_ihsdet: di %11.2gc e(N)
 		
@@ -1082,14 +1096,28 @@ foreach i in lead_3{
 			if (${p_aggregate_ihsdet}<=0.01) global est_aggregate_ihsdet = "***"	
 	sum $split_variable, meanonly
 	local median_$split_variable= r(mean)
-		eststo:lincomest 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+	eststo: lincomest [(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j')]/ 4	
+qui areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	eststo: lincomest [(_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')]/ 4	
+qui areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	eststo: lincomest 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
 		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
 		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
 		+ (_b[lead_3_2015]*`j') ///
 		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
 		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
 		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
-		+ (_b[inter_lead_3_2015]*`j')])/ 4
+		+ (_b[inter_lead_3_2015]*`j')])/ 4	
 ************
 ***C: Alignment Governor from PRI
 ************
@@ -1101,7 +1129,7 @@ gen inter_`j'=`i'*`j'
 }
 }
 
-areg   $outcome $saturated inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 		glo r2_her:  di %5.4f e(r2)
 		glo N_her: di %11.2gc e(N)
 		
@@ -1280,14 +1308,28 @@ foreach i in lead_3{
 			if (${p_aggregate_her}<=0.01) global est_aggregate_her = "***"	
 	sum $split_variable, meanonly
 	local median_$split_variable= r(mean)
-		eststo:lincomest 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+	eststo: lincomest [(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
+		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
+		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
+		+ (_b[lead_3_2015]*`j')]/ 4	
+qui areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	eststo: lincomest [(_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
+		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
+		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
+		+ (_b[inter_lead_3_2015]*`j')]/ 4	
+qui areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+	sum $split_variable, meanonly
+	local median_$split_variable= r(mean)
+	eststo: lincomest 	(`median_$split_variable'*[(_b[date_0_2015]*`a')+(_b[date_0_2016]*`b')+(_b[date_0_2017]*`c') + (_b[date_0_2018]*`d') ///
 		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2016]*`f')+(_b[lead_1_2017]*`g') ///
 		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
 		+ (_b[lead_3_2015]*`j') ///
 		+ (_b[inter_date_0_2015]*`a')+(_b[inter_date_0_2016]*`b')+(_b[inter_date_0_2017]*`c') + (_b[inter_date_0_2018]*`d') ///
 		+ (_b[inter_lead_1_2015]*`e')+(_b[inter_lead_1_2016]*`f')+(_b[inter_lead_1_2017]*`g') ///
 		+ (_b[inter_lead_2_2015]*`h')+(_b[inter_lead_2_2016]*`i') ///
-		+ (_b[inter_lead_3_2015]*`j')])/ 4
+		+ (_b[inter_lead_3_2015]*`j')])/ 4	
 
 restore 
 *Table			
@@ -1391,11 +1433,9 @@ texdoc close
 
 *========================================================================
 *Figure
-preserve
-label variable reform " "
 coefplot (est1, rename((1) = "w/ President") msize(large) mcolor(green) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est2, rename((1) = "w/ Governor") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est3, rename((1) = "w/ PRI Governor") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est4, rename((1) = "w/ Governor") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est7, rename((1) = "w/ PRI Governor") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  , ///
  horizontal scheme(s1color)  xline(0) xlabel(-0.7(0.1)0.1) xscale(range(-0.7(0.1)0.1))   ///
 ytitle("Alignment:")  xtitle("Term Limit Reform Average Effect" "from t to t+3") ///
@@ -1405,7 +1445,57 @@ graph export "../Figures/interaction_alignment.png", as(png) replace
 graph export "../Figures/interaction_alignment.pdf", as(pdf) replace
 graph export "../Figures/interaction_alignment.tif", as(tif) replace
 graph save "../Figures/interaction_alignment.gph", replace
-restore
+
+
+*Redo separately
+**w. President
+coefplot (est1, rename((1) = ".") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est2, rename((1) = ".") msymbol(S) msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est3, rename((1) = ".") msymbol(T) msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ , ///
+ horizontal scheme(s1color)  xline(0)    ///
+ytitle(" ")  xtitle(" ") ///
+subtitle("Alignment w/ President") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI"  ///
+4 "Reform & Not-aligned" 8 "Interaction (Reform & Aligned)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+graph export "../Figures/alignment_president.png", as(png) replace
+graph export "../Figures/alignment_president.pdf", as(pdf) replace
+graph export "../Figures/alignment_president.tif", as(tif) replace
+graph save "../Figures/alignment_president.gph", replace
+**w. governor
+coefplot (est4, rename((1) = ".") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est5, rename((1) = ".") msymbol(S) msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est6, rename((1) = ".") msymbol(T) msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ , ///
+ horizontal scheme(s1color)  xline(0)    ///
+ytitle(" ")  xtitle(" ") ///
+subtitle("Alignment w/ Governor") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI"  ///
+4 "Reform & Not-aligned" 8 "Interaction (Reform & Aligned)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+graph export "../Figures/alignment_governor.png", as(png) replace
+graph export "../Figures/alignment_governor.pdf", as(pdf) replace
+graph export "../Figures/alignment_governor.tif", as(tif) replace
+graph save "../Figures/alignment_governor.gph", replace
+**w. PRI Governor
+coefplot (est7, rename((1) = ".") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est8, rename((1) = ".") msymbol(S) msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ (est9, rename((1) = ".") msymbol(T) msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
+ , ///
+ horizontal scheme(s1color)  xline(0)    ///
+ytitle(" ")  xtitle(" ") ///
+subtitle("Alignment w/ PRI Governor")legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI"  ///
+4 "Reform & Not-aligned" 8 "Interaction (Reform & Aligned)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+graph export "../Figures/alignment_governor_pri.png", as(png) replace
+graph export "../Figures/alignment_governor_pri.pdf", as(pdf) replace
+graph export "../Figures/alignment_governor_pri.tif", as(tif) replace
+graph save "../Figures/alignment_governor_pri.gph", replace
+
+*combine:
+grc1leg "../Figures/alignment_president.gph" "../Figures/alignment_governor.gph" "../Figures/alignment_governor_pri.gph" , ///
+scheme(s1color)  imargin(vsmall) ycommon xcommon  col(1) l1(" ") b1(Average Effect from t to t+3)
+graph export "../Figures/interaction_alignment_full.png", as(png) replace
+graph export "../Figures/interaction_alignment_full.pdf", as(pdf) replace
+graph export "../Figures/interaction_alignment_full.tif", as(tif) replace
+
+
 
 *========================================================================
 *===============================OLD======================================
