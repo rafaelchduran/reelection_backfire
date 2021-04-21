@@ -10,7 +10,7 @@ set more off
 set varabbrev off 
 
 *Working Directory
-cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/Dofiles"
+cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/reelection_backfire/Dofiles"
 
 ******************
 *STATE LEVEL VARIABLES
@@ -18,15 +18,15 @@ cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/Dofiles"
 
 insheet using "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/Mexico/Data/ElectionsMagar/elecRetrns-master_rafa/data/goed1985-present.incumbents.csv", clear
 drop yr_pos mo_pos dy_pos
-save "../Data/state_elections_mexico_1985_present.dta", replace
+save "../../Data/state_elections_mexico_1985_present.dta", replace
 
 
 insheet using "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/Mexico/Data/ElectionsMagar/elecRetrns-master_rafa/data/goed1961-on_rafa.csv", clear
-save "../Data/state_elections_mexico_1961_2012.dta", replace
+save "../../Data/state_elections_mexico_1961_2012.dta", replace
 
 
 *a) winning margin of incumbent
-use "../Data/state_elections_mexico_1961_2012.dta", clear
+use "../../Data/state_elections_mexico_1961_2012.dta", clear
 rename yr year
 rename vtot tot
 
@@ -62,7 +62,7 @@ label variable vote_share_`i' "Vote share of candidate `i'"
 }
 *max vote share and second max
 egen max=rowmax(vote_share_v01-vote_share_v12)
-drop if max>1 /*1134 missing deleted*/
+drop if max>1 /*3 missing deleted*/
 label variable max "Votes share first runner"
 
 foreach v in vote_share_v01 vote_share_v02 vote_share_v03 vote_share_v04 vote_share_v05 vote_share_v06 vote_share_v07 vote_share_v08 vote_share_v09 vote_share_v10 vote_share_v11 vote_share_v12 {
@@ -106,14 +106,14 @@ gen division_`i'=vote_share_`i'/[vote_share_`i' + max_sq - vote_share_sq_`i']
 egen golosov=rowtotal(division_v01 division_v02 division_v03 division_v04 division_v05 division_v06 division_v07 division_v08 division_v09 division_v10 division_v11 division_v12)
 label variable golosov "Golosov Effective Number of Parties Index (2015) (governor)"
 
-save "../Data/state_elections_winning_margin.dta", replace
+save "../../Data/state_elections_winning_margin.dta", replace
 
 
 *Merge data and generate winning margin of incumbent
-use "../Data/state_elections_mexico_1961_2012.dta", clear
+use "../../Data/state_elections_mexico_1961_2012.dta", clear
 rename yr year
 *drop if year<1989
-merge 1:1 ord edon year using  "../Data/state_elections_winning_margin.dta"
+merge 1:1 ord edon year using  "../../Data/state_elections_winning_margin.dta"
 sort edon year
 label variable edon "state number 1:32"
 label variable year "year of election"
@@ -186,7 +186,7 @@ replace governor_alignment=1 if win_governor=="pri"
 drop year
 
 
-save "../Data/state_elections_mexico_winning_margin.dta", replace
+save "../../Data/state_elections_mexico_winning_margin.dta", replace
 
 ******************
 *MUNICIPAL LEVEL VARIABLES
@@ -203,11 +203,11 @@ iid
 
 *Import Magar (2017) database on municipal elections results and incumbents:
 insheet using "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/Mexico/Data/ElectionsMagar/elecRetrns-master_rafa/data/aymu1977-present.csv", clear
-save "../Data/municipal_elections_mexico_1997_present.dta", replace
+save "../../Data/municipal_elections_mexico_1997_present.dta", replace
 
 
 insheet using "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/Mexico/Data/ElectionsMagar/elecRetrns-master_rafa/data/aymu1989-present.incumbents.csv", clear
-save "../Data/municipal_elections_incumbent_mexico_1989_present.dta", replace
+save "../../Data/municipal_elections_incumbent_mexico_1989_present.dta", replace
 
 /*
 
@@ -293,7 +293,7 @@ En las categorías 3 en adelante, un sufijo puede estar presente.
 
 *a) winning margin of incumbent
 **
-use "../Data/municipal_elections_mexico_1997_present.dta", clear
+use "../../Data/municipal_elections_mexico_1997_present.dta", clear
 rename yr year
 *drop if year<1989
 
@@ -329,7 +329,7 @@ label variable vote_share_`i' "Vote share of candidate `i'"
 }
 *max vote share and second max
 egen max=rowmax(vote_share_v01-vote_share_v18)
-drop if max>1 /*1134 missing deleted*/
+drop if max>1 /*1134 missing or elecciones anuladas deleted*/
 label variable max "Votes share first runner"
 
 foreach v in vote_share_v01 vote_share_v02 vote_share_v03 vote_share_v04 vote_share_v05 vote_share_v06 vote_share_v07 vote_share_v08 vote_share_v09 vote_share_v10 vote_share_v11 vote_share_v12 vote_share_v13 vote_share_v14 vote_share_v15 vote_share_v16 vote_share_v17 vote_share_v18{
@@ -342,14 +342,14 @@ label variable max2 "Votes share second runner"
 gen winning_margin=max-max2
 label variable winning_margin "Winning margin: first - second runner"
 
-save "../Data/municipal_elections_winning_margin.dta", replace
+save "../../Data/municipal_elections_winning_margin.dta", replace
 
 
 *Merge data and generate winning margin of incumbent
-use "../Data/municipal_elections_incumbent_mexico_1989_present.dta", clear
+use "../../Data/municipal_elections_incumbent_mexico_1989_present.dta", clear
 rename yr year
 *drop if year<1989
-merge 1:1 year emm inegi using  "../Data/municipal_elections_winning_margin.dta"
+merge 1:1 year emm inegi using  "../../Data/municipal_elections_winning_margin.dta"
 sort inegi year
 label variable edon "state number 1:32"
 label variable emm "municipal indentifying code (*edo*-electionCycle./munn/)."
@@ -424,6 +424,11 @@ egen mun_election=group(inegi year)
 label variable mun_election "municipality-election year indicator"
 
 *2.a.b.c.) Parties running, with one lag and one forwad
+quietly by inegi year:  gen dup = cond(_N==1,0,_n)
+drop if dup>1
+drop dup
+xtset inegi year
+
 foreach i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18{
 bysort inegi: gen party_`i'_runs=0
 bysort inegi: replace party_`i'_runs=1 if vote_share_v`i'!=.
@@ -451,9 +456,6 @@ label variable mv_party_`i' "winning margin of party `i'"
 *4. and 5.) vote share and winning margin at t+1 and at t-1
 drop if efec2==.
 *drop if win==""
-by inegi year:  gen dup = cond(_N==1,0,_n)
-drop if dup>0 /*drop 135 observations */
-drop dup
 
 xtset inegi year
 foreach i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18{
@@ -479,9 +481,15 @@ label variable mv_party_`i'lag1 "winning margin of party `i' at t-1 election"
 gen inc_party_won=.
 replace inc_party_won=0 if raceafter[_n-1]=="Term-limited-p-lost" | raceafter[_n-1]=="Out-p-lost" | raceafter[_n-1]=="Beaten" 
 replace inc_party_won=1 if raceafter[_n-1]=="Term-limited-p-won" | raceafter[_n-1]=="Out-p-won" | raceafter[_n-1]=="Reelected"
-label variable inc_party_won "Incumbent party (from t-1) won at election t"
 
-*7.) Incumbent's party (from t-1) margin of victory at t (this should be negative sometimes)
+**Incumbent party at t won at t+1: RDD: effect of inc. winning at t on incumbent winning at t+1 vs inc. loosing on incumbent loosing at t+1.
+gen inc_party_won_tplus1=.
+replace inc_party_won_tplus1=0 if raceafter=="Term-limited-p-lost" | raceafter=="Out-p-lost" | raceafter=="Beaten" 
+replace inc_party_won_tplus1=1 if raceafter=="Term-limited-p-won" | raceafter=="Out-p-won" | raceafter=="Reelected"
+label variable inc_party_won_tplus1 "Incumbent party at t won at t+1"
+
+
+*7.a) Incumbent's party (from t-1) margin of victory at t (this should be negative sometimes)
 /** example first mun of aguascalientes: 
 -first line: pri is incumbent and should be filled with missings
 -second line: should be winning margin of pri in that election
@@ -494,6 +502,13 @@ label variable mv_incparty "Incumbent's party (from t-1) margin of victory at t"
 
 }
 
+*7.b) Party margin of victory at t (this should be negative sometimes)
+gen mv_party=.
+foreach i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18{
+by inegi: replace mv_party=mv_party_`i' if winning_margin[_n-1]==mv_party_`i'[_n-1]
+label variable mv_party "Incumbent's party (from t-1) margin of victory at t"
+
+}
 
 *8.) Incumbent's party (from t-1) margin of victory at t+1 (this should be negative sometimes)
 /** example first mun of aguascalientes: 
@@ -552,6 +567,18 @@ replace incumbent_yesterday_w_tomorrow=1 if incumbent_yesterday==incumbent_tomor
 replace incumbent_yesterday_w_tomorrow=. if incumbent_yesterday==""
 
 *b) measure not relying on party names (because of coalitions)
+*b.2) unconditional on being an incumbent on t-1
+gen incumbent_today_w_tomorrow2=.
+foreach i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18{
+by inegi: replace incumbent_today_w_tomorrow2=0 if winning_margin[_n+1]!=mv_party_`i'[_n+1] & winning_margin[_n]==mv_party_`i'[_n]
+by inegi: replace incumbent_today_w_tomorrow2=1 if winning_margin[_n+1]==mv_party_`i'[_n+1] & winning_margin[_n]==mv_party_`i'[_n]
+by inegi: replace incumbent_today_w_tomorrow2=. if incumbent_today==""
+by inegi: replace incumbent_today_w_tomorrow2=. if winning_margin[_n+1]==.
+}
+
+replace incumbent_today_w_tomorrow2=. if mun!=mun[_n-1]
+
+*b.2) conditional on being an incumbent on t-1
 gen incumbent_yesterday_w_tomorrow2=.
 foreach i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18{
 by inegi: replace incumbent_yesterday_w_tomorrow2=0 if winning_margin[_n+1]!=mv_party_`i'[_n+1] & winning_margin[_n-1]==mv_party_`i'[_n-1]
@@ -570,14 +597,14 @@ gen coalition_v`i'=wordcount(l`i')
 label variable coalition_v`i' "coalition `i' size"
 }
 
-save "../Data/municipal_elections_incumbent_mexico_1989_present_v1.dta", replace
-export delimited using "../Data/municipal_elections_incumbent_mexico_1989_present_v1.csv", replace
+save "../../Data/municipal_elections_incumbent_mexico_1989_present_v1.dta", replace
+export delimited using "../../Data/municipal_elections_incumbent_mexico_1989_present_v1.csv", replace
 
 *Brazil Titiunik database:
 **use "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/Literature/PolCompetition/IncumbencyDisadvantage/KlasnjaTitiunik2017-APSR-replication-files/KlasnjaTitiunik-Brazil-data.dta", clear
 
 **Treatment Variables
-use "../Data/municipal_elections_incumbent_mexico_1989_present_v1.dta", clear
+use "../../Data/municipal_elections_incumbent_mexico_1989_present_v1.dta", clear
 
 *1) Reelection Reform ** use changes, and use the idea that a state knows there will be reelection but have a free one
 
@@ -628,13 +655,13 @@ label variable alignment_executive_strong "alignment with federal executive=1; 0
 
 *3) Alignment with governor
 preserve
-use "../Data/state_elections_mexico_winning_margin.dta", clear
+use "../../Data/state_elections_mexico_winning_margin.dta", clear
 keep edon  win_governor
-save "../Data/state_elections_mexico_winning_margin_formun_merge.dta", replace
+save "../../Data/state_elections_mexico_winning_margin_formun_merge.dta", replace
 restore
 drop _merge
 
-merge m:m edon using "../Data/state_elections_mexico_winning_margin_formun_merge.dta"
+merge m:m edon using "../../Data/state_elections_mexico_winning_margin_formun_merge.dta"
 drop _merge
 gen alignment_governor_strong=0
 replace alignment_governor_strong=1 if firstword==win_governor
@@ -654,10 +681,10 @@ replace double_alignment=1 if alignment_executive_strong==1 & alignment_governor
 
 *drop _merge
 *save dataset
-save "../Data/municipal_elections_incumbent_mexico_1989_present_v2.dta", replace
+save "../../Data/municipal_elections_incumbent_mexico_1989_present_v2.dta", replace
 
 drop if year<2018
-save "../Data/municipal_elections_incumbent_mexico_1989_present_v3.dta", replace
+save "../../Data/municipal_elections_incumbent_mexico_1989_present_v3.dta", replace
 
 
 

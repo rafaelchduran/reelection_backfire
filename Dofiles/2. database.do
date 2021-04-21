@@ -132,10 +132,11 @@ replace reform=1 if year==2019 & estado==`i'
 
 *fill missing observations:
 sort inegi year
-foreach i in reform ife raceafter winning_margin numparties_eff numparties numparties_eff_molinar inc_party_won ///
+*I didn't include these vars: inc_party_won inc_party_won_tplus1 incumbent_yesterday_w_tomorrow2
+foreach i in reform ife raceafter winning_margin numparties_eff numparties numparties_eff_molinar  ///
  mv_incparty mv_incpartyfor1 inc_party_runsfor1 incumbent_yesterday incumbent_today incumbent_tomorrow ///
  incumbent_yesterday_w_today incumbent_today_w_tomorrow incumbent_yesterday_w_tomorrow ///
- incumbent_yesterday_w_tomorrow2 firstword alignment_executive_strong win_governor alignment_governor_strong ///
+  firstword alignment_executive_strong win_governor alignment_governor_strong ///
  alignment_governor_weak double_alignment{
 by inegi, sort: fillmissing `i', with(previous)
 }

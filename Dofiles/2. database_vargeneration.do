@@ -361,6 +361,227 @@ drop if year<2010
 *========================================================================
 *SAVE DATA
 save "../../Data/ConstructionDatabase/data_final.dta", replace
+*========================================================================
+*Incumbency advantage: win or loose at t and compare to t+1
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_02 mv_party_03 mv_party_04 mv_party_05 mv_party_06 mv_party_07 mv_party_08 mv_party_09 mv_party_10 mv_party_11 mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename mv_party_01 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop1
+save `drop1'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01 mv_party_03 mv_party_04 mv_party_05 mv_party_06 mv_party_07 mv_party_08 mv_party_09 mv_party_10 mv_party_11 mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename mv_party_02 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop2
+save `drop2'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02  mv_party_04 mv_party_05 mv_party_06 mv_party_07 mv_party_08 mv_party_09 mv_party_10 mv_party_11 mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename mv_party_03 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop3
+save `drop3'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03 mv_party_05 mv_party_06 mv_party_07 mv_party_08 mv_party_09 mv_party_10 mv_party_11 mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_04 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop4
+save `drop4'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_06 mv_party_07 mv_party_08 mv_party_09 mv_party_10 mv_party_11 mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_05 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop5
+save `drop5'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_07 mv_party_08 mv_party_09 mv_party_10 mv_party_11 mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_06 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop6
+save `drop6'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06  mv_party_08 mv_party_09 mv_party_10 mv_party_11 mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_07 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop7
+save `drop7'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07  mv_party_09 mv_party_10 mv_party_11 mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_08 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop8
+save `drop8'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07 mv_party_08  mv_party_10 mv_party_11 mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_09 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop9
+save `drop9'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07 mv_party_08 mv_party_09   mv_party_11 mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_10 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop10
+save `drop10'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07 mv_party_08 mv_party_09  mv_party_10 ///
+   mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_11 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop11
+save `drop11'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07 mv_party_08 mv_party_09  mv_party_10 ///
+   mv_party_11  mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_12 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop12
+save `drop12'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07 mv_party_08 mv_party_09  mv_party_10 ///
+   mv_party_11  mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_12 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop12
+save `drop12'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07 mv_party_08 mv_party_09  mv_party_10 ///
+   mv_party_11  mv_party_12  mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_13 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop13
+save `drop13'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07 mv_party_08 mv_party_09  mv_party_10 ///
+   mv_party_11  mv_party_12  mv_party_13  mv_party_15 mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_14 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop14
+save `drop14'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07 mv_party_08 mv_party_09  mv_party_10 ///
+   mv_party_11  mv_party_12  mv_party_13 mv_party_14  mv_party_16 mv_party_17 mv_party_18
+rename  mv_party_15 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop15
+save `drop15'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07 mv_party_08 mv_party_09  mv_party_10 ///
+   mv_party_11  mv_party_12  mv_party_13 mv_party_14  mv_party_15  mv_party_17 mv_party_18
+rename  mv_party_16 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop16
+save `drop16'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07 mv_party_08 mv_party_09  mv_party_10 ///
+   mv_party_11  mv_party_12  mv_party_13 mv_party_14  mv_party_15  mv_party_16  mv_party_18
+rename  mv_party_17 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop17
+save `drop17'
+
+use "../../Data/ConstructionDatabase/data_final.dta", clear
+drop  mv_party_01  mv_party_02 mv_party_03  mv_party_04  mv_party_05  mv_party_06 mv_party_07 mv_party_08 mv_party_09  mv_party_10 ///
+   mv_party_11  mv_party_12  mv_party_13 mv_party_14  mv_party_15  mv_party_17  
+rename  mv_party_18 mv_party
+xtset inegi year
+gen party_won_nextelec=.
+by inegi: replace party_won_nextelec=0 if winning_margin[_n+1]!=mv_party[_n+1]
+by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_party[_n+1]
+tempfile drop18
+save `drop18'
+
+use `drop1'
+append using `drop1'
+append using `drop2'
+append using `drop3'
+append using `drop4'
+append using `drop5'
+append using `drop6'
+append using `drop7'
+append using `drop8'
+append using `drop9'
+append using `drop10'
+append using `drop11'
+append using `drop12'
+append using `drop13'
+append using `drop14'
+append using `drop15'
+append using `drop16'
+append using `drop17'
+append using `drop18'
+save "../../Data/ConstructionDatabase/data_final_incumbency_advantage.dta", replace
 
 
 
@@ -681,11 +902,11 @@ replace acuerdo_estnofed3=. if acuerdo_gobestatal4==. | acuerdo_gobfederal==.
 gen acuerdo_fednoest3=0
 replace acuerdo_fednoest3=1 if acuerdo_gobestatal4==0 & acuerdo_gobfederal==1
 replace acuerdo_fednoest3=. if acuerdo_gobestatal4==. | acuerdo_gobfederal==.
-
-
 *========================================================================
 *SAVE DATA
 save "../../Data/ConstructionDatabase/data_final2_forR.dta", replace
+
+*========================================================================
 
 *ssc install xtbalance
 *ssc install xtbalance2

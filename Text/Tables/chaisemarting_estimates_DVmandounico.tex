@@ -1,0 +1,33 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, \citet{chaisemarting_etal_2019} correction}
+\label{tab:chaisemartin_agreements}
+\scalebox{1}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{1}{c}{Agreement A} & \multicolumn{1}{c}{Agreement B$^{a}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+\addlinespace
+Lag 5 years &        $ -0.023^{} $ &     $ -0.045^{} $ \\
+& ($ 0.021$) & ($ 0.071 $) \\
+Lag 4 years &        $ 0.009^{} $ &     $ 0.033^{} $ \\
+& ($ 0.038$) & ($ 0.048 $) \\
+Lag 3 years &        $ 0.063^{} $ &     $ 0.098^{} $ \\
+& ($ 0.081$) & ($ 0.080 $) \\
+Lag 2 years &        $ 0.093^{} $ &     $ 0.055^{} $ \\
+& ($ 0.115$) & ($ 0.089 $) \\
+Reform, time 0 &        $ -0.067^{} $ &     $ -0.063^{} $ \\
+& ($ 0.132$) & ($ 0.119 $) \\
+Lead 1 year &         $ -0.401^{***} $ &       $ -0.337^{**} $ \\
+& ($ 0.055$) & ($ 0.136 $) \\
+Lead 2 years &         $ -0.483^{***} $ &      $ -0.493^{***} $  \\
+& ($ 0.033$) & ($ 0.071 $) \\
+\addlinespace
+Controls$^b$   &    \checkmark      &   \checkmark    \\
+\hline \hline
+\multicolumn{3}{p{0.5\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Secondary version of security cooperation agreements. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\end{tabular}
+}
+\end{table}

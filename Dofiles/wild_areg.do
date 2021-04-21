@@ -97,6 +97,31 @@ capture program drop getvcov
 			matrix list vbeta_p3				
 end
 
+capture program drop getvcov_naive_incumbency
+ program define getvcov_naive_incumbency, eclass 
+  boottest {lag_7}  {lag_6}  {lag_5} {lag_4} {lag_3} {date_0} , ///
+  bootcluster(estado) seed(5675) level(95) boottype(wild)   nograph 
+		matrix bounds_7=r(CI_1)
+		matrix vbeta_7=((bounds_7[1,2]-bounds_7[1,1])/(2*1.96))^2
+			matrix list vbeta_7
+		matrix bounds_6=r(CI_2)
+		matrix vbeta_6=((bounds_6[1,2]-bounds_6[1,1])/(2*1.96))^2
+			matrix list vbeta_6
+		matrix bounds_5=r(CI_3)
+		matrix vbeta_5=((bounds_5[1,2]-bounds_5[1,1])/(2*1.96))^2
+			matrix list vbeta_5
+		matrix bounds_4=r(CI_4)
+		matrix vbeta_4=((bounds_4[1,2]-bounds_4[1,1])/(2*1.96))^2
+			matrix list vbeta_4
+		matrix bounds_3=r(CI_5)
+		matrix vbeta_3=((bounds_3[1,2]-bounds_3[1,1])/(2*1.96))^2
+			matrix list vbeta_3
+		matrix bounds_2=r(CI_6)
+		matrix vbeta_2=((bounds_2[1,2]-bounds_2[1,1])/(2*1.96))^2
+			matrix list vbeta_2
+end
+
+
 *substitute matrix
 capture program drop newcov_short
  program define newcov_short, eclass   /*here create a program called newcov that affects e() variables*/
@@ -140,6 +165,18 @@ capture program drop newcov
  ereturn repost V= V_corrected       /*this program newcov substitutes the variance-covariance matrix with new var-cov */ 
 end
 
+capture program drop newcov_naive_incumbency
+ program define newcov_naive_incumbency, eclass   /*here create a program called newcov that affects e() variables*/
+ matrix V_corrected=e(V)
+ matrix V_corrected[1,1]=vbeta_7[1,1]
+ matrix V_corrected[2,2]=vbeta_6[1,1]
+ matrix V_corrected[3,3]=vbeta_5[1,1]
+ matrix V_corrected[4,4]=vbeta_4[1,1]
+ matrix V_corrected[5,5]=vbeta_3[1,1]
+ matrix V_corrected[6,6]=vbeta_2[1,1]
+ ereturn repost V= V_corrected       /*this program newcov substitutes the variance-covariance matrix with new var-cov */ 
+end
+
 *program to get results: short
 capture program drop wildcorrection_short
  program define wildcorrection_short, eclass 
@@ -179,6 +216,23 @@ capture program drop wildcorrection
 	newcov
 end
 
+
+*program to get results: long
+capture program drop wildcorrection_incumbency_pol1
+ program define wildcorrection_incumbency_pol1, eclass 
+  args Dep_var
+	qui xi: reghdfe  `Dep_var'  $lagsleads pol1 $int_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal_1}/2 & mv_incparty>-${optimal_1}/2, a(inegi) vce(cluster estado)
+	getvcov_naive_incumbency
+	newcov_naive_incumbency
+end
+
+capture program drop wildcorrection_incumbency_pol2
+ program define wildcorrection_incumbency_pol2, eclass 
+  args Dep_var
+	qui xi: reghdfe  `Dep_var'  $lagsleads pol2 $int_lagsleads_pol2 $controls_time_acuerdo i.year if mv_incparty<${optimal_2}/2 & mv_incparty>-${optimal_2}2, a(inegi) vce(cluster estado)
+	getvcov_naive_incumbency
+	newcov_naive_incumbency
+end
 *================================================================================================
 *ABRAHAM AND SUN REGRESSIONS CORRECTION: 
 capture program drop getvcov_as_short
