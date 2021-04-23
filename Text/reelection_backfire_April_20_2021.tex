@@ -99,7 +99,7 @@
 	\end{center}
 	
 	
-\date{April 20th, 2021} 
+\date{April 22th, 2021} 
 \vspace*{3ex minus 1ex}
 	\begin{center}
 		Rafael Ch\\
@@ -108,20 +108,21 @@
 		
 	\end{center}
 	 
-	\thanks{I thank Pablo Querubin, Cyrus Samii, Hye Young You, Neal Beck, Jacob Shapiro, Juan F. Vargas, Nicholas Haas, Reed Lei, Lucia Motolinia and participants at the Summer Cohort Seminar and Graduate Political Economy Seminar at NYU, APSA 2020 panelists as well as the members of the Methods and Data Seminar at the University of Wisconsin-Madison for their amazing comments and suggestions. All mistakes are my own.
+	\thanks{I thank Pablo Querubin, Cyrus Samii, Hye Young You, Neal Beck, Jacob Shapiro, Juan F. Vargas, Nicholas Haas, Reed Lei, Lucia Motolinia and participants at the Summer Cohort Seminar, Graduate Political Economy Seminar, and Comparative Politics Seminar at NYU, APSA 2020, SPSA 2021, and MPSA 2021 panelists as well as the members of the Methods and Data Seminar at the University of Wisconsin-Madison for their amazing comments and suggestions. All mistakes are my own.
 	\\
 	 \\ \textbf{Ch:} Wilf Family Department of Politics, New York University. \\ Email: \url{rafael.ch@nyu.edu}
 	 \\ Website: \url{https://wp.nyu.edu/rafaelch/}}
 		  
-	\begin{abstract}  
+	\begin{abstract}    
 	
-	The accountability  
+Incumbents up for reelection face a delegation tradeoff with upper levels of government. Delegation of public good provision may increase its efficiency but cuts down its use for electoral purposes. Not delegating allows incumbents to signal competence and carry on credit claiming activities to win votes but may generate an inefficient public good provision. A clear tradeoff between efficiency and electoral survival arises. This paper studies the effect of reelection incentives on delegation of public security provision to upper levels of government in a country overwhelmed by criminal wars, Mexico. To do so, I exploit the staggered implementation of an electoral reform that introduced reelection for local executives from 2014 to 2022. I find that mayors facing reelection incentives decrease the signing of security cooperation agreements with the governor of their state relative to term limited mayors. This behavior is prominent in municipalities characterized with citizens concerned by narcotraffic and insecurity, those where citizens hold a high level of  trust of state or federal forces, and those where mayors’ parties are not aligned with upper level governments since in such citizens tend not to blame mayors harshly for public security provision inefficiencies. By taking "the bull by the horns", mayors facing reelection signal competence against crime. As a result of this no-delegation behavior, a personal incumbency advantage follows, as well as public security underprovision and violence. Results suggest that delegation is not only a political decision but an electoral one, and that reelection incentives in party-centered systems  -like Mexico- may lead local executives facing reelection incentives to go local at the expense of efficient public good provision. 
 	
 	
 
 		    
 	\medskip
-		
+	{\noindent \textsc{Key words: Delegation, Reelection Incentives, Responsiveness, Public Good Provision, Public Security, Violence, Incumbency advantage.}}
+
 		%{\noindent \textsc{JEL Classification: %D72, D78, H57, O17.}}
 	\end{abstract}
 	
@@ -131,17 +132,259 @@
 
 
 \clearpage
-\section{New Tables and Figures}
+\section{Main Results}
+
+Main takeaway: Reelection incentives decreased the signing of security cooperation agreements with the Governor 
+
+\begin{figure}[H] 
+\centering
+ \caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, 2010-2018}
+ \label{fig:event_study_agreements}
+\includegraphics[width=0.9\textwidth]{../Figures/catts_agreements.png}
+       \captionsetup{justification=centering}
+       
+ \textbf{Note:} Figure \ref{fig:event_study_agreements} shows the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Red points are pre-treatment, while blue ones post-treatment. 
+  
+\end{figure}   
+    
+
+\section{Robustness}
+
+Main takeaways: 
+
+1. Results are robust across multiple specifications and models. 
+
+
+\input{../Tables/abraham_sun_estimates_DVaggregate.tex}  
+
+\begin{figure}[H]   
+\centering
+ \caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, 2010-2018}
+ \label{fig:robustness_agreements}
+\includegraphics[width=0.9\textwidth]{../Figures/average_effects.png}
+       \captionsetup{justification=centering}
+       
+ \textbf{Note:} Figure \ref{fig:robustness_agreements} shows the average treatment effect from t to t+3 across multiple specifications. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Red points show that parallel trends hold, while hollow ones imply pretrends. 
+\end{figure}   
+
+2. Results only present if upper-level government can compete electorally. 
+
+ \begin{figure}[H]   
+\centering
+ \caption{Comparison: Security Cooperation Agreements with Governor vs. Other Actors, 2014-2018}
+ \label{fig:comparison_fed_estatal}
+\includegraphics[width=0.9\textwidth]{../Figures/average_effects_comparisonfedest.png}
+       \captionsetup{justification=centering}
+       
+ \textbf{Note:} Figure \ref{fig:comparison_fed_estatal} shows the average treatment effect from t to t+3 across multiple specifications. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Red points show that parallel trends hold, while hollow ones imply pretrends. 
+\end{figure}   
+
+\clearpage 
 
 
 
+\section{Mechanisms}
 
+Main takeaways: 
+
+%Pull strategy:
+
+1. Mayors facing reelection decrease the delegation of public security provision and traffic, but not other services. 
+
+ \begin{figure}[H]   
+\centering
+ \caption{Comparison: Security Cooperation Agreements with Governor vs. Other Actors, 2014-2018}
+ \label{fig:services}
+\includegraphics[width=0.9\textwidth]{../Figures/services.png}
+       \captionsetup{justification=centering}
+       
+ \textbf{Note:} Figure \ref{fig:services} shows the average treatment effect from t, t+1 and t+3 across multiple specifications. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Red points show that parallel trends hold, while hollow ones imply pretrends. 
+\end{figure}   
+
+2. Alignment. 
+
+3. Mayors facing reelection want to show responsiveness and competence. 
+
+%Push strategy:
+4. Mayors facing reelection do not sign agreements when other security forces are highly valued, identified or efficient.
+
+5. Mayors facing reelection and not aligned do not sign agreements since they have a lot to gain in terms of differentiation and citizens don't blame them much 
 
 
 \clearpage
+\section{Ruling out Alternative Hypothesis}
+\subsection{Selection}
+\subsection{Cartel Presence}
+
+\clearpage
+
+\section{Unintended consequences}
+
+\subsection{Preferences for order and security}
+1. PREFERENCES: citizens are more concerned about security but less about other things. Recall results are conditional on violence. So in the next election, they will look for another hawk. This ties to the incumbency advantage.
+
+\subsection{Personal Incumbency Advantage}
+2. ELECTORAL RETURNS: type(information)-based incumbency advantage.
+
+ \begin{figure}[H]   
+\centering
+ \caption{Effect of Term Limit Reform on Partisan and Personal Incumbency Advantage \\ -difference-in-discontinuity of close elections design-}
+ \label{fig:personal_vs_partisan}
+\includegraphics[width=0.9\textwidth]{../Figures/partisan_personal_inc_advantage.png}
+       \captionsetup{justification=centering}
+       
+ \textbf{Note:} Figure \ref{fig:personal_vs_partisan} shows the average treatment effect of the Term Limit Reform on the probability of winning in the following election using a difference in discontinuity of close elections design. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Optimal bandwidths following \citet{calonicoetal_2014} are used. This analysis identifies the party that wins at $t-1$ and studies the effect of this party barely winning (or losing) at $t$ on outcomes at election $t+1$ following \citet{klasnja_titiunik_2017}. I follow \citet{fowler_hall_2014} to decompose the incumbency advantage into the partisan and personal component. Red and blue points show that parallel trends hold, while hollow ones imply pretrends. 
+\end{figure}  
+
+\subsection{Security underprovision and violence}
+3. VIOLENCE: increaes of violence.
+
+\clearpage
+\section{New Appendix}
+
+\subsection{Main Results}
+\input{../Tables/abraham_sun_estimates_DVmandounico.tex}    
+ 
+\subsection{Robustness}
+
+\input{../Tables/abraham_sun_estimates_DVmandounico_wlag1.tex}  
+    
+ \input{../Tables/abraham_sun_estimates_DVmandounico_trim.tex}  
+
+  \input{../Tables/chaisemarting_estimates_DVmandounico.tex}  
+      
+\begin{figure}[H] 
+\centering
+ \caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, propensity score matching on pretreatment covariates}
+ \label{fig:matching}
+\includegraphics[width=0.9\textwidth]{../Figures/acuerdo_gobestatal.png}
+       \captionsetup{justification=centering}
+       
+        
+ \textbf{Note:} Figure \ref{fig:matching} produced by propensity score matching that adjust for the treatment and covariate histories during the 5 year periods prior to the treatment. I report 95\% bootstrap confidence intervals clustered at the state level. Covariates include those used to generate Figure \ref{fig:event_study_agreements}. 
+
+\end{figure}   
+ 
+\begin{figure}[H] 
+\centering
+ \caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, 2010-2018}
+ \label{fig:chaisemarting_agreements}
+\includegraphics[width=0.9\textwidth]{../Figures/chaisemartin_acuerdo_estcom.png}
+       \captionsetup{justification=centering}
+\end{figure}   
+
+  %\input{../Tables/abraham_sun_estimates_DVmandounico_comparisonfedyestatal.tex}   
+  
+  \input{../Tables/abraham_sun_estimates_DVmandounico_comparisonfedyestatal_final.tex}   
+ 
+ 
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Test on selection on unobservables}
+\label{tab:unobservables}
+\begin{tabular}{l*{1}{c}}
+\hline \hline
+&\multicolumn{1}{c}{(1)}         \\
+\addlinespace
+Fitted value&      0.1312         \\
+            &    (0.0780)         \\
+\addlinespace
+Observations&      10,668         \\
+R2          &       0.459         \\
+Mun. FE     &      \checkmark               \\
+Year FE     &      \checkmark               \\
+State Cluster S.E.&     \checkmark                \\
+\hline \hline 
+\multicolumn{2}{p{0.6\textwidth}}{\footnotesize{Notes: I follow \citet{altonji_etal_2005} to check if unobserved variation is likely to explain the signing of security cooperation agreements with the Governor by mayors. To do so, I regress the treatment (whether the municipality held reelection) on all the available covariates used for Figure \ref{fig:event_study_agreements}.} I then take the fitted value from the regression and use it to predict each outcome, this time including unit and year fixed effects. This test suggests that – under the assumption that observables are representative of unobservables – selection on unobservables is not driving the results.} \\
+\end{tabular}
+\end{table} 
+
+\clearpage
+
+\subsection{Mechanisms}
+
+\begin{figure}[H] 
+\centering
+ \caption{Effect of 2014 Term Limit Reform on Motives to Sign Security Agreements w/ Governor}
+ \label{fig:motives}
+\includegraphics[width=0.9\textwidth]{../Figures/motives.png}
+       \captionsetup{justification=centering}
+\end{figure}   
+
+  \input{../Tables/abraham_sun_motives.tex}   
+
+   %\input{../Tables/abraham_sun_motives_average.tex}  
+   
+   
+   
+\input{../Tables/abraham_sun_services.tex}   
+%\input{../Tables/abraham_sun_services_average.tex}   
+
+ \clearpage   
+ 
+ \subsection{Unintended consequences}
+ \textbf{A. Preferences}
+
+\textbf{B. Incumbency advantage}
+
+\input{../Tables/abraham_sun_incumbency_wpolynomials.tex}   
+   
+ \begin{figure}[H]   
+\centering
+ \caption{Effect of Term Limit Reform on Partisan and Personal Incumbency Advantage \\ -difference-in-discontinuity of close elections-}
+ \label{fig:parallel_trend}
+\includegraphics[width=0.9\textwidth]{../Figures/parallel_trends_incumbency.png}
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} Figure \ref{fig:parallel_trend} shows the average treatment effect of the Term Limit Reform on the probability of winning in the following election using a difference in discontinuity of close elections design. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Optimal bandwidths following \citet{calonicoetal_2014} are used. This analysis identifies the party that wins at $t-1$ and studies the effect of this party barely winning (or losing) at $t$ on outcomes at election $t+1$ following \citet{klasnja_titiunik_2017}.  
+ 
+\end{figure}  
+
+
+ \begin{figure}[H]   
+\centering
+ \caption{McCrary Test}
+ \label{fig:mcrary}
+\includegraphics[width=0.9\textwidth]{../Figures/conditional_mccrary_test_pol1_final.png}
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} 95\% confidence intervals reported. With 90\% levels confidence intervals overlap..  
+ 
+\end{figure} 
+
+ \begin{figure}[H]   
+\centering
+ \caption{No discontinuous jump of covariates}
+ \label{fig:parallel_trend}
+\includegraphics[width=0.9\textwidth]{../Figures/nojump.png}
+       \captionsetup{justification=centering}
+    
+ %\textbf{Note:}.  
+   
+\end{figure} 
+
+
+ \begin{figure}[H]   
+\centering
+ \caption{Testing Different Bandwidths}
+ \label{fig:parallel_trend}
+\includegraphics[width=0.9\textwidth]{../Figures/many_bandwidths_linear.png}
+       \captionsetup{justification=centering}
+ \includegraphics[width=0.9\textwidth]{../Figures/many_bandwidths_quadratic.png}
+
+ %\textbf{Note:}.  
+   
+\end{figure} 
+
+\clearpage 
 
 
 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
      

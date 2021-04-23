@@ -1,42 +1,42 @@
 \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \centering
-\caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, \citet{chaisemarting_etal_2019} correction}
-\label{tab:chaisemartin_agreements}
+\caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, trimming periods}
+\label{tab:as_agreements_trim}
 \scalebox{1}{
 \begin{tabular}{lcc}
 \hline \hline
 \\ \multicolumn{3}{l}{Dependent variable:}\\
-& \multicolumn{1}{c}{Agreement A} & \multicolumn{1}{c}{Agreement B$^{a}$} \\
+& \multicolumn{2}{c}{Security Cooperation Agreement} \\
+& \multicolumn{2}{c}{w/ Governor$^{a}$} \\
 & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
 \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
 \addlinespace
-t-4 years &         $ 0.1870^{} $ &      $ 0.1870^{} $  \\
-& ($ 0.2676$) & ($ 0.7965 $) \\
-t-3 &        $ 0.2206^{} $ &     $ 0.2206^{} $ \\
-& ($ 0.2072$) & ($ 0.2702 $) \\
-t-2 &        $ 0.0371^{} $ &    $ 0.0371^{} $  \\
-& ($ 0.1551$) & ($ 0.2702 $) \\
-t=0 (Reform) &        $ -0.3059^{***} $ &     $ -0.3059^{} $ \\
-& ($ 0.0683$) & ($ 0.4112 $) \\
-t+1 &         $ -0.2845^{***} $ &       $ -0.2845^{} $ \\
-& ($ 0.0722$) & ($ 0.2602 $) \\
-t+2 &         $ -0.2375^{***} $ &      $ -0.2375^{} $  \\
-& ($ 0.0818$) & ($ 0.2362 $) \\
+t-4 years &         $ 0.1961^{} $ &      $ 0.1961^{} $  \\
+& ($ 0.2680$) & ($ 0.8260 $) \\
+t-3 &        $ 0.2193^{} $ &     $ 0.2193^{} $ \\
+& ($ 0.2070$) & ($ 0.2702 $) \\
+t-2 &        $ 0.0370^{} $ &    $ 0.0370^{} $  \\
+& ($ 0.1546$) & ($ 0.2702 $) \\
+t=0 (Reform) &        $ -0.3057^{***} $ &     $ -0.3057^{} $ \\
+& ($ 0.0682$) & ($ 0.4093 $) \\
+t+1 &         $ -0.2858^{***} $ &       $ -0.2858^{} $ \\
+& ($ 0.0725$) & ($ 0.2610 $) \\
+t+2 &         $ -0.2389^{***} $ &      $ -0.2389^{} $  \\
+& ($ 0.0823$) & ($ 0.2369 $) \\
 t+3  &        $ -0.5931^{***} $ &     $ -0.5931^{***} $ \\
 & ($ 0.0604$) & ($ 0.0715 $) \\
 \addlinespace
 Observations       &                 12,173        &          12,173  \\
-R-squared        &              0.4542        &           0.4542   \\
+R-squared        &              0.4544        &           0.4544   \\
 Mun. FEs       &     \checkmark         &  \checkmark    \\
 Year. FEs       &     \checkmark         &  \checkmark   \\
 Controls$^b$   &      \checkmark       &      \checkmark    \\
 Cohort weighted   &   \checkmark       &   \checkmark    \\
 WILD CI   &   \checkmark       &   \checkmark    \\
-Aggregate effect        &              -0.3553        &           -0.3553   \\
-SE (aggregate eff.)        &              0.0466        &           0.1397   \\
-p-value(aggregate eff.)       &              0.0000        &           0.0170   \\
+Aggregate effect        &              $-0.3559^{***} $     &          $ -0.3559^{**} $     \\
+SE (aggregate eff.)        &              0.0468        &           0.1395   \\
 \hline \hline
-\multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to the inverse hyperbolic sine transformation. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\multicolumn{3}{p{0.6\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. I trimmed the periods lag 8, 7, 6 and 5, and removed the period 1 to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the Governor. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 \end{tabular}
 }
 \end{table}

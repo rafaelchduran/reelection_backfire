@@ -1,0 +1,48 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Event-in-Discontinuity in close elections model: Effect of 2014 Term Limit Reform on Incumbency Advantage}
+\label{tab:incumbency_wpolynomials}
+\scalebox{0.8}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{1}{c}{Incumbent at t-1 won at t+1}  & \multicolumn{1}{c}{Incumbent at t won at t+1} \\
+& \multicolumn{1}{c}{(indicator)}  & \multicolumn{1}{c}{(indicator)} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)}  \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \\
+\addlinespace
+& \multicolumn{2}{c}{linear polynomial} \\
+\cmidrule(lrr){2-3} \\
+4 Elections prior &       $ -0.0116^{} $ &       $ -0.1827^{} $  \\
+& ($ 0.0219 $ ) & ($ 0.1789 $ ) \\
+3 Elections prior &       $ 0.0872^{**} $ &        $ 0.4847^{} $ \\
+& ($ 0.0410 $ ) & ($ 0.5477 $ ) \\
+2 Elections prior &          $ -0.0175^{} $ &       $ 0.0457^{} $ \\
+& ($ 0.0715 $ ) & ($ 0.2100 $ ) \\
+Election after Reform &         $ -0.0723^{} $ &        $ -0.1642^{} $ \\
+& ($     . $ ) & ($     . $ ) \\
+Observations          &              2,071     &              1,270 \\
+R-squared        &          0.5528   &          0.6282 \\
+\\
+& \multicolumn{2}{c}{quadratic polynomial} \\
+\cmidrule(lrr){2-3} \\
+4 Elections prior &       $ -0.0347^{} $ &       $ 0.1453^{***} $  \\
+& ($ 0.0440 $ ) & ($ 0.0146 $ ) \\
+3 Elections prior &       $ 0.1066^{} $ &        $ -0.3099^{***} $ \\
+& ($ 0.0641 $ ) & ($ 0.0917 $ ) \\
+2 Elections prior &          $ -0.0826^{} $ &       $ 0.2307^{**} $ \\
+& ($ 0.0611 $ ) & ($ 0.1051 $ ) \\
+Election after Reform &         $ -0.1335^{**} $ &        $ 0.1812^{***} $ \\
+& ($     . $ ) & ($     . $ ) \\
+Observations          &              2,845     &              2,784 \\
+R-squared        &          0.5445   &          0.4373 \\
+\\
+Mun. FEs        &     \checkmark         &  \checkmark   \\
+Year. FEs     &     \checkmark         &  \checkmark  \\
+Controls$^a$  &    \checkmark     &       \checkmark \\
+Cohort weighted  &         \checkmark &         \checkmark \\
+\hline \hline
+\multicolumn{3}{p{0.9\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 6 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020} or because they are collinear or inexistent, like lag time period 2. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party. Logged homicides per capita at the municipality level are also included as controls.}} \\
+\end{tabular}
+}
+\end{table}

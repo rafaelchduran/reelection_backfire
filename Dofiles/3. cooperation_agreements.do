@@ -91,9 +91,6 @@ coeflabel(lag_7 "t-7" lag_6 "t-6" lag_5 "t-5" lag_4 "t-4" lag_3 "t-3" lag_2 "t-2
  lead_1 "t+1" lead_2 "t+2" lead_3 "t+3") ///
 collabels(none) nonotes booktabs nomtitles  nolines
 
-*CONCLUSION 1: MANDO UNICO DECREASES AND ITS SIGNIFICANT; SO IS THE AGGREGATE EFFECT
-*CONCLUSION 2: MANDO UNICO SERVICE DECREASES AND ITS SIGNIFICANT; SO IS THE AGGREGATE EFFECT
-*CONCLUION 3: GOB. FEDERAL IS POSITIVE AND NON-SIGNIFICANT
 
 *========================================================================
 *2) Saturated Event study design (Abraham and Sun, 2021)
@@ -263,6 +260,10 @@ foreach i in lead_3{
 		+ (_b[lead_3_2015]*`j')]/4	=0
 	glo p_aggregate: di %5.4f r(p)
 	estadd local p_aggregate $p_aggregate
+	glo est_aggregate= "" 
+			if (${p_aggregate}<=0.1) global est_aggregate = "*"
+			if (${p_aggregate}<=0.05) global est_aggregate = "**"
+			if (${p_aggregate}<=0.01) global est_aggregate = "***"
 
 ************
 ***B: Wild CI
@@ -278,7 +279,7 @@ eststo: qui wildcorrection_as_new2 $outcome
 		glo N_ihs: di %11.2gc e(N)
 		
 ***estimate linear combination by lead/lag:
-cap foreach i in lag_7{
+ foreach i in lag_7{
 	sum perc if `i'_2017==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2018==1, meanonly
@@ -295,7 +296,7 @@ cap foreach i in lag_7{
 	glo se_`i'_ihs: di %5.4f r(se)
 }
 	
-cap foreach i in lag_6{
+ foreach i in lag_6{
 	sum perc if `i'_2016==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2017==1, meanonly
@@ -314,7 +315,7 @@ cap foreach i in lag_6{
 	glo se_`i'_ihs: di %5.4f r(se)
 }
 
-cap foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+ foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2016==1, meanonly
@@ -336,7 +337,7 @@ cap foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
 }
 
 
-cap foreach i in lead_1{
+ foreach i in lead_1{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2016==1, meanonly
@@ -356,7 +357,7 @@ cap foreach i in lead_1{
 }
 
 
-cap foreach i in lead_2{
+ foreach i in lead_2{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	sum perc if `i'_2016==1, meanonly
@@ -374,7 +375,7 @@ cap foreach i in lead_2{
 }
 
 
-cap foreach i in lead_3{
+ foreach i in lead_3{
 	sum perc if `i'_2015==1, meanonly
 	local a = r(mean)
 	di (_b[`i'_2015]*`a')
@@ -428,18 +429,23 @@ cap foreach i in lead_3{
 		+ (_b[lead_3_2015]*`j')]/4	=0
 	glo p_aggregate2: di %5.4f r(p)
 	estadd local p_aggregate2 $p_aggregate2
+	glo est_aggregate2= "" 
+			if (${p_aggregate2}<=0.1) global est_aggregate2 = "*"
+			if (${p_aggregate2}<=0.05) global est_aggregate2 = "**"
+			if (${p_aggregate2}<=0.01) global est_aggregate2 = "***"
 	
 *Table
 texdoc init  "../Tables/abraham_sun_estimates_DVmandounico.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, \citet{chaisemarting_etal_2019} correction}
-tex \label{tab:chaisemartin_agreements}
+tex \caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, 2010-2018}
+tex \label{tab:as_agreements}
 tex \scalebox{1}{    
 tex \begin{tabular}{lcc}  
 tex \hline \hline       
 tex \\ \multicolumn{3}{l}{Dependent variable:}\\
-tex & \multicolumn{2}{c}{Security Cooperation Agreement w/ Governor$^{a}$} \\
+tex & \multicolumn{2}{c}{Security Cooperation Agreement} \\
+tex & \multicolumn{2}{c}{w/ Governor$^{a}$} \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
 
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
@@ -473,16 +479,112 @@ tex Year. FEs       &     \checkmark         &  \checkmark   \\
 tex Controls$^b$   &      \checkmark       &      \checkmark    \\
 tex Cohort weighted   &   \checkmark       &   \checkmark    \\
 tex WILD CI   &          &   \checkmark    \\
-tex Aggregate effect        &              ${aggregate}        &           ${aggregate2}   \\
+tex Aggregate effect        &           $   ${aggregate}^{${est_aggregate}} $        &           $${aggregate2}^{${est_aggregate2}} $    \\
 tex SE (aggregate eff.)        &              ${se_aggregate}        &           ${se_aggregate2}   \\
-tex p-value(aggregate eff.)       &              ${p_aggregate}        &           ${p_aggregate2}   \\
+*tex p-value(aggregate eff.)       &              ${p_aggregate}        &           ${p_aggregate2}   \\
 
 tex \hline \hline      
-tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the governor. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{3}{p{0.6\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the Governor. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
 texdoc close
+
+*========================================================================
+*Figure with WILD CIs
+est clear
+foreach i in lag_7{
+xi: reghdfe  $outcome  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+	sum perc if `i'_2017==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local b = r(mean)
+	eststo: lincomest 	(_b[`i'_2017]*`a') + (_b[`i'_2018]*`b')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+	
+foreach i in lag_6{
+xi: reghdfe  $outcome  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+	sum perc if `i'_2016==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local c = r(mean)
+	eststo: lincomest 	(_b[`i'_2016]*`a')+(_b[`i'_2017]*`b') + (_b[`i'_2018]*`c')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+foreach i in lag_5 lag_4 lag_3 lag_2 date_0{
+xi: reghdfe  $outcome  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	sum perc if `i'_2018==1, meanonly
+	local d = r(mean)
+	eststo: lincomest 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c') + (_b[`i'_2018]*`d')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+
+foreach i in lead_1{
+xi: reghdfe  $outcome  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	sum perc if `i'_2017==1, meanonly
+	local c = r(mean)
+	eststo: lincomest 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+
+foreach i in lead_2{
+xi: reghdfe  $outcome  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	sum perc if `i'_2016==1, meanonly
+	local b = r(mean)
+	eststo: lincomest 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+
+foreach i in lead_3{
+xi: reghdfe  $outcome  $saturated $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
+	sum perc if `i'_2015==1, meanonly
+	local a = r(mean)
+	eststo: lincomest 	(_b[`i'_2015]*`a')
+	glo se_`i'_ihs: di %5.4f r(se)
+}
+
+
+			   
+
+			   
+coefplot (est1, rename((1) = "t-7") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *2 *4) color(black black black))) ///
+ (est2, rename((1) = "t-6") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *2 *4) color(black black black))) ///
+ (est3, rename((1) = "t-5") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *2 *4) color(black black black)))  ///
+ (est4, rename((1) = "t-4") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *2 *4) color(black black black)))  ///
+ (est5, rename((1) = "t-3") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *2 *4) color(black black black)))  ///
+ (est6, rename((1) = "t-2") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *2 *4) color(black black black))) ///
+ (est7, rename((1) = "t=0") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *2 *4) color(black black black)))  ///
+ (est8, rename((1) = "t+1") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *2 *4) color(black black black)))  ///
+ (est9, rename((1) = "t+2") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *2 *4) color(black black black)))  ///
+ (est10, rename((1) = "t+3") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *2 *4) color(black black black)))  ///
+ , ///
+ vertical scheme(s1color)  yline(0)  ///
+ytitle("Probability of winning at t+1")  xtitle(" ") ///
+subtitle(" ") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI") rows(1)) 
+graph export "../Figures/catts_agreements.png", as(png) replace
+graph export "../Figures/catts_agreements.pdf", as(pdf) replace
+graph export "../Figures/catts_agreements.tif", as(tif) replace
+graph save "../Figures/catts_agreements.gph", replace
+
 
 *========================================================================
 *3) WITH DATE_0 AS REFERENCE PERIOD   
@@ -662,7 +764,10 @@ cap foreach i in lead_3{
 		+ (_b[lead_3_2015]*`j')]/3=0
 	glo p_aggregate: di %5.4f r(p)
 	estadd local p_aggregate $p_aggregate
-
+	glo est_aggregate= "" 
+			if (${p_aggregate}<=0.1) global est_aggregate = "*"
+			if (${p_aggregate}<=0.05) global est_aggregate = "**"
+			if (${p_aggregate}<=0.01) global est_aggregate = "***"
 ************
 ***B: Wild CI
 ************	
@@ -838,18 +943,22 @@ cap foreach i in lead_3{
 		+ (_b[lead_3_2015]*`j')] / 3	=0
 	glo p_aggregate2: di %5.4f r(p)
 	estadd local p_aggregate2 $p_aggregate2
-	
+	glo est_aggregate2= "" 
+			if (${p_aggregate2}<=0.1) global est_aggregate2 = "*"
+			if (${p_aggregate2}<=0.05) global est_aggregate2 = "**"
+			if (${p_aggregate2}<=0.01) global est_aggregate2 = "***"	
 *Table
 texdoc init  "../Tables/abraham_sun_estimates_DVmandounico_wlag1.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, \citet{chaisemarting_etal_2019} correction}
-tex \label{tab:chaisemartin_agreements}
+tex \caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, with t=0 as reference period}
+tex \label{tab:as_agreements_wlag1}
 tex \scalebox{1}{    
 tex \begin{tabular}{lcc}  
 tex \hline \hline       
 tex \\ \multicolumn{3}{l}{Dependent variable:}\\
-tex & \multicolumn{2}{c}{Security Cooperation Agreement w/ Governor$^{a}$} \\
+tex & \multicolumn{2}{c}{Security Cooperation Agreement} \\
+tex & \multicolumn{2}{c}{w/ Governor$^{a}$} \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
 
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
@@ -883,12 +992,12 @@ tex Year. FEs       &     \checkmark         &  \checkmark   \\
 tex Controls$^b$   &      \checkmark       &      \checkmark    \\
 tex Cohort weighted   &   \checkmark       &   \checkmark    \\
 tex WILD CI   &          &   \checkmark    \\
-tex Aggregate effect        &              ${aggregate}        &           ${aggregate2}   \\
+tex Aggregate effect        &              $${aggregate}^{${est_aggregate}} $     &          $ ${aggregate2}^{${est_aggregate2}} $     \\
 tex SE (aggregate eff.)        &              ${se_aggregate}        &           ${se_aggregate2}   \\
-tex p-value(aggregate eff.)       &              ${p_aggregate}        &           ${p_aggregate2}   \\
+*tex p-value(aggregate eff.)       &              ${p_aggregate}        &           ${p_aggregate2}   \\
 
 tex \hline \hline      
-tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to the inverse hyperbolic sine transformation. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{3}{p{0.6\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 0) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the Governor. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -1026,7 +1135,10 @@ cap foreach i in lead_3{
 		+ (_b[lead_3_2015]*`j')]/4	=0
 	glo p_aggregate: di %5.4f r(p)
 	estadd local p_aggregate $p_aggregate
-
+	glo est_aggregate= "" 
+			if (${p_aggregate}<=0.1) global est_aggregate = "*"
+			if (${p_aggregate}<=0.05) global est_aggregate = "**"
+			if (${p_aggregate}<=0.01) global est_aggregate = "***"
 ************
 ***B: ACUERDO2
 ************	
@@ -1155,18 +1267,22 @@ cap foreach i in lead_3{
 		+ (_b[lead_3_2015]*`j')]/4	=0
 	glo p_aggregate2: di %5.4f r(p)
 	estadd local p_aggregate2 $p_aggregate2
-	
+	glo est_aggregate2= "" 
+			if (${p_aggregate2}<=0.1) global est_aggregate2 = "*"
+			if (${p_aggregate2}<=0.05) global est_aggregate2 = "**"
+			if (${p_aggregate2}<=0.01) global est_aggregate2 = "***"		
 *Table
 texdoc init  "../Tables/abraham_sun_estimates_DVmandounico_trim.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, \citet{chaisemarting_etal_2019} correction}
-tex \label{tab:chaisemartin_agreements}
+tex \caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, trimming periods}
+tex \label{tab:as_agreements_trim}
 tex \scalebox{1}{    
 tex \begin{tabular}{lcc}  
 tex \hline \hline       
 tex \\ \multicolumn{3}{l}{Dependent variable:}\\
-tex & \multicolumn{1}{c}{Agreement A} & \multicolumn{1}{c}{Agreement B$^{a}$} \\
+tex & \multicolumn{2}{c}{Security Cooperation Agreement} \\
+tex & \multicolumn{2}{c}{w/ Governor$^{a}$} \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
 
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
@@ -1194,12 +1310,12 @@ tex Year. FEs       &     \checkmark         &  \checkmark   \\
 tex Controls$^b$   &      \checkmark       &      \checkmark    \\
 tex Cohort weighted   &   \checkmark       &   \checkmark    \\
 tex WILD CI   &   \checkmark       &   \checkmark    \\
-tex Aggregate effect        &              ${aggregate}        &           ${aggregate2}   \\
+tex Aggregate effect        &              $${aggregate}^{${est_aggregate}} $     &          $ ${aggregate2}^{${est_aggregate2}} $     \\
 tex SE (aggregate eff.)        &              ${se_aggregate}        &           ${se_aggregate2}   \\
-tex p-value(aggregate eff.)       &              ${p_aggregate}        &           ${p_aggregate2}   \\
+*tex p-value(aggregate eff.)       &              ${p_aggregate}        &           ${p_aggregate2}   \\
 
 tex \hline \hline      
-tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to the inverse hyperbolic sine transformation. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{3}{p{0.6\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. I trimmed the periods lag 8, 7, 6 and 5, and removed the period 1 to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the Governor. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -1298,7 +1414,7 @@ foreach i in 1 2{
 texdoc init  "../Tables/chaisemarting_estimates_DVmandounico.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements}
+tex \caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, \citet{chaisemarting_etal_2019} correction}
 tex \label{tab:chaisemartin}
 tex \scalebox{1}{    
 tex \begin{tabular}{lcc}  
@@ -1326,7 +1442,7 @@ tex  & ($ ${se_t_2}$) & ($ ${se2_t_2} $) \\
 tex \addlinespace
 tex Controls$^b$   &    \checkmark      &   \checkmark    \\
 tex \hline \hline      
-tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Secondary version of security cooperation agreements. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Secondary measure of security cooperation agreements.  $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -1543,16 +1659,16 @@ tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
 tex \caption{Effect of 2014 Term Limit Reform on Signing Security Cooperation Agreements, Average Effect }
 tex \label{tab:as_aggregate}
-tex \scalebox{1}{    
+tex \scalebox{0.7}{    
 tex \begin{tabular}{lcccc}  
 tex \hline \hline       
-tex \\ \multicolumn{3}{l}{Dependent variable: Signing a Security Cooperation Agreement w/ Governor}\\
-tex Model: & CATTs & CATTs w/ WILD CIs & Change ref. period (t=0) & Trim < t-4 \\
+tex \\ \multicolumn{3}{l}{Dependent variable: Sign Security Cooperation Agreement w/ Governor}\\
+tex Model: & CATTs & CATTs w/ WILD CIs & Change ref. period (t=0) & Trim $<$ t-4 \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)}  & \multicolumn{1}{c}{(4)}  \\ 
 
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}  \cmidrule(lrr){4-4} \cmidrule(lrr){5-5}\\
 tex \addlinespace
-tex Average effect (from t to t+3)       & $${aggregate}^{${est_aggregate}} $$ & $${aggregate_wild} ^{${est_aggregate_wild}} $$ & $${aggregate_ref} ^{${est_aggregate_ref}} $$ & $${aggregate_trim} ^{${est_aggregate_trim}} $$   \\
+tex Reform Average Effect (from t to t+3)       & $${aggregate}^{${est_aggregate}} $$ & $${aggregate_wild} ^{${est_aggregate_wild}} $$ & $${aggregate_ref} ^{${est_aggregate_ref}} $$ & $${aggregate_trim} ^{${est_aggregate_trim}} $$   \\
 tex       & (${se_aggregate}( & (${se_aggregate_wild})  & (${se_aggregate_ref}) & (${se_aggregate_trim})  \\
 
 tex \addlinespace
@@ -1565,7 +1681,7 @@ tex Cohort weighted   &   \checkmark       &   \checkmark  &   \checkmark       
 tex Parallel trend holds   &   \checkmark       &   \checkmark  &   \checkmark       &   \checkmark   \\
 
 tex \hline \hline      
-tex \multicolumn{5}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{5}{p{1.3\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020} except for the specification that trims periods prior to t-4. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -1749,9 +1865,6 @@ xi: reghdfe  $outcome  $trim $controls_time_acuerdo i.year, a(inegi) vce(cluster
 		+ (_b[lead_2_2015]*`h')+(_b[lead_2_2016]*`i') ///
 		+ (_b[lead_3_2015]*`j')]/4
 
-preserve
-label variable reform " "
-
 coefplot (est1, rename((1) = "TWFE") msize(large) mfcolor(white) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  (est2, rename((1) = "TWFE + Wild CIs") msize(large) mfcolor(white)  mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  (est3, rename((1) = "CATTs") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
@@ -1766,7 +1879,6 @@ graph export "../Figures/average_effects.png", as(png) replace
 graph export "../Figures/average_effects.pdf", as(pdf) replace
 graph export "../Figures/average_effects.tif", as(tif) replace
 graph save "../Figures/average_effects.gph", replace
-restore
 
 
 

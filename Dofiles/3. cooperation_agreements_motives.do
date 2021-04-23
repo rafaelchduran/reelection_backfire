@@ -268,22 +268,6 @@ foreach i in lead_3{
 	glo se_`i'_logdet: di %5.4f r(se)
 }
 
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
-	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')=0
-	glo p_`i'_logdet: di r(p)
-	glo beta_`i'_logdet: di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')
-	glo est_`i'_logdet= "" 
-			if (${p_`i'_logdet}<=0.1) global est_`i'_logdet = "*"
-			if (${p_`i'_logdet}<=0.05) global est_`i'_logdet = "**"
-			if (${p_`i'_logdet}<=0.01) global est_`i'_logdet = "***"	
-	lincom 	(_b[`i'_2015]*`a')+(_b[`i'_2016]*`b') 
-	glo se_`i'_logdet: di %5.4f r(se)
-}
-
 
 
 	sum perc if date_0_2016==1, meanonly
@@ -1354,7 +1338,7 @@ foreach i in lead_3{
 
 ******************
 *7)Otros
-******************
+/******************
 xi: reghdfe  motivo_otros  $sat_motives $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
 	estadd local depcontrols \checkmark
 	estadd local munfe \checkmark
@@ -1559,7 +1543,7 @@ foreach i in lead_3{
 		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2017]*`g') ///
 		+ (_b[lead_3_2015]*`j')] / 3
 
-	
+	*/
 /******************
 *8)No sabe
 ******************
@@ -1747,43 +1731,6 @@ foreach i in lead_3{
 			if (${p_aggregate_lab_2}<=0.01) global est_aggregate_lab_2 = "***"
 				
 */
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	di (_b[`i'_2015]*`a')
-	test (_b[`i'_2015]*`a')=0
-	glo p_`i'_lab_2: di r(p)
-	glo beta_`i'_lab_2: di %5.4f (_b[`i'_2015]*`a')
-	glo est_`i'_lab_2= "" 
-			if (${p_`i'_lab_2}<=0.1) global est_`i'_lab_2 = "*"
-			if (${p_`i'_lab_2}<=0.05) global est_`i'_lab_2 = "**"
-			if (${p_`i'_lab_2}<=0.01) global est_`i'_lab_2 = "***"	
-	lincom 	(_b[`i'_2015]*`a') 
-	glo se_`i'_lab_2: di %5.4f r(se)
-}
-
-
-
-
-
-
-
-
-
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	di (_b[`i'_2015]*`a')
-	test (_b[`i'_2015]*`a')=0
-	glo p_`i'_lab2: di r(p)
-	glo beta_`i'_lab2: di %5.4f (_b[`i'_2015]*`a')
-	glo est_`i'_lab2= "" 
-			if (${p_`i'_lab2}<=0.1) global est_`i'_lab2 = "*"
-			if (${p_`i'_lab2}<=0.05) global est_`i'_lab2 = "**"
-			if (${p_`i'_lab2}<=0.01) global est_`i'_lab2 = "***"	
-	lincom 	(_b[`i'_2015]*`a') 
-	glo se_`i'_lab2: di %5.4f r(se)
-}
-
-
 
 * You need to install the following packages:
 	*ssc install texdoc, replace
@@ -1796,11 +1743,11 @@ tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
 tex \caption{Effect of 2014 Term Limit Reform on Motives to Sign Security Agreements w/ Governor}
 tex \label{tab:motives_final}
-tex \scalebox{0.70}{    
+tex \scalebox{0.75}{    
 tex \begin{tabular}{lcccccc}  
 tex \hline \hline       
-tex \\ \multicolumn{7}{l}{Dependent variable:}\\
-tex Motive: & Cons. reform  & Law reform & Lack resources & Professionalization & Coordination & Crime \\
+tex \\ \multicolumn{7}{l}{Dependent variable: Motive to Sign Security Cooperation Agreement w/ Governor}\\
+tex & Cons. reform  & Law reform & Lack resources & Professionalization & Coordination & Crime \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)}  \\ 
 
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \cmidrule(lrr){5-5} \cmidrule(lrr){6-6} \cmidrule(lrr){7-7} \\
@@ -1832,14 +1779,14 @@ tex R-squared        &          ${r2_logdet} &          ${r2_ihsdet}    &    ${r
 
 tex Mun. FEs      &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark  &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
 tex Year. FEs    &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
-tex Controls$^b$  &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark     \\
+tex Controls$^a$  &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark     \\
 tex Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark    \\
 tex Reform aggregate effect         & $${aggregate_logdet}^{${est_aggregate_logdet}} $$      & $${aggregate_ihsdet}^{${est_aggregate_ihsdet}} $$    & $${aggregate_her}^{${est_aggregate_her}} $$      & $${aggregate_her_2}^{${est_aggregate_her_2}} $$     & $${aggregate_met}^{${est_aggregate_met}} $$      & $${aggregate_met_2}^{${est_aggregate_met_2}} $$     \\
 tex SE       & (${se_aggregate_logdet})  & (${se_aggregate_ihsdet}) & (${se_aggregate_her})  & (${se_aggregate_her_2})  & (${se_aggregate_met})  & (${se_aggregate_met_2})   \\
 *tex p-value  & [${p_aggregate_logdet}]   & [${p_aggregate_ihsdet}]  & [${p_aggregate_her}]   & [${p_aggregate_her_2}]   & [${p_aggregate_met}]   & [${p_aggregate_met_2}]    \\
 
 tex \hline \hline      
-tex \multicolumn{7}{p{1.2\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{7}{p{1.3\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -1851,14 +1798,13 @@ texdoc close
 texdoc init  "../Tables/abraham_sun_motives_average.tex", replace force
 tex \begin{landscape}
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-tex \centering
 tex \caption{Effect of 2014 Term Limit Reform on Motives to Sign Security Agreements w/ Governor}
-tex \label{tab:motives_average_final}
-tex \scalebox{0.70}{    
+tex \label{tab:motives_final_average}
+tex \scalebox{0.75}{    
 tex \begin{tabular}{lcccccc}  
 tex \hline \hline       
-tex \\ \multicolumn{7}{l}{Dependent variable:}\\
-tex Motive: & Cons. reform  & Law reform & Lack resources & Professionalization & Coordination & Crime \\
+tex \\ \multicolumn{7}{l}{Dependent variable: Motive to Sign Security Cooperation Agreement w/ Governor}\\
+tex & Cons. reform  & Law reform & Lack resources & Professionalization & Coordination & Crime \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)}  \\ 
 
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \cmidrule(lrr){5-5} \cmidrule(lrr){6-6} \cmidrule(lrr){7-7} \\
@@ -1881,7 +1827,7 @@ tex Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark     
 tex Parallel trend holds &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark    \\
 
 tex \hline \hline      
-tex \multicolumn{7}{p{1.2\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{7}{p{1.3\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -1908,15 +1854,11 @@ qui xi: reghdfe `i'  $sat_motives $controls_time_acuerdo i.year, a(inegi) vce(cl
 		+ (_b[lead_3_2015]*`j')] / 3
 }
 
-
-preserve
-label variable reform " "
-
-coefplot (est5, rename((1) = "Coordination") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est2, rename((1) = "Law reform") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est1, rename((1) = "Constitutional reform") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est4, rename((1) = "Professionalization") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est3, rename((1) = "Lack resources") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+coefplot (est5, rename((1) = "Coordination")  mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est2, rename((1) = "Law reform")  mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est1, rename((1) = "Constitutional reform")  mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est4, rename((1) = "Professionalization")  mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est3, rename((1) = "Lack resources")  mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  (est6, rename((1) = "Crime") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  , ///
  horizontal scheme(s1color)  xline(0)    ///
@@ -1926,7 +1868,6 @@ graph export "../Figures/motives.png", as(png) replace
 graph export "../Figures/motives.pdf", as(pdf) replace
 graph export "../Figures/motives.tif", as(tif) replace
 graph save "../Figures/motives.gph", replace
-restore
 
 
 

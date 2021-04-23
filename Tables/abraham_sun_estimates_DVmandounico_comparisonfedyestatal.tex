@@ -1,25 +1,25 @@
 \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \centering
-\caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, \citet{chaisemarting_etal_2019} correction}
-\label{tab:chaisemartin_agreements}
+\caption{Comparison: Security Cooperation Agreements with Governor vs. Other Actors, 2014-2018}
+\label{tab:as_comparison_agreements}
 \scalebox{1}{
 \begin{tabular}{lcc}
 \hline \hline
-\\ \multicolumn{3}{l}{Dependent variable:}\\
-& \multicolumn{2}{c}{Security Cooperation Agreement w/ Governor$^{a}$} \\
+\\ \multicolumn{3}{l}{Dependent variable: Security Cooperation Agreement}\\
+& w/ Governor &  w/ Other Political Actors$^a$\\
 & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
 \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
 \addlinespace
-Lag 4 years &         $ 0.0193^{} $ &      $ -0.0326^{} $  \\
-& ($ 0.3316$) & ($ 0.0761 $) \\
-Lag 3 years &        $ -0.0102^{***} $ &     $ 0.2206^{} $ \\
+Lag 4 years &         $ 0.0197^{} $ &      $ -0.0326^{} $  \\
+& ($ 0.3292$) & ($ 0.0763 $) \\
+Lag 3 years &        $ -0.0102^{***} $ &     $ 0.2193^{} $ \\
 & ($ 0.0000$) & ($ 0.2702 $) \\
-Lag 2 years &        $ 0.1420^{} $ &    $ -0.0649^{} $  \\
-& ($ 0.1323$) & ($ 0.0524 $) \\
-Reform, time 0 &        $ 0.0065^{} $ &     $ -0.0089^{} $ \\
-& ($ 0.0353$) & ($ 0.0070 $) \\
-Lead 1 year &         $ -0.2230^{***} $ &       $ -0.2845^{} $ \\
-& ($ 0.0435$) & ($ 0.2602 $) \\
+Lag 2 years &        $ 0.1418^{} $ &    $ -0.0648^{} $  \\
+& ($ 0.1318$) & ($ 0.0524 $) \\
+Reform, time 0 &        $ 0.0064^{} $ &     $ -0.0089^{} $ \\
+& ($ 0.0354$) & ($ 0.0069 $) \\
+Lead 1 year &         $ -0.2230^{***} $ &       $ -0.2858^{} $ \\
+& ($ 0.0435$) & ($ 0.2610 $) \\
 Lead 3 years &        $ -0.5921^{***} $ &     $ 0.1665^{} $ \\
 & ($ 0.0708$) & ($ 0.1040 $) \\
 \addlinespace
@@ -33,7 +33,7 @@ WILD CI   &          &       \\
 Aggregate effect        &              $-0.2696^{***} $$         &            $0.0796^{} $$   \\
 SE (aggregate eff.)        &              (0.0339)       &           (0.0491)   \\
 \hline \hline
-\multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the governor. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\multicolumn{3}{p{0.7\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 5 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers primarily to the President but could include Governors and mayors from other states or other municipalities from the same state. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 \end{tabular}
 }
 \end{table}

@@ -39,13 +39,21 @@ do "1. dtos.do"
 do "1. mando_unico_newvarnames.do"
 do "2. database.do"
 do "2. database_vargeneration.do"
+do "3. descriptive_statistics&balance"
 do "3. cooperation_agreements.do"
+do "3. cooperation_agreements_federal.do"
+do "3. cooperation_agreements_motives.do"
+do "3. cooperation_agreements_services.do"
+do "3. robustness_unobservables.do"
+do "3. cooperation_agreements2.R"
+do "4. alignment.do"
+do "4. alignmentbyagreement.do"
+
+do "5. incumbency_advantage.do"
+/*
+do "6. figures"
 do "3. main_tables.do"
 do "3. homicides.do"
-do "4. matching.do"
-do "4. cooperation_agreements_federal.do"s
-do "4. cooperation_agreements_motives.do"
-do "4. cooperation_agreements_services.do"
 do "4. additional_tables.do"
-do "5. figures"
+
 

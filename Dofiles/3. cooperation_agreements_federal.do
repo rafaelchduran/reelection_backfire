@@ -137,6 +137,7 @@ collabels(none) nonotes booktabs nomtitles  nolines
 ***A: State cluster SEs 
 ************	
 est clear 
+*eststo: qui wildcorrection_as_trim $outcome
 eststo: qui wildcorrection_as_trim2 $outcome
 *xi: reghdfe  $outcome  $saturated3 $controls_time_acuerdo i.year, a(inegi) vce(cluster estado)
 	estadd local depcontrols 
@@ -423,13 +424,13 @@ foreach i in lead_3{
 texdoc init  "../Tables/abraham_sun_estimates_DVmandounico_comparisonfedyestatal.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements, \citet{chaisemarting_etal_2019} correction}
-tex \label{tab:chaisemartin_agreements}
+tex \caption{Comparison: Security Cooperation Agreements with Governor vs. Other Actors, 2014-2018}
+tex \label{tab:as_comparison_agreements}
 tex \scalebox{1}{    
 tex \begin{tabular}{lcc}  
 tex \hline \hline       
-tex \\ \multicolumn{3}{l}{Dependent variable:}\\
-tex & \multicolumn{2}{c}{Security Cooperation Agreement w/ Governor$^{a}$} \\
+tex \\ \multicolumn{3}{l}{Dependent variable: Security Cooperation Agreement}\\
+tex & w/ Governor &  w/ Other Political Actors$^a$\\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
 
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
@@ -460,7 +461,7 @@ tex SE (aggregate eff.)        &              (${se_aggregate})       &         
 *tex p-value(aggregate eff.)       &              ${p_aggregate}        &           ${p_aggregate2}   \\
 
 tex \hline \hline      
-tex \multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the governor. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{3}{p{0.7\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 5 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers primarily to the President but could include Governors and mayors from other states or other municipalities from the same state. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -471,13 +472,13 @@ texdoc close
 texdoc init  "../Tables/abraham_sun_estimates_DVmandounico_comparisonfedyestatal_final.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements,  by type}
+tex \caption{Comparison: Security Cooperation Agreements with Governor vs. Other Actors, 2014-2018}
 tex \label{tab:comparison_fed_estatal}
-tex \scalebox{1}{    
+tex \scalebox{.75}{    
 tex \begin{tabular}{lcccc}  
 tex \hline \hline       
-tex \\ \multicolumn{3}{l}{Dependent variable:}\\
-tex & \multicolumn{2}{c}{Security Cooperation Agreement w/ Governor$^{a}$} & \multicolumn{2}{c}{Security Cooperation Agreement w/ Other$^{b}$} \\
+tex \\ \multicolumn{3}{l}{Dependent variable:Sign Security Cooperation Agreement}\\
+tex & \multicolumn{2}{c}{ w/ Governor$^{a}$} & \multicolumn{2}{c}{w/ Other Political Actors$^{b}$} \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} \\ 
 
 tex \cmidrule(lrr){2-3}  \cmidrule(lrr){4-5}\\
@@ -508,7 +509,7 @@ tex SE (aggregate eff.)      &              ${se_aggregate_acuerdo_estcom}   &  
 *tex p-value(aggregate eff.)   &              ${p_aggregate_acuerdo_estcom}      &              ${p_aggregate}   &              ${p_aggregate_acuerdo_fednoest}       &           ${p_aggregate2}   \\
 
 tex \hline \hline      
-tex \multicolumn{5}{p{1.2\textwidth}}{\footnotesize{Notes: Coefficients in columns (2) and (4) show IW estimators following \citet{abraham_sun_2020}. In those models, two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the governor only. $^b$ Refers to security cooperation agreements signed with other instituions but not the governor. $^c$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{5}{p{1\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 5 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers primarily to the President but could include Governors and mayors from other states or other municipalities from the same state. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -519,13 +520,13 @@ texdoc close
 texdoc init  "../Tables/abraham_sun_estimates_DVmandounico_comparisonfedyestatal_final2.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on the likelihood of signing Security Cooperation Agreements,  by type}
-tex \label{tab:comparison_fed_estatal2}
-tex \scalebox{1}{    
+tex \caption{Comparison: Security Cooperation Agreements with Governor vs. Other Actors, 2014-2018}
+tex \label{tab:comparison_fed_estatal}
+tex \scalebox{.75}{    
 tex \begin{tabular}{lcccc}  
 tex \hline \hline       
-tex \\ \multicolumn{3}{l}{Dependent variable:}\\
-tex & \multicolumn{2}{c}{Security Cooperation Agreement w/ Governor$^{a}$} & \multicolumn{2}{c}{Security Cooperation Agreement w/ Other$^{b}$} \\
+tex \\ \multicolumn{3}{l}{Dependent variable:Sign Security Cooperation Agreement}\\
+tex & \multicolumn{2}{c}{ w/ Governor$^{a}$} & \multicolumn{2}{c}{w/ Other Political Actors$^{b}$} \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} \\ 
 
 tex \cmidrule(lrr){2-3}  \cmidrule(lrr){4-5}\\
@@ -546,7 +547,7 @@ tex WILD CI  &     \checkmark         &  \checkmark   &     \checkmark         &
 tex Parallel trend holds   &   \checkmark       &     &   \checkmark       &   \checkmark   \\
 
 tex \hline \hline      
-tex \multicolumn{5}{p{1.2\textwidth}}{\footnotesize{Notes: Coefficients in columns (2) and (4) show IW estimators following \citet{abraham_sun_2020}. In those models, two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the governor only. $^b$ Refers to security cooperation agreements signed with other instituions but not the governor. $^c$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{5}{p{1\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 5 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers primarily to the President but could include Governors and mayors from other states or other municipalities from the same state. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -607,9 +608,6 @@ eststo: lincomest 	[(_b[date_0_2016]*`b') ///
 		+ (_b[lead_1_2015]*`e')+(_b[lead_1_2017]*`g') ///
 		+ (_b[lead_3_2015]*`j')] / 3
 		
-preserve
-label variable reform " "
-
 coefplot (est1, rename((1) = "w/ Governor + Wild CIs") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
  (est2, rename((1) = "w/ Governor + CATTs + Wild CIs") mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
  (est3, rename((1) = "w/ other actors + Wild CIs") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *4) color(black black black))) ///
@@ -622,7 +620,6 @@ graph export "../Figures/average_effects_comparisonfedest.png", as(png) replace
 graph export "../Figures/average_effects_comparisonfedest.pdf", as(pdf) replace
 graph export "../Figures/average_effects_comparisonfedest.tif", as(tif) replace
 graph save "../Figures/average_effects_comparisonfedest.gph", replace
-restore
 
 
 *========================================================================
