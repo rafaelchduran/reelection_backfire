@@ -1650,14 +1650,14 @@ texdoc init  "../Tables/interaction_trust.tex", replace force
 tex \begin{landscape}
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on Services Delegated to the Governor}
+tex \caption{Reform interaction with citizens' preferences}
 tex \label{tab:interaction_trust}
 tex \scalebox{0.70}{    
 tex \begin{tabular}{lcccccccc}  
 tex \hline \hline       
 tex \\ \multicolumn{9}{l}{Dependent variable: Signing Security Cooperation Agreement w/ Governor}\\
 tex Jurisdiction: & \multicolumn{2}{c}{Municipal} & \multicolumn{2}{c}{State} & \multicolumn{4}{c}{Federal} \\
-tex Police force: & Traffic  & Preventive  & State Police & State Attorney Police & Federal Police & Ministerial Police & Army & Marines \\
+tex Trust in Police Force: & Traffic  & Preventive  & State Police & State Attorney Police & Federal Police & Ministerial Police & Army & Marines \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)} & \multicolumn{1}{c}{(7)} & \multicolumn{1}{c}{(8)} \\ 
 
 
@@ -1665,25 +1665,25 @@ tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \cmidrule(lrr){
 tex \addlinespace
 
 tex t-7 &     $ ${beta_lag_7_logdet}^{${est_lag_7_logdet}} $ &     $ ${beta_lag_7_ihsdet}^{${est_lag_7_ihsdet}} $ &  $ ${beta_lag_7_her}^{${est_lag_7_her}} $  &  $ ${beta_lag_7_her_2}^{${est_lag_7_her_2}} $  &     $ ${beta_lag_7_met}^{${est_lag_7_met}} $ &     $ ${beta_lag_7_met_2}^{${est_lag_7_met_2}} $ & $ ${beta_lag_7_lab}^{${est_lag_7_lab}} $ & $ ${beta_lag_7_lab_2}^{${est_lag_7_lab_2}} $   \\
-tex &     ($${se_lag_7_logdet}$) &     ($${se_lag_7_ihsdet}$) & ($${se_lag_7_her}$)& ($ ${se_lag_7_her_2}$)  &    ($${se_lag_7_met}$)   &   ($${se_lag_7_met_2}$) \\
+tex &     ($${se_lag_7_logdet}$) &     ($${se_lag_7_ihsdet}$) & ($${se_lag_7_her}$)& ($ ${se_lag_7_her_2}$)  &    ($${se_lag_7_met}$)   &   ($${se_lag_7_met_2}$) &    ($${se_lag_7_lab}$)   &   ($${se_lag_7_lab_2}$) \\
 tex t-6 &     $ ${beta_lag_6_logdet}^{${est_lag_6_logdet}} $ &     $ ${beta_lag_6_ihsdet}^{${est_lag_6_ihsdet}} $ &  $ ${beta_lag_6_her}^{${est_lag_6_her}} $  &  $ ${beta_lag_6_her_2}^{${est_lag_6_her_2}} $  &     $ ${beta_lag_6_met}^{${est_lag_6_met}} $ &     $ ${beta_lag_6_met_2}^{${est_lag_6_met_2}} $ & $ ${beta_lag_6_lab}^{${est_lag_6_lab}} $ & $ ${beta_lag_6_lab_2}^{${est_lag_6_lab_2}} $   \\
-tex &     ($${se_lag_6_logdet}$) &     ($${se_lag_6_ihsdet}$) & ($${se_lag_6_her}$)& ($ ${se_lag_6_her_2}$)  &    ($${se_lag_6_met}$)   &   ($${se_lag_6_met_2}$) \\
+tex &     ($${se_lag_6_logdet}$) &     ($${se_lag_6_ihsdet}$) & ($${se_lag_6_her}$)& ($ ${se_lag_6_her_2}$)  &    ($${se_lag_6_met}$)   &   ($${se_lag_6_met_2}$) &    ($${se_lag_6_lab}$)   &   ($${se_lag_6_lab_2}$) \\
 tex t-5 &     $ ${beta_lag_5_logdet}^{${est_lag_5_logdet}} $ &     $ ${beta_lag_5_ihsdet}^{${est_lag_5_ihsdet}} $ &  $ ${beta_lag_5_her}^{${est_lag_5_her}} $  &  $ ${beta_lag_5_her_2}^{${est_lag_5_her_2}} $  &     $ ${beta_lag_5_met}^{${est_lag_5_met}} $ &     $ ${beta_lag_5_met_2}^{${est_lag_5_met_2}} $ & $ ${beta_lag_5_lab}^{${est_lag_5_lab}} $ & $ ${beta_lag_5_lab_2}^{${est_lag_5_lab_2}} $   \\
-tex &     ($${se_lag_5_logdet}$) &     ($${se_lag_5_ihsdet}$) & ($${se_lag_5_her}$)& ($ ${se_lag_5_her_2}$)  &    ($${se_lag_5_met}$)   &   ($${se_lag_5_met_2}$) \\
+tex &     ($${se_lag_5_logdet}$) &     ($${se_lag_5_ihsdet}$) & ($${se_lag_5_her}$)& ($ ${se_lag_5_her_2}$)  &    ($${se_lag_5_met}$)   &   ($${se_lag_5_met_2}$) &    ($${se_lag_5_lab}$)   &   ($${se_lag_5_lab_2}$) \\
 tex t-4 &     $ ${beta_lag_4_logdet}^{${est_lag_4_logdet}} $ &     $ ${beta_lag_4_ihsdet}^{${est_lag_4_ihsdet}} $ &  $ ${beta_lag_4_her}^{${est_lag_4_her}} $  &  $ ${beta_lag_4_her_2}^{${est_lag_4_her_2}} $  &     $ ${beta_lag_4_met}^{${est_lag_4_met}} $ &     $ ${beta_lag_4_met_2}^{${est_lag_4_met_2}} $ & $ ${beta_lag_4_lab}^{${est_lag_4_lab}} $ & $ ${beta_lag_4_lab_2}^{${est_lag_4_lab_2}} $   \\
-tex &     ($${se_lag_4_logdet}$) &     ($${se_lag_4_ihsdet}$) & ($${se_lag_4_her}$)& ($ ${se_lag_4_her_2}$)  &    ($${se_lag_4_met}$)   &   ($${se_lag_4_met_2}$) \\
+tex &     ($${se_lag_4_logdet}$) &     ($${se_lag_4_ihsdet}$) & ($${se_lag_4_her}$)& ($ ${se_lag_4_her_2}$)  &    ($${se_lag_4_met}$)   &   ($${se_lag_4_met_2}$) &    ($${se_lag_4_lab}$)   &   ($${se_lag_4_lab_2}$) \\
 tex t-3 &     $ ${beta_lag_3_logdet}^{${est_lag_3_logdet}} $ &     $ ${beta_lag_3_ihsdet}^{${est_lag_3_ihsdet}} $ &  $ ${beta_lag_3_her}^{${est_lag_3_her}} $  &  $ ${beta_lag_3_her_2}^{${est_lag_3_her_2}} $  &     $ ${beta_lag_3_met}^{${est_lag_3_met}} $ &     $ ${beta_lag_3_met_2}^{${est_lag_3_met_2}} $ & $ ${beta_lag_3_lab}^{${est_lag_3_lab}} $ & $ ${beta_lag_3_lab_2}^{${est_lag_3_lab_2}} $   \\
-tex &     ($${se_lag_3_logdet}$) &     ($${se_lag_3_ihsdet}$) & ($${se_lag_3_her}$)& ($ ${se_lag_3_her_2}$)  &    ($${se_lag_3_met}$)   &   ($${se_lag_3_met_2}$) \\
+tex &     ($${se_lag_3_logdet}$) &     ($${se_lag_3_ihsdet}$) & ($${se_lag_3_her}$)& ($ ${se_lag_3_her_2}$)  &    ($${se_lag_3_met}$)   &   ($${se_lag_3_met_2}$) &    ($${se_lag_3_lab}$)   &   ($${se_lag_3_lab_2}$) \\
 tex t-2 &     $ ${beta_lag_2_logdet}^{${est_lag_2_logdet}} $ &     $ ${beta_lag_2_ihsdet}^{${est_lag_2_ihsdet}} $ &  $ ${beta_lag_2_her}^{${est_lag_2_her}} $  &  $ ${beta_lag_2_her_2}^{${est_lag_2_her_2}} $  &     $ ${beta_lag_2_met}^{${est_lag_2_met}} $ &     $ ${beta_lag_2_met_2}^{${est_lag_2_met_2}} $ & $ ${beta_lag_2_lab}^{${est_lag_2_lab}} $ & $ ${beta_lag_2_lab_2}^{${est_lag_2_lab_2}} $   \\
-tex &     ($${se_lag_2_logdet}$) &     ($${se_lag_2_ihsdet}$) & ($${se_lag_2_her}$)& ($ ${se_lag_2_her_2}$)  &    ($${se_lag_2_met}$)   &   ($${se_lag_2_met_2}$) \\
+tex &     ($${se_lag_2_logdet}$) &     ($${se_lag_2_ihsdet}$) & ($${se_lag_2_her}$)& ($ ${se_lag_2_her_2}$)  &    ($${se_lag_2_met}$)   &   ($${se_lag_2_met_2}$) &    ($${se_lag_2_lab}$)   &   ($${se_lag_2_lab_2}$) \\
 tex Reform (t=0) &     $ ${beta_date_0_logdet}^{${est_date_0_logdet}} $ &     $ ${beta_date_0_ihsdet}^{${est_date_0_ihsdet}} $ &   $ ${beta_date_0_her}^{${est_date_0_her}} $   &   $ ${beta_date_0_her_2}^{${est_date_0_her_2}} $  &     $ ${beta_date_0_met}^{${est_date_0_met}} $ &     $ ${beta_date_0_met_2}^{${est_date_0_met_2}} $ & $ ${beta_date_0_lab}^{${est_date_0_lab}} $ & $ ${beta_date_0_lab_2}^{${est_date_0_lab_2}} $   \\
-tex &     ($${se_date_0_logdet}$) &     ($${se_date_0_ihsdet}$) & ($${se_date_0_her}$)& ($ ${se_date_0_her_2}$)  &    ($${se_date_0_met}$)   &   ($${se_date_0_met_2}$) \\
+tex &     ($${se_date_0_logdet}$) &     ($${se_date_0_ihsdet}$) & ($${se_date_0_her}$)& ($ ${se_date_0_her_2}$)  &    ($${se_date_0_met}$)   &   ($${se_date_0_met_2}$) &    ($${se_date_0_lab}$)   &   ($${se_date_0_lab_2}$) \\
 tex t+1 &     $ ${beta_lead_1_logdet}^{${est_lead_1_logdet}} $ &     $ ${beta_lead_1_ihsdet}^{${est_lead_1_ihsdet}} $ &    $ ${beta_lead_1_her}^{${est_lead_1_her}} $ &    $ ${beta_lead_1_her_2}^{${est_lead_1_her_2}} $ &     $ ${beta_lead_1_met}^{${est_lead_1_met}} $ &     $ ${beta_lead_1_met_2}^{${est_lead_1_met_2}} $  & $ ${beta_lead_1_lab}^{${est_lead_1_lab}} $ & $ ${beta_lead_1_lab_2}^{${est_lead_1_lab_2}} $   \\
-tex &     ($${se_lead_1_logdet}$) &     ($${se_lead_1_ihsdet}$) & ($${se_lead_1_her}$)& ($ ${se_lead_1_her_2}$)  &    ($${se_lead_1_met}$)   &   ($${se_lead_1_met_2}$) \\
-tex t+2 &     $ ${beta_lead_2_logdet}^{${est_lead_2_logdet}} $ &     $ ${beta_lead_2_ihsdet}^{${est_lead_2_ihsdet}} $  \\
-tex &     ($${se_lead_2_logdet}$) &     ($${se_lead_2_ihsdet}$)  \\
-tex t+3 &     $ ${beta_lead_3_logdet}^{${est_lead_3_logdet}} $ &     $ ${beta_lead_3_ihsdet}^{${est_lead_3_ihsdet}} $  \\
-tex &     ($${se_lead_3_logdet}$) &     ($${se_lead_3_ihsdet}$)  \\
+tex &     ($${se_lead_1_logdet}$) &     ($${se_lead_1_ihsdet}$) & ($${se_lead_1_her}$)& ($ ${se_lead_1_her_2}$)  &    ($${se_lead_1_met}$)   &   ($${se_lead_1_met_2}$) &    ($${se_lead_1_lab}$)   &   ($${se_lead_1_lab_2}$) \\
+tex t+2 &     $ ${beta_lead_2_logdet}^{${est_lead_2_logdet}} $ &     $ ${beta_lead_2_ihsdet}^{${est_lead_2_ihsdet}} $ &    $ ${beta_lead_2_her}^{${est_lead_2_her}} $ &    $ ${beta_lead_2_her_2}^{${est_lead_2_her_2}} $ &     $ ${beta_lead_2_met}^{${est_lead_2_met}} $ &     $ ${beta_lead_2_met_2}^{${est_lead_2_met_2}} $  & $ ${beta_lead_2_lab}^{${est_lead_2_lab}} $ & $ ${beta_lead_2_lab_2}^{${est_lead_2_lab_2}} $   \\
+tex &     ($${se_lead_2_logdet}$) &     ($${se_lead_2_ihsdet}$) & ($${se_lead_2_her}$)& ($ ${se_lead_2_her_2}$)  &    ($${se_lead_2_met}$)   &   ($${se_lead_2_met_2}$) &    ($${se_lead_2_lab}$)   &   ($${se_lead_2_lab_2}$) \\
+tex t+3 &     $ ${beta_lead_3_logdet}^{${est_lead_3_logdet}} $ &     $ ${beta_lead_3_ihsdet}^{${est_lead_3_ihsdet}} $ &    $ ${beta_lead_3_her}^{${est_lead_3_her}} $ &    $ ${beta_lead_3_her_2}^{${est_lead_3_her_2}} $ &     $ ${beta_lead_3_met}^{${est_lead_3_met}} $ &     $ ${beta_lead_3_met_2}^{${est_lead_3_met_2}} $  & $ ${beta_lead_3_lab}^{${est_lead_3_lab}} $ & $ ${beta_lead_3_lab_2}^{${est_lead_3_lab_2}} $   \\
+tex &     ($${se_lead_3_logdet}$) &     ($${se_lead_3_ihsdet}$) & ($${se_lead_3_her}$)& ($ ${se_lead_3_her_2}$)  &    ($${se_lead_3_met}$)   &   ($${se_lead_3_met_2}$) &    ($${se_lead_3_lab}$)   &   ($${se_lead_3_lab_2}$) \\
 tex \\
 tex \addlinespace
 tex Observations       &        ${N_logdet}    &        ${N_ihsdet}    &     ${N_her}      &     ${N_her_2}  &        ${N_met}    &        ${N_met_2}  &        ${N_lab}    &        ${N_lab_2}   \\
@@ -1699,7 +1699,7 @@ tex SE (average effect)      & (${se_aggregate_logdet})  & (${se_aggregate_ihsde
 *tex p-value  & [${p_aggregate_logdet}]   & [${p_aggregate_ihsdet}]  & [${p_aggregate_her}]   & [${p_aggregate_her_2}]   & [${p_aggregate_met}]   & [${p_aggregate_met_2}]     & [${p_aggregate_lab}]   & [${p_aggregate_lab_2}]    \\
 
 tex \hline \hline      
-tex \multicolumn{9}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{9}{p{1.6\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the Governor. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -1711,14 +1711,14 @@ texdoc init  "../Tables/interaction_trust_average.tex", replace force
 tex \begin{landscape}
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on Services Delegated to the Governor}
+tex \caption{Reform interaction with citizens' preferences}
 tex \label{tab:interaction_trust_average}
 tex \scalebox{0.70}{    
 tex \begin{tabular}{lcccccccc}  
 tex \hline \hline       
 tex \\ \multicolumn{9}{l}{Dependent variable: Signing Security Cooperation Agreement w/ Governor}\\
 tex Jurisdiction: & \multicolumn{2}{c}{Municipal} & \multicolumn{2}{c}{State} & \multicolumn{4}{c}{Federal} \\
-tex Police force: & Traffic  & Preventive  & State Police & State Attorney Police & Federal Police & Ministerial Police & Army & Marines \\
+tex Trust in Police Force: & Traffic  & Preventive  & State Police & State Attorney Police & Federal Police & Ministerial Police & Army & Marines \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)} & \multicolumn{1}{c}{(7)} & \multicolumn{1}{c}{(8)} \\ 
 
 
@@ -1741,7 +1741,7 @@ tex Controls$^b$  &    \checkmark     &       \checkmark  &    \checkmark      &
 tex Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark    \\
 
 tex \hline \hline      
-tex \multicolumn{9}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{9}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the Governor. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
@@ -1749,8 +1749,6 @@ tex \end{landscape}
 texdoc close
 *========================================================================
 *Figure
-preserve
-label variable reform " "
 coefplot (est1, rename((1) = "Municipal Traffic") msize(large) mcolor(green) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  (est2, rename((1) = "Municipal Preventive") msize(large) mcolor(green) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  (est3, rename((1) = "State Police") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
@@ -1768,7 +1766,6 @@ graph export "../Figures/trust_policeforces.png", as(png) replace
 graph export "../Figures/trust_policeforces.pdf", as(pdf) replace
 graph export "../Figures/trust_policeforces.tif", as(tif) replace
 graph save "../Figures/trust_policeforces.gph", replace
-restore
 *========================================================================
 *Figure: comparing aggregate municipal to state to federal
 egen municipal_police=rowmean(ap5_4_1_b_mean ap5_4_2_b_mean)
@@ -2373,21 +2370,18 @@ foreach i in lead_3{
 		+ (_b[inter_lead_3_2015]*`j')])/ 4
 			
 
-preserve
-label variable reform " "
 coefplot (est1, rename((1) = "Municipal Forces") msize(large) mcolor(green) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  (est2, rename((1) = "State Forces") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  (est3, rename((1) = "Federal Forces") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  , ///
  horizontal scheme(s1color)  xline(0)    ///
 ytitle(" ")  xtitle("Term Limit Reform Average Effect" "from t to t+3") ///
-subtitle(" ") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" 4 "Municipal" ///
+subtitle("Trust in Police Forces") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" 4 "Municipal" ///
  8 "State" 12 "Federal") rows(2)) 
 graph export "../Figures/trust_policeforces2.png", as(png) replace
 graph export "../Figures/trust_policeforces2.pdf", as(pdf) replace
 graph export "../Figures/trust_policeforces2.tif", as(tif) replace
 graph save "../Figures/trust_policeforces2.gph", replace
-restore
 
 *========================================================================
 *========================================================================

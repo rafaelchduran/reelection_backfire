@@ -1,0 +1,42 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, trimming periods}
+\label{tab:as_homicides_trim}
+\scalebox{1}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{2}{c}{Security Cooperation Agreement} \\
+& \multicolumn{2}{c}{w/ Governor$^{a}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+\addlinespace
+t-4 years &         $ 0.1415^{*} $ &      $ 0.0331^{} $  \\
+& ($ 0.0811$) & ($ 0.2277 $) \\
+t-3 &        $ 0.4287^{***} $ &     $ 0.6815^{*} $ \\
+& ($ 0.0548$) & ($ 0.3554 $) \\
+t-2 &        $ 0.3449^{***} $ &    $ 0.4058^{} $  \\
+& ($ 0.0706$) & ($ 0.3554 $) \\
+t=0 (Reform) &        $ 0.1569^{***} $ &     $ 0.2556^{**} $ \\
+& ($ 0.0551$) & ($ 0.1036 $) \\
+t+1 &         $ 0.6784^{***} $ &       $ 1.0928^{**} $ \\
+& ($ 0.0765$) & ($ 0.4142 $) \\
+t+2 &         $ 0.4790^{***} $ &      $ 0.8033^{**} $  \\
+& ($ 0.0866$) & ($ 0.2927 $) \\
+t+3  &        $ 0.1890^{*} $ &     $ 0.2805^{*} $ \\
+& ($ 0.0993$) & ($ 0.1481 $) \\
+\addlinespace
+Observations       &                 12,173        &          12,173  \\
+R-squared        &              0.7267        &           0.5327   \\
+Mun. FEs       &     \checkmark         &  \checkmark    \\
+Year. FEs       &     \checkmark         &  \checkmark   \\
+Controls$^b$   &      \checkmark       &      \checkmark    \\
+Cohort weighted   &   \checkmark       &   \checkmark    \\
+WILD CI   &   \checkmark       &   \checkmark    \\
+Aggregate effect        &              $0.3758^{***} $     &          $ 0.6081^{***} $     \\
+SE (aggregate eff.)        &              0.0556        &           0.1978   \\
+\hline \hline
+\multicolumn{3}{p{0.6\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 0) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Inverse hyperbolic sine transformation. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; and Cartel presence.}} \\
+\end{tabular}
+}
+\end{table}

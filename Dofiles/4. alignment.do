@@ -1334,16 +1334,16 @@ qui areg   $outcome $saturated $split_variable inter_* $controls_time_acuerdo  i
 restore 
 *Table			
 texdoc init  "../Tables/interaction_alignment.tex", replace force
-tex \begin{landscape}
+*tex \begin{landscape}
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on Services Delegated to the Governor}
+tex \caption{Party Alignment Total Interaction Effects}
 tex \label{tab:interaction_alignment}
-tex \scalebox{0.70}{    
+tex \scalebox{0.75}{    
 tex \begin{tabular}{lccc}  
 tex \hline \hline       
-tex \\ \multicolumn{4}{l}{Dependent variable: Signing Security Cooperation Agreement w/ Governor}\\
-tex Alignment: & w/ President  & w/ Governor  & w/ Governor from PRI \\
+tex \\ \multicolumn{4}{l}{Dependent variable: Signing Security Cooperation Agreement}\\
+tex Party Alignment: & w/ President  & w/ Governor  & w/ Governor from PRI \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} \\
 
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \\
@@ -1384,29 +1384,29 @@ tex SE (average effect)      & (${se_aggregate_logdet})  & (${se_aggregate_ihsde
 *tex p-value  & [${p_aggregate_logdet}]   & [${p_aggregate_ihsdet}]  & [${p_aggregate_her}] \\
 
 tex \hline \hline      
-tex \multicolumn{4}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{4}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to signing a security cooperation agreement with any of the following actors. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
-tex \end{landscape}
+*tex \end{landscape}
 texdoc close
 
 *Table average effect		
 texdoc init  "../Tables/interaction_alignment_average.tex", replace force
-tex \begin{landscape}
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
-tex \caption{Effect of 2014 Term Limit Reform on Services Delegated to the Governor}
+tex \caption{Party Alignment Total Interaction Effects}
 tex \label{tab:interaction_alignment_average}
-tex \scalebox{0.70}{    
+tex \scalebox{0.75}{    
 tex \begin{tabular}{lccc}  
 tex \hline \hline       
-tex \\ \multicolumn{4}{l}{Dependent variable: Signing Security Cooperation Agreement w/ Governor}\\
-tex Alignment: & w/ President  & w/ Governor  & w/ Governor from PRI \\
+tex \\ \multicolumn{4}{l}{Dependent variable: Signing Security Cooperation Agreement}\\
+tex Party Alignment: & w/ President  & w/ Governor  & w/ Governor from PRI \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} \\
 
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \\
 tex \addlinespace
+
 
 tex Reform average effect         & $${aggregate_logdet}^{${est_aggregate_logdet}} $$      & $${aggregate_ihsdet}^{${est_aggregate_ihsdet}} $$     & $${aggregate_her}^{${est_aggregate_her}} $$     \\
 tex      & (${se_aggregate_logdet})  & (${se_aggregate_ihsdet}) & (${se_aggregate_her}) \\
@@ -1424,11 +1424,11 @@ tex Controls$^b$  &    \checkmark     &       \checkmark  &    \checkmark   \\
 tex Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark    \\  
 
 tex \hline \hline      
-tex \multicolumn{4}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+tex \multicolumn{4}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to signing a security cooperation agreement with any of the following actors. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 tex \end{tabular}
 tex } 
 tex \end{table}
-tex \end{landscape}
+*tex \end{landscape}
 texdoc close
 
 *========================================================================

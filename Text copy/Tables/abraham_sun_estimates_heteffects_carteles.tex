@@ -1,0 +1,29 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Total Interaction Effect$^a$: Difference by Cartel Presence, IW estimators following \citet{abraham_sun_2020}}
+\label{tab:abraham_sun_heteffects}
+\scalebox{0.8}{
+\begin{tabular}{lcccc}
+\hline \hline
+\\ \multicolumn{5}{l}{Dependent variable:}\\
+& \multicolumn{2}{c}{Agreement A} & \multicolumn{2}{c}{Agreement B$^{b}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} \\
+\cmidrule(lrr){2-3}  \cmidrule(lrr){4-5}\\
+\addlinespace
+Reform (t+3)*Dummy Cartel presence &     $ -0.4291^{**} $ &  &  $ -0.4090^{**} $  & \\
+&     ($ 0.1870 $) &  & ($ 0.1584 $)  & \\
+Reform (t+3)*Num. Carteles  &    &   $ -0.3951^{**} $ &  &  $ -0.3750^{**} $ \\
+&    &     ($ 0.1739 $) & & ($ 0.1432 $)  \\
+\\
+\addlinespace
+Observations       &             17,750    &             18,670    &          17,750      &          15,652  \\
+R-squared       &        0.4698    &        0.4212    &     0.4698      &     0.3806  \\
+Mun. FEs      &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark    \\
+Year. FEs    &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
+State Controls$^c$  &  \checkmark       &       \checkmark  &  \checkmark        &   \checkmark    \\
+Cohort weighted$^d$  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark    \\
+\hline \hline
+\multicolumn{5}{p{1\textwidth}}{\footnotesize{Notes:$^a$ Total interaction effect tests the linear hypothesis of the estimated coefficient of alignment with Federal Government indicator (winning margin) + estimated coefficient of the interaction of alignment (winning margin)*lead t=3. This is a post-estimation test using the same specification as that of Table \ref{tab:abraham_sun_lagdv} column (1). Other leads and the indicator at time t=0 when reform came to effect are omitted due to collinearity. Standard errors of linear hypothesis test in parentheses with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided test with the null hypothesis equal to 0. Main regression with standard errors clustered at the state-level. $^b$ Refers to the inverse hyperbolic sine transformation. $^c$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party. I also include the lag of the outcome, i.e. logged homicides per capita as control. $^d$ Estimates weighted by each cohort's relative share of the sample following \citet{abraham_sun_2020}.}} \\
+\end{tabular}
+}
+\end{table}

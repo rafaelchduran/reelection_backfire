@@ -69,14 +69,14 @@ covariates_all <-do.call(c, list(pre_homicides, pre_align_gov,pre_margin_gov, pr
 
 # put in the model formula:
 ##1. w/o covariates
-model_formula <- as.formula(paste("acuerdo4 ~", 
+model_formula <- as.formula(paste("acuerdo_estcom ~", 
                                   paste(treatments_full, collapse = " + "),
                                   "| estado + year | 0 | estado")
 )
 
 ##2. w/ covariates
 treatments.paste<-paste(treatments_full, collapse = " + ")
-model_formula_cov <- as.formula(paste("acuerdo ~ lag_8 + lag_7 + lag_6 + lag_5 + lag_4 + lag_3 + lag_2 + date_0 + lead_1 + lead_2 + lead_3 +", 
+model_formula_cov <- as.formula(paste("acuerdo_estcom ~ lag_8 + lag_7 + lag_6 + lag_5 + lag_4 + lag_3 + lag_2 + date_0 + lead_1 + lead_2 + lead_3 +", 
                                       paste(covariates_all, collapse = " + "), 
                                       "| estado + year | 0 | estado")
 )
@@ -145,7 +145,7 @@ data.final %>% do(fit = felm(model_formula_cov, data = .,
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high)) + 
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = -0.5, linetype = "dashed") + 
-  scale_x_continuous(breaks = -7:3) + 
+  scale_x_continuous(breaks = -8:3) + 
   theme(axis.title.x = element_blank()) + theme_bw()
 dev.copy(png,'../Figures/event_study_wcovariates_acuerdo.png')
 dev.off()
@@ -324,13 +324,13 @@ obs <- data.final2 %>%
   unique()
 
 # make fomula to run with reduced datasets
-formula_cldz <- as.formula("acuerdo ~ reform | inegi + year | 0 | estado")
-formula_cldz_cov <- as.formula(paste("acuerdo ~ reform +",
+formula_cldz <- as.formula("acuerdo_estcom ~ reform | inegi + year | 0 | estado")
+formula_cldz_cov <- as.formula(paste("acuerdo_estcom ~ reform +",
                                      paste(covariates_all, collapse = " + "),
                                      "| inegi + year | 0 | estado"))
 
-formula_cldz_ihs <- as.formula("acuerdo2 ~ reform | inegi + year | 0 | estado")
-formula_cldz_ihs_cov <- as.formula(paste("acuerdo2 ~ reform +",
+formula_cldz_ihs <- as.formula("acuerdo_estcom2 ~ reform | inegi + year | 0 | estado")
+formula_cldz_ihs_cov <- as.formula(paste("acuerdo_estcom2 ~ reform +",
                                          paste(covariates_all, collapse = " + "),
                                          "| inegi + year | 0 | estado"))
 
@@ -525,18 +525,18 @@ leadlags <- c("lag_8", "lag_7", "lag_6", "lag_5", "lag_4", "lag_3", "lag_2", "da
 # Make the estimating equation
 controls <- paste(covariates_all, collapse = "+")
 
-formula_cldz <- as.formula(paste("acuerdo2 ~ ",
+formula_cldz <- as.formula(paste("acuerdo_estcom ~ ",
                                  paste(leadlags, collapse= "+"),
                                  "| factor(inegi):factor(df) + factor(year):factor(df) | 0 | estado"))
 
 
 leadlags_all <- paste(leadlags, collapse = "+")
 
-formula_cldz2 <- as.formula(paste("acuerdo2 ~ lag_8+lag_7+lag_6+lag_5+lag_4+lag_3+lag_2+date_0+lead_1+lead_2+lead_3+",
+formula_cldz2 <- as.formula(paste("acuerdo_estcom2 ~ lag_8+lag_7+lag_6+lag_5+lag_4+lag_3+lag_2+date_0+lead_1+lead_2+lead_3+",
                                   paste(covariates_all, collapse= "+"),
                                   "| factor(inegi):factor(df) + factor(year):factor(df) | 0 | estado"))
 
-formula_cldz2 <- as.formula(paste("acuerdo2 ~ lag_8+lag_7+lag_6+lag_5+lag_4+lag_3+lag_2+date_0+lead_1+lead_2+lead_3+",
+formula_cldz2 <- as.formula(paste("acuerdo_estcom2 ~ lag_8+lag_7+lag_6+lag_5+lag_4+lag_3+lag_2+date_0+lead_1+lead_2+lead_3+",
                                   paste(covariates_all, collapse= "+"),
                                   "| inegi + year | 0 | estado"))
 
@@ -791,7 +791,7 @@ library(gsynth)
 
 #erase missing values
 data_noNA <- data.final2 %>% 
-  filter(!is.na(acuerdo)) 
+  filter(!is.na(acuerdo_estcom)) 
 
 data_noNAdet <- data.final2 %>% 
   filter(!is.na(acuerdo2))
@@ -822,12 +822,12 @@ if (Sys.getenv("RSTUDIO") == "1" && !nzchar(Sys.getenv("RSTUDIO_TERM")) &&
 
 # estimate the generalized synthetic control method
 ##1) Using log transformation
-out.acuerdo <- gsynth(acuerdo ~ reform, data = data_noNA, index = c("inegi", "year"),
+out.acuerdo <- gsynth(acuerdo_estcom ~ reform, data = data_noNA, index = c("inegi", "year"),
               force = "two-way", CV = TRUE, se = TRUE, nboots = 1000, cores = 8, r = c(0, 3), 
               min.T0 = 5)
 
 
-out.acuerdo_cov <- gsynth(logdefuncionespc ~ reform, X= paste(covariates_all, collapse= "+"), 
+out.acuerdo_cov <- gsynth(acuerdo_estcom ~ reform, X= paste(covariates_all, collapse= "+"), 
                   data = data_noNA, index = c("inegi", "year"),
                   force = "two-way", CV = TRUE, se = TRUE, nboots = 1000, cores = 8, r = c(0, 3), 
                   inference = "nonparametric",
@@ -880,7 +880,7 @@ out.acuerdo_cov$est.att %>%
 dev.copy(png,'../Figures/gsynth_wcov_acuerdo.png')
 dev.off()
 
-
+#Other measures
 out.acuerdo2$est.att %>% 
   as_tibble(rownames = "t") %>% 
   mutate(t = as.numeric(t)) %>% 
@@ -963,11 +963,11 @@ dev.off()
 
 
 # estimate the generalized synthetic control method
-out2.acuerdo <- gsynth(acuerdo ~ reform, data = data_noNA, index = c("inegi", "year"), 
+out2.acuerdo <- gsynth(acuerdo_estcom ~ reform, data = data_noNA, index = c("inegi", "year"), 
                estimator = "mc",
                force = "two-way", CV = TRUE, se = TRUE, nboots = 1000, cores = 8, r = c(0, 3), 
                min.T0 = 5)
-out2_wcov.acuerdo <- gsynth(acuerdo ~ reform, X= paste(covariates_all, collapse= "+"), 
+out2_wcov.acuerdo <- gsynth(acuerdo_estcom ~ reform, X= paste(covariates_all, collapse= "+"), 
                     data = data_noNA, index = c("inegi", "year"), 
                     estimator = "mc",
                     force = "two-way", CV = TRUE, se = TRUE, nboots = 1000, cores = 8, r = c(0, 3), 

@@ -1,0 +1,46 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, with t=0 as reference period}
+\label{tab:as_homicides_wlag1}
+\scalebox{1}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{2}{c}{Security Cooperation Agreement} \\
+& \multicolumn{2}{c}{w/ Governor$^{a}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+\addlinespace
+t-6 &          $     .^{} $ &   $     .^{**} $  \\
+& ($ 0.0195$) & ($ 0.1061 $) \\
+t-5 &        $     .^{***} $ &   $     .^{} $ \\
+& ($ 0.0357$) & ($ 0.0856 $) \\
+t-4 &         $ 0.1415^{*} $ &      $ 0.0331^{} $  \\
+& ($ 0.0811$) & ($ 0.2277 $) \\
+t-3 &        $ 0.4287^{***} $ &     $ 0.6815^{*} $ \\
+& ($ 0.0548$) & ($ 0.3554 $) \\
+t-2 &        $ 0.3449^{***} $ &    $ 0.4058^{} $  \\
+& ($ 0.0706$) & ($ 0.3554 $) \\
+t-1 &        $ 0.0679^{*} $ &     $ 0.0100^{} $ \\
+& ($ 0.0338$) & ($ 0.0886 $) \\
+t+1 &         $ 0.2750^{***} $ &       $ -0.0029^{} $ \\
+& ($ 0.0930$) & ($ 0.2627 $) \\
+t+2 &         $ 0.2961^{**} $ &      $ -0.0553^{} $  \\
+& ($ 0.1172$) & ($ 0.3217 $) \\
+t+3 &        $ 0.1069^{} $ &     $ 0.0951^{} $ \\
+& ($ 0.1055$) & ($ 0.1635 $) \\
+\addlinespace
+Observations       &                 12,173        &          12,173  \\
+R-squared        &              0.7271        &           0.5333   \\
+Mun. FEs       &     \checkmark         &  \checkmark    \\
+Year. FEs       &     \checkmark         &  \checkmark   \\
+Controls$^b$   &      \checkmark       &      \checkmark    \\
+Cohort weighted   &   \checkmark       &   \checkmark    \\
+WILD CI   &          &   \checkmark    \\
+Aggregate effect        &              $0.2260^{**} $     &          $ 0.0123^{} $     \\
+SE (aggregate eff.)        &              0.0826        &           0.2018   \\
+\hline \hline
+\multicolumn{3}{p{0.6\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 0) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Inverse hyperbolic sine transformation. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; and Cartel presence.}} \\
+\end{tabular}
+}
+\end{table}

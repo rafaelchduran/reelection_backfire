@@ -1,0 +1,29 @@
+\begin{landscape}
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of 2014 Term Limit Reform on Effort Placed by Security Forces}
+\label{tab:effort_final_average}
+\scalebox{0.75}{
+\begin{tabular}{lcccccccc}
+\hline \hline
+\\ \multicolumn{9}{l}{Dependent variable: effort by security forces}\\
+& Cons. reform  & Law reform & Lack resources & Professionalization & Coordination & Crime \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)}  & \multicolumn{1}{c}{(7)} & \multicolumn{1}{c}{(8)}  \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \cmidrule(lrr){5-5} \cmidrule(lrr){6-6} \cmidrule(lrr){7-7} \cmidrule(lrr){8-8} \cmidrule(lrr){9-9}\\
+\addlinespace
+Reform aggregate effect         & $-0.0020^{} $$      & $-0.0879^{} $$    & $-0.2259^{**} $$      & $-0.0995^{**} $$     & $-0.0277^{} $$      & $-0.0177^{**} $$     & $-0.6266^{} $$      & $-0.4511^{*} $$     \\
+SE       & (0.0909)  & (0.0685) & (0.0860)  & (0.0473)  & (0.0180)  & (0.0075)   & (1.6827)  & (0.2245)   \\ \\
+\\
+\addlinespace
+Observations       &             14,587    &             14,587    &          14,587      &          14,587  &             14,587    &             14,587     &             14,587    &             14,587   \\
+R-squared        &          0.8396 &          0.3381    &    0.3599       &           0.3674 &          0.8566 &          0.6034    &          0.6566 &          0.6436   \\
+Mun. FEs      &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark  &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
+Year. FEs    &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark    &     \checkmark         &  \checkmark  \\
+Controls$^a$  &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark &    \checkmark     &       \checkmark  &    \checkmark      &   \checkmark     &     \checkmark         &  \checkmark   \\
+Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark     &     \checkmark         &  \checkmark  \\
+\hline \hline
+\multicolumn{9}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
+\end{tabular}
+}
+\end{table}
+\end{landscape}

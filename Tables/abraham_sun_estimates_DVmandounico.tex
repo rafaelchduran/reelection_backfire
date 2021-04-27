@@ -1,14 +1,13 @@
-\begin{table}[H]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \centering
-\caption{Effect of 2014 Term Limit Reform on Security Cooperation Agreements signed with the Governor, 2010-2018}
+\caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, 2010-2018}
 \label{tab:as_agreements}
-\scalebox{0.75}{
+\scalebox{1}{
 \begin{tabular}{lcc}
 \hline \hline
 \\ \multicolumn{3}{l}{Dependent variable:}\\
 & \multicolumn{2}{c}{Security Cooperation Agreement} \\
 & \multicolumn{2}{c}{w/ Governor$^{a}$} \\
-
 & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
 \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
 \addlinespace
@@ -45,5 +44,5 @@ SE (aggregate eff.)        &              0.0457        &           0.0473   \\
 \hline \hline
 \multicolumn{3}{p{0.6\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the Governor. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 \end{tabular}
-} 
+}
 \end{table}

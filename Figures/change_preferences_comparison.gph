@@ -2,25 +2,25 @@ StataFileTM:00001:01000:LiveGPH:                       :
 00004:00004:
 *! classname: twowaygraph_g
 *! family: twoway
-*! command: twoway (rspike __00000E __00000F __000003 if __000002==1,  pstyle(p1)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==1,  pstyle(p1)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==1,  pstyle(p1)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==1,  pstyle(p1)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==2,  pstyle(p2)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==2,  pstyle(p2)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==2,  pstyle(p2)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==2,  pstyle(p2)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==3,  pstyle(p3)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==3,  pstyle(p3)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==3,  pstyle(p3)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==3,  pstyle(p3)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==4,  pstyle(p4)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==4,  pstyle(p4)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==4,  pstyle(p4)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==4,  pstyle(p4)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==5,  pstyle(p5)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==5,  pstyle(p5)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==5,  pstyle(p5)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==5,  pstyle(p5)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==6,  pstyle(p6)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==6,  pstyle(p6)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==6,  pstyle(p6)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==6,  pstyle(p6)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==7,  pstyle(p7)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==7,  pstyle(p7)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==7,  pstyle(p7)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==7,  pstyle(p7)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==8,  pstyle(p8)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==8,  pstyle(p8)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==8,  pstyle(p8)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==8,  pstyle(p8)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==9,  pstyle(p9)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==9,  pstyle(p9)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==9,  pstyle(p9)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==9,  pstyle(p9)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==10,  pstyle(p10)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==10,  pstyle(p10)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==10,  pstyle(p10)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==10,  pstyle(p10)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==11,  pstyle(p11)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==11,  pstyle(p11)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==11,  pstyle(p11)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==11,  pstyle(p11)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==12,  pstyle(p12)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==12,  pstyle(p12)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==12,  pstyle(p12)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==12,  pstyle(p12)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==13,  pstyle(p13)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==13,  pstyle(p13)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==13,  pstyle(p13)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==13,  pstyle(p13)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==14,  pstyle(p14)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==14,  pstyle(p14)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==14,  pstyle(p14)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==14,  pstyle(p14)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==15,  pstyle(p15)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==15,  pstyle(p15)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==15,  pstyle(p15)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==15,  pstyle(p15)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==16,  pstyle(p1)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==16,  pstyle(p1)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==16,  pstyle(p1)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==16,  pstyle(p1)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==17,  pstyle(p2)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==17,  pstyle(p2)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==17,  pstyle(p2)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==17,  pstyle(p2)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==18,  pstyle(p3)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==18,  pstyle(p3)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==18,  pstyle(p3)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==18,  pstyle(p3)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==19,  pstyle(p4)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==19,  pstyle(p4)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==19,  pstyle(p4)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==19,  pstyle(p4)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==20,  pstyle(p5)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==20,  pstyle(p5)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==20,  pstyle(p5)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==20,  pstyle(p5)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==21,  pstyle(p6)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==21,  pstyle(p6)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==21,  pstyle(p6)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==21,  pstyle(p6)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==22,  pstyle(p7)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==22,  pstyle(p7)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==22,  pstyle(p7)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==22,  pstyle(p7)       msize(medium) msymbol(S) mcolor(red)),    ylabel(1 `"Narcotraffick"' 2 `"Insecurity"' 3 `"Punishment"' 4 `"Corruption"' 5 `"Poverty"' 6 `"Unemployment"' 7 `"Inflation"' 8 `"Disaster"' 9 `"Water"' 10 `"Education"' 11 `"Health"', nogrid angle(horizontal) )  ytick(1.5 1.5 2.5 2.5 3.5 3.5 4.5 4.5 5.5 5.5 6.5 6.5 7.5 7.5 8.5 8.5 9.5 9.5 10.5 10.5, notick tlstyle(none) grid ) yscale(range(.5 11.5)) yscale(reverse) yti("") xti("") legend(label(4 `"est1"') label(8 `"est2"') label(12 `"est3"') label(16 `"est4"') label(20 `"est5"') label(24 `"est6"') label(28 `"est7"') label(32 `"est8"') label(36 `"est9"') label(40 `"est10"') label(44 `"est11"') label(48 `"est12"') label(52 `"est13"') label(56 `"est14"') label(60 `"est15"') label(64 `"est16"') label(68 `"est17"') label(72 `"est18"') label(76 `"est19"') label(80 `"est20"') label(84 `"est21"') label(88 `"est22"') all order(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88)) legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" 20 "TWFE" 80 "CATTs") rows(2)) plotregion(margin(t=0 b=0))  scheme(s1color)  subtitle("Topic that worries the most") xline(0) ytitle(" ") xtitle("Term Limit Reform Average Effect" "from t to t+3")
-*! command_date: 19 Apr 2021
-*! command_time: 20:44:39
+*! command: twoway (rspike __00000E __00000F __000003 if __000002==1,  pstyle(p1)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==1,  pstyle(p1)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==1,  pstyle(p1)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==1,  pstyle(p1)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==2,  pstyle(p2)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==2,  pstyle(p2)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==2,  pstyle(p2)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==2,  pstyle(p2)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==3,  pstyle(p3)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==3,  pstyle(p3)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==3,  pstyle(p3)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==3,  pstyle(p3)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==4,  pstyle(p4)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==4,  pstyle(p4)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==4,  pstyle(p4)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==4,  pstyle(p4)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==5,  pstyle(p5)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==5,  pstyle(p5)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==5,  pstyle(p5)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==5,  pstyle(p5)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==6,  pstyle(p6)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==6,  pstyle(p6)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==6,  pstyle(p6)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==6,  pstyle(p6)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==7,  pstyle(p7)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==7,  pstyle(p7)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==7,  pstyle(p7)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==7,  pstyle(p7)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==8,  pstyle(p8)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==8,  pstyle(p8)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==8,  pstyle(p8)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==8,  pstyle(p8)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==9,  pstyle(p9)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==9,  pstyle(p9)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==9,  pstyle(p9)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==9,  pstyle(p9)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==10,  pstyle(p10)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==10,  pstyle(p10)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==10,  pstyle(p10)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==10,  pstyle(p10)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==11,  pstyle(p11)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==11,  pstyle(p11)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==11,  pstyle(p11)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==11,  pstyle(p11)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==12,  pstyle(p12)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==12,  pstyle(p12)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==12,  pstyle(p12)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==12,  pstyle(p12)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==13,  pstyle(p13)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==13,  pstyle(p13)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==13,  pstyle(p13)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==13,  pstyle(p13)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==14,  pstyle(p14)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==14,  pstyle(p14)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==14,  pstyle(p14)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==14,  pstyle(p14)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==15,  pstyle(p15)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==15,  pstyle(p15)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==15,  pstyle(p15)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==15,  pstyle(p15)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==16,  pstyle(p1)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==16,  pstyle(p1)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==16,  pstyle(p1)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==16,  pstyle(p1)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==17,  pstyle(p2)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==17,  pstyle(p2)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==17,  pstyle(p2)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==17,  pstyle(p2)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==18,  pstyle(p3)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==18,  pstyle(p3)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==18,  pstyle(p3)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==18,  pstyle(p3)       mfcolor(white) msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==19,  pstyle(p4)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==19,  pstyle(p4)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==19,  pstyle(p4)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==19,  pstyle(p4)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==20,  pstyle(p5)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==20,  pstyle(p5)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==20,  pstyle(p5)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==20,  pstyle(p5)       mfcolor(white) msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==21,  pstyle(p6)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==21,  pstyle(p6)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==21,  pstyle(p6)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==21,  pstyle(p6)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==22,  pstyle(p7)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==22,  pstyle(p7)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==22,  pstyle(p7)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==22,  pstyle(p7)       mfcolor(white) msize(medium) msymbol(S) mcolor(red)),    ylabel(1 `"Narcotraffic"' 2 `"Insecurity"' 3 `"Punishment"' 4 `"Corruption"' 5 `"Poverty"' 6 `"Unemployment"' 7 `"Inflation"' 8 `"Disaster"' 9 `"Water"' 10 `"Education"' 11 `"Health"', nogrid angle(horizontal) )  ytick(1.5 1.5 2.5 2.5 3.5 3.5 4.5 4.5 5.5 5.5 6.5 6.5 7.5 7.5 8.5 8.5 9.5 9.5 10.5 10.5, notick tlstyle(none) grid ) yscale(range(.5 11.5)) yscale(reverse) yti("") xti("") legend(label(4 `"est1"') label(8 `"est2"') label(12 `"est3"') label(16 `"est4"') label(20 `"est5"') label(24 `"est6"') label(28 `"est7"') label(32 `"est8"') label(36 `"est9"') label(40 `"est10"') label(44 `"est11"') label(48 `"est12"') label(52 `"est13"') label(56 `"est14"') label(60 `"est15"') label(64 `"est16"') label(68 `"est17"') label(72 `"est18"') label(76 `"est19"') label(80 `"est20"') label(84 `"est21"') label(88 `"est22"') all order(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88)) legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" 20 "TWFE" 80 "CATTs") rows(2)) plotregion(margin(t=0 b=0))  scheme(s1color)  subtitle("Topic that worries the most") xline(0) ytitle(" ") xtitle("Term Limit Reform Average Effect" "from t to t+3")
+*! command_date: 23 Apr 2021
+*! command_time: 16:01:53
 *! datafile: ../../Data/ConstructionDatabase/data_final.dta
-*! datafile_date: 19 Apr 2021 20:25
+*! datafile_date: 22 Apr 2021 16:38
 *! scheme: s1color
 *! naturallywhite: 1
 *! xsize: 5.5
 *! ysize: 4
 *! end
-<BeginItem> serset K6000071fc300 
+<BeginItem> serset K600007f5b640 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.021729888394475
-.max =  -.021729888394475
+.min =  -.0217388290911913
+.max =  -.0217388290911913
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -31,8 +31,8 @@ StataFileTM:00001:01000:LiveGPH:                       :
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0149884261190891
-.max =  .0149884261190891
+.min =  .0149792302399874
+.max =  .0149792302399874
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -55,8 +55,8 @@ StataFileTM:00001:01000:LiveGPH:                       :
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.016966613009572
-.max =  -.016966613009572
+.min =  -.016975587233901
+.max =  -.016975587233901
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -67,8 +67,8 @@ StataFileTM:00001:01000:LiveGPH:                       :
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0102251507341862
-.max =  .0102251507341862
+.min =  .0102159883826971
+.max =  .0102159883826971
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -79,8 +79,8 @@ StataFileTM:00001:01000:LiveGPH:                       :
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0146570960059762
-.max =  -.0146570960059762
+.min =  -.014666086062789
+.max =  -.014666086062789
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -91,8 +91,8 @@ StataFileTM:00001:01000:LiveGPH:                       :
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0079156346619129
-.max =  .0079156346619129
+.min =  .0079064881429076
+.max =  .0079064881429076
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -103,8 +103,8 @@ StataFileTM:00001:01000:LiveGPH:                       :
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0033707306720316
-.max =  -.0033707306720316
+.min =  -.0033797989599407
+.max =  -.0033797989599407
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -112,19 +112,19 @@ StataFileTM:00001:01000:LiveGPH:                       :
 <EndSeries>
 .weight_id = (.)
 <BeginSersetData>
-sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                        \@ñø   Ä@≤é?   Ä,d·?    ≤_ëø   ÄÏÑ?    äéø   Ä6Ä?   @Ôúkø    \@ñø   Ä@≤é?   Ä,d·?    ≤_ëø   ÄÏÑ?    äéø   Ä6Ä?   @Ôúkø·≤ºíu<d!?ë˝äºdá'<Q$pºî∞<zÁ\ª
+sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                        ¥Bñø   @n≠é?   Ä,d·?   `bëø   ¿ÏÑ?   ¿@	éø   ‡F1Ä?   ¿ÛØkø    ¥Bñø   @n≠é?   Ä,d·?   `bëø   ¿ÏÑ?   ¿@	éø   ‡F1Ä?   ¿ÛØkø°≤ºrku<d!?cãºˆ`'<Jpº7ä<û]ª
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071e51c0 
+<BeginItem> serset K600007f44fc0 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0079337675124407
-.max =  .0079337675124407
+.min =  .0079407896846533
+.max =  .0079407896846533
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -135,8 +135,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0540755651891232
-.max =  .0540755651891232
+.min =  .0540696531534195
+.max =  .0540696531534195
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -159,8 +159,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0139195015653968
-.max =  .0139195015653968
+.min =  .0139248464256525
+.max =  .0139248464256525
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -171,8 +171,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0480898320674896
-.max =  .0480898320674896
+.min =  .0480855964124203
+.max =  .0480855964124203
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -183,8 +183,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .01682173833251
-.max =  .01682173833251
+.min =  .0168262701481581
+.max =  .0168262701481581
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -195,8 +195,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0451875925064087
-.max =  .0451875925064087
+.min =  .0451841726899147
+.max =  .0451841726899147
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -207,8 +207,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0310046672821045
-.max =  .0310046672821045
+.min =  .0310052204877138
+.max =  .0310052204877138
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -216,19 +216,21 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSeries>
 .weight_id = (.)
 <BeginSersetData>
-sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       @î?Ä?   ‡ Ø´?   Ä,d˘?   ‡”Åå?    ;ü®?   ¿∑9ë?    ‘"ß?    ∞øü?   @î?Ä?   ‡ Ø´?   Ä,d˘?   ‡”Åå?    ;ü®?   ¿∑9ë?    ‘"ß?    ∞øü?¢¸<W~]=d!À?üd<ÿ˘D=æÕâ<†9=Ä˝˝<
+sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       ¿BCÄ?   ÄØ´?   Ä,d˘?   @°Ñå?   ‡¨û®?   ‡Á:ë?   @a"ß?    ’øü?   ¿BCÄ?   ÄØ´?   Ä,d˘?   @°Ñå?   ‡¨û®?   ‡Á:ë?   @a"ß?    ’øü?<$x]=d!À?
+%d<gıD=?◊â<
+9=©˛˝<
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071e5980 
+<BeginItem> serset K600007f47f00 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0328989624977112
-.max =  .0328989624977112
+.min =  .0329039990901947
+.max =  .0329039990901947
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -239,8 +241,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0587095022201538
-.max =  .0587095022201538
+.min =  .0587106011807919
+.max =  .0587106011807919
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -263,8 +265,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0362472273409367
-.max =  .0362472273409367
+.min =  .0362517535686493
+.max =  .0362517535686493
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -275,8 +277,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0553612373769283
-.max =  .0553612373769283
+.min =  .0553628467023373
+.max =  .0553628467023373
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -287,8 +289,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0378706678748131
-.max =  .0378706678748131
+.min =  .0378749445080757
+.max =  .0378749445080757
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -299,8 +301,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0537378005683422
-.max =  .0537378005683422
+.min =  .0537396557629108
+.max =  .0537396557629108
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -311,8 +313,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0458042323589325
-.max =  .0458042323589325
+.min =  .0458072982728481
+.max =  .0458072982728481
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -320,19 +322,19 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSeries>
 .weight_id = (.)
 <BeginSersetData>
-sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                        "ÿ†?    ,Æ?   `!@    ˇé¢?   ‡NX¨?   ¿»c£?   `ÖÉ´?    ßsß?    "ÿ†?    ,Æ?   `!@    ˇé¢?   ‡NX¨?   ¿»c£?   `ÖÉ´?    ßsß?¡=`yp=Y(@˘w=w¬b=F=+\=8ù;=
+sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                        Àÿ†?   ‡PÆ?   `!@    óè¢?   ‡ÑX¨?   @Xd£?   †√É´?   ‡tß?    Àÿ†?   ‡PÆ?   `!@    óè¢?   ‡ÑX¨?   @Xd£?   †√É´?   ‡tß?X∆=ázp=Y(@∏|='ƒb=¬"=\=o†;=
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071e5fc0 
+<BeginItem> serset K600007f46640 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0178840141743422
-.max =  -.0178840141743422
+.min =  -.0178888067603111
+.max =  -.0178888067603111
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -343,8 +345,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0119478637352586
-.max =  .0119478637352586
+.min =  .0119407791644335
+.max =  .0119407791644335
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -367,8 +369,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0140140810981393
-.max =  -.0140140810981393
+.min =  -.0140191707760096
+.max =  -.0140191707760096
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -379,8 +381,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0080779297277331
-.max =  .0080779297277331
+.min =  .0080711422488093
+.max =  .0080711422488093
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -391,8 +393,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0121377091854811
-.max =  -.0121377091854811
+.min =  -.0121429432183504
+.max =  -.0121429432183504
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -403,8 +405,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0062015573494136
-.max =  .0062015573494136
+.min =  .0061949146911502
+.max =  .0061949146911502
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -415,8 +417,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0029680756852031
-.max =  -.0029680756852031
+.min =  -.0029740142636001
+.max =  -.0029740142636001
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -424,19 +426,19 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSeries>
 .weight_id = (.)
 <BeginSersetData>
-sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       ‡/Píø    xà?   Ä,d@    j≥åø   `)ãÄ?   ¿ß€àø   ‡Õfy?   ÄÅPhø   ‡/Píø    xà?   Ä,d@    j≥åø   `)ãÄ?   ¿ß€àø   ‡Õfy?   ÄÅPhøÅíº˘¿C<d!k@QõeºKY<>›Fºo6À;ÑBª
+sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       ÄqQíø   @htà?   Ä,d@   @∂åø   `öáÄ?   @fﬁàø   ¿÷_y?   ¿ı\hø   ÄqQíø   @htà?   Ä,d@   @∂åø   `öáÄ?   @fﬁàø   ¿÷_y?   ¿ı\høåãíºB£C<d!k@™∞eº”<<2ÛFº∂˛ ;ÆÁBª
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071e7f40 
+<BeginItem> serset K600007f42ac0 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0420182347297668
-.max =  -.0420182347297668
+.min =  -.0420211032032967
+.max =  -.0420211032032967
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -447,8 +449,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0092120077461004
-.max =  .0092120077461004
+.min =  .0092061553150415
+.max =  .0092061553150415
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -471,8 +473,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0353724025189877
-.max =  -.0353724025189877
+.min =  -.0353756584227085
+.max =  -.0353756584227085
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -483,8 +485,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0025661764666438
-.max =  .0025661764666438
+.min =  .0025607105344534
+.max =  .0025607105344534
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -495,8 +497,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.032150112092495
-.max =  -.032150112092495
+.min =  -.0321535542607307
+.max =  -.0321535542607307
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -507,8 +509,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0006561149493791
-.max =  -.0006561149493791
+.min =  -.0006613927544095
+.max =  -.0006613927544095
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -519,8 +521,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0164031144231558
-.max =  -.0164031144231558
+.min =  -.016407473012805
+.max =  -.016407473012805
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -528,19 +530,19 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSeries>
 .weight_id = (.)
 <BeginSersetData>
-sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                        jÉ•ø   ¿æ›Ç?   ‡õﬁ@   ‡T¢ø   Ä©e?   ¿˙u†ø    ‰Eø   `˙Àêø    jÉ•ø   ¿æ›Ç?   ‡õﬁ@   ‡T¢ø   Ä©e?   ¿˙u†ø    ‰Eø   `˙ÀêøP,ΩˆÌ<ﬂÙñ@ß‚ΩL-(;÷ØΩ!ˇ+∫”_Üº
+sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       @ É•ø   @≠⁄Ç?   ‡õﬁ@    ¬¢ø    3˙d?   @nv†ø    *¨Eø   ‡Õêø   @ É•ø   @≠⁄Ç?   ‡õﬁ@    ¬¢ø    3˙d?   @nv†ø    *¨Eø   ‡ÕêøR,Ωj’<ﬂÙñ@ÊΩò—';r≥ΩQa-∫˜hÜº
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071fac00 
+<BeginItem> serset K600007f611c0 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0540827177464962
-.max =  -.0540827177464962
+.min =  -.0540680512785912
+.max =  -.0540680512785912
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -551,8 +553,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.014300350099802
-.max =  -.014300350099802
+.min =  -.0142835546284914
+.max =  -.0142835546284914
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -575,8 +577,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0489219576120377
-.max =  -.0489219576120377
+.min =  -.0489070154726505
+.max =  -.0489070154726505
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -587,8 +589,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0194611083716154
-.max =  -.0194611083716154
+.min =  -.0194445885717869
+.max =  -.0194445885717869
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -599,8 +601,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0464197173714638
-.max =  -.0464197173714638
+.min =  -.0464046411216259
+.max =  -.0464046411216259
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -611,8 +613,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0219633486121893
-.max =  -.0219633486121893
+.min =  -.0219469629228115
+.max =  -.0219469629228115
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -623,8 +625,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0341915339231491
-.max =  -.0341915339231491
+.min =  -.0341758020222187
+.max =  -.0341758020222187
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -632,19 +634,21 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSeries>
 .weight_id = (.)
 <BeginSersetData>
-sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       ‡∫∞´ø   ÄÄIçø   `!@   ÄL©ø   ‡úÌìø   @Sƒßø   `è}ñø   ÄçÅ°ø   ‡∫∞´ø   ÄÄIçø   `!@   ÄL©ø   ‡úÌìø   @Sƒßø   `è}ñø   ÄçÅ°ø◊Ö]ΩLjºY∏@dbHΩÁlüºö">Ω{Ï≥ºlΩ
+sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       ¿ŒÆ´ø   @≤@çø   `!@    W
+©ø   @HÈìø   `Y¬ßø   ¿Cyñø   †}°ø   ¿ŒÆ´ø   @≤@çø   `!@    W
+©ø   @HÈìø   `Y¬ßø   ¿Cyñø   †}°øvv]ΩíjºY∏@πRHΩBJüºÀ>Ω ≥ºÌ˚Ω
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071fb580 
+<BeginItem> serset K600007f41180 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0161737725138664
-.max =  -.0161737725138664
+.min =  -.0161773283034563
+.max =  -.0161773283034563
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -655,8 +659,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0017681774916127
-.max =  .0017681774916127
+.min =  .0017657679272816
+.max =  .0017657679272816
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -679,8 +683,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0138462567701936
-.max =  -.0138462567701936
+.min =  -.0138496635481715
+.max =  -.0138496635481715
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -691,8 +695,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0005593379028141
-.max =  -.0005593379028141
+.min =  -.0005618961295113
+.max =  -.0005618961295113
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -703,8 +707,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0127177406102419
-.max =  -.0127177406102419
+.min =  -.012721074745059
+.max =  -.012721074745059
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -715,8 +719,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0016878546448424
-.max =  -.0016878546448424
+.min =  -.0016904849326238
+.max =  -.0016904849326238
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -727,8 +731,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0072027975693345
-.max =  -.0072027975693345
+.min =  -.0072057801298797
+.max =  -.0072057801298797
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -736,19 +740,19 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSeries>
 .weight_id = (.)
 <BeginSersetData>
-sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       Ä€èêø    F¯\?    ß7@    m[åø    TBø   @¬äø    `ß[ø   @ÆÄ}ø   Ä€èêø    F¯\?    ß7@    m[åø    TBø   @¬äø    `ß[ø   @ÆÄ}ø‹~Ñº1¬Á:8ΩŸ@i€bºà†∫^Pº;›∫rÏª
+sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                         êêø   ‡*Ó\?    ß7@   `6]åø   ¿ÜiBø   ¿Åäø   `h≤[ø   ‡ŒÉ}ø     êêø   ‡*Ó\?    ß7@   `6]åø   ¿ÜiBø   ¿Åäø   `h≤[ø   ‡ŒÉ}øQÜÑºWqÁ:8ΩŸ@≥Èbº6L∫lPºCì›∫wÏª
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K600007136900 
+<BeginItem> serset K600007f42740 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0104881124570966
-.max =  -.0104881124570966
+.min =  -.0104883229359984
+.max =  -.0104883229359984
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -759,8 +763,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0085640233010054
-.max =  .0085640233010054
+.min =  .0085636489093304
+.max =  .0085636489093304
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -783,8 +787,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0080165788531303
-.max =  -.0080165788531303
+.min =  -.0080168098211288
+.max =  -.0080168098211288
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -795,8 +799,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0060924892313778
-.max =  .0060924892313778
+.min =  .0060921362601221
+.max =  .0060921362601221
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -807,8 +811,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0068182330578566
-.max =  -.0068182330578566
+.min =  -.0068184747360647
+.max =  -.0068184747360647
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -819,8 +823,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0048941439017653
-.max =  .0048941439017653
+.min =  .0048938007093966
+.max =  .0048938007093966
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -831,8 +835,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0009620445780456
-.max =  -.0009620445780456
+.min =  -.000962337013334
+.max =  -.000962337013334
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -840,19 +844,19 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSeries>
 .weight_id = (.)
 <BeginSersetData>
-sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       † zÖø   ¿äÅ?   Ä,d@    ˇjÄø    pÙx?   ÄoÌ{ø   ¿·t?    7ÜOø   † zÖø   ¿äÅ?   Ä,d@    ˇjÄø    pÙx?   ÄoÌ{ø   ¿·t?    7ÜOøU÷+ºP<d!˚@¯WºÅ£«;|kﬂª_†;∏1|∫
+sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       ‡ÊzÖø   Ä—âÅ?   Ä,d@    kÄø   `Ùx?   `∞Ì{ø   †Öt?    ´àOø   ‡ÊzÖø   Ä—âÅ?   Ä,d@    kÄø   `Ùx?   `∞Ì{ø   †Öt?    ´àOø7◊+ºåN<d!˚@Xºã†«;Émﬂª-\†;XE|∫
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071fafc0 
+<BeginItem> serset K600007f42c80 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0122804287821054
-.max =  -.0122804287821054
+.min =  -.0122819915413857
+.max =  -.0122819915413857
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -863,8 +867,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0092613138258457
-.max =  .0092613138258457
+.min =  .009259907528758
+.max =  .009259907528758
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -887,8 +891,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0094859311357141
-.max =  -.0094859311357141
+.min =  -.0094874734058976
+.max =  -.0094874734058976
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -899,8 +903,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .006466815713793
-.max =  .006466815713793
+.min =  .00646538939327
+.max =  .00646538939327
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -911,8 +915,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.008130993694067
-.max =  -.008130993694067
+.min =  -.0081325266510248
+.max =  -.0081325266510248
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -923,8 +927,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0051118787378073
-.max =  .0051118787378073
+.min =  .0051104421727359
+.max =  .0051104421727359
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -935,8 +939,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0015095577109605
-.max =  -.0015095577109605
+.min =  -.0015110421227291
+.max =  -.0015110421227291
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -944,19 +948,19 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSeries>
 .weight_id = (.)
 <BeginSersetData>
-sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       @{&âø   Äò˜Ç?    Y»!@    \mÉø   †Ú|z?   Ä˚¶Äø   Ä1t?   @ãªXø   @{&âø   Äò˜Ç?    Y»!@    \mÉø   †Ú|z?   Ä˚¶Äø   Ä1t?   @ãªXø⁄3Iºƒº<»BA·jºïÁ”;‹7ºåÅß;Z‹≈∫
+sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                        M'âø   ¿€ˆÇ?    Y»!@    +nÉø   ¿s{z?   @…ßÄø   ‡ØÓt?    ≈¡Xø    M'âø   ¿€ˆÇ?    Y»!@    +nÉø   ¿s{z?   @…ßÄø   ‡ØÓt?    ≈¡Xøh:Iºﬁ∂<»BAYqºû€”;J>ºuß;)∆∫
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071fbfc0 
+<BeginItem> serset K600007f4e180 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0258598439395428
-.max =  -.0258598439395428
+.min =  -.0258566737174988
+.max =  -.0258566737174988
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -967,8 +971,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0090122297406197
-.max =  -.0090122297406197
+.min =  -.0090062636882067
+.max =  -.0090062636882067
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -991,8 +995,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0236742924898863
-.max =  -.0236742924898863
+.min =  -.0236707590520382
+.max =  -.0236707590520382
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1003,8 +1007,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0111977830529213
-.max =  -.0111977830529213
+.min =  -.0111921792849898
+.max =  -.0111921792849898
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1015,8 +1019,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0226146075874567
-.max =  -.0226146075874567
+.min =  -.0226108971983194
+.max =  -.0226108971983194
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1027,8 +1031,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0122574679553509
-.max =  -.0122574679553509
+.min =  -.012252040207386
+.max =  -.012252040207386
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1039,8 +1043,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0174360368400812
-.max =  -.0174360368400812
+.min =  -.0174314696341753
+.max =  -.0174314696341753
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1048,19 +1052,19 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSeries>
 .weight_id = (.)
 <BeginSersetData>
-sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                       ¿ {öø    uÇø   ‡õﬁ#@   ‡>òø    ›ÓÜø   †H(óø   Äqâø   †¿⁄ëø   ¿ {öø    uÇø   ‡õﬁ#@   ‡>òø    ›ÓÜø   †H(óø   Äqâø   †¿⁄ëøÿ”º®ºﬂÙAó¡ºËv7ºEBπºå”Hº÷éº
+sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                        ,zöø   @‡qÇø   ‡õﬁ#@   ¿%=òø   ‡ÏÎÜø   †O'óø    ôâø    éŸëø    ,zöø   @‡qÇø   ‡õﬁ#@   ¿%=òø   ‡ÏÎÜø   †O'óø    ôâø    éŸëø`—”ºèºﬂÙA.È¡ºg_7º}:πº»ºHºqÃéº
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071e7d00 
+<BeginItem> serset K600007f63f00 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0154978483915329
-.max =  -.0154978483915329
+.min =  -.0154935047030449
+.max =  -.0154935047030449
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1071,8 +1075,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0164356958121061
-.max =  .0164356958121061
+.min =  .0164364073425531
+.max =  .0164364073425531
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1095,8 +1099,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0113552771508694
-.max =  -.0113552771508694
+.min =  -.0113514037802815
+.max =  -.0113514037802815
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1107,8 +1111,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .01229312364012
-.max =  .01229312364012
+.min =  .0122943064197898
+.max =  .0122943064197898
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1119,8 +1123,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  -.0093467142432928
-.max =  -.0093467142432928
+.min =  -.0093430690467358
+.max =  -.0093430690467358
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1131,8 +1135,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0102845598012209
-.max =  .0102845598012209
+.min =  .010285971686244
+.max =  .010285971686244
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1143,8 +1147,8 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .label = `""'
 .format = `"%9.0g"'
 .type.set numeric
-.min =  .0004689231864177
-.max =  .0004689231864177
+.min =  .0004714514943771
+.max =  .0004714514943771
 .median = (.)
 .pct25 = (.)
 .pct75 = (.)
@@ -1152,11 +1156,11 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSeries>
 .weight_id = (.)
 <BeginSersetData>
-sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                        VΩèø   ‡Ñ‘ê?   †ﬁÙ%@   ÄoAáø    #-â?   ¿^$Éø   @Ö?   ¿9ª>?    VΩèø   ‡Ñ‘ê?   †ﬁÙ%@   ÄoAáø    #-â?   ¿^$Éø   @Ö?   ¿9ª>?∞Í}º'§Ü<ı¶/A|:ºiI<ˆ"ºíÄ(<ŒŸı9
+sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                                                                                                                                      __00000F reatment                                                                                                                                     __000003 _effect_upper_95CI                                                                                                                           __00000G _effect_lower_95CI                                                                                                                           __00000H                                                                                                                                              __00000I                                                                                                                                              __00000J                                                                                                                                              __000006                                                                                                                                              %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                    %9.0g                                                        ªèø   †¥‘ê?   †ﬁÙ%@   †g?áø   ‡¡-â?   Äu"Éø   ¿œÖ?   ¿§Â>?    ªèø   †¥‘ê?   †ﬁÙ%@   †g?áø   ‡¡-â?   Äu"Éø   ¿œÖ?   ¿§Â>?xÿ}º••Ü<ı¶/A=˚9ºnI<¨º~Ü(<&-˜9
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071e6a80 
+<BeginItem> serset K600007f6d080 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
@@ -1260,7 +1264,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K600007136480 
+<BeginItem> serset K600007f4c380 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
@@ -1364,7 +1368,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K600007134d80 
+<BeginItem> serset K600007f6d240 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
@@ -1468,7 +1472,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K600007137dc0 
+<BeginItem> serset K600007f6fe40 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
@@ -1572,7 +1576,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K600007137c00 
+<BeginItem> serset K600007f5f880 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
@@ -1677,7 +1681,7 @@ UΩîãº=jΩ
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K600007184740 
+<BeginItem> serset K600007f5d300 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
@@ -1781,7 +1785,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K600007137300 
+<BeginItem> serset K6000071b3a80 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
@@ -1885,7 +1889,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071323c0 
+<BeginItem> serset K6000071be500 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
@@ -1989,7 +1993,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K600007133f00 
+<BeginItem> serset K6000071a79c0 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
@@ -2095,7 +2099,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071e0a00 
+<BeginItem> serset K600007196b00 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
@@ -2199,7 +2203,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> serset K6000071e0ac0 
+<BeginItem> serset K600007f35d40 
 <BeginSerset>
 <BeginSeries>
 .name = `"__00000E"'
@@ -2303,32 +2307,32 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 <EndSersetData>
 <EndSerset>
 <EndItem>
-<BeginItem> scheme K600007126380 
+<BeginItem> scheme K600007c076c0 
 .setscheme , scheme(s1color) naturallywhite(1)
 <EndItem>
-<BeginItem> twowaygraph_g K6000071f3240 <UseScheme> K600007126380
-.sersets[1] = .__Map.K6000071fc300.ref
-.sersets[2] = .__Map.K6000071e51c0.ref
-.sersets[3] = .__Map.K6000071e5980.ref
-.sersets[4] = .__Map.K6000071e5fc0.ref
-.sersets[5] = .__Map.K6000071e7f40.ref
-.sersets[6] = .__Map.K6000071fac00.ref
-.sersets[7] = .__Map.K6000071fb580.ref
-.sersets[8] = .__Map.K600007136900.ref
-.sersets[9] = .__Map.K6000071fafc0.ref
-.sersets[10] = .__Map.K6000071fbfc0.ref
-.sersets[11] = .__Map.K6000071e7d00.ref
-.sersets[12] = .__Map.K6000071e6a80.ref
-.sersets[13] = .__Map.K600007136480.ref
-.sersets[14] = .__Map.K600007134d80.ref
-.sersets[15] = .__Map.K600007137dc0.ref
-.sersets[16] = .__Map.K600007137c00.ref
-.sersets[17] = .__Map.K600007184740.ref
-.sersets[18] = .__Map.K600007137300.ref
-.sersets[19] = .__Map.K6000071323c0.ref
-.sersets[20] = .__Map.K600007133f00.ref
-.sersets[21] = .__Map.K6000071e0a00.ref
-.sersets[22] = .__Map.K6000071e0ac0.ref
+<BeginItem> twowaygraph_g K600007f6ecc0 <UseScheme> K600007c076c0
+.sersets[1] = .__Map.K600007f5b640.ref
+.sersets[2] = .__Map.K600007f44fc0.ref
+.sersets[3] = .__Map.K600007f47f00.ref
+.sersets[4] = .__Map.K600007f46640.ref
+.sersets[5] = .__Map.K600007f42ac0.ref
+.sersets[6] = .__Map.K600007f611c0.ref
+.sersets[7] = .__Map.K600007f41180.ref
+.sersets[8] = .__Map.K600007f42740.ref
+.sersets[9] = .__Map.K600007f42c80.ref
+.sersets[10] = .__Map.K600007f4e180.ref
+.sersets[11] = .__Map.K600007f63f00.ref
+.sersets[12] = .__Map.K600007f6d080.ref
+.sersets[13] = .__Map.K600007f4c380.ref
+.sersets[14] = .__Map.K600007f6d240.ref
+.sersets[15] = .__Map.K600007f6fe40.ref
+.sersets[16] = .__Map.K600007f5f880.ref
+.sersets[17] = .__Map.K600007f5d300.ref
+.sersets[18] = .__Map.K6000071b3a80.ref
+.sersets[19] = .__Map.K6000071be500.ref
+.sersets[20] = .__Map.K6000071a79c0.ref
+.sersets[21] = .__Map.K600007196b00.ref
+.sersets[22] = .__Map.K600007f35d40.ref
 .insert (plotregion1 = .plotregion.new , style(scheme twoway) graph(`.objkey')) at 1 1
 .plotregion1.style.editstyle margin(t=0 b=0) editcopy
 .plotregion1.Declare plot1 = .y2xview_g.new , type(rspike) serset(`.sersets[1].objkey') yvariable(`.sersets[1].seriesof __00000E') xvariable(`.sersets[1].seriesof __000003')    plotregion(`.plotregion1.objkey') style(scheme p1) ybvar(`.sersets[1].seriesof __00000F')
@@ -2341,7 +2345,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .plotregion1.plot3.style.editstyle style(p1) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*4)) area(linestyle(width(*4))) editcopy
 .plotregion1.plot3.bar_drop_to.setstyle , style(y)
 .plotregion1.Declare plot4 = .yxview.new , type(scatter) serset(`.sersets[1].objkey') yvariable(`.sersets[1].seriesof __000003') xvariable(`.sersets[1].seriesof __000006')    plotregion(`.plotregion1.objkey') style(scheme p4) 
-.plotregion1.plot4.style.editstyle style(p1) marker(fillcolor(red) linestyle(color(red))) marker(size(medium)) editcopy
+.plotregion1.plot4.style.editstyle style(p1) marker(fillcolor(red) linestyle(color(red))) marker(fillcolor(white)) marker(size(medium)) editcopy
 .plotregion1.Declare plot5 = .y2xview_g.new , type(rspike) serset(`.sersets[2].objkey') yvariable(`.sersets[2].seriesof __00000E') xvariable(`.sersets[2].seriesof __000003')    plotregion(`.plotregion1.objkey') style(scheme p5) ybvar(`.sersets[2].seriesof __00000F')
 .plotregion1.plot5.style.editstyle style(p2) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*1)) area(linestyle(width(*1))) editcopy
 .plotregion1.plot5.bar_drop_to.setstyle , style(y)
@@ -2352,7 +2356,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .plotregion1.plot7.style.editstyle style(p2) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*4)) area(linestyle(width(*4))) editcopy
 .plotregion1.plot7.bar_drop_to.setstyle , style(y)
 .plotregion1.Declare plot8 = .yxview.new , type(scatter) serset(`.sersets[2].objkey') yvariable(`.sersets[2].seriesof __000003') xvariable(`.sersets[2].seriesof __000006')    plotregion(`.plotregion1.objkey') style(scheme p8) 
-.plotregion1.plot8.style.editstyle style(p2) marker(fillcolor(red) linestyle(color(red))) marker(size(medium)) editcopy
+.plotregion1.plot8.style.editstyle style(p2) marker(fillcolor(red) linestyle(color(red))) marker(fillcolor(white)) marker(size(medium)) editcopy
 .plotregion1.Declare plot9 = .y2xview_g.new , type(rspike) serset(`.sersets[3].objkey') yvariable(`.sersets[3].seriesof __00000E') xvariable(`.sersets[3].seriesof __000003')    plotregion(`.plotregion1.objkey') style(scheme p9) ybvar(`.sersets[3].seriesof __00000F')
 .plotregion1.plot9.style.editstyle style(p3) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*1)) area(linestyle(width(*1))) editcopy
 .plotregion1.plot9.bar_drop_to.setstyle , style(y)
@@ -2385,7 +2389,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .plotregion1.plot19.style.editstyle style(p5) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*4)) area(linestyle(width(*4))) editcopy
 .plotregion1.plot19.bar_drop_to.setstyle , style(y)
 .plotregion1.Declare plot20 = .yxview.new , type(scatter) serset(`.sersets[5].objkey') yvariable(`.sersets[5].seriesof __000003') xvariable(`.sersets[5].seriesof __000006')    plotregion(`.plotregion1.objkey') style(scheme p5) 
-.plotregion1.plot20.style.editstyle style(p5) marker(fillcolor(red) linestyle(color(red))) marker(size(medium)) editcopy
+.plotregion1.plot20.style.editstyle style(p5) marker(fillcolor(red) linestyle(color(red))) marker(fillcolor(white)) marker(size(medium)) editcopy
 .plotregion1.Declare plot21 = .y2xview_g.new , type(rspike) serset(`.sersets[6].objkey') yvariable(`.sersets[6].seriesof __00000E') xvariable(`.sersets[6].seriesof __000003')    plotregion(`.plotregion1.objkey') style(scheme p6) ybvar(`.sersets[6].seriesof __00000F')
 .plotregion1.plot21.style.editstyle style(p6) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*1)) area(linestyle(width(*1))) editcopy
 .plotregion1.plot21.bar_drop_to.setstyle , style(y)
@@ -2407,7 +2411,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .plotregion1.plot27.style.editstyle style(p7) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*4)) area(linestyle(width(*4))) editcopy
 .plotregion1.plot27.bar_drop_to.setstyle , style(y)
 .plotregion1.Declare plot28 = .yxview.new , type(scatter) serset(`.sersets[7].objkey') yvariable(`.sersets[7].seriesof __000003') xvariable(`.sersets[7].seriesof __000006')    plotregion(`.plotregion1.objkey') style(scheme p13) 
-.plotregion1.plot28.style.editstyle style(p7) marker(fillcolor(red) linestyle(color(red))) marker(size(medium)) editcopy
+.plotregion1.plot28.style.editstyle style(p7) marker(fillcolor(red) linestyle(color(red))) marker(fillcolor(white)) marker(size(medium)) editcopy
 .plotregion1.Declare plot29 = .y2xview_g.new , type(rspike) serset(`.sersets[8].objkey') yvariable(`.sersets[8].seriesof __00000E') xvariable(`.sersets[8].seriesof __000003')    plotregion(`.plotregion1.objkey') style(scheme p14) ybvar(`.sersets[8].seriesof __00000F')
 .plotregion1.plot29.style.editstyle style(p8) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*1)) area(linestyle(width(*1))) editcopy
 .plotregion1.plot29.bar_drop_to.setstyle , style(y)
@@ -2418,7 +2422,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .plotregion1.plot31.style.editstyle style(p8) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*4)) area(linestyle(width(*4))) editcopy
 .plotregion1.plot31.bar_drop_to.setstyle , style(y)
 .plotregion1.Declare plot32 = .yxview.new , type(scatter) serset(`.sersets[8].objkey') yvariable(`.sersets[8].seriesof __000003') xvariable(`.sersets[8].seriesof __000006')    plotregion(`.plotregion1.objkey') style(scheme p2) 
-.plotregion1.plot32.style.editstyle style(p8) marker(fillcolor(red) linestyle(color(red))) marker(size(medium)) editcopy
+.plotregion1.plot32.style.editstyle style(p8) marker(fillcolor(red) linestyle(color(red))) marker(fillcolor(white)) marker(size(medium)) editcopy
 .plotregion1.Declare plot33 = .y2xview_g.new , type(rspike) serset(`.sersets[9].objkey') yvariable(`.sersets[9].seriesof __00000E') xvariable(`.sersets[9].seriesof __000003')    plotregion(`.plotregion1.objkey') style(scheme p3) ybvar(`.sersets[9].seriesof __00000F')
 .plotregion1.plot33.style.editstyle style(p9) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*1)) area(linestyle(width(*1))) editcopy
 .plotregion1.plot33.bar_drop_to.setstyle , style(y)
@@ -2429,7 +2433,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .plotregion1.plot35.style.editstyle style(p9) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*4)) area(linestyle(width(*4))) editcopy
 .plotregion1.plot35.bar_drop_to.setstyle , style(y)
 .plotregion1.Declare plot36 = .yxview.new , type(scatter) serset(`.sersets[9].objkey') yvariable(`.sersets[9].seriesof __000003') xvariable(`.sersets[9].seriesof __000006')    plotregion(`.plotregion1.objkey') style(scheme p6) 
-.plotregion1.plot36.style.editstyle style(p9) marker(fillcolor(red) linestyle(color(red))) marker(size(medium)) editcopy
+.plotregion1.plot36.style.editstyle style(p9) marker(fillcolor(red) linestyle(color(red))) marker(fillcolor(white)) marker(size(medium)) editcopy
 .plotregion1.Declare plot37 = .y2xview_g.new , type(rspike) serset(`.sersets[10].objkey') yvariable(`.sersets[10].seriesof __00000E') xvariable(`.sersets[10].seriesof __000003')    plotregion(`.plotregion1.objkey') style(scheme p7) ybvar(`.sersets[10].seriesof __00000F')
 .plotregion1.plot37.style.editstyle style(p10) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*1)) area(linestyle(width(*1))) editcopy
 .plotregion1.plot37.bar_drop_to.setstyle , style(y)
@@ -2440,7 +2444,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .plotregion1.plot39.style.editstyle style(p10) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*4)) area(linestyle(width(*4))) editcopy
 .plotregion1.plot39.bar_drop_to.setstyle , style(y)
 .plotregion1.Declare plot40 = .yxview.new , type(scatter) serset(`.sersets[10].objkey') yvariable(`.sersets[10].seriesof __000003') xvariable(`.sersets[10].seriesof __000006')    plotregion(`.plotregion1.objkey') style(scheme p10) 
-.plotregion1.plot40.style.editstyle style(p10) marker(fillcolor(red) linestyle(color(red))) marker(size(medium)) editcopy
+.plotregion1.plot40.style.editstyle style(p10) marker(fillcolor(red) linestyle(color(red))) marker(fillcolor(white)) marker(size(medium)) editcopy
 .plotregion1.Declare plot41 = .y2xview_g.new , type(rspike) serset(`.sersets[11].objkey') yvariable(`.sersets[11].seriesof __00000E') xvariable(`.sersets[11].seriesof __000003')    plotregion(`.plotregion1.objkey') style(scheme p11) ybvar(`.sersets[11].seriesof __00000F')
 .plotregion1.plot41.style.editstyle style(p11) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*1)) area(linestyle(width(*1))) editcopy
 .plotregion1.plot41.bar_drop_to.setstyle , style(y)
@@ -2451,7 +2455,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .plotregion1.plot43.style.editstyle style(p11) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*4)) area(linestyle(width(*4))) editcopy
 .plotregion1.plot43.bar_drop_to.setstyle , style(y)
 .plotregion1.Declare plot44 = .yxview.new , type(scatter) serset(`.sersets[11].objkey') yvariable(`.sersets[11].seriesof __000003') xvariable(`.sersets[11].seriesof __000006')    plotregion(`.plotregion1.objkey') style(scheme p14) 
-.plotregion1.plot44.style.editstyle style(p11) marker(fillcolor(red) linestyle(color(red))) marker(size(medium)) editcopy
+.plotregion1.plot44.style.editstyle style(p11) marker(fillcolor(red) linestyle(color(red))) marker(fillcolor(white)) marker(size(medium)) editcopy
 .plotregion1.Declare plot45 = .y2xview_g.new , type(rspike) serset(`.sersets[12].objkey') yvariable(`.sersets[12].seriesof __00000E') xvariable(`.sersets[12].seriesof __000003')    plotregion(`.plotregion1.objkey') style(scheme p15) ybvar(`.sersets[12].seriesof __00000F')
 .plotregion1.plot45.style.editstyle style(p12) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*1)) area(linestyle(width(*1))) editcopy
 .plotregion1.plot45.bar_drop_to.setstyle , style(y)
@@ -2528,7 +2532,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .plotregion1.plot71.style.editstyle style(p3) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*4)) area(linestyle(width(*4))) editcopy
 .plotregion1.plot71.bar_drop_to.setstyle , style(y)
 .plotregion1.Declare plot72 = .yxview.new , type(scatter) serset(`.sersets[18].objkey') yvariable(`.sersets[18].seriesof __000003') xvariable(`.sersets[18].seriesof __000006')    plotregion(`.plotregion1.objkey') style(scheme p12) 
-.plotregion1.plot72.style.editstyle style(p3) marker(symbol(S)) marker(fillcolor(red) linestyle(color(red))) marker(size(medium)) editcopy
+.plotregion1.plot72.style.editstyle style(p3) marker(symbol(S)) marker(fillcolor(red) linestyle(color(red))) marker(fillcolor(white)) marker(size(medium)) editcopy
 .plotregion1.Declare plot73 = .y2xview_g.new , type(rspike) serset(`.sersets[19].objkey') yvariable(`.sersets[19].seriesof __00000E') xvariable(`.sersets[19].seriesof __000003')    plotregion(`.plotregion1.objkey') style(scheme p13) ybvar(`.sersets[19].seriesof __00000F')
 .plotregion1.plot73.style.editstyle style(p4) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*1)) area(linestyle(width(*1))) editcopy
 .plotregion1.plot73.bar_drop_to.setstyle , style(y)
@@ -2550,7 +2554,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .plotregion1.plot79.style.editstyle style(p5) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*4)) area(linestyle(width(*4))) editcopy
 .plotregion1.plot79.bar_drop_to.setstyle , style(y)
 .plotregion1.Declare plot80 = .yxview.new , type(scatter) serset(`.sersets[20].objkey') yvariable(`.sersets[20].seriesof __000003') xvariable(`.sersets[20].seriesof __000006')    plotregion(`.plotregion1.objkey') style(scheme p5) 
-.plotregion1.plot80.style.editstyle style(p5) marker(symbol(S)) marker(fillcolor(red) linestyle(color(red))) marker(size(medium)) editcopy
+.plotregion1.plot80.style.editstyle style(p5) marker(symbol(S)) marker(fillcolor(red) linestyle(color(red))) marker(fillcolor(white)) marker(size(medium)) editcopy
 .plotregion1.Declare plot81 = .y2xview_g.new , type(rspike) serset(`.sersets[21].objkey') yvariable(`.sersets[21].seriesof __00000E') xvariable(`.sersets[21].seriesof __000003')    plotregion(`.plotregion1.objkey') style(scheme p6) ybvar(`.sersets[21].seriesof __00000F')
 .plotregion1.plot81.style.editstyle style(p6) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*1)) area(linestyle(width(*1))) editcopy
 .plotregion1.plot81.bar_drop_to.setstyle , style(y)
@@ -2572,7 +2576,7 @@ sersetreadwrite       ˛˛˛˛˛˛˛˛__00000E _effect                              
 .plotregion1.plot87.style.editstyle style(p7) line(color(black)) area(shadestyle(color(black))) area(linestyle(color(black))) marker(fillcolor(black) linestyle(color(black))) line(width(*4)) area(linestyle(width(*4))) editcopy
 .plotregion1.plot87.bar_drop_to.setstyle , style(y)
 .plotregion1.Declare plot88 = .yxview.new , type(scatter) serset(`.sersets[22].objkey') yvariable(`.sersets[22].seriesof __000003') xvariable(`.sersets[22].seriesof __000006')    plotregion(`.plotregion1.objkey') style(scheme p13) 
-.plotregion1.plot88.style.editstyle style(p7) marker(symbol(S)) marker(fillcolor(red) linestyle(color(red))) marker(size(medium)) editcopy
+.plotregion1.plot88.style.editstyle style(p7) marker(symbol(S)) marker(fillcolor(red) linestyle(color(red))) marker(fillcolor(white)) marker(size(medium)) editcopy
 .plotregion1.clear_scales
 .plotregion1.reset_scales , noclear
 .n_views = 88
@@ -2633,7 +2637,7 @@ tempname glsty
 .yaxis1.addmax 11.5
 .yaxis1.plotregion.yscale.reverse.set_true
 .yaxis1.major.clear
-.yaxis1.major.add_ticks  1 `"Narcotraffick"' 2 `"Insecurity"' 3 `"Punishment"' 4 `"Corruption"' 5 `"Poverty"' 6 `"Unemployment"' 7 `"Inflation"' 8 `"Disaster"' 9 `"Water"' 10 `"Education"' 11 `"Health"' ,  
+.yaxis1.major.add_ticks  1 `"Narcotraffic"' 2 `"Insecurity"' 3 `"Punishment"' 4 `"Corruption"' 5 `"Poverty"' 6 `"Unemployment"' 7 `"Inflation"' 8 `"Disaster"' 9 `"Water"' 10 `"Education"' 11 `"Health"' ,  
 .yaxis1.major.set_default 0
 .yaxis1.reset_scale reinit
 .yaxis1.style.editstyle draw_major_grid(no) editcopy
@@ -2670,9 +2674,9 @@ tempname glsty
 .insert (spacerb = .spacer.new) below plotregion1 , ring(11)
 .insert (spacerl = .spacer.new) leftof plotregion1 , ring(11)
 .insert (spacerr = .spacer.new) rightof plotregion1 , ring(11)
-.command = `"twoway (rspike __00000E __00000F __000003 if __000002==1,  pstyle(p1)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==1,  pstyle(p1)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==1,  pstyle(p1)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==1,  pstyle(p1)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==2,  pstyle(p2)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==2,  pstyle(p2)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==2,  pstyle(p2)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==2,  pstyle(p2)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==3,  pstyle(p3)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==3,  pstyle(p3)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==3,  pstyle(p3)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==3,  pstyle(p3)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==4,  pstyle(p4)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==4,  pstyle(p4)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==4,  pstyle(p4)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==4,  pstyle(p4)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==5,  pstyle(p5)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==5,  pstyle(p5)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==5,  pstyle(p5)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==5,  pstyle(p5)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==6,  pstyle(p6)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==6,  pstyle(p6)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==6,  pstyle(p6)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==6,  pstyle(p6)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==7,  pstyle(p7)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==7,  pstyle(p7)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==7,  pstyle(p7)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==7,  pstyle(p7)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==8,  pstyle(p8)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==8,  pstyle(p8)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==8,  pstyle(p8)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==8,  pstyle(p8)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==9,  pstyle(p9)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==9,  pstyle(p9)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==9,  pstyle(p9)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==9,  pstyle(p9)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==10,  pstyle(p10)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==10,  pstyle(p10)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==10,  pstyle(p10)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==10,  pstyle(p10)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==11,  pstyle(p11)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==11,  pstyle(p11)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==11,  pstyle(p11)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==11,  pstyle(p11)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==12,  pstyle(p12)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==12,  pstyle(p12)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==12,  pstyle(p12)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==12,  pstyle(p12)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==13,  pstyle(p13)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==13,  pstyle(p13)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==13,  pstyle(p13)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==13,  pstyle(p13)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==14,  pstyle(p14)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==14,  pstyle(p14)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==14,  pstyle(p14)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==14,  pstyle(p14)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==15,  pstyle(p15)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==15,  pstyle(p15)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==15,  pstyle(p15)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==15,  pstyle(p15)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==16,  pstyle(p1)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==16,  pstyle(p1)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==16,  pstyle(p1)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==16,  pstyle(p1)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==17,  pstyle(p2)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==17,  pstyle(p2)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==17,  pstyle(p2)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==17,  pstyle(p2)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==18,  pstyle(p3)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==18,  pstyle(p3)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==18,  pstyle(p3)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==18,  pstyle(p3)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==19,  pstyle(p4)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==19,  pstyle(p4)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==19,  pstyle(p4)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==19,  pstyle(p4)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==20,  pstyle(p5)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==20,  pstyle(p5)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==20,  pstyle(p5)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==20,  pstyle(p5)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==21,  pstyle(p6)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==21,  pstyle(p6)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==21,  pstyle(p6)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==21,  pstyle(p6)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==22,  pstyle(p7)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==22,  pstyle(p7)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==22,  pstyle(p7)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==22,  pstyle(p7)       msize(medium) msymbol(S) mcolor(red)),    ylabel(1 `"Narcotraffick"' 2 `"Insecurity"' 3 `"Punishment"' 4 `"Corruption"' 5 `"Poverty"' 6 `"Unemployment"' 7 `"Inflation"' 8 `"Disaster"' 9 `"Water"' 10 `"Education"' 11 `"Health"', nogrid angle(horizontal) )  ytick(1.5 1.5 2.5 2.5 3.5 3.5 4.5 4.5 5.5 5.5 6.5 6.5 7.5 7.5 8.5 8.5 9.5 9.5 10.5 10.5, notick tlstyle(none) grid ) yscale(range(.5 11.5)) yscale(reverse) yti("") xti("") legend(label(4 `"est1"') label(8 `"est2"') label(12 `"est3"') label(16 `"est4"') label(20 `"est5"') label(24 `"est6"') label(28 `"est7"') label(32 `"est8"') label(36 `"est9"') label(40 `"est10"') label(44 `"est11"') label(48 `"est12"') label(52 `"est13"') label(56 `"est14"') label(60 `"est15"') label(64 `"est16"') label(68 `"est17"') label(72 `"est18"') label(76 `"est19"') label(80 `"est20"') label(84 `"est21"') label(88 `"est22"') all order(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88)) legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" 20 "TWFE" 80 "CATTs") rows(2)) plotregion(margin(t=0 b=0))  scheme(s1color)  subtitle("Topic that worries the most") xline(0) ytitle(" ") xtitle("Term Limit Reform Average Effect" "from t to t+3")"'
-.date = "19 Apr 2021"
-.time = "20:44:39"
+.command = `"twoway (rspike __00000E __00000F __000003 if __000002==1,  pstyle(p1)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==1,  pstyle(p1)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==1,  pstyle(p1)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==1,  pstyle(p1)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==2,  pstyle(p2)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==2,  pstyle(p2)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==2,  pstyle(p2)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==2,  pstyle(p2)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==3,  pstyle(p3)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==3,  pstyle(p3)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==3,  pstyle(p3)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==3,  pstyle(p3)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==4,  pstyle(p4)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==4,  pstyle(p4)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==4,  pstyle(p4)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==4,  pstyle(p4)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==5,  pstyle(p5)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==5,  pstyle(p5)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==5,  pstyle(p5)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==5,  pstyle(p5)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==6,  pstyle(p6)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==6,  pstyle(p6)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==6,  pstyle(p6)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==6,  pstyle(p6)       msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==7,  pstyle(p7)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==7,  pstyle(p7)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==7,  pstyle(p7)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==7,  pstyle(p7)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==8,  pstyle(p8)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==8,  pstyle(p8)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==8,  pstyle(p8)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==8,  pstyle(p8)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==9,  pstyle(p9)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==9,  pstyle(p9)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==9,  pstyle(p9)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==9,  pstyle(p9)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==10,  pstyle(p10)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==10,  pstyle(p10)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==10,  pstyle(p10)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==10,  pstyle(p10)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==11,  pstyle(p11)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==11,  pstyle(p11)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==11,  pstyle(p11)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==11,  pstyle(p11)       mfcolor(white) msize(medium) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==12,  pstyle(p12)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==12,  pstyle(p12)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==12,  pstyle(p12)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==12,  pstyle(p12)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==13,  pstyle(p13)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==13,  pstyle(p13)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==13,  pstyle(p13)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==13,  pstyle(p13)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==14,  pstyle(p14)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==14,  pstyle(p14)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==14,  pstyle(p14)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==14,  pstyle(p14)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==15,  pstyle(p15)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==15,  pstyle(p15)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==15,  pstyle(p15)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==15,  pstyle(p15)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==16,  pstyle(p1)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==16,  pstyle(p1)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==16,  pstyle(p1)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==16,  pstyle(p1)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==17,  pstyle(p2)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==17,  pstyle(p2)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==17,  pstyle(p2)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==17,  pstyle(p2)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==18,  pstyle(p3)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==18,  pstyle(p3)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==18,  pstyle(p3)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==18,  pstyle(p3)       mfcolor(white) msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==19,  pstyle(p4)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==19,  pstyle(p4)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==19,  pstyle(p4)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==19,  pstyle(p4)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==20,  pstyle(p5)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==20,  pstyle(p5)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==20,  pstyle(p5)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==20,  pstyle(p5)       mfcolor(white) msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==21,  pstyle(p6)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==21,  pstyle(p6)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==21,  pstyle(p6)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==21,  pstyle(p6)       msize(medium) msymbol(S) mcolor(red)) (rspike __00000E __00000F __000003 if __000002==22,  pstyle(p7)   lwidth(*1) color(black) horizontal) (rspike __00000G __00000H __000003 if __000002==22,  pstyle(p7)   lwidth(*3) color(black) horizontal) (rspike __00000I __00000J __000003 if __000002==22,  pstyle(p7)   lwidth(*4) color(black) horizontal) (scatter __000003 __000006 if __000002==22,  pstyle(p7)       mfcolor(white) msize(medium) msymbol(S) mcolor(red)),    ylabel(1 `"Narcotraffic"' 2 `"Insecurity"' 3 `"Punishment"' 4 `"Corruption"' 5 `"Poverty"' 6 `"Unemployment"' 7 `"Inflation"' 8 `"Disaster"' 9 `"Water"' 10 `"Education"' 11 `"Health"', nogrid angle(horizontal) )  ytick(1.5 1.5 2.5 2.5 3.5 3.5 4.5 4.5 5.5 5.5 6.5 6.5 7.5 7.5 8.5 8.5 9.5 9.5 10.5 10.5, notick tlstyle(none) grid ) yscale(range(.5 11.5)) yscale(reverse) yti("") xti("") legend(label(4 `"est1"') label(8 `"est2"') label(12 `"est3"') label(16 `"est4"') label(20 `"est5"') label(24 `"est6"') label(28 `"est7"') label(32 `"est8"') label(36 `"est9"') label(40 `"est10"') label(44 `"est11"') label(48 `"est12"') label(52 `"est13"') label(56 `"est14"') label(60 `"est15"') label(64 `"est16"') label(68 `"est17"') label(72 `"est18"') label(76 `"est19"') label(80 `"est20"') label(84 `"est21"') label(88 `"est22"') all order(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88)) legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" 20 "TWFE" 80 "CATTs") rows(2)) plotregion(margin(t=0 b=0))  scheme(s1color)  subtitle("Topic that worries the most") xline(0) ytitle(" ") xtitle("Term Limit Reform Average Effect" "from t to t+3")"'
+.date = "23 Apr 2021"
+.time = "16:01:53"
 .dta_file = "../../Data/ConstructionDatabase/data_final.dta"
-.dta_date = "19 Apr 2021 20:25"
+.dta_date = "22 Apr 2021 16:38"
 <EndItem>

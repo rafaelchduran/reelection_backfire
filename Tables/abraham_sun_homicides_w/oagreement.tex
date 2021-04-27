@@ -1,0 +1,47 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of 2014 Term Limit Reform on Violence}
+\label{tab:abraham_sun_lagdv}
+\scalebox{1}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{1}{c}{log(homicide per capita)} & \multicolumn{1}{c}{log(homicide per capita)$^{a}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+\addlinespace
+Lag 7 years &      $ 0.4227^{} $ &  $ 1.0830^{***} $   \\
+& ($ 0.2667$) & ($ 0.2165 $) \\
+Lag 6 years &          $ -0.0067^{} $ &   $ 0.1266^{} $  \\
+& ($ 0.0443$) & ($ 0.0766 $) \\
+Lag 5 years &        $ 0.0630^{} $ &   $ 0.1096^{} $ \\
+& ($ 0.0572$) & ($ 0.0805 $) \\
+Lag 4 years &         $ 0.0554^{} $ &      $ 0.2563^{} $  \\
+& ($ 0.1016$) & ($ 0.1873 $) \\
+Lag 3 years &        $ 0.0488^{} $ &     $ 0.1280^{} $ \\
+& ($ 0.0475$) & ($ 0.1074 $) \\
+Lag 2 years &        $ -0.0294^{} $ &    $ 0.0801^{} $  \\
+& ($ 0.0615$) & ($ 0.1074 $) \\
+Reform, time 0 &        $ 0.0009^{} $ &     $ 0.0202^{} $ \\
+& ($ 0.0351$) & ($ 0.0366 $) \\
+Lead 1 year &         $ -0.0476^{} $ &       $ 0.1215^{*} $ \\
+& ($ 0.0884$) & ($ 0.0631 $) \\
+Lead 2 years &         $ 0.0153^{} $ &      $ 0.1600^{*} $  \\
+& ($ 0.1075$) & ($ 0.0792 $) \\
+Lead 3 years &        $ 0.1376^{} $ &     $ 0.4916^{***} $ \\
+& ($ 0.0838$) & ($ 0.1067 $) \\
+\addlinespace
+Observations       &                 10,469        &           3,848  \\
+R-squared        &              0.7307        &           0.7980   \\
+Mun. FEs       &     \checkmark         &  \checkmark    \\
+Year. FEs       &     \checkmark         &  \checkmark   \\
+Controls$^b$   &      \checkmark       &      \checkmark    \\
+Cohort weighted   &   \checkmark       &   \checkmark    \\
+WILD CI   &          &   \checkmark    \\
+Aggregate effect        &           $   0.0266^{} $        &           $0.1983^{***} $    \\
+SE (aggregate eff.)        &              0.0558        &           0.0524   \\
+\hline \hline
+\multicolumn{3}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to the inverse hyperbolic sine transformation. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\end{tabular}
+}
+\end{table}

@@ -1,18 +1,18 @@
 \begin{landscape}
 \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \centering
-\caption{Effect of 2014 Term Limit Reform on Services Delegated to the Governor}
-\label{tab:interaction_sec_preferences_average}
+\caption{Effect of 2014 Term Limit Reform on Security Cooperation Agreements with the Governor}
+\label{tab:interaction_sec_preferences_aggregate}
 \scalebox{0.70}{
 \begin{tabular}{lcccccccc}
 \hline \hline
-\\ \multicolumn{9}{l}{Dependent variable:}\\
-Service delegated: & Public security  & Traffic & Prevention & Training  & Technology & Research & Inteligence & Unify procedures \\
+\\ \multicolumn{9}{l}{Dependent variable: Pretreatment Citizens Preferences}\\
+: & Narco  & Insecurity & Punishment & Private sec expenditure  & Poverty & Unemployment & Inflation & Natural disaster \\
 & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} & \multicolumn{1}{c}{(5)} & \multicolumn{1}{c}{(6)} & \multicolumn{1}{c}{(7)} & \multicolumn{1}{c}{(8)} \\
 \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \cmidrule(lrr){5-5} \cmidrule(lrr){6-6} \cmidrule(lrr){7-7} \cmidrule(lrr){8-8} \cmidrule(lrr){9-9} \\
 \addlinespace
-Reform average effect         & $-0.1547^{*} $$      & $0.1207^{} $$     & $0.0624^{} $$        & $-0.0634^{} $$       & $-0.1783^{} $$        & $-1.0585^{***} $$    & $-0.4811^{} $$      & $0.1788^{} $$     \\
-SE       & (0.0816)  & (0.1705) & (0.1920)  & (0.2200)  & (0.1496)  & (0.2736)    & (0.6219)  & (0.1534)   \\
+Reform average effect         & $-0.1548^{*} $$      & $0.1205^{} $$     & $0.0624^{} $$        & $-0.0635^{} $$       & $-0.1780^{} $$        & $-1.0586^{***} $$    & $-0.4812^{} $$      & $0.1788^{} $$     \\
+SE       & (0.0816)  & (0.1705) & (0.1920)  & (0.2199)  & (0.1496)  & (0.2736)    & (0.6218)  & (0.1534)   \\
 \addlinespace
 Observations       &             12,173    &             12,173    &          12,173      &          12,173  &             12,173    &             12,173  &             12,173    &             12,173   \\
 R-squared        &          0.4606 &          0.4600    &    0.4607       &           0.4567 &          0.4592 &          0.4686     &        0.4582    &        0.4606   \\
@@ -22,7 +22,7 @@ Controls$^b$  &    \checkmark     &       \checkmark  &    \checkmark      &   \
 Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark  &   \checkmark      &       \checkmark  &   \checkmark       &   \checkmark    \\
 Parallel trend holds &   \checkmark      &       \checkmark  &          &     &         &       &          &       \\
 \hline \hline
-\multicolumn{9}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes with missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\multicolumn{9}{p{1.5\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to security cooperation agreements signed with the Governor. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
 \end{tabular}
 }
 \end{table}

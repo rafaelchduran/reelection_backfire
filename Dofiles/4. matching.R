@@ -66,7 +66,7 @@ plot(PM.results.none.results)
 dev.copy(png,'../Figures/panelmatch_logdefuncionespc.png')
 dev.off()
 
-##My plot style:
+##My plot style: 
 broom::tidy(PM.results.none.results, conf.int = TRUE) %>% 
   # keep just the variables we are going to plot
   filter(term %in% treatments_full) %>% 
@@ -87,11 +87,28 @@ dev.copy(png,'../Figures/PM_logdefuncionespc')
 dev.off()
 
 #Identifying assumption:
-balance.plot<-get_covariate_balance(PM.results.none.results$att,
+balance.plot<-get_covariate_balance(PM.results.none$att,
                       data = data.final,
                       covariates = "logdefuncionespc", 
                       plot = TRUE, # visualize by setting plot to TRUE
                       ylim = c(-.2, .2))
+
+
+cov_bal <- get_covariate_balance(PM.results.none$att, data.final, 
+                                 covariates = "logdefuncionespc", plot = F)  %>%
+                                  as.data.frame() %>%
+                                  mutate(t = c(-4:0))
+
+bal_dv <- ggplot(cov_bal, aes(t, stdmean)) +
+  geom_line() +
+  annotate("rect", xmin = -4, xmax = 0, ymin = 0.2, ymax = -0.2,  alpha = .3, fill = "grey") + # this is conventional acceptance thresholds
+  geom_vline(xintercept = -0, linetype = 3) +
+  geom_hline(yintercept = 0, linetype = 3) +
+  xlim(-4,0) +
+  labs(x = "Years Before Treatment", y = "Std. Mean Diff.") +
+  scale_y_continuous(breaks = c(-0.4, -0.2, 0, 0.2, 0.4), limits = c(-0.4,0.4)) +
+  theme_bw()
+
 
 #Robustness 1: replace treatment indicator with its lead value (could do a lag too)
 library(dplyr)
