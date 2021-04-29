@@ -1,0 +1,29 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of 2014 Term Limit Reform on effort of security forces}
+\label{tab:chaisemartin_effort}
+\scalebox{1}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{1}{c}{Local Police = log(detentions pc)} & \multicolumn{1}{c}{Military = log(laboratories errad.)$^{a}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+\addlinespace
+Lag 3 years &        $ 0.011^{} $ &     $ -0.016^{} $ \\
+& ($ 0.040$) & ($ 0.013 $) \\
+Lag 2 years &        $ 0.057^{} $ &     $ -0.001^{} $ \\
+& ($ 0.072$) & ($ 0.005 $) \\
+Reform, time 0 &        $ -0.012^{} $ &     $ 0.006^{} $ \\
+& ($ 0.039$) & ($ 0.006 $) \\
+Lead 1 year &         $ -0.102^{***} $ &       $ -0.007^{**} $ \\
+& ($ 0.036$) & ($ 0.003 $) \\
+Lead 2 years &         $ -0.160^{} $ &      $ -0.012^{***} $  \\
+& ($ 0.120$) & ($ 0.002 $) \\
+\addlinespace
+Controls$^b$   &    \checkmark      &   \checkmark    \\
+\hline \hline
+\multicolumn{3}{p{1\textwidth}}{\footnotesize{Notes: Coefficients show corrected estimators following \citet{chaisemarting_etal_2019}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%.$^a$ Secondary version of security cooperation agreements. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\end{tabular}
+}
+\end{table}
