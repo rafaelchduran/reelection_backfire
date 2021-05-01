@@ -578,7 +578,7 @@ coefplot (est1, rename((1) = "t-7") msize(large) mcolor(red) levels(99 95 90) ci
  (est10, rename((1) = "t+3") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *2 *4) color(black black black)))  ///
  , ///
  vertical scheme(s1color)  yline(0)  ///
-ytitle("Probability of winning at t+1")  xtitle(" ") ///
+ytitle("Security coop. agreement w/ governor")  xtitle(" ") ///
 subtitle(" ") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI") rows(1)) 
 graph export "../Figures/catts_agreements.png", as(png) replace
 graph export "../Figures/catts_agreements.pdf", as(pdf) replace
