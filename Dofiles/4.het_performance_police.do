@@ -1769,9 +1769,9 @@ graph export "../Figures/performance_policeforces.tif", as(tif) replace
 graph save "../Figures/performance_policeforces.gph", replace
 *========================================================================
 *Figure: comparing aggregate municipal to state to federal
-egen municipal_police=rowmean(ap5_5_1_mean ap5_5_2_mean)
-egen state_police=rowmean(ap5_5_3_mean ap5_5_6_mean)
-egen federal_police=rowmean(ap5_5_4_mean ap5_5_5_mean ap5_5_8 ap5_5_9_mean)
+egen municipal_police=rowmean(ap5_6_1_b_mean ap5_6_2_b_mean)
+egen state_police=rowmean(ap5_6_3_b_mean ap5_6_6_b_mean)
+egen federal_police=rowmean(ap5_6_4_b_mean ap5_6_5_b_mean ap5_6_8 ap5_6_9_b_mean)
 
 est clear
 ************
