@@ -44,6 +44,7 @@ by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_incparty[_n+1
 	global pri_mayor2 pri_mayor2_lag_2 pri_mayor2_lag_3 pri_mayor2_lag_4 pri_mayor2_lag_5 pri_mayor2_lag_6 pri_mayor2_lag_7 
 
 	global controls_time_acuerdo  $executive $governor $margin_governor $margin $carteles $logpop 
+	global controls_time_acuerdo 
 
 *2) treatment
 	global lagsleads   lag_7 lag_6 lag_5 lag_4 lag_3 lag_2 date_0
@@ -332,34 +333,6 @@ di (.07667 -(-.04606))+(1.960*(sqrt(((1341-1)*.06159 + (3215-1)*.04253)/(1341+32
 *Low CI:
 di (.07667 -(-.04606))-(1.960*(sqrt(((1341-1)*.06159 + (3215-1)*.04253)/(1341+3215-2)))*sqrt((1/ 1341)+(1/3215)))
 *.1087506
-
-suest OLS1 OLS2
-test [OLS1_mean]X1=[OLS2_mean]X1
- 
- *estimate difference:
-di .07667 -.04606
-.03061
-
-sureg est1 est2
-
-reg dv iv1 iv2 if c==0
-estimates store cequalzero
-
-reg dv iv1 iv2 if c==1
-estimates store cequalone
-
-suest cequalzero cequalone
-
-test [cequalzero_mean]iv1-[cequalone_mean]iv1 = 0
-
-test [cequalzero_mean]iv2-[cequalone_mean]iv2 = 0
-
-suest C1 C0, cluster(company)
-
-ssc install xtsur
-
-xtsur (rdrobust $outcome2  mv_incparty if reform==1 & year<2018, c(0) p(1) kernel(tri) bwselect(CCT)) ///
- ( rdrobust $outcome2  mv_incparty if reform==0 & year<2018, c(0) p(1) kernel(tri) bwselect(CCT))
 
 *========================================================================
 *DIFF-IN-DISCONTINUITY OF CLOSE ELECTIONS. AS correction
@@ -1051,7 +1024,7 @@ global optimal = e(h_CCT)
 
 ***estimate linear combination by lead/lag:
 foreach i in lag_5 {
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal_1} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 	sum perc if `i'_2018==1, meanonly
 	local c = r(mean)
 	di (_b[`i'_2018]*`c') 
