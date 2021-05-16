@@ -1,0 +1,24 @@
+d 'RCALL': seamless interactive {bf: {browse "https://cran.r-project.org/":R}} in Stata.
+d The command automatically returns {help return:rclass} R objects with 
+d {it:integer}, {it:numeric}, {it:character}, {it:logical}, {it:matrix}, {it:data.frame}, {it:list}, and {it:NULL} 
+d classes to Stata. It also allows passing Stata variable, dataset, 
+d macro, scalar, and matrix to R as well as load a dataframe from R 
+d to Stata automatically, 
+d which provides an automated reciprocal communication between Stata and R. For
+d more information and examples visit  {browse "http://www.haghish.com/packages/Rcall.php":rcall homepage}.
+d
+d Distribution-Date: 20181101
+d
+F call_return.ado
+F matconvert.ado
+F matconvert.sthlp
+F R.ado
+F rcall.ado
+F rcall.sthlp
+F rcall_check.ado
+F rcall_counter.ado
+F rcall_interactive.ado
+F rcall_synchronize.ado
+F rprofile.site
+F stata.output.r
+F varconvert.ado

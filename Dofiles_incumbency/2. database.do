@@ -815,7 +815,6 @@ merge m:m estado year using "../../Data/ConstructionDatabase/adopt_year.dta"
 xtset inegi year
 xfill adopt_year, i(inegi)
 
-
 *Create lead/lag indicators
 order year adopt_year
 gen rel_year=year-adopt_year
@@ -823,31 +822,25 @@ order year adopt_year rel_year
 
 *turn lead/lags to indicator variables
 tab rel_year, gen(rel_year_) 
+order year adopt_year rel_year rel_year_*
+
 rename rel_year_1 lag_8
 rename rel_year_2 lag_7
 rename rel_year_3 lag_6
 rename rel_year_4 lag_5
 rename rel_year_5 lag_4
 rename rel_year_6 lag_3
-rename rel_year_7 lag_2
-rename rel_year_8 lag_1
+rename rel_year_7 lag_2 // only one municipality 
+rename rel_year_8 lag_1 // only one municipality 
 rename rel_year_9 date_0
 rename rel_year_10 lead_1
 rename rel_year_11 lead_2
 rename rel_year_12 lead_3
 
-gen pre=0
-replace pre=1 if lag_8==1 | lag_7==1 
 
-gen pre2=0
-replace pre2=1 if lag_8==1 | lag_7==1 | lag_6==1 | lag_5==1 
-
-
-save "../../Data/ConstructionDatabase/data_wleads&lags.dta", replace
 
 *D) EVENT-STUDY LEADS, ABRAHAM AND SUN (2020) FULL SATURATED MODEL
 **FOR INCUMBENCY ESTIMATES:
-preserve
 gen whichlead="" 
 replace whichlead="lag_8" if lag_8==1
 replace whichlead="lag_7" if lag_7==1
@@ -878,155 +871,11 @@ replace whichlead2="lead_2" if lead_2==1
 replace whichlead2="lead_3" if lead_3==1
 encode whichlead2, gen(whichlead2_num)
 
-drop if incumbent_yesterday_w_tomorrow==.
+**erase years in which we have no elections:
+keep if ord!=.
+
+drop if incumbent_yesterday_w_tomorrow2==.
 save "../../Data/ConstructionDatabase/data_wleads&lags_incumbency.dta", replace
-
-restore
-
-
-gen whichlead="" 
-replace whichlead="lag_8" if lag_8==1
-replace whichlead="lag_7" if lag_7==1
-replace whichlead="lag_6" if lag_6==1
-replace whichlead="lag_5" if lag_5==1
-replace whichlead="lag_4" if lag_4==1
-replace whichlead="lag_3" if lag_3==1
-replace whichlead="lag_2" if lag_2==1
-*replace whichlead="lag_1" if lag_1==1
-replace whichlead="date_0" if date_0==1
-replace whichlead="lead_1" if lead_1==1
-replace whichlead="lead_2" if lead_2==1
-replace whichlead="lead_3" if lead_3==1
-encode whichlead, gen(whichlead_num)
-
-gen whichlead2="" 
-replace whichlead2="lag_8" if lag_8==1
-replace whichlead2="lag_7" if lag_7==1
-replace whichlead2="lag_6" if lag_6==1
-replace whichlead2="lag_5" if lag_5==1
-replace whichlead2="lag_4" if lag_4==1
-replace whichlead2="lag_3" if lag_3==1
-replace whichlead2="lag_2" if lag_2==1
-replace whichlead2="lag_1" if lag_1==1
-*replace whichlead2="date_0" if date_0==1
-replace whichlead2="lead_1" if lead_1==1
-replace whichlead2="lead_2" if lead_2==1
-replace whichlead2="lead_3" if lead_3==1
-encode whichlead2, gen(whichlead2_num)
-
-*following Abraham and Sun (2021) we keep only effective observations:
-drop if logdefuncionespc==. // this changes per DV 
-*drop if acuerdo3==. // this changes per DV 
-
-*E) INDICATORS FOR HET. TREATMENT EFFECTS:
-
-gen pri_mayor=0
-replace pri_mayor=1 if firstword=="pri"
-
-gen morena_mayor=0
-replace morena_mayor=1 if firstword=="morena"
-
-gen pan_mayor=0
-replace pan_mayor=1 if firstword=="pan"
-
-
-gen pri_president=0
-replace pri_president=1 if year<=2018 & year>=2013
-
-
-save "../../Data/ConstructionDatabase/data_wleads&lags2.dta", replace
-
-
-****************************************************
-* Weights for Abraham and Sun (2020) specification
-**************************************************** 
-use "../../Data/ConstructionDatabase/data_wleads&lags2.dta", replace
-
-*REMOVING LAG_1
-preserve
-**c) get counts; recall that four states don't have lead and lags (the non-treated)
-foreach i in adopt_year{
-***c.1) Get n: n is the count of observations by adoption year and lead/lag:
-****group observations by adoption year and type of lead/lag
-order `i' whichlead
-egen group_`i'_leadlag=group(`i' whichlead)
-****count the number of times each group appears
-bysort group_`i'_leadlag: egen n=count(group_`i'_leadlag)
-***c.2) Get percentage: n / total
-****group observations by type of lead/lag
-egen group_leadlag=group(whichlead)
-****
-bysort group_leadlag: egen total=count(n) //total is the total number of leads/lags in the effective sample 
-bysort group_leadlag: gen perc= n/total
-keep whichlead `i' perc
-drop if whichlead==""
-sort whichlead `i'
-collapse (mean)perc, by(`i' whichlead)
-order whichlead `i' perc
-sort whichlead `i' perc
-
-**d) make variable name to merge in for indicators; we want only the effective indicators that we need for estimation
- tostring `i', generate(`i'_s)
-gen indic=whichlead+"_"+`i'_s
-
-save "../../Data/ConstructionDatabase/weights.dta", replace
-restore
-
-rename _merge _mergeold
-merge m:m whichlead `i' using "../../Data/ConstructionDatabase/weights.dta" //we do not merge the lag_8 and lag_1
-gen indic_name = strtoname(indic)
-}
-
-levelsof indic_name, local(names)
-foreach n of local names {
-    gen byte `n' = (indic_name == "`n'")
-}
-
-*REMOVING DATE_0
-preserve
-**c) get counts; recall that four states don't have lead and lags (the non-treated)
-foreach i in adopt_year{
-***c.1) Get n: n is the count of observations by adoption year and lead/lag:
-****group observations by adoption year and type of lead/lag
-order `i' whichlead2
-egen group_`i'_leadlag2=group(`i' whichlead2)
-****count the number of times each group appears
-bysort group_`i'_leadlag2: egen n2=count(group_`i'_leadlag2)
-
-***c.2) Get percentage: n / total
-****group observations by type of lead/lag
-egen group_leadlag2=group(whichlead2)
-****
-bysort group_leadlag2: egen total2=count(n2) //total is the total number of leads/lags in the effective sample 
-bysort group_leadlag2: gen perc2= n2/total2
-keep whichlead2 `i' perc2
-drop if whichlead2==""
-sort whichlead2 `i'
-collapse (mean)perc2, by(`i' whichlead2)
-order whichlead2 `i' perc2
-sort whichlead2 `i' perc2
-
-**d) make variable name to merge in for indicators; we want only the effective indicators that we need for estimation
- tostring `i', generate(`i'_s2)
-gen indic2=whichlead2+"_"+`i'_s2
-
-save "../../Data/ConstructionDatabase/weights2.dta", replace
-restore
-
-rename _merge _mergeold2
-merge m:m whichlead2 `i' using "../../Data/ConstructionDatabase/weights2.dta" //we do not merge the lag_8 and lag_1
-gen indic_name2 = strtoname(indic2)
-}
-
-replace indic_name2="" if indic_name2!="lag_1_2015" & indic_name2!="lag_1_2016" & indic_name2!="lag_1_2017" & indic_name2!="lag_1_2018"
-
-levelsof indic_name2, local(names2)
-foreach n of local names2 {
-    gen byte `n' = (indic_name2 == "`n'")
-}
-
-
-save "../../Data/ConstructionDatabase/data_wleads&lags2_weights.dta", replace
 
 
 ****************************************************
@@ -1101,11 +950,11 @@ sort whichlead2 `i' perc2
  tostring `i', generate(`i'_s2)
 gen indic2=whichlead2+"_"+`i'_s2
 
-save "../../Data/ConstructionDatabase/weights2.dta", replace
+save "../../Data/ConstructionDatabase/weights2_incumbency.dta", replace
 restore
 
 rename _merge _mergeold2
-merge m:m whichlead2 `i' using "../../Data/ConstructionDatabase/weights2.dta" //we do not merge the lag_8 and lag_1
+merge m:m whichlead2 `i' using "../../Data/ConstructionDatabase/weights2_incumbency.dta" //we do not merge the lag_8 and lag_1
 gen indic_name2 = strtoname(indic2)
 }
 
@@ -1116,7 +965,6 @@ foreach n of local names2 {
     gen byte `n' = (indic_name2 == "`n'")
 }
 
-
 save "../../Data/ConstructionDatabase/data_wleads&lags_incumbency_weights.dta", replace
 
 
@@ -1126,38 +974,15 @@ save "../../Data/ConstructionDatabase/data_wleads&lags_incumbency_weights.dta", 
 clear all
 use "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v2.dta", clear
 
-collapse (sum) defunciones homicide homicide_old detenidos  pop (mean)reform (firstnm)nombre_estado, by(estado year)
+collapse (mean) incumbent_yesterday_w_tomorrow2 mv_incpartyfor1 ord reform (firstnm)nombre_estado, by(estado year)
 drop if year>2018
-foreach i in defunciones homicide homicide_old detenidos{
-**1) homicides per 100,000 inhabitants
-gen `i'pc=(`i'/pop)*100000
+drop if ord==.
+drop ord
 
-**2) logged(homicides)
-gen log`i'=log(`i'+1)
-
-**3)logged homicides per 100,000 inhabitants (using log((count + 1)/pop))
-gen log`i'pc=log((`i'+1)/pop)
-
-**4) inverse hyperbolic sine homicides 
-gen ihs_`i'=asinh(`i')
-}
-
-**5) inverse hyperbolic sine homicides per capita
-foreach i in homicidepc homicide_oldpc defuncionespc detenidospc{
-gen ihs_`i'=asinh(`i')
-}
-
-*!!! correct this  
-foreach i in homicidepc loghomicide loghomicidepc homicide_oldpc loghomicide_old loghomicide_oldpc{
-replace `i'=. if `i'==0
-}
-   
 rename estado estado_num
 rename nombre_estado state
-
-
   
-save "../../Data/ConstructionDatabase/collapseddata_forR.dta", replace
+save "../../Data/ConstructionDatabase/collapseddata_incumbency_forR.dta", replace
  
 
 
