@@ -1,0 +1,48 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Difference-in-Discontinuity in close elections model: Effect of 2014 Term Limit Reform on Incumbency Advantage}
+\label{tab:incumbency_wpolynomials}
+\scalebox{0.8}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{1}{c}{Probabilitiy of winning at t+1}  & \multicolumn{1}{c}{Winning margin at t+1} \\
+& \multicolumn{1}{c}{(indicator)}  & \multicolumn{1}{c}{(indicator)} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)}  \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \\
+\addlinespace
+& \multicolumn{2}{c}{linear polynomial} \\
+\cmidrule(lrr){2-3} \\
+t-6 &       $ -0.0116^{} $ &       $ 0.0038^{} $  \\
+& ($ 0.0219 $ ) & ($ 0.0052 $ ) \\
+t-5 &       $ 0.0872^{**} $ &        $ -0.0141^{} $ \\
+& ($ 0.0410 $ ) & ($ 0.0164 $ ) \\
+t-4 &          $ -0.0175^{} $ &       $ -0.0086^{} $ \\
+& ($ 0.0715 $ ) & ($ 0.0182 $ ) \\
+Election after Reform &         $ -0.0723^{} $ &        $ -0.0175^{**} $ \\
+& ($ 0.0547 $ ) & ($ 0.0074 $ ) \\
+Observations          &              2,071     &              6,897 \\
+R-squared        &          0.5528   &          0.7105 \\
+\\
+& \multicolumn{2}{c}{quadratic polynomial} \\
+\cmidrule(lrr){2-3} \\
+t-6 &       $ -0.0347^{} $ &       $ 0.0049^{} $  \\
+& ($ 0.0440 $ ) & ($ 0.0046 $ ) \\
+t-5 &       $ 0.1066^{} $ &        $ -0.0234^{} $ \\
+& ($ 0.0641 $ ) & ($ 0.0154 $ ) \\
+t-4 &          $ -0.0826^{} $ &       $ -0.0147^{} $ \\
+& ($ 0.0611 $ ) & ($ 0.0175 $ ) \\
+Reform, t=0 &         $ -0.1335^{**} $ &        $ -0.0126^{*} $ \\
+& ($ 0.0595 $ ) & ($ 0.0063 $ ) \\
+Observations          &              2,845     &              2,845 \\
+R-squared        &          0.5445   &          0.6365 \\
+\\
+Mun. FEs        &     \checkmark         &  \checkmark   \\
+Year. FEs     &     \checkmark         &  \checkmark  \\
+Controls$^a$  &    \checkmark     &       \checkmark \\
+Cohort weighted  &         \checkmark &         \checkmark \\
+\hline \hline
+\multicolumn{3}{p{0.9\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 3) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020} or because they are collinear or inexistent, like lag time period 1 and 2. The reference period is t-3, i.e. the municipal elections that ocurred 3 years prior to the reform. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period.$^a$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; and logged population.}} \\
+\end{tabular}
+}
+\end{table}

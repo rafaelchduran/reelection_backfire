@@ -42,8 +42,8 @@ dev.off()
 # Event-study estimates:
 
 # isolate the variables that we want to plot
-treatments_short <- c("lag_7", "lag_6","lag_5", "lag_4", "lag_3", "lag_2", "date_0", "lead_1", "lead_2", "lead_3")
-treatments_full <- c("lag_8", "lag_7", "lag_6","lag_5", "lag_4", "lag_3", "lag_2", "date_0", "lead_1", "lead_2", "lead_3")
+treatments_short <- c("lag_5", "lag_4", "date_0")
+treatments_full <- c("lag_8", "lag_6","lag_5", "lag_4", "date_0")
 margin <-c("margin_lag_1", "margin_lead_1", "margin_date0", "margin_lag_2", "margin_lead_2", "margin_lag_3", "margin_lead_3", "margin_lag_4", "margin_lead_4", "margin_lag_5", "margin_lag_6", "margin_lag_7", "margin_lag_8")
 ncand <-c("ncand_lag_1", "ncand_lead_1", "ncand_date0", "ncand_lag_2", "ncand_lead_2", "ncand_lag_3", "ncand_lead_3", "ncand_lag_4", "ncand_lead_4", "ncand_lag_5", "ncand_lag_6", "ncand_lag_7")
 HHI <-c("HHI_lag_1", "HHI_lead_1", "HHI_date0", "HHI_lag_2", "HHI_lead_2", "HHI_lag_3", "HHI_lead_3", "HHI_lag_4", "HHI_lead_4", "HHI_lag_5", "HHI_lag_6", "HHI_lag_7", "HHI_lag_8")
@@ -966,7 +966,7 @@ CS_out <- att_gt("incumbent_yesterday_w_tomorrow2", idname="inegi", tname="year"
                  alp = 0.05, cband=T, bstrap=T, biters = 1000,
                  printdetails = F)
 
-CS_out.cov <- att_gt("logdefuncionespc", idname="inegi", tname="year",
+CS_out.cov <- att_gt("incumbent_yesterday_w_tomorrow2", idname="inegi", tname="year",
                  xformla = ~ winning_margin_governor + governor_alignment,
                  data = data_CS,
                  first.treat.name="adopt_year", panel = T, control.group = "nottreated",

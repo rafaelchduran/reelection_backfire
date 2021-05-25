@@ -94,7 +94,7 @@
 \begin{document}
 	\vspace*{3ex minus 1ex}
 	\begin{center}
-		\Large \textsc{Love your Incumbent but Hate his Party: \\ The Asymmetric Effect of the Removal of Term Limits on Partisan and Personal Incumbency Returns}
+		\Large \textsc{Love the Candidate but Hate his Party: \\ the Effect of Reelection on Party Dealignment in Mexico} %\\ The Asymmetric Effect of the Removal of Term Limits on Partisan and Personal Incumbency Returns}
 		%\bigskip  
 	\end{center}
 	
@@ -325,9 +325,9 @@ The specification of the event-in-discontinuity in close elections design is the
 y_{mt}=\mu_m + \mu_t + \sum^5_{e=1} \sum^0_{k=-5, \neq {-6,-1}} \gamma_{e,k}(1\{E_i=e\} \cdot R^k_{m,t}) + \sum^5_{e=1} \sum^0_{k=-7, \neq {-5,-1}}  \Theta'X_{it} (\mathbbm{1}(E_i=e)\cdot R^k_{m,t})  \\
 + f_{(.)}(margin)_{mt} + \sum^5_{e=1} \sum^0_{k=-5, \neq {-6,-1}} \nu_{e,k}(1\{E_i=e\} \cdot R^k_{m,t} \cdot  f_{(.)}(margin)_{mt} )+ \epsilon_{mt}
 \end{split}
-\end{equation}     
+\end{equation}   
 
-where $f_{(.)}(margin)_{mt}$ is the RD polynomial on winning margin for municipal election $m$ at calendar time $t$, having $f_{(.)}$ take various polynomial approximations from quadratic to quartic. $\sum^5_{e=1} \sum^{0}_{k=-5, \neq {-6,-1}} \nu_{e,k}(1\{E_i=e\} \cdot R^k_{m,t} \cdot  f_{(.)}(margin)_{mt} ) $ is the RD polynomial interacting the $E_i$ cohort-specific indicators and the electoral reform treatment indicator. Given that municipal elections occur every three years at maximum, and the reform was enacted in 2014 and all municipalities in the study period had only one election, there are no leads. Thus $k$ relative time periods run from  $k \in\{-6,-5,...,0\}$. As with equation \ref{eq:abraham}, to avoid collinearity I exclude two time period indicators, in this case that of $k=-1$ and $-6$.  Period $k=-2$ does not exist since there are no municipal elections two periods prior to the implementation of the electoral reform. As before, the period indicators by treatment cohort  $\gamma_{e,k}$ are the DiD estimators for the Cohort Average Treatment Effects (CATTs). I take the linear combination of the CATTs and the relative cohort weights to construct the IW estimator. Standard errors are clustered at the state level as that is the level of treatment. Errors are also corrected using Wild bootstraps to account for the small number of clusters. 
+where $y_{mt}$ is the outcome -whether the incumbent in $t-1$ was reelected in $t+1$ or the winning margin. $E_i$ are cohort-specific indicators if a Mexican state removed term limits in a given year.\footnote{As noted in Figure \ref{fig:treatment_status}, there are five treatment cohorts including the never treated. The never-treated cohort is made up of the municipalities in the states of Hidalgo, Nayarit, Tlaxcala and Veracruz.} $R^k_{m,t}\in \{0,1\}$  is the Term Limit Reform treatment status indicator at period $k$ relative to treatment, for municipality $m$ at calendar time $t$.\footnote{$t=e+k$.} $X_{s(m)t}$ is a matrix of state $s$ (municipal $m$) level covariates interacted with the set of cohort-specific fixed effects including pre-treatment \textcolor{red}{governor's winning margin, party alignment with the governor, party alignment with the President, mayor's winning margin, logged homicide related deaths per capita, and a dummy indicator on the presence of cartels}.  The year indicators by treatment cohort  $\gamma_{e,k}$ are the difference-in-difference (DiD) estimators for the Cohort Average Treatment Effects (CATTs). Conditional on municipal and period fixed effects, as well covariates, these CATTs represent the annual difference in the probability of winning (or the winning margin) in t+1 for mayors without term limits to those with term limits, $k$ years before and after treatment. $f_{(.)}(margin)_{mt}$ is the RD polynomial on winning margin for municipal election $m$ at calendar time $t$, having $f_{(.)}$ take various polynomial approximations from quadratic to quartic. $\sum^5_{e=1} \sum^{0}_{k=-5, \neq {-6,-1}} \nu_{e,k}(1\{E_i=e\} \cdot R^k_{m,t} \cdot  f_{(.)}(margin)_{mt} ) $ is the RD polynomial interacting the $E_i$ cohort-specific indicators and the electoral reform treatment indicator. Given that municipal elections occur every three years at maximum, and the reform was enacted in 2014 and all municipalities in the study period had only one election, there are no leads. Thus $k$ relative time periods run from  $k \in\{-6,-5,...,0\}$. As with equation \ref{eq:abraham}, to avoid collinearity I exclude two time period indicators, in this case that of $k=-1$ and $-6$.  Period $k=-2$ does not exist since there are no municipal elections two periods prior to the implementation of the electoral reform. As before, the period indicators by treatment cohort  $\gamma_{e,k}$ are the DiD estimators for the Cohort Average Treatment Effects (CATTs). I take the linear combination of the CATTs and the relative cohort weights to construct the IW estimator. Standard errors are clustered at the state level as that is the level of treatment. %Errors are also corrected using Wild bootstraps to account for the small number of clusters. %Standard errors are clustered at the state-level as that is the treatment level of the Term Limit Reform. %Since the number of clusters is small (32 states), I adjust standard errors using wild bootstrap when indicated. 
 
 \section{Mexico's 2014 Term Limi Reform}
 
@@ -345,7 +345,7 @@ To measure incumbent quality, I web-scraped professional titles and other charac
 \centering    
  \caption{Effect of Term Limit Reform on Partisan and Personal Incumbency Advantage \\ -difference-in-discontinuity of close elections design-}
  \label{fig:personal_vs_partisan}
-\includegraphics[width=0.9\textwidth]{../Figures/partisan_personal_inc_advantage.png}
+\includegraphics[width=0.9\textwidth]{../Figures_incumbency/partisan_personal_inc_advantage.png}
        \captionsetup{justification=centering}
        
  \textbf{Note:} Figure \ref{fig:personal_vs_partisan} shows the average treatment effect of the Term Limit Reform on the probability of winning in the following election using a difference in discontinuity of close elections design. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Optimal bandwidths following \citet{calonicoetal_2014} are used. This analysis identifies the party that wins at $t-1$ and studies the effect of this party barely winning (or losing) at $t$ on outcomes at election $t+1$ following \citet{klasnja_titiunik_2017}. I follow \citet{fowler_hall_2014} to decompose the incumbency advantage into the partisan and personal component. Red and blue points show that parallel trends hold, while hollow ones imply pretrends. 
@@ -358,38 +358,177 @@ To measure incumbent quality, I web-scraped professional titles and other charac
 To validate causal effects three identification assumptions need to hold. First, cohort weighted specifications need to show parallel trends for both incumbency advantage measures. As seen in Table \ref{tab:incumbency_wpolynomials}  this is the case. Cohort weights further assure that parallel trends are not spurious due to correlation between the $k$ period indicators relative to treatment implementation. Second, no anticipatory behavior from municipalities should be found; since we are only taking into account one election cycle post-treatment, we don't anticipate incumbents reacting in such a short time window. %[MISSING]%this is the case when running an ``event-to-event" analysis following \citet{cengiz_etal_2019}: there is no clustering in estimated coefficients on early and late state adopters.\footnote{Results available upon request.} 
 Third, the design would be invalid if parties could manipulate close elections and sort themselves to those that imply a higher probability of winning. Two tests are commonly used to show validity on the design: (a) no covariate jump at the discontinuity on relevant pre-treatment variables and (b) density tests to see whether the number of municipalities above (or below) the cutoff threshold is significantly different from the number of municipalities below (or above). Appendix Figure \ref{tab:incumbency_wpolynomials_pop} showes evidence of no significant jump at the discontinuity of municipal population.\footnote{Next iteration of this working paper will include validation on municipal GDP, revenue and expenditures, geographic location and previous victory.} Furthermore, Appendix Figure \ref{fig:mccrary} shows no density difference between municipalities just above and below the cutoff.\footnote{Given the reduction in sample size from Table \ref{tab:abraham_sun_lagdv} to Table \ref{tab:incumbency_wpolynomials} one could have a concern that main results no longer hold in this close election setting. Appendix Table \ref{tab:abraham_sun_local} shows this is not the case by estimating results of Table \ref{tab:abraham_sun_lagdv} using as sample only the municipalities of the sample of Table \ref{tab:incumbency_wpolynomials}.}   
 
-Overall, results show the Term Limit Removal Reform increased incumbent probability of winning at future elections. If this is the case, then we should expect a decrease in the effort placed by security forces in the country, especially from the party in government, the PRI. Federal forces, particularly the military in charge of tackling DTOs, should decrease the amount of narcotic crackdowns and seizures. Furthermore, this should generate a downward effect to local proxies, i.e. mayors in charge of tackling down local crime. In fact, this is what I find. 
-   \clearpage
-
-\section{Robustness}
-
-
-\input{../Tables/abraham_sun_incumbency_wpolynomials.tex}   
-   
- \begin{figure}[H]   
+ \begin{figure}[h]   
 \centering
- \caption{Effect of Term Limit Reform on Partisan and Personal Incumbency Advantage \\ -difference-in-discontinuity of close elections-}
+ \caption{Effect of Term Limit Reform on Incumbency Advantage \\ -difference-in-discontinuity of close elections-}
  \label{fig:parallel_trend}
-\includegraphics[width=0.9\textwidth]{../Figures/parallel_trends_incumbency.png}
+\includegraphics[width=0.9\textwidth]{../Figures_incumbency/parallel_trend.png}
        \captionsetup{justification=centering}
          
  \textbf{Note:} Figure \ref{fig:parallel_trend} shows the average treatment effect of the Term Limit Reform on the probability of winning in the following election using a difference in discontinuity of close elections design. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Optimal bandwidths following \citet{calonicoetal_2014} are used. This analysis identifies the party that wins at $t-1$ and studies the effect of this party barely winning (or losing) at $t$ on outcomes at election $t+1$ following \citet{klasnja_titiunik_2017}.  
  
+\end{figure}   
+
+Overall, results show the Term Limit Removal Reform increased incumbent probability of winning at future elections. If this is the case, then we should expect a decrease in the effort placed by security forces in the country, especially from the party in government, the PRI. Federal forces, particularly the military in charge of tackling DTOs, should decrease the amount of narcotic crackdowns and seizures. Furthermore, this should generate a downward effect to local proxies, i.e. mayors in charge of tackling down local crime. In fact, this is what I find. 
+   \clearpage
+  
+\section{Robustness}
+      
+ Results are robust to controlling for incumbent quality.\footnote{Results available upon request.} 
+\input{../Tables_incumbency/fowler_hall.tex}   
+
+%Talk about testing different bandwidths 
+
+\clearpage
+
+\section{Mechanisms}
+
+Over the past decades, an important theoretical and empirical literature in American Politics has shown that incumbents enjoy an electoral advantage. A big concern faced by the literature has been understanding the determinants of incumbency advantage. To date, we can identify at least three types of explanations.  First, what incumbents do (and opponents cannot do) emphasizing the resources, visibility, and power that incumbents gain from office holding (Mayhew 1974; Fiorina 1977, 1989; King 1991; Cox and Morgenstern 1993). Second, quality-based explanations that emphasize who incumbents are (and who their opponents are) (Cox and Katz, 1996; Levitt and Wolfram, 1997; Ansolabehere and Snyder, 2002) [for a discussion of these two types of mechanisms, please see Eggers (2017)]. In this second line we find explanations related to incumbents’ quality as well as the “scare-off effect”, or the ability incumbents have to scare off high-quality challengers. A third and more recent type of mechanism emphasizes the role of information. Ashworth and Bueno de Mesquita (2008) find that incumbency advantage is dependent on how precise the information is about incumbent’s ability to voters. More recently, Ashworth, Bueno de Mesquita and Friedenberg (2019) expand on the role of information to explain incumbency advantage: through a theoretical model, they show that incumbents have an additional information advantage to challengers: they govern while challengers do not. This is so even absent any partisanship, electoral selection or challenger scare off. However, to date there is no empirical identification of the information-based explanation proposed by these authors. Moreover, if theoretical work done by Ashworth and co-authors is correct, all other explanations of incumbency advantage might be biased by the role information plays. 
+
+ \begin{figure}[h]   
+\centering
+ \caption{Effect of Term Limit Reform on the Quality of Candidates}
+ \label{fig:quality_trend}
+\includegraphics[width=0.9\textwidth]{../Figures_incumbency/quality_parallel.png}
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} Figure \ref{fig:quality_trend} shows the average treatment effect of the Term Limit Reform on a dummy indicator of whether candidates hold a professional title. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:parallel_trend} are used, as well as the same number of observations.  
+ 
+\end{figure}     
+
+ \begin{figure}[h]   
+\centering
+ \caption{Effect of Term Limit Reform on the Effort of Incumbents}
+ \label{fig:effort}
+\includegraphics[width=0.9\textwidth]{../Figures_incumbency/effort_based_incumbency.png}
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} Figure \ref{fig:effort} shows the average treatment effect of the Term Limit Reform on a dummy indicator of whether candidates hold a professional title. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:parallel_trend} are used, as well as the same number of observations.  
+ 
+\end{figure}    
+   
+ \begin{figure}[h]   
+\centering
+ \caption{Effect of Term Limit Reform on Municipal Expenses}
+ \label{fig:expenses}
+\includegraphics[width=0.9\textwidth]{../Figures/expenses_allyears.png}
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} Figure \ref{fig:expenses} shows the average treatment effect of the Term Limit Reform on a dummy indicator of whether candidates hold a professional title. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:parallel_trend} are used, as well as the same number of observations.  
+     
+\end{figure}    
+  
+	
+\begin{figure}[h]   
+\centering
+ \caption{Effect of Term Limit Reform on Municipal Revenues}
+ \label{fig:revenues1}
+\includegraphics[width=0.9\textwidth]{../Figures/revenues_allyears1.png}
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} Figure \ref{fig:revenues1} shows the average treatment effect of the Term Limit Reform on a dummy indicator of whether candidates hold a professional title. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:parallel_trend} are used, as well as the same number of observations.  
+       
+\end{figure}   
+
+\begin{figure}[h]   
+\centering
+ \caption{Effect of Term Limit Reform on Municipal Revenues (continuation)}
+ \label{fig:revenues2}
+\includegraphics[width=0.9\textwidth]{../Figures/revenues_allyears2.png}
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} Figure \ref{fig:revenues2} shows the average treatment effect of the Term Limit Reform on a dummy indicator of whether candidates hold a professional title. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:parallel_trend} are used, as well as the same number of observations.  
+          
+\end{figure}     
+
+\begin{figure}[h]   
+\centering
+ \caption{Effect of Term Limit Reform on Transfers from the Federation or the State}
+ \label{fig:resources2}
+\includegraphics[width=0.9\textwidth]{../Figures/resouce_based_incumbency_allyears.png}
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} Figure \ref{fig:resources2} shows the average treatment effect of the Term Limit Reform on a dummy indicator of whether candidates hold a professional title. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:parallel_trend} are used, as well as the same number of observations.  
+       
 \end{figure}  
+                      
+\clearpage
+                  
 
+\section{Conclusion} 
 
+               
+%APPENDIX -----------------------------------------------
+
+%%%%%%%%%%%%
+\bibliographystyle{aer} 
+\bibliography{References}    
+
+\clearpage
+%APPENDIX -----------------------------------------------
+\begin{appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\section{Tables and Figures \label{appendix:tables_figures}}
+ 
+\renewcommand{\thetable}{A-\arabic{table}}
+\setcounter{table}{0}
+ 
+\renewcommand{\thefigure}{A-\arabic{figure}}
+\setcounter{figure}{0}
+   
+\input{../Tables_incumbency/abraham_sun_incumbency_wpolynomials.tex}   
+         
+
+%Figure:  
+\begin{comment}
+	
  \begin{figure}[H]   
+\centering
+ \caption{Personal and Partisan Incumbency Advantage, two-way fixed effect model}
+ \label{fig:twfe_partisan&personal}
+ \includegraphics[width=0.9\textwidth]{../Figures_incumbency/twfe_personalvspartisan_advantage.png}
+ 
+  \textbf{Note:} The left panel in figure \ref{fig:twfe_partisan&personal} shows the average treatment effect of the Term Limit Reform on the probability of winning in the following election using a difference in discontinuity of close elections design; the right panel shows the winning margin. Optimal bandwidths following \citet{calonicoetal_2014} are used. This analysis identifies the party that wins at $t-1$ and studies the effect of this party barely winning (or losing) at $t$ on outcomes at election $t+1$ following \citet{klasnja_titiunik_2017}.  
+\end{figure} 
+\end{comment}
+
+%Figure:
+ \begin{figure}[h]   
+\centering
+ \caption{Personal and Partisan Incumbency Advantage, event study design}
+ \label{fig:naive_partisan&personal}
+ \includegraphics[width=0.9\textwidth]{../Figures_incumbency/naive_personalvspartisan_advantage.png}
+ 
+  \textbf{Note:} The left panel in figure \ref{fig:naive_partisan&personal} shows the average treatment effect of the Term Limit Reform on the probability of winning in the following election using a difference in discontinuity of close elections design; the right panel shows the winning margin. Optimal bandwidths following \citet{calonicoetal_2014} are used. This analysis identifies the party that wins at $t-1$ and studies the effect of this party barely winning (or losing) at $t$ on outcomes at election $t+1$ following \citet{klasnja_titiunik_2017}.  
+\end{figure} 
+       
+\begin{figure}[h]   
+\centering    
+ \caption{Effect of Term Limit Reform on Partisan and Personal Incumbency Advantage, using winning margin in $t+1$ \\ -difference-in-discontinuity of close elections design-}
+ \label{fig:personal_vs_partisan}
+\includegraphics[width=0.9\textwidth]{../Figures_incumbency/partisan_personal_inc_advantage_margin.png}
+       \captionsetup{justification=centering}
+       
+ \textbf{Note:} Figure \ref{fig:personal_vs_partisan} shows the average treatment effect of the Term Limit Reform on the probability of winning in the following election using a difference in discontinuity of close elections design. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Optimal bandwidths following \citet{calonicoetal_2014} are used. This analysis identifies the party that wins at $t-1$ and studies the effect of this party barely winning (or losing) at $t$ on outcomes at election $t+1$ following \citet{klasnja_titiunik_2017}. I follow \citet{fowler_hall_2014} to decompose the incumbency advantage into the partisan and personal component. Red and blue points show that parallel trends hold, while hollow ones imply pretrends. 
+\end{figure}  
+    
+    
+\begin{figure}[h]   
 \centering
  \caption{McCrary Test}
  \label{fig:mcrary}
-\includegraphics[width=0.9\textwidth]{../Figures/conditional_mccrary_test_pol1_final.png}
+\includegraphics[width=1\textwidth]{../Figures_incumbency/mccrary_pol1_2.png}
+%\includegraphics[width=0.9\textwidth]{../Figures/conditional_mccrary_test_pol1_final.png}
+
        \captionsetup{justification=centering}
          
- \textbf{Note:} 95\% confidence intervals reported. With 90\% levels confidence intervals overlap..  
+ \textbf{Note:} 95\% confidence intervals reported.
  
 \end{figure} 
 
- \begin{figure}[H]   
+ \begin{figure}[h]   
 \centering
  \caption{No discontinuous jump of covariates}
  \label{fig:parallel_trend}
@@ -401,7 +540,7 @@ Overall, results show the Term Limit Removal Reform increased incumbent probabil
 \end{figure} 
 
 
- \begin{figure}[H]   
+ \begin{figure}[h]   
 \centering
  \caption{Testing Different Bandwidths}
  \label{fig:parallel_trend}
@@ -415,46 +554,43 @@ Overall, results show the Term Limit Removal Reform increased incumbent probabil
 
 
 
-\clearpage
-
-\section{Mechanisms}
-
-\clearpage
-
-\section{Conclusion} 
-
-            
-%APPENDIX -----------------------------------------------
-
-%%%%%%%%%%%%
-\bibliographystyle{aer} 
-\bibliography{References}    
+\begin{figure}[h]   
+\centering
+ \caption{Effect of Term Limit Reform on Fiscal Transfers, considering only municipalities with close elections}
+ \label{fig:resources2}
+\includegraphics[width=0.9\textwidth]{../Figures_incumbency/resouce_based_incumbency_allyears.png}
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} Figure \ref{fig:resources2} shows the average treatment effect of the Term Limit Reform on a dummy indicator of whether candidates hold a professional title. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:parallel_trend} are used, as well as the same number of observations.  
+       
+\end{figure}  
 
 \clearpage
-%APPENDIX -----------------------------------------------
-\begin{appendix}
-\renewcommand{\thetable}{A-\arabic{table}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%% RDD design
+
+ \renewcommand{\thetable}{B-\arabic{table}}
 \setcounter{table}{0}
  
 \renewcommand{\thefigure}{B-\arabic{figure}}
 \setcounter{figure}{0}
 
-   
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-%%%% RDD design
-\section{Regression Discontinuity Design of close elections, before and after the Term Limit Removal Reform of 2014 \label{appendix:rdd}} 
+\section{Regression Discontinuity Design of close elections, comparing elections with and without term limits \label{appendix:rdd}} 
 
 I begin by visualizing the effect of the reform on incumbency advantage.  Figure \ref{fig:incumbency_advantage} presents the RDD estimate of close elections on incumbency advantage  within an optimal bandwidth distance $h$ from the cutoff (0), and a quadratic polynomial:\footnote{A triangular kernel is used. Results are almost unchanged when using other polynomial functional forms.} Panel A shows a comparison of municipalities with incumbents at $t-1$ that barely won to those that barely lost in $t$ on the probability of electoral victory at $t+1$,\footnote{Incumbency advantage measure following \citet{klasnja_titiunik_2017}.} taking into account all elections from 1979 to 2014 (i.e. prior to the term-limit reform); Panel B shows the same comparison but restricting the sample to municipalities that implemented reelection after 2014. I do not consider those municipal elections that after 2014 did not implement reelection. Table \ref{tab:rdd} shows RD estimates using multiple polynomial functional forms. Even though RD estimates are biased in this setting, especially for Panel B in Figure \ref{fig:incumbency_advantage} (and even columns in Table \ref{tab:rdd}) since in the presence of staggered treatment timing and heterogeneous treatment effects across cohorts are not causally interpretable since we are considering both early vs late adopters of the reform on the treated,\footnote{The next iteration of this working paper will show this proof in the Appendix for RD designs.} they provide a striking depiction of what occurred before and after the electoral reform. 
 
 
 \begin{figure}[H]
 \centering
-\caption{Effect of Term Limit Reform of 2014 on Incumbency Advantage, quadratic polynomial}
+\caption{Effect of Term Limit Reform on Incumbency Advantage, quadratic polynomial}
   \label{fig:incumbency_advantage} 
 
-	%{\textbf Figure A: quadratic polynomial}
- \includegraphics[width=1\textwidth]{../Figures_incumbency/RDD_incumbency_pol2.pdf}
+	{\textbf Figure A: Probability of winning at t+1}
+	 \includegraphics[width=0.6\textwidth]{../Figures_incumbency/RDD_incumbency_pol2.png}
+	 \\
+	{\textbf Figure B: Winning margin at t+1}
+
+ \includegraphics[width=0.6\textwidth]{../Figures_incumbency/RDD_incumbency_margin_pol2.png}
      \captionsetup{justification=centering}  
        
 \end{figure} 
@@ -470,23 +606,25 @@ More interesting is the finding that after reelection takes place the previous i
   
 %Table:
 \begin{table}[!htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{Regression Discontinuity Design of Close Elections on Incumbency Advantage, comparing pre and post-Term Limit Reform estimates}
+\caption{Regression Discontinuity Design of Close Elections on Incumbency Advantage: Comparison of term and non-term limited elections}
 \label{tab:rdd}
 \begin{center} 
-\scalebox{0.7}{
-\begin{tabular}{lcccccccc}
+\scalebox{1}{
+\begin{tabular}{lcccc}
  
 \hline \hline   
-\\
+\\       
    
-\multicolumn{9}{l}{Dependent variable:}\\
+\multicolumn{5}{l}{Dependent variable:}\\
   
 \\
-\input{../Tables/rdd_estimates.tex} 
+\input{../Tables_incumbency/rdd_estimates_conditional.tex} 
+\\
+\input{../Tables_incumbency/rdd_estimates_conditional2.tex} 
  
-        
+                 
 \hline \hline   
-\multicolumn{9}{p{1.3\textwidth}}{\footnotesize{Notes: Standard errors in parentheses, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test. Optimal bandwidth following \citet{calonicoetal_2014} $^a$ Incumbency advantage measured following \citet{klasnja_titiunik_2017}. 
+\multicolumn{5}{p{0.8\textwidth}}{\footnotesize{Notes: Standard errors in parentheses, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test. Optimal bandwidth following \citet{calonicoetal_2014} $^a$ Incumbency advantage measured following \citet{klasnja_titiunik_2017}. 
   }} \\  
 \end{tabular}         
 }
@@ -494,7 +632,5 @@ More interesting is the finding that after reelection takes place the previous i
 \end{table} 
 
 \clearpage
-
-
   
 \end{document}

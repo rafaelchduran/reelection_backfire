@@ -47,14 +47,10 @@ replace presidential_election=1 if year==2012 | year==2016
 gen pan_president=0
 replace pan_president=1 if year<=2012
 	global incumbency  inc_lag_3 inc_lag_4 inc_lag_5 inc_lag_6  
-
-	global controls_time_acuerdo presidential_election pan_president $incumbency $homicides $areakm2 $pan_mayor2 $pri_mayor2  $margin $governor $margin_governor $effectiveparties $logpop
-	global controls_time_acuerdo   
-
+	global controls_naive $margin $governor $margin_governor $effectiveparties 
 
 *2) treatment
 	global lagsleads  lag_8 lag_6 lag_5 lag_4   date_0 // comparison group is lag_3
-	global saturated  lag_6_2018 lag_6_2016 lag_5_2018 lag_5_2015 lag_4_2018 lag_4_2017 lag_4_2015  date_0_2018 date_0_2017 date_0_2016 date_0_2015 // removed lag_3_2018 lag_3_2016 lag_3_2015 to be the comparison group AND lag_8_2018 because of collinearity following Abraham and Sun (2021)
 
 *3) outcomes
 	global incumbency incumbent_today_w_tomorrow2 incumbent_yesterday_w_tomorrow2 inc_party_won  inc_party_won_tplus1 party_won_nextelec
@@ -123,6 +119,8 @@ gen `var'_`i'=`var'*`i'
 }
 
 *polynomial globals
+global inter_pol1   lag_5_2018_pol1 lag_5_2015_pol1 lag_4_2018_pol1 lag_4_2017_pol1 lag_4_2015_pol1    date_0_2018_pol1 date_0_2017_pol1 date_0_2016_pol1 date_0_2015_pol1  
+global inter_pol2   lag_5_2018_pol2 lag_5_2015_pol2 lag_4_2018_pol2 lag_4_2017_pol2 lag_4_2015_pol2    date_0_2018_pol2 date_0_2017_pol2 date_0_2016_pol2 date_0_2015_pol2  
 global inter_pol1 lag_6_2018_pol1 lag_6_2016_pol1 lag_5_2018_pol1 lag_5_2015_pol1 lag_4_2018_pol1 lag_4_2017_pol1 lag_4_2015_pol1    date_0_2018_pol1 date_0_2017_pol1 date_0_2016_pol1 date_0_2015_pol1  
 global inter_pol2 lag_6_2018_pol2 lag_6_2016_pol2 lag_5_2018_pol2 lag_5_2015_pol2 lag_4_2018_pol2 lag_4_2017_pol2 lag_4_2015_pol2    date_0_2018_pol2 date_0_2017_pol2 date_0_2016_pol2 date_0_2015_pol2  
 
@@ -136,9 +134,13 @@ global inter_lagsleads_pol2 lag_8_pol2 lag_6_pol2 lag_5_pol2 lag_4_pol2   date_0
 *Run .ado 
 do "wild_areg_incumbency.do"
 do "macros_tables_incumbency.do"
-
 *========================================================================
 *NAIVE EVENT STUDY: Probability of winning
+	global controls_naive logdefuncionespc_mean alignment_executive_strong_mean alignment_governor_strong_mean winning_margin_mean winning_margin_governor_mean pan_mayor2_mean pri_mayor2_mean hayCarteles_mean logpop_mean
+	global lagsleads  lag_8 lag_6 lag_5 lag_4   date_0 // comparison group is lag_3	
+	global dv_lag2 
+	global dv_lag5 
+
 *pol1
 est clear
 foreach j in $outcome2 {
@@ -146,16 +148,16 @@ foreach pol in 1{
 
 rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT) 
 global optimal = e(h_CCT)
-eststo: xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: xi: reghdfe  `j'  $lagsleads $dv_lag2 pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 
 *i) Partisan + Personal 
-*qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-*eststo: lincomest 	_b[date_0]/2 
+qui xi: reghdfe  `j'  $lagsleads $dv_lag2 pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest 	_b[date_0]/2 
 *ii) Personal
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads $dv_lag2 pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	(_b[date_0]-_b[_cons])/2 
 *iii) Partisan
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads $dv_lag2 pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest _b[_cons]/2 
 
 }
@@ -165,24 +167,24 @@ foreach pol in 2{
 
 rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT) 
 global optimal = e(h_CCT)
-eststo: xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: xi: reghdfe  `j'  $lagsleads $dv_lag2 pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 *i) Partisan + Personal 
-*qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-*eststo: lincomest 	_b[date_0]/2 
+qui xi: reghdfe  `j'  $lagsleads $dv_lag2 pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest 	_b[date_0]/2 
 *ii) Personal
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads $dv_lag2 pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	(_b[date_0]-_b[_cons])/2 
 *iii) Partisan
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads $dv_lag2 pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest _b[_cons]/2 
 
 }
 }
 
 coefplot (est1, keep($lagsleads) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)) ) ///
-(est4, keep($lagsleads) msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)) ) ///
+(est5, keep($lagsleads) msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)) ) ///
 , ///
-vertical scheme(s1color)  yline(0) coeflab(lag_8="t-8" lag_6="t-6" lag_5="t-5" lag_4="t-4" lag_3="t-3" lag_2="t-2" lag_1="t-1" date_0="t=0" lead_1="t+1")   ///
+vertical scheme(s1color)  yline(0) coeflab(lag_8="t-8" lag_7="t-7"  lag_6="t-6" lag_5="t-5" lag_4="t-4" lag_3="t-3" lag_2="t-2" lag_1="t-1" date_0="t=0")   ///
 ytitle(" ")  xtitle(" ") ///
 subtitle("Probability of winning at t+1") legend(order(1 "99% CI" 1 "95% CI" 3 "90% CI" ///
 4 "linear" 20 "quadratic" ) rows(2)) 
@@ -200,16 +202,16 @@ foreach pol in 1{
 
 rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT) 
 global optimal = e(h_CCT)
-eststo: xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: xi: reghdfe  `j'  $lagsleads $dv_lag5 pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 
 *i) Partisan + Personal 
-*qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-*eststo: lincomest 	_b[date_0]/2 
+qui xi: reghdfe  `j'  $lagsleads $dv_lag5 pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest 	_b[date_0]/2 
 *ii) Personal
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads $dv_lag5 pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	(_b[date_0]-_b[_cons])/2 
 *iii) Partisan
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads $dv_lag5 pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest _b[_cons]/2 
 
 }
@@ -219,24 +221,24 @@ foreach pol in 2{
 
 rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT) 
 global optimal = e(h_CCT)
-eststo: xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: xi: reghdfe  `j'  $lagsleads $dv_lag5 pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 *i) Partisan + Personal 
-*qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-*eststo: lincomest 	_b[date_0]/2 
+qui xi: reghdfe  `j'  $lagsleads $dv_lag5 pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest 	_b[date_0]/2 
 *ii) Personal
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads $dv_lag5 pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	(_b[date_0]-_b[_cons])/2 
 *iii) Partisan
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads $dv_lag5 pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest _b[_cons]/2 
 
 }
 }
 
 coefplot (est1, keep($lagsleads) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)) ) ///
-(est4, keep($lagsleads) msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)) ) ///
+(est5, keep($lagsleads) msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)) ) ///
 , ///
-vertical scheme(s1color)  yline(0) coeflab(lag_8="t-8" lag_6="t-6" lag_5="t-5" lag_4="t-4" lag_3="t-3" lag_2="t-2" lag_1="t-1" date_0="t=0" lead_1="t+1")   ///
+vertical scheme(s1color)  yline(0) coeflab(lag_8="t-8" lag_6="t-6" lag_5="t-5" lag_4="t-4" date_0="t=0")   ///
 ytitle(" ")  xtitle(" ") ///
 subtitle("Winning margin at t+1") legend(order(1 "99% CI" 1 "95% CI" 3 "90% CI" ///
 4 "linear" 20 "quadratic" ) rows(2)) 
@@ -265,13 +267,13 @@ rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT)
 global optimal = e(h_CCT)
 
 *i) Partisan + Personal 
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	_b[date_0]/2 
 *ii) Personal
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	(_b[date_0]-_b[_cons])/2 
 *iii) Partisan
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest _b[_cons]/2 
 }
 
@@ -282,24 +284,24 @@ rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT)
 global optimal = e(h_CCT)
 
 *i) Partisan + Personal 
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	_b[date_0]/2 
 *ii) Personal
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	(_b[date_0]-_b[_cons])/2 
 *iii) Partisan
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest _b[_cons]/2 
 }
 }
 
 *FIGURE:
-coefplot (est1, rename((1) = "Partisan + Personal") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est2, rename((1) = "Personal") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est3, rename((1) = "Partisan") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est4, rename((1) = "Partisan + Personal") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est5, rename((1) = "Personal") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est6, rename((1) = "Partisan") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+coefplot (est1, rename((1) = "Partisan + Personal") mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est2, rename((1) = "Personal") mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est3, rename((1) = "Partisan") mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est4, rename((1) = "Partisan + Personal") mfcolor(white) msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est5, rename((1) = "Personal") mfcolor(white) msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est6, rename((1) = "Partisan") mfcolor(white) msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  , ///
  horizontal scheme(s1color)  xline(0)    ///
 ytitle(" ")  xtitle("Term Limit Reform Average Effect") ///
@@ -320,13 +322,13 @@ rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT)
 global optimal = e(h_CCT)
 
 *i) Partisan + Personal 
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	_b[date_0]/2 
 *ii) Personal
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	(_b[date_0]-_b[_cons])/2 
 *iii) Partisan
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol1 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest _b[_cons]/2 
 }
 
@@ -337,24 +339,24 @@ rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT)
 global optimal = e(h_CCT)
 
 *i) Partisan + Personal 
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	_b[date_0]/2 
 *ii) Personal
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest 	(_b[date_0]-_b[_cons])/2 
 *iii) Partisan
-qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_time_acuerdo i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+qui xi: reghdfe  `j'  $lagsleads pol`pol' $inter_lagsleads_pol2 $controls_naive i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 eststo: lincomest _b[_cons]/2 
 }
 }
 
 *FIGURE:
-coefplot (est1, rename((1) = "Partisan + Personal") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est2, rename((1) = "Personal") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est3, rename((1) = "Partisan") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est4, rename((1) = "Partisan + Personal") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est5, rename((1) = "Personal") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est6, rename((1) = "Partisan") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+coefplot (est1, rename((1) = "Partisan + Personal") mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est2, rename((1) = "Personal") mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est3, rename((1) = "Partisan") mfcolor(white) msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est4, rename((1) = "Partisan + Personal") mfcolor(white)  msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est5, rename((1) = "Personal") mfcolor(white) msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+ (est6, rename((1) = "Partisan") mfcolor(white) msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
  , ///
  horizontal scheme(s1color)  xline(0)    ///
 ytitle(" ")  xtitle("Term Limit Reform Average Effect") ///
@@ -376,427 +378,3 @@ graph export "../Figures_incumbency/naive_personalvspartisan_advantage.tif", as(
 *=============================================
 *=============================================
 *=============================================
-*=============================================
-*=============================================
-*=============================================
-*AS PARALLEL TREND: PROBABILITY OF WINNING 
-est clear
-*pol1
-foreach j in $outcome2 {
-foreach pol in 1 {
-
-rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT) 
-global optimal = e(h_CCT)
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-
-***estimate linear combination by lead/lag:
-foreach i in lag_6 {
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local c = r(mean)
-	di (_b[`i'_2016]*`b'+_b[`i'_2018]*`c') 
-	test (_b[`i'_2016]*`b'+_b[`i'_2018]*`c')   =0
-	glo p_`i'_ihsdet_`pol': di r(p)
-	glo beta_`i'_ihsdet_`pol': di %5.4f (_b[`i'_2016]*`b'+_b[`i'_2018]*`c')  
-	glo est_`i'_ihsdet_`pol'= "" 
-			if (${p_`i'_ihsdet_`pol'}<=0.1) global est_`i'_ihsdet_`pol' = "*"
-			if (${p_`i'_ihsdet_`pol'}<=0.05) global est_`i'_ihsdet_`pol' = "**"
-			if (${p_`i'_ihsdet_`pol'}<=0.01) global est_`i'_ihsdet_`pol' = "***"	
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	eststo: lincomest 	(_b[`i'_2016]*`b'+_b[`i'_2018]*`c')/2
-	glo se_`i'_ihsdet_`pol': di %5.4f r(se)
-}
-
-foreach i in lag_5 {
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local c = r(mean)
-	di (_b[`i'_2015]*`a'+_b[`i'_2018]*`c') 
-	test (_b[`i'_2015]*`a'+_b[`i'_2018]*`c')   =0
-	glo p_`i'_ihsdet_`pol': di r(p)
-	glo beta_`i'_ihsdet_`pol': di %5.4f (_b[`i'_2015]*`a'+_b[`i'_2018]*`c') 
-	glo est_`i'_ihsdet_`pol'= "" 
-			if (${p_`i'_ihsdet_`pol'}<=0.1) global est_`i'_ihsdet_`pol' = "*"
-			if (${p_`i'_ihsdet_`pol'}<=0.05) global est_`i'_ihsdet_`pol' = "**"
-			if (${p_`i'_ihsdet_`pol'}<=0.01) global est_`i'_ihsdet_`pol' = "***"	
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	eststo: lincomest 	(_b[`i'_2015]*`a'+_b[`i'_2018]*`c')/2
-	glo se_`i'_ihsdet_`pol': di %5.4f r(se)
-}
-
-
-foreach i in lag_4 {
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	di (_b[`i'_2015]*`a')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d') 
-	test (_b[`i'_2015]*`a')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d')  =0
-	glo p_`i'_ihsdet_`pol': di r(p)
-	glo beta_`i'_ihsdet_`pol': di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d') 
-	glo est_`i'_ihsdet_`pol'= "" 
-			if (${p_`i'_ihsdet_`pol'}<=0.1) global est_`i'_ihsdet_`pol' = "*"
-			if (${p_`i'_ihsdet_`pol'}<=0.05) global est_`i'_ihsdet_`pol' = "**"
-			if (${p_`i'_ihsdet_`pol'}<=0.01) global est_`i'_ihsdet_`pol' = "***"
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	eststo: lincomest 	((_b[`i'_2015]*`a')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d') )/2
-	glo se_`i'_ihsdet_`pol': di %5.4f r(se)
-}
-
-
-foreach i in date_0 {
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d') 
-	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')+(_b[`i'_2018]*`d') =0
-	glo p_`i'_ihsdet_`pol': di r(p)
-	glo beta_`i'_ihsdet_`pol': di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')+(_b[`i'_2018]*`d') 
-	glo est_`i'_ihsdet_`pol'= "" 
-			if (${p_`i'_ihsdet_`pol'}<=0.1) global est_`i'_ihsdet_`pol' = "*"
-			if (${p_`i'_ihsdet_`pol'}<=0.05) global est_`i'_ihsdet_`pol' = "**"
-			if (${p_`i'_ihsdet_`pol'}<=0.01) global est_`i'_ihsdet_`pol' = "***"	
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	eststo: lincomest  	((_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d'))/2
-	glo se_`i'_ihsdet_`pol': di %5.4f r(se)
-			
-}
-
-}
-
-
-
-*pol2
-foreach pol in 2 {
-***estimate linear combination by lead/lag:
-foreach i in lag_6 {
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local c = r(mean)
-	di (_b[`i'_2016]*`b'+_b[`i'_2018]*`c') 
-	test (_b[`i'_2016]*`b'+_b[`i'_2018]*`c')   =0
-	glo p_`i'_ihsdet_`pol': di r(p)
-	glo beta_`i'_ihsdet_`pol': di %5.4f (_b[`i'_2016]*`b'+_b[`i'_2018]*`c')  
-	glo est_`i'_ihsdet_`pol'= "" 
-			if (${p_`i'_ihsdet_`pol'}<=0.1) global est_`i'_ihsdet_`pol' = "*"
-			if (${p_`i'_ihsdet_`pol'}<=0.05) global est_`i'_ihsdet_`pol' = "**"
-			if (${p_`i'_ihsdet_`pol'}<=0.01) global est_`i'_ihsdet_`pol' = "***"	
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	eststo: lincomest 	(_b[`i'_2016]*`b'+_b[`i'_2018]*`c')/2
-	glo se_`i'_ihsdet_`pol': di %5.4f r(se)
-}
-
-
-foreach i in lag_5 {
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local c = r(mean)
-	di (_b[`i'_2015]*`a'+_b[`i'_2018]*`c') 
-	test (_b[`i'_2015]*`a'+_b[`i'_2018]*`c')   =0
-	glo p_`i'_ihsdet_`pol': di r(p)
-	glo beta_`i'_ihsdet_`pol': di %5.4f (_b[`i'_2015]*`a'+_b[`i'_2018]*`c') 
-	glo est_`i'_ihsdet_`pol'= "" 
-			if (${p_`i'_ihsdet_`pol'}<=0.1) global est_`i'_ihsdet_`pol' = "*"
-			if (${p_`i'_ihsdet_`pol'}<=0.05) global est_`i'_ihsdet_`pol' = "**"
-			if (${p_`i'_ihsdet_`pol'}<=0.01) global est_`i'_ihsdet_`pol' = "***"	
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	eststo: lincomest 	(_b[`i'_2015]*`a'+_b[`i'_2018]*`c')/2
-	glo se_`i'_ihsdet_`pol': di %5.4f r(se)
-}
-
-
-foreach i in lag_4 {
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	di (_b[`i'_2015]*`a')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d') 
-	test (_b[`i'_2015]*`a')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d')  =0
-	glo p_`i'_ihsdet_`pol': di r(p)
-	glo beta_`i'_ihsdet_`pol': di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d') 
-	glo est_`i'_ihsdet_`pol'= "" 
-			if (${p_`i'_ihsdet_`pol'}<=0.1) global est_`i'_ihsdet_`pol' = "*"
-			if (${p_`i'_ihsdet_`pol'}<=0.05) global est_`i'_ihsdet_`pol' = "**"
-			if (${p_`i'_ihsdet_`pol'}<=0.01) global est_`i'_ihsdet_`pol' = "***"
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	eststo: lincomest 	((_b[`i'_2015]*`a')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d') )/2
-	glo se_`i'_ihsdet_`pol': di %5.4f r(se)
-}
-
-
-foreach i in date_0 {
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	di (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d') 
-	test (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')+(_b[`i'_2018]*`d') =0
-	glo p_`i'_ihsdet_`pol': di r(p)
-	glo beta_`i'_ihsdet_`pol': di %5.4f (_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')+(_b[`i'_2018]*`d') 
-	glo est_`i'_ihsdet_`pol'= "" 
-			if (${p_`i'_ihsdet_`pol'}<=0.1) global est_`i'_ihsdet_`pol' = "*"
-			if (${p_`i'_ihsdet_`pol'}<=0.05) global est_`i'_ihsdet_`pol' = "**"
-			if (${p_`i'_ihsdet_`pol'}<=0.01) global est_`i'_ihsdet_`pol' = "***"	
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	eststo: lincomest  	((_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d'))/2
-	glo se_`i'_ihsdet_`pol': di %5.4f r(se)
-			
-}
-
-}
-}
-
-
-*Figure
-			   
-coefplot (est1, rename((1) = "4 Elections prior") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est2, rename((1) = "3 Elections prior") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est3, rename((1) = "2 Elections prior") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)))  ///
- (est4, rename((1) = "Reform") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)))  ///
- (est5, rename((1) = "4 Elections prior") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)))  ///
- (est6, rename((1) = "3 Elections prior") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est7, rename((1) = "2 Elections prior") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)))  ///
- (est8, rename((1) = "Reform") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)))  ///
- , ///
- vertical scheme(s1color)  yline(0)    ///
-ytitle(" ")  xtitle(" ") ///
-subtitle("Probability of winning at t+1") legend(order(1 "99% CI" 1 "95% CI" 3 "90% CI" ///
-4 "linear" 20 "quadratic" ) rows(2)) 
-graph export "../Figures_incumbency/incumbency.png", as(png) replace
-graph export "../Figures_incumbency/incumbency.pdf", as(pdf) replace
-graph export "../Figures_incumbency/incumbency.tif", as(tif) replace
-graph save "../Figures_incumbency/incumbency.gph", replace
-
-*SO NO PARALLEL TREND USING AS WITHOUT CONTROLS. With $margin things get a bit better, but not for one election prior
-*===================================================================================================
-*AS COMPOSITION OF THE INCUMBENCY ADVANTAGE: PROBABILITY OF WINNING 
-est clear
-foreach j in $outcome2 {
-*LINEAR POLYNOMIAL
-foreach pol in 1{
-rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT) 
-global optimal = e(h_CCT)
-
-*i) Partisan + Personal 
-foreach i in date_0{
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	eststo: lincomest ((_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d'))/2 
-*ii) Personal
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	eststo: lincomest ((_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d')-_b[_cons])/2 
-*iii) Partisan
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-eststo: lincomest _b[_cons]/2 
-}
-}
-
-
-
-*QUADRATIC POLYNOMIAL
-foreach pol in 2{
-rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT) 
-global optimal = e(h_CCT)
-
-*i) Partisan + Personal 
-foreach i in date_0{
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	eststo: lincomest ((_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d'))/2 
-*ii) Personal
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	eststo: lincomest ((_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d')-_b[_cons])/2 
-*iii) Partisan
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-eststo: lincomest _b[_cons]/2 
-}
-}
-}
-
-*FIGURE:
-coefplot (est1, rename((1) = "Partisan + Personal") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est2, rename((1) = "Personal") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est3, rename((1) = "Partisan") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est4, rename((1) = "Partisan + Personal") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est5, rename((1) = "Personal") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est6, rename((1) = "Partisan") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- , ///
- horizontal scheme(s1color)  xline(0)    ///
-ytitle(" ")  xtitle("Term Limit Reform Average Effect") ///
-subtitle("Probability of winning at t+1") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "linear" 20 "quadratic" ) rows(2)) 
-graph export "../Figures_incumbency/partisan_personal_inc_advantage.png", as(png) replace
-graph export "../Figures_incumbency/partisan_personal_inc_advantage.pdf", as(pdf) replace
-graph export "../Figures_incumbency/partisan_personal_inc_advantage.tif", as(tif) replace
-graph save "../Figures_incumbency/partisan_personal_inc_advantage.gph", replace
-
-*===================================================================================================
-*AS COMPOSITION OF THE INCUMBENCY ADVANTAGE: WINNING MARGIN
-est clear
-foreach j in $outcome5 {
-*LINEAR POLYNOMIAL
-foreach pol in 1{
-rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT) 
-global optimal = e(h_CCT)
-
-*i) Partisan + Personal 
-foreach i in date_0{
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	eststo: lincomest ((_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d'))/2 
-*ii) Personal
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	eststo: lincomest ((_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d')-_b[_cons])/2 
-*iii) Partisan
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-eststo: lincomest _b[_cons]/2 
-}
-}
-
-
-
-*QUADRATIC POLYNOMIAL
-foreach pol in 2{
-rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(CCT) 
-global optimal = e(h_CCT)
-
-*i) Partisan + Personal 
-foreach i in date_0{
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	eststo: lincomest ((_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d'))/2 
-*ii) Personal
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-	sum perc if `i'_2015==1, meanonly
-	local a = r(mean)
-	sum perc if `i'_2016==1, meanonly
-	local b = r(mean)
-	sum perc if `i'_2017==1, meanonly
-	local c = r(mean)
-	sum perc if `i'_2018==1, meanonly
-	local d = r(mean)
-	eststo: lincomest ((_b[`i'_2015]*`a')+(_b[`i'_2016]*`b')+(_b[`i'_2017]*`c')  +(_b[`i'_2018]*`d')-_b[_cons])/2 
-*iii) Partisan
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol2  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
-eststo: lincomest _b[_cons]/2 
-}
-}
-}
-
-*FIGURE:
-coefplot (est1, rename((1) = "Partisan + Personal") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est2, rename((1) = "Personal") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est3, rename((1) = "Partisan") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est4, rename((1) = "Partisan + Personal") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est5, rename((1) = "Personal") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est6, rename((1) = "Partisan") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- , ///
- horizontal scheme(s1color)  xline(0)    ///
-ytitle(" ")  xtitle("Term Limit Reform Average Effect") ///
-subtitle("Winning margin at t+1") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "linear" 20 "quadratic" ) rows(2)) 
-graph export "../Figures_incumbency/partisan_personal_inc_advantage_margin.png", as(png) replace
-graph export "../Figures_incumbency/partisan_personal_inc_advantage_margin.pdf", as(pdf) replace
-graph export "../Figures_incumbency/partisan_personal_inc_advantage_margin.tif", as(tif) replace
-graph save "../Figures_incumbency/partisan_personal_inc_advantage_margin.gph", replace
-
-*=============================================
-*Combine figures:
-grc1leg "../Figures_incumbency/partisan_personal_inc_advantage.gph" "../Figures_incumbency/partisan_personal_inc_advantage_margin.gph" , ///
-scheme(s1color)  imargin(vsmall) ycommon  col(2) row(1)
-graph export "../Figures_incumbency/personalvspartisan_advantage.png", as(png) replace
-graph export "../Figures_incumbency/personalvspartisan_advantage.pdf", as(pdf) replace
-graph export "../Figures_incumbency/personalvspartisan_advantage.tif", as(tif) replace
-
-/*========================================================================
-*Callaway and Sant'Ana (2020)
-*help did
-*net install did, from("https://raw.githubusercontent.com/NickCH-K/did/master/") replace
-*didsetup
-rcall clear
-gen group2=.
-replace group2=0 if group==1
-replace group2=1 if group==2
-replace group2=2 if group==3
-replace group2=3 if group==4
-replace group2=4 if group==5
-
-att_gt $outcome5 year group2, idname(inegi) allow_unbalanced_panel  anticipation(0) 
-// doesn't work	

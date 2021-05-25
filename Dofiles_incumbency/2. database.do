@@ -705,6 +705,38 @@ merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobi
 drop if _merge==2
 drop _merge
 
+**3.13) sesiones and iniciativas by municipality
+merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/StataIncumbency/sesiones_2010_2018.dta"
+drop if _merge==2
+drop _merge
+merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/StataIncumbency/iniciativas_ayun_2010_2018.dta"
+drop if _merge==2
+drop _merge
+ 
+**3.14) human resources by municipality
+merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/StataIncumbency/rec_humanos_2010_2018.dta"
+drop if _merge==2
+drop _merge
+
+**3.15) porcentaje egresos by municipality
+merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/StataIncumbency/porcentaje_egresos_2010_2016.dta"
+drop if _merge==2
+drop _merge
+
+**3.16) egresos e ingresos
+foreach i in predial seguridad_ingresos seguridad_egresos desarrollo_social_egresos obras_egresos remuneraciones_egresos ingresos{
+merge m:m inegi year using "../../Data/ConstructionDatabase/Transferencias/Stata/`i'_2010_2018.dta"
+drop if _merge==2
+drop _merge
+}
+
+**3.16) ingresos not tied to municipal effort
+foreach i in  participables participaciones fomento aportaciones fa_infra fa_fortalecer{
+merge m:m inegi year using "../../Data/ConstructionDatabase/Transferencias/Stata/`i'_2010_2018.dta"
+drop if _merge==2
+drop _merge
+}
+
 **SAVE DATABASE
 drop if year<2010 //erase years prior to 2010 since are not useful for estimations later on
 save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v1.dta", replace

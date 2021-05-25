@@ -705,9 +705,43 @@ merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobi
 drop if _merge==2
 drop _merge
 
+**3.13) sesiones and iniciativas by municipality
+merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/StataIncumbency/sesiones_2010_2018.dta"
+drop if _merge==2
+drop _merge
+merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/StataIncumbency/iniciativas_ayun_2010_2018.dta"
+drop if _merge==2
+drop _merge
+
+**3.14) human resources by municipality
+merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/StataIncumbency/rec_humanos_2010_2018.dta"
+drop if _merge==2
+drop _merge
+
+**3.15) porcentaje egresos by municipality
+merge m:m inegi year using "../../Data/ConstructionDatabase/MandoUnico/CensoGobiernoMunicipal/StataIncumbency/porcentaje_egresos_2010_2016.dta"
+drop if _merge==2
+drop _merge
+
+**3.16) egresos e ingresos
+foreach i in predial seguridad_ingresos seguridad_egresos desarrollo_social_egresos obras_egresos remuneraciones_egresos ingresos impuestos patrimonio produccion tenencia carros{
+merge m:m inegi year using "../../Data/ConstructionDatabase/Transferencias/Stata/`i'_2010_2018.dta"
+drop if _merge==2
+drop _merge
+}
+
+**3.16) ingresos not tied to municipal effort
+foreach i in  participables participaciones fomento aportaciones fa_infra fa_fortalecer{
+merge m:m inegi year using "../../Data/ConstructionDatabase/Transferencias/Stata/`i'_2010_2018.dta"
+drop if _merge==2
+drop _merge
+}
+
+
 **SAVE DATABASE
 drop if year<2010 //erase years prior to 2010 since are not useful for estimations later on
 save "../../Data/ConstructionDatabase/municipalities_id_2010_2019_whomicideSNSPnew_old_wcovariates_v1.dta", replace
+
 
  
 ******************
@@ -846,7 +880,7 @@ replace pre2=1 if lag_8==1 | lag_7==1 | lag_6==1 | lag_5==1
 save "../../Data/ConstructionDatabase/data_wleads&lags.dta", replace
 
 *D) EVENT-STUDY LEADS, ABRAHAM AND SUN (2020) FULL SATURATED MODEL
-**FOR INCUMBENCY ESTIMATES:
+/**FOR INCUMBENCY ESTIMATES:
 preserve
 gen whichlead="" 
 replace whichlead="lag_8" if lag_8==1
@@ -882,7 +916,7 @@ drop if incumbent_yesterday_w_tomorrow==.
 save "../../Data/ConstructionDatabase/data_wleads&lags_incumbency.dta", replace
 
 restore
-
+*/
 
 gen whichlead="" 
 replace whichlead="lag_8" if lag_8==1
@@ -1032,7 +1066,7 @@ save "../../Data/ConstructionDatabase/data_wleads&lags2_weights.dta", replace
 ****************************************************
 * Weights for Abraham and Sun (2020) specification, FOR INCUMBENCY ADVANTAGE ESTIMATES;
 **************************************************** 
-use "../../Data/ConstructionDatabase/data_wleads&lags_incumbency.dta", replace
+/*use "../../Data/ConstructionDatabase/data_wleads&lags_incumbency.dta", replace
 
 preserve
 **c) get counts; recall that four states don't have lead and lags (the non-treated)
@@ -1118,7 +1152,7 @@ foreach n of local names2 {
 
 
 save "../../Data/ConstructionDatabase/data_wleads&lags_incumbency_weights.dta", replace
-
+*/
 
 ****************************************************
 * For R

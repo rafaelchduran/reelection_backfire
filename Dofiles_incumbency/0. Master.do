@@ -26,7 +26,7 @@ set varabbrev off
 
 *========================================================================
 *Working Directory
-cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/reelection_backfire/Dofiles"
+cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/reelection_backfire/Dofiles_incumbency"
 
 *========================================================================
 *Run do files
@@ -40,7 +40,25 @@ do "1. mando_unico_newvarnames.do"
 do "2. database.do"
 do "2. database_vargeneration.do"
 do "3. descriptive_statistics&balance"
+do "3. incumbency_twfe.do"
 do "3. incumbency_event_study.do"
+do "3. incumbency_event_study_as.do"
+do "3. incumbency_fowler_hall.do"
+do "4. mccrary.do"
+
+//
+*Using old database
+*========================================================================
+*Working Directory
+cd "/Users/rafach/Dropbox/Dissertation/GovernmentStrategies/reelection_backfire/Dofiles"
+do "1. electoral.do"
+do "1. incumbent_characteristics.do"
+do "1. envipe.do"
+do "1. dtos.do"
+do "1. mando_unico_newvarnames.do"
+do "2. database.do"
+do "2. database_vargeneration.do"
+do "3. incumbency_disadvantage_final_copy.do" // creates main graphs and tables used in the current version of the paper
 
 
 

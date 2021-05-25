@@ -369,7 +369,7 @@ drop if year<2010
 *SAVE DATA
 save "../../Data/ConstructionDatabase/data_final.dta", replace
 *========================================================================
-*Incumbency advantage: win or loose at t and compare to t+1
+/*Incumbency advantage: win or loose at t and compare to t+1
 use "../../Data/ConstructionDatabase/data_final.dta", clear
 drop  mv_party_02 mv_party_03 mv_party_04 mv_party_05 mv_party_06 mv_party_07 mv_party_08 mv_party_09 mv_party_10 mv_party_11 mv_party_12 mv_party_13 mv_party_14 mv_party_15 mv_party_16 mv_party_17 mv_party_18
 rename mv_party_01 mv_party
@@ -589,7 +589,7 @@ append using `drop16'
 append using `drop17'
 append using `drop18'
 save "../../Data/ConstructionDatabase/data_final_incumbency_advantage.dta", replace
-
+*/
 
 
 *========================================================================
@@ -917,7 +917,7 @@ save "../../Data/ConstructionDatabase/data_final2_forR.dta", replace
 *========================================================================
 *========================================================================
 *========================================================================
-*Incumbency
+/*Incumbency
 *========================================================================
 
 *LOAD DATA
@@ -1272,7 +1272,7 @@ drop if year<2010
 *========================================================================
 *SAVE DATA
 save "../../Data/ConstructionDatabase/data_final_incumbency.dta", replace
-
+*/
 
 /*========================================================================
 

@@ -239,7 +239,7 @@ gen `i'_post3=F3.`i'
 
 global  controls logdefuncionespc ap4_2_3 ap4_2_5 ap4_2_11 ap4_12b ap5_4_2_b ap5_4_8_b ///
 alignment_executive_strong alignment_governor_strong winning_margin winning_margin_governor ///
-pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles logpop
+pan_mayor2 pri_mayor2 morena_mayor2 hayCarteles logpop mv_incpartyfor1 
 
 *========================================================================
 *2) LAGGED ONE PERIODS
