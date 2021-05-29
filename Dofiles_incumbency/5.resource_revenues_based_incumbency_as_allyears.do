@@ -51,7 +51,7 @@ by inegi: replace party_won_nextelec=1 if winning_margin[_n+1]==mv_incparty[_n+1
 *3) outcomes
 	global outcomes participaciones2 participables2 fomento2 aportaciones2 fa_infra2 fa_fortalecer2
 	foreach i in $outcomes{
-	replace `i'=`i'/100000
+	replace `i'=`i'/1000000
 	}
 	global outcome1 participaciones2
 	global outcome2 participables2 
