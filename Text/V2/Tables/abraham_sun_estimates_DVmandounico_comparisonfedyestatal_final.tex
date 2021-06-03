@@ -1,0 +1,39 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Comparison: Security Cooperation Agreements with Governor vs. Other Actors, 2014-2018}
+\label{tab:comparison_fed_estatal}
+\scalebox{.75}{
+\begin{tabular}{lcccc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:Sign Security Cooperation Agreement}\\
+& \multicolumn{2}{c}{ w/ Governor$^{a}$} & \multicolumn{2}{c}{w/ Other Political Actors$^{b}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} & \multicolumn{1}{c}{(4)} \\
+\cmidrule(lrr){2-3}  \cmidrule(lrr){4-5}\\
+\addlinespace
+t-4 &         $ 0.3516^{} $ &         $ 0.0197^{} $ &     $ -0.2760^{} $ &   $ -0.0326^{} $  \\
+& ($ 1.7224$) & ($ 0.3292$) & ($ 0.5875$)  & ($ 0.0763 $) \\
+t-3 &         $ -0.7347^{} $ &        $ -0.0102^{***} $  &     $ 0.2470^{} $ &     $ 0.2193^{} $ \\
+& ($ 37.4822$) & ($ 0.0000$) & ($ 15.0268$) & ($ 0.2702 $) \\
+t-2 &         $ 0.3855^{} $ &        $ 0.1418^{} $  &     $ -0.1496^{} $ &    $ -0.0648^{} $  \\
+& ($ 0.3262$) & ($ 0.1318$) & ($ 0.1245$) & ($ 0.0524 $) \\
+Reform (t=0) &         $ 0.2227^{***} $ &        $ 0.0064^{} $  &     $ -0.0599^{**} $  &     $ -0.0089^{} $ \\
+& ($ 0.0588$) & ($ 0.0354$) & ($ 0.0273$) & ($ 0.0069 $) \\
+t+1 &         $ -0.2203^{**} $ &         $ -0.2230^{***} $  &     $ 0.1148^{} $ &       $ -0.2858^{} $ \\
+& ($ 0.0920$) & ($ 0.0435$) & ($ 0.0904$) & ($ 0.2610 $) \\
+t+3 &         $ -0.5915^{***} $ &        $ -0.5921^{***} $ &     $ 0.1660^{*} $  &     $ 0.1665^{} $ \\
+& ($ 0.0783$) & ($ 0.0708$) & ($ 0.0953$) & ($ 0.1040 $) \\
+\addlinespace
+Observations   &                  4,382     &                  4,382  &                  4,382        &           4,382  \\
+R-squared      &              0.6434    &              0.6434   &            0.5469        &           0.5469   \\
+Mun. FEs       &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
+Year. FEs       &     \checkmark         &  \checkmark  &     \checkmark         &  \checkmark   \\
+Controls$^b$   &      \checkmark       &      \checkmark   &      \checkmark       &      \checkmark   \\
+Cohort weighted   &          &   \checkmark   &          &   \checkmark   \\
+WILD CI  &     \checkmark         &  \checkmark   &     \checkmark         &  \checkmark   \\
+Aggregate effect     &              $-0.213^{***} $$    &        $-0.2696^{***} $$      &            $0.069^{} $$   &       $0.0796^{} $$   \\
+SE (aggregate eff.)      &              0.033   &              0.0339    &              0.045       &           0.0491   \\
+\hline \hline
+\multicolumn{5}{p{1\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 5 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers primarily to the President but could include Governors and mayors from other states or other municipalities from the same state. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
+\end{tabular}
+}
+\end{table}

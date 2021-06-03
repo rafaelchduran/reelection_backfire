@@ -1,0 +1,27 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Party Alignment Total Interaction Effects}
+\label{tab:interaction_alignment_average}
+\scalebox{0.75}{
+\begin{tabular}{lccc}
+\hline \hline
+\\ \multicolumn{4}{l}{Dependent variable: Signing Security Cooperation Agreement}\\
+Party Alignment: & w/ President  & w/ Governor  & w/ Governor from PRI \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \\
+\addlinespace
+Reform average effect         & $-0.1339^{} $$      & $-0.1710^{*} $$     & $-0.0799^{} $$     \\
+& (0.1306)  & (0.0895) & (0.0656) \\
+\\
+\addlinespace
+Observations       &             12,173    &             12,173    &          12,173    \\
+R-squared        &          0.4557 &          0.4570    &    0.4551    \\
+Mun. FEs      &     \checkmark         &  \checkmark   &     \checkmark    \\
+Year. FEs    &     \checkmark         &  \checkmark   &     \checkmark    \\
+Controls$^b$  &    \checkmark     &       \checkmark  &    \checkmark   \\
+Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark    \\
+\hline \hline
+\multicolumn{4}{p{0.8\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to signing a security cooperation agreement with any of the following actors. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
+\end{tabular}
+}
+\end{table}
