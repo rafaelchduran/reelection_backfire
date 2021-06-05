@@ -1456,7 +1456,7 @@ coefplot (est1, rename((1) = ".") msize(medium) mcolor(red) levels(99 95 90) cio
  horizontal scheme(s1color)  xline(0)    ///
 ytitle(" ")  xtitle(" ") ///
 subtitle("Alignment w/ President") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI"  ///
-4 "Reform & Not-aligned" 8 "Interaction (Reform & Aligned)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+4 "Reform" 8 "Interaction: Reform X Aligned" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/alignment_president.png", as(png) replace
 graph export "../Figures/alignment_president.pdf", as(pdf) replace
 graph export "../Figures/alignment_president.tif", as(tif) replace
@@ -1469,7 +1469,7 @@ coefplot (est4, rename((1) = ".") msize(medium) mcolor(red) levels(99 95 90) cio
  horizontal scheme(s1color)  xline(0)    ///
 ytitle(" ")  xtitle(" ") ///
 subtitle("Alignment w/ Governor") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI"  ///
-4 "Reform & Not-aligned" 8 "Interaction (Reform & Aligned)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+4 "Reform" 8 "Interaction: Reform X Aligned" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/alignment_governor.png", as(png) replace
 graph export "../Figures/alignment_governor.pdf", as(pdf) replace
 graph export "../Figures/alignment_governor.tif", as(tif) replace
@@ -1482,15 +1482,15 @@ coefplot (est7, rename((1) = ".") msize(medium) mcolor(red) levels(99 95 90) cio
  horizontal scheme(s1color)  xline(0)    ///
 ytitle(" ")  xtitle(" ") ///
 subtitle("Alignment w/ PRI Governor")legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI"  ///
-4 "Reform & Not-aligned" 8 "Interaction (Reform & Aligned)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+4 "Reform" 8 "Interaction: Reform X Aligned" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/alignment_governor_pri.png", as(png) replace
 graph export "../Figures/alignment_governor_pri.pdf", as(pdf) replace
 graph export "../Figures/alignment_governor_pri.tif", as(tif) replace
 graph save "../Figures/alignment_governor_pri.gph", replace
 
 *combine:
-grc1leg "../Figures/alignment_president.gph" "../Figures/alignment_governor.gph" "../Figures/alignment_governor_pri.gph" , ///
-scheme(s1color)  imargin(vsmall) ycommon xcommon  col(1) l1(" ") b1(Average Effect from t to t+3)
+grc1leg "../Figures/alignment_governor.gph" "../Figures/alignment_president.gph" , ///
+scheme(s1color)  imargin(vsmall) ycommon xcommon  col(1) l1("likelihood of signing" "centralized command agreements") b1(Average Effect from t to t+3)
 graph export "../Figures/interaction_alignment_full.png", as(png) replace
 graph export "../Figures/interaction_alignment_full.pdf", as(pdf) replace
 graph export "../Figures/interaction_alignment_full.tif", as(tif) replace

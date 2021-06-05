@@ -3021,8 +3021,8 @@ coefplot (est1, rename((1) = ".") msize(large) mcolor(green) levels(99 95 90) ci
  , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Narcotraffic") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Panel A: Narcotraffic") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/narco.png", as(png) replace
 graph export "../Figures/narco.pdf", as(pdf) replace
 graph export "../Figures/narco.tif", as(tif) replace
@@ -3034,8 +3034,8 @@ coefplot   (est4, rename((1) = ".") mfcolor(white)  msize(large) mcolor(green) l
  , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Insecurity") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Panel B: Insecurity") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/insecurity.png", as(png) replace
 graph export "../Figures/insecurity.pdf", as(pdf) replace
 graph export "../Figures/insecurity.tif", as(tif) replace
@@ -3047,8 +3047,8 @@ coefplot (est10, rename((1) = ".") msize(large) mcolor(green) levels(99 95 90) c
  , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Punishment to Criminals") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Panel C: Punishment to Criminals") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/punishment.png", as(png) replace
 graph export "../Figures/punishment.pdf", as(pdf) replace
 graph export "../Figures/punishment.tif", as(tif) replace
@@ -3061,8 +3061,8 @@ coefplot (est7, rename((1) = ".")  msize(large) mcolor(green) levels(99 95 90) c
  , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Corruption") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Panel D: Corruption" "(placebo)") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/corruption.png", as(png) replace
 graph export "../Figures/corruption.pdf", as(pdf) replace
 graph export "../Figures/corruption.tif", as(tif) replace
@@ -3075,8 +3075,8 @@ coefplot  (est13, rename((1) = ".") msize(large) mcolor(green) levels(99 95 90) 
  , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Poverty") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Panel E: Poverty" "(placebo)") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/poverty.png", as(png) replace
 graph export "../Figures/poverty.pdf", as(pdf) replace
 graph export "../Figures/poverty.tif", as(tif) replace
@@ -3089,8 +3089,8 @@ coefplot(est16, rename((1) = ".") mfcolor(white)  msize(large) mcolor(green) lev
  , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Unemployment") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Panel F: Unemployment" "(placebo)") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/unemployment.png", as(png) replace
 graph export "../Figures/unemployment.pdf", as(pdf) replace
 graph export "../Figures/unemployment.tif", as(tif) replace
@@ -3102,8 +3102,8 @@ graph save "../Figures/unemployment.gph", replace
   , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Inflation") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Panel I: Inflation" "(placebo)") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/inflation.png", as(png) replace
 graph export "../Figures/inflation.pdf", as(pdf) replace
 graph export "../Figures/inflation.tif", as(tif) replace
@@ -3116,8 +3116,8 @@ graph save "../Figures/inflation.gph", replace
   , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Natural Disasters") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Panel J: Natural Disasters" "(placebo)") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/disasters.png", as(png) replace
 graph export "../Figures/disasters.pdf", as(pdf) replace
 graph export "../Figures/disasters.tif", as(tif) replace
@@ -3130,8 +3130,8 @@ graph save "../Figures/disasters.gph", replace
    , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Water scarcity") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Panel J: Water scarcity" "(placebo)") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/water.png", as(png) replace
 graph export "../Figures/water.pdf", as(pdf) replace
 graph export "../Figures/water.tif", as(tif) replace
@@ -3144,8 +3144,8 @@ graph save "../Figures/water.gph", replace
    , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Education") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Panel L: Education" "(placebo)") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/education.png", as(png) replace
 graph export "../Figures/education.pdf", as(pdf) replace
 graph export "../Figures/education.tif", as(tif) replace
@@ -3158,8 +3158,8 @@ graph save "../Figures/education.gph", replace
    , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Health") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Panel H: Health" "(placebo)") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/health.png", as(png) replace
 graph export "../Figures/health.pdf", as(pdf) replace
 graph export "../Figures/health.tif", as(tif) replace
@@ -3171,8 +3171,8 @@ graph save "../Figures/health.gph", replace
    , ///
  horizontal scheme(s1color)  xline(0)  ///
 ytitle(" ")  xtitle(" ") ///
-subtitle("Private Security Expenditures") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
-4 "Reform & Low Concern" 8 "Interaction (Reform & High Concern)" 12 "Tot. Interaction") size(small) rows(2) region(col(white))) 
+subtitle("Private Security Expenditures" "(placebo)") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI" ///
+4 "Reform" 8 "Interaction:" "Reform X Topic Worries the Most" 12 "Reform + Interaction") size(small) rows(2) region(col(white))) 
 graph export "../Figures/sec_expenditures.png", as(png) replace
 graph export "../Figures/sec_expenditures.pdf", as(pdf) replace
 graph export "../Figures/sec_expenditures.tif", as(tif) replace
@@ -3183,7 +3183,7 @@ graph save "../Figures/sec_expenditures.gph", replace
 grc1leg "../Figures/narco.gph" "../Figures/insecurity.gph" "../Figures/punishment.gph" "../Figures/corruption.gph" ///
  "../Figures/poverty.gph" "../Figures/unemployment.gph" "../Figures/health.gph" "../Figures/inflation.gph" ///
  "../Figures/disasters.gph" "../Figures/water.gph" "../Figures/education.gph" , ///
-scheme(s1color)  imargin(vsmall) ycommon  col(3) l1("topic that worries the most" "-pre-treatment & state-level-") b1(Average Effect from t to t+3)
+scheme(s1color)  imargin(vsmall) ycommon  col(3) l1("likelihood of signing" "centralized command agreements") b1(Average Effect from t to t+3)
 graph export "../Figures/preferences.png", as(png) replace
 graph export "../Figures/preferences.pdf", as(pdf) replace
 graph export "../Figures/preferences.tif", as(tif) replace

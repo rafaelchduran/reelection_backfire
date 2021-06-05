@@ -1402,14 +1402,13 @@ restore
 
 ****COMBINE: EXPENSES
 *combine:
-grc1leg "../Figures/exp_security_allyears.gph" "../Figures/expenses_social_allyears.gph" ///
- "../Figures/expenses_infrastructure_allyears.gph"  "../Figures/expenses_wages_allyears.gph", ///
+grc1leg "../Figures/exp_security_allyears.gph" / "../Figures/expenses_wages_allyears.gph", ///
 scheme(s1color)  imargin(vsmall)  col(2)  l1("Million pesos ") b1(" ")
 graph export "../Figures/expenses_allyears.png", as(png) replace
 graph export "../Figures/expenses_allyears.pdf", as(pdf) replace
 graph export "../Figures/expenses_allyears.tif", as(tif) replace
    
-****COMBINE: REVENUES
+/****COMBINE: REVENUES
 *combine:
 grc1leg   "../Figures/revenues_allyears.gph" "../Figures/taxes_allyears.gph"  ///
 "../Figures/propertytax_allyears.gph"  "../Figures/estate_allyears.gph", ///
