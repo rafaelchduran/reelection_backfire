@@ -1,0 +1,20 @@
+            &\multicolumn{2}{c}{\begin{tabular}[c]{@{}l@{}} Probability of winning, \\ Election at t+1\end{tabular}}&\multicolumn{2}{c}{\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}}\\\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\addlinespace
+\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}&      -0.054         &      -0.095\sym{**} &      -0.022\sym{*}  &      -0.026\sym{**} \\
+            &     (0.041)         &     (0.041)         &     (0.012)         &     (0.012)         \\
+\addlinespace
+Term Limit Reform&       0.208\sym{**} &       0.214\sym{**} &       0.162\sym{**} &       0.138         \\
+            &     (0.082)         &     (0.094)         &     (0.076)         &     (0.083)         \\
+\addlinespace
+\begin{tabular}[c]{@{}l@{}} Term Limit Reform X Dummy Win, Election at t \\ (Personal Incumbency Advantage)\end{tabular}&       0.093         &       0.130         &       0.050\sym{*}  &       0.070\sym{***}\\
+            &     (0.071)         &     (0.091)         &     (0.025)         &     (0.026)         \\
+\addlinespace
+Observations&        2247         &        2247         &        1892         &        2245         \\
+R-squared   &       0.536         &       0.539         &       0.560         &       0.556         \\
+Municipal FE&  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Year FE     &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Controls$^a$&                     &                     &                     &                     \\
+Polynomial  &      linear         &   quadratic         &      linear         &   quadratic         \\
+Difference:Personal-Partisan&  $0.148^{}$         & $0.225^{*}$         &$0.072^{**}$         &$0.096^{***}$         \\
+SE (Difference)&       0.107         &       0.121         &       0.035         &       0.033         \\

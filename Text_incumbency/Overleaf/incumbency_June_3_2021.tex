@@ -248,8 +248,8 @@ I then take the linear combination of the CATTs for each relative time period $k
 \end{equation}
   
 where $\hat{\gamma_{e,k}}$ is returned from equation \ref{eq:abraham} and $\hat{Pr}\{E_i=e | E_i \in [-k, T-k]\}$  are the estimated weights equal to the share of each cohort in the relevant time period, normalized by the size of  $g$, with $g$ the universe of the $k$ periods relative to treatment. Since I estimate a IW estimator per year $|g|=1$. Lastly, to estimate the average treatment effect for $t=0$, I run the linear average of weighted coefficients across the CATTs of this time period relative to treatment.  Standard errors are clustered at the state level as that is the level of treatment of the Electoral Reform in Mexico. 
-
-\subsection{Data}
+        
+\subsection{Data}   
 
 To measure incumbency advantage, I construct an indicator that takes the value of 1 if the party won office in the next election and was an incumbent two elections before, 0 otherwise. This analysis identifies the party that wins in the next election and studies the effect of this party barely winning (or losing) in the present election on outcomes at the next election following \citet{klasnja_titiunik_2017}. This measure requires at least three rounds of elections, and thus I consider all municipal level elections since 2011 to 2018.\footnote{Municipal electoral calendars vary by state. However, almost all municipalities have three year terms with the exception of some municipalities with non-aligned electoral calendars with State-level ones, or other political circumstances.} A second measure uses vote share instead of the probability of winning office. Different from the Brazilian case studied by \citet{klasnja_titiunik_2017} where parties do not contest in every election and thus need to adjust estimates unconditional on parties running,\footnote{\citet{klasnja_titiunik_2017} called this outcome ``unconditional victor on running" and measures if a party won at $t+1$ regardless of whether they had a candidate at that time period or not.} in Mexico the three main parties in this time period (PRI, PAN and PRD) always run in elections they have already participated in the past and hold national representation. Thus, there is no bias to be concerned of related to a party's decision to run at $t+1$ given anticipation of their performance at that same time period.  
 
@@ -397,6 +397,25 @@ The paper further tries to explain the reasons behind the observed incumbency re
 \clearpage
 %APPENDIX -----------------------------------------------
 \begin{appendix}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{New Tables and Figures}
+
+	\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Partisan and Personal Incumbency Advantage, Two-way Fixed Effects Model}
+\label{tab:naive_twfe}
+\begin{tabular}{l*{4}{c}}
+\hline \hline 
+   
+  \input{Tables_incumbency/naive_twfe.tex}   
+
+      
+\hline \hline 
+\multicolumn{5}{p{1\textwidth}}{\footnotesize{Notes: I follow \citet{altonji_etal_2005} to check if unobserved variation is likely to explain the signing of security cooperation agreements with the Governor by mayors. To do so, I regress the treatment (whether the municipality held reelection) on all the available covariates used for Figure \ref{fig:event_study_agreements}.} I then take the fitted value from the regression and use it to predict each outcome, this time including unit and year fixed effects. This test suggests that – under the assumption that observables are representative of unobservables – selection on unobservables is not driving the results.} \\
+\end{tabular}
+\end{table} 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
@@ -560,7 +579,7 @@ I begin by visualizing the effect of the reform on incumbency advantage.  Figure
      \captionsetup{justification=centering}  
        
 \end{figure} 
-       Note: Regression Discontinuity design of close elections on incumbency advantage. Panel (a) considers all elections from 1979 to 2014. Panel (b) considers all elections after 2014 for municipalities that implemented reelection.) 
+       Note: Regression Discontinuity design of close elections on incumbency advantage. Panel (a) considers all elections from 2000 to 2014. Panel (b) considers all elections after 2014 for municipalities that implemented reelection.) 
 \\
        
 Before the reform, there was a negative statistical significant difference between municipalities that barely won and lost on the probability of success in the next election. This incumbency \emph{disadvantage} aligns strongly with a similar result found by \citet{klasnja_titiunik_2017} for the case of Mexico. \citet{klasnja_titiunik_2017} find that an incumbent party that is barely reelected suffers a reduction in the probability of winning the following election of 28 percentage points. In contrast, I find a reduction between 10.7 to 11.32 percentage points, a finding that considers 20 more years of elections since \citet{klasnja_titiunik_2017} cap their data from 1997 to 2009, while I consider elections since 1979 to 2014. 

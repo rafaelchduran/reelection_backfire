@@ -154,7 +154,7 @@ global inter_pol2 lag_6_2018_pol2 lag_6_2016_pol2 lag_5_2018_pol2 lag_5_2015_pol
 	*best: global controls_time_acuerdo  presidential_election pan_president  $margin $governor $margin_governor $effectiveparties 
 	* to use: global controls_time_acuerdo  presidential_election pan_president $homicides $margin $governor $margin_governor $effectiveparties $logpop
 
-	global controls_time_acuerdo presidential_election  $governor $margin_governor $effectiveparties 
+	global controls_time_acuerdo presidential_election inc_party_won   $governor $margin_governor $effectiveparties 
 
 
 	global saturated  lag_5_2018 lag_5_2015 lag_4_2018 lag_4_2017 lag_4_2015  date_0_2018 date_0_2017 date_0_2016 date_0_2015 // removed lag_3_2018 lag_3_2016 lag_3_2015 to be the comparison group AND lag_8_2018 because of collinearity following Abraham and Sun (2021)
@@ -193,7 +193,7 @@ qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i
 
 
 foreach i in lag_6 {
-qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+ xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 	sum perc if `i'_2016==1, meanonly
 	local b = r(mean)
 	sum perc if `i'_2018==1, meanonly
@@ -210,6 +210,7 @@ qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i
 	eststo: lincomest 	(_b[`i'_2016]*`b'+_b[`i'_2018]*`c')/2
 	glo se_`i'_ihsdet_`pol': di %5.4f r(se)
 }
+
 
 foreach i in lag_5 {
 qui xi: reghdfe  `j'  $saturated pol`pol' $inter_pol1  $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)

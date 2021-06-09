@@ -56,7 +56,9 @@ label variable prob_running "Pr(Winner runs again)"
 *average is: 35.30%. So instead of dividing by 2 we divide by 1.29
 sum prob_running
 glo denominator: di  2*(1-r(mean))
-
+*========================================================================
+*Drop years prior to 2000
+drop if year<2000
 *========================================================================
 *FOWLER AND HALL (2014)	
 *A) LINEAR POLYNOMIAL
@@ -260,7 +262,7 @@ tex Observations: vote share in t+1      &            ${N_5_quad}        &     $
 
 
 tex \hline \hline      
-tex \multicolumn{4}{p{1\textwidth}}{\footnotesize{Notes: Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period.}}
+tex \multicolumn{4}{p{1\textwidth}}{\footnotesize{Notes: Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. Table estimated using all elections since the year 2000.}}
 tex \end{tabular}
 tex } 
 tex \end{table}
