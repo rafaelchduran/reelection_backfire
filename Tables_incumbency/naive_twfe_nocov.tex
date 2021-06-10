@@ -1,0 +1,20 @@
+            &\multicolumn{2}{c}{\begin{tabular}[c]{@{}l@{}} Probability of winning, \\ Election at t+1\end{tabular}}&\multicolumn{2}{c}{\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}}\\\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\addlinespace
+Term Limit Reform&       0.178\sym{**} &       0.179\sym{**} &       0.166\sym{**} &       0.166\sym{**} \\
+            &     (0.077)         &     (0.077)         &     (0.077)         &     (0.077)         \\
+\addlinespace
+\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}&      -0.054         &      -0.054         &      -0.033\sym{***}&      -0.033\sym{***}\\
+            &     (0.039)         &     (0.039)         &     (0.011)         &     (0.011)         \\
+\addlinespace
+\begin{tabular}[c]{@{}l@{}} Interaction (Reform X Win), Election at t \\ (Personal Incumbency Advantage)\end{tabular}&       0.099\sym{*}  &       0.098         &       0.079\sym{***}&       0.079\sym{***}\\
+            &     (0.058)         &     (0.059)         &     (0.021)         &     (0.021)         \\
+\addlinespace
+Observations&        2247         &        2247         &        1892         &        1892         \\
+R-squared   &       0.535         &       0.535         &       0.558         &       0.558         \\
+Municipal FE&  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Year FE     &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Controls$^a$&                     &                     &                     &                     \\
+Polynomial  &      linear         &   quadratic         &      linear         &   quadratic         \\
+Difference:Personal-Partisan&  $0.152^{}$         &  $0.152^{}$         &$0.112^{***}$         &$0.112^{***}$         \\
+SE (Difference)&       0.092         &       0.094         &       0.029         &       0.029         \\
