@@ -51,7 +51,6 @@ xtset inegi year
 
 	global controls_time_acuerdo presidential_election pan_president $incumbency $homicides $areakm2 $pan_mayor2 $pri_mayor2  $margin $governor $margin_governor $effectiveparties $logpop
 	global controls_time_acuerdo  presidential_election pan_president $homicides $margin $governor $margin_governor $effectiveparties $logpop
-	*global controls_time_acuerdo  
 
 *2) treatment
 	global lagsleads  lag_8 lag_6 lag_5 lag_4   date_0 // comparison group is lag_3
@@ -146,7 +145,7 @@ global optimal = e(h_CCT)
 xi: reghdfe  $outcome5 pol1 reform inc_party_won interaction_ref   $controls_time_acuerdo  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
 *keep if e(sample)==1
 *=============================================
-*MAIN TABLE) Naive TWFE: constraint on the outcome/rating relationship to be identical on both sides of the cut-point
+*0) Naive TWFE: 
 **NO COVARIATES
 est clear
 
@@ -208,7 +207,7 @@ glo se: di %5.3f r(se)
 restore
 esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
 
-esttab using "../Tables_incumbency/naive_twfe_main.tex", replace f b(%9.3f) se(%9.3f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+esttab using "../Tables_incumbency/naive_twfe_main.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
@@ -221,7 +220,7 @@ pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrul
 collabels(none) nonotes booktabs nomtitles nolines
 
 *=============================================
-*0) Naive TWFE: constraint on the outcome/rating relationship to be identical on both sides of the cut-point
+*1) Naive Diff-Disc: constraint on the outcome/rating relationship to be identical on both sides of the cut-point
 **NO COVARIATES
 est clear
 
@@ -248,9 +247,9 @@ glo pvalue: di %5.3f r(p)
 			if (${pvalue}<=0.01) global est = "***"
 
 lincom (_b[interaction_ref]-_b[inc_party_won]) 
-glo difference: di %5.3f r(estimate)
+glo difference: di %5.4f r(estimate)
 	estadd local difference $${difference}^{${est}}$
-glo se: di %5.3f r(se)
+glo se: di %5.4f r(se)
 	estadd local se $se		
 }
 *B) Quadratic polynomial
@@ -272,9 +271,9 @@ glo pvalue: di %5.3f r(p)
 			if (${pvalue}<=0.01) global est = "***"
 
 lincom (_b[interaction_ref]-_b[inc_party_won]) 
-glo difference: di %5.3f r(estimate)
+glo difference: di %5.4f r(estimate)
 	estadd local difference $${difference}^{${est}}$
-glo se: di %5.3f r(se)
+glo se: di %5.4f r(se)
 	estadd local se $se		
 }
 }
@@ -283,7 +282,7 @@ glo se: di %5.3f r(se)
 restore
 esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
 
-esttab using "../Tables_incumbency/naive_twfe_nocov.tex", replace f b(%9.3f) se(%9.3f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+esttab using "../Tables_incumbency/naive_twfe_nocov.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
@@ -483,8 +482,8 @@ eststo: xi: reghdfe  `j'  $lagsleads2 $interaction_reform2 inc_party_won   pol`p
 esttab est*, keep($lagsleads2 inc_party_won $interaction_reform2) star(* 0.1 ** 0.05 *** 0.01) t
 
 *Figure: Probability of Winning in t+1. Pol1 and Pol2			   
-coefplot (est1, msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
-(est2, msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+coefplot (est1, msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est2, msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
  , ///
  vertical scheme(s1color)  yline(0)    ///
 keep($interaction_reform2) ///
@@ -498,8 +497,8 @@ graph export "../Figures_incumbency/new_event_study_incumbency.png", as(png) rep
 graph save "../Figures_incumbency/new_event_study_incumbency.gph", replace
 
 *Figure: Vote Share in t+1. Pol1 and Pol2			   
-coefplot (est3, msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
-(est4, msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+coefplot (est3, msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est4, msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
  , ///
  vertical scheme(s1color)  yline(0)    ///
 keep($interaction_reform2) ///
@@ -523,6 +522,8 @@ graph export "../Figures_incumbency/new_paralleltrend_eventstudy_incumbency.png"
 
 *=============================================
 *4) Abraham and Sun (2021)
+	global controls_time_acuerdo  
+
 est clear
 *pol1
 foreach j in $outcomes {
@@ -703,14 +704,14 @@ xi: reghdfe  `j'  $saturated inc_party_won pol1 pol`pol' $inter_pol2 $interactio
 }
 
 *Figure: Probability of Winning in t+1. Pol1 and Pol2			   
-coefplot (est1, rename((1) = "t-6") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est2, rename((1) = "t-5") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est3, rename((1) = "t-4") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)))  ///
- (est4, rename((1) = "Personal") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est5, rename((1) = "t-6") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est6, rename((1) = "t-5") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est7, rename((1) = "t-4") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)))  ///
- (est8, rename((1) = "Personal") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+coefplot (est1, rename((1) = "t-6") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ (est2, rename((1) = "t-5") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ (est3, rename((1) = "t-4") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est4, rename((1) = "Personal") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ (est5, rename((1) = "t-6") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ (est6, rename((1) = "t-5") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ (est7, rename((1) = "t-4") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est8, rename((1) = "Personal") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
  , ///
  vertical scheme(s1color)  yline(0)    ///
 ytitle(" ")  xtitle(" ") ///
@@ -722,14 +723,14 @@ graph export "../Figures_incumbency/new_incumbency_as.png", as(png) replace
 graph save "../Figures_incumbency/new_incumbency_as.gph", replace
 
 *Figure: Vote share in t+1. Pol1 and Pol2			   
-coefplot (est9, rename((1) = "t-6") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est10, rename((1) = "t-5") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est11, rename((1) = "t-4") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)))  ///
- (est12, rename((1) = "Personal") msize(large) mcolor(red) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est13, rename((1) = "t-6") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est14, rename((1) = "t-5") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
- (est15, rename((1) = "t-4") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black)))  ///
- (est16, rename((1) = "Personal") msize(large) mcolor(blue) levels(99 95 90) ciopts(lwidth(*1 *3 *5) color(black black black))) ///
+coefplot (est9, rename((1) = "t-6") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ (est10, rename((1) = "t-5") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ (est11, rename((1) = "t-4") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est12, rename((1) = "Personal") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ (est13, rename((1) = "t-6") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ (est14, rename((1) = "t-5") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ (est15, rename((1) = "t-4") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est16, rename((1) = "Personal") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
  , ///
  vertical scheme(s1color)  yline(0)    ///
 ytitle(" ")  xtitle(" ") ///
@@ -743,13 +744,293 @@ graph save "../Figures_incumbency/new_incumbency_as_margin.gph", replace
 *=============================================
 *Combine figures:
 grc1leg "../Figures_incumbency/new_incumbency_as.gph" "../Figures_incumbency/new_incumbency_as_margin.gph" , ///
-scheme(s1color)  imargin(vsmall)  row(1)
+scheme(s1color)  imargin(vsmall)  col(1)
 graph export "../Figures_incumbency/new_parallel_incumbency_as.png", as(png) replace
 *graph export "../Figures_incumbency/new_parallel_incumbency_as.pdf", as(pdf) replace
 *graph export "../Figures_incumbency/new_parallel_incumbency_as.tif", as(tif) replace
 
+*=============================================
+*MULTIPLE BANDWIDTHS
+**Naive TWFE, NOCOV 
+
+*A) PROBABILITY OF WINNING
+est clear
+
+preserve
+foreach band in CCT{
+foreach n in 1 .9 .8 .7 .6 .5 .4 .3 .2 .1{
+foreach j in $outcome2{
+*A) Linear polynomial
+foreach pol in 1 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)*`n'
+
+qui xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest _b[interaction_ref]
+qui xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest _b[inc_party_won]
+
+}
+*B) Quadratic polynomial
+foreach pol in 2 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)*`n'
+
+qui xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest _b[interaction_ref]
+qui xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest _b[inc_party_won]	
+}
+}
+}
+}
+restore
+*esttab est*, keep(inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
+
+/*esttab using "../Tables_incumbency/naive_twfe_nocov_multiplebandwidths.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
+label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
+ "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
+keep(reform inc_party_won interaction_ref) ///
+coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction (Reform X Win), Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
+mgroups("\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
+pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+collabels(none) nonotes booktabs nomtitles nolines
+*/
+*Figure of multiple bandwidths
+*Figure: Personal Incumbency Advantage. Pol1 and Pol2	
+label variable inc_party_won "Partisan"
+label variable interaction_ref "Personal"
+coefplot (est1, rename((1)= "Optimal")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est3, rename((1)= "Optimal") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est5, rename((1)= "90%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est7, rename((1)= "90%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est9, rename((1)= "80%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est11, rename((1)= "80%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est13, rename((1)= "70%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est15, rename((1)= "70%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est17, rename((1)= "60%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est19, rename((1)= "60%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est21, rename((1)= "50%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est23, rename((1)= "50%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est25, rename((1)= "40%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est27, rename((1)= "40%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ , ///
+ vertical scheme(s1color)  yline(0)    ///
+ytitle(" ")  xtitle(" ") ///
+subtitle("Panel A: Personal Incumbency Advantage") legend(order(1 "99% CI" 1 "95% CI" 3 "90% CI" ///
+4 "linear" 40 "quadratic" ) rows(2)) 
+graph export "../Figures_incumbency/probability_personal_bandwidths.png", as(png) replace
+*graph export "../Figures_incumbency/probability_personal_bandwidths.pdf", as(pdf) replace
+*graph export "../Figures_incumbency/probability_personal_bandwidths.tif", as(tif) replace
+graph save "../Figures_incumbency/probability_personal_bandwidths.gph", replace
+
+*Figure: Personal Incumbency Advantage. Pol1 and Pol2	
+coefplot (est2, rename((1)= "Optimal")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est4, rename((1)= "Optimal") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est6, rename((1)= "90%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est8, rename((1)= "90%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est10, rename((1)= "80%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est12, rename((1)= "80%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est14, rename((1)= "70%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est16, rename((1)= "70%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est18, rename((1)= "60%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est20, rename((1)= "60%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est22, rename((1)= "50%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est24, rename((1)= "50%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est26, rename((1)= "40%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est28, rename((1)= "40%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ , ///
+ vertical scheme(s1color)  yline(0)    ///
+ytitle(" ")  xtitle(" ") ///
+subtitle("Panel B: Partisan Incumbency Advantage") legend(order(1 "99% CI" 1 "95% CI" 3 "90% CI" ///
+4 "linear" 40 "quadratic" ) rows(2))  
+graph export "../Figures_incumbency/probability_partisan_bandwidths.png", as(png) replace
+*graph export "../Figures_incumbency/probability_partisan_bandwidths.pdf", as(pdf) replace
+*graph export "../Figures_incumbency/probability_partisan_bandwidths.tif", as(tif) replace
+graph save "../Figures_incumbency/probability_partisan_bandwidths.gph", replace
+
+*=============================================
+*Combine figures:
+grc1leg "../Figures_incumbency/probability_personal_bandwidths.gph" "../Figures_incumbency/probability_partisan_bandwidths.gph" , ///
+scheme(s1color)  imargin(vsmall)  col(1) l1("Probability of Winning, Election t+1")
+graph export "../Figures_incumbency/probability_bandwidths.png", as(png) replace
+graph save "../Figures_incumbency/probability_bandwidths.gph", replace
+
+
 *===================================================================================================
+*B) VOTE SHARE
+est clear
+
+preserve
+foreach band in CCT{
+foreach n in 1 .9 .8 .7 .6 .5 .4 .3 .2 .1{
+foreach j in $outcome5{
+*A) Linear polynomial
+foreach pol in 1 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)*`n'
+
+qui xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest _b[interaction_ref]
+qui xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest _b[inc_party_won]
+
+}
+*B) Quadratic polynomial
+foreach pol in 2 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)*`n'
+
+qui xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest _b[interaction_ref]
+qui xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest _b[inc_party_won]	
+}
+}
+}
+}
+restore
+*esttab est*, keep(inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
+
+/*esttab using "../Tables_incumbency/naive_twfe_nocov_multiplebandwidths.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
+label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
+ "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
+keep(reform inc_party_won interaction_ref) ///
+coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction (Reform X Win), Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
+mgroups("\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
+pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+collabels(none) nonotes booktabs nomtitles nolines
+*/
+*Figure of multiple bandwidths
+*Figure: Personal Incumbency Advantage. Pol1 and Pol2	
+label variable inc_party_won "Partisan"
+label variable interaction_ref "Personal"
+coefplot (est1, rename((1)= "Optimal")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est3, rename((1)= "Optimal") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est5, rename((1)= "90%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est7, rename((1)= "90%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est9, rename((1)= "80%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est11, rename((1)= "80%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est13, rename((1)= "70%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est15, rename((1)= "70%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est17, rename((1)= "60%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est19, rename((1)= "60%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est21, rename((1)= "50%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est23, rename((1)= "50%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est25, rename((1)= "40%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est27, rename((1)= "40%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ , ///
+ vertical scheme(s1color)  yline(0)    ///
+ytitle(" ")  xtitle(" ") ///
+subtitle("Panel C: Personal Incumbency Advantage") legend(order(1 "99% CI" 1 "95% CI" 3 "90% CI" ///
+4 "linear" 40 "quadratic" ) rows(2)) 
+graph export "../Figures_incumbency/margin_personal_bandwidths.png", as(png) replace
+*graph export "../Figures_incumbency/margin_personal_bandwidths.pdf", as(pdf) replace
+*graph export "../Figures_incumbency/margin_personal_bandwidths.tif", as(tif) replace
+graph save "../Figures_incumbency/margin_personal_bandwidths.gph", replace
+
+*Figure: Personal Incumbency Advantage. Pol1 and Pol2	
+coefplot (est2, rename((1)= "Optimal")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est4, rename((1)= "Optimal") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est6, rename((1)= "90%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est8, rename((1)= "90%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est10, rename((1)= "80%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est12, rename((1)= "80%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est14, rename((1)= "70%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est16, rename((1)= "70%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est18, rename((1)= "60%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est20, rename((1)= "60%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est22, rename((1)= "50%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est24, rename((1)= "50%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est26, rename((1)= "40%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est28, rename((1)= "40%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+ , ///
+ vertical scheme(s1color)  yline(0)    ///
+ytitle(" ")  xtitle(" ") ///
+subtitle("Panel D: Partisan Incumbency Advantage") legend(order(1 "99% CI" 1 "95% CI" 3 "90% CI" ///
+4 "linear" 40 "quadratic" ) rows(2)) 
+graph export "../Figures_incumbency/margin_partisan_bandwidths.png", as(png) replace
+*graph export "../Figures_incumbency/margin_partisan_bandwidths.pdf", as(pdf) replace
+*graph export "../Figures_incumbency/margin_partisan_bandwidths.tif", as(tif) replace
+graph save "../Figures_incumbency/margin_partisan_bandwidths.gph", replace
+
+*=============================================
+*Combine figures:
+grc1leg "../Figures_incumbency/margin_personal_bandwidths.gph" "../Figures_incumbency/margin_partisan_bandwidths.gph" , ///
+scheme(s1color)  imargin(vsmall)  col(1) l1("Vote Share, Election t+1")
+graph export "../Figures_incumbency/margin_bandwidths.png", as(png) replace
+graph save "../Figures_incumbency/margin_bandwidths.gph", replace
+
 *===================================================================================================
+*COMBINE PROBABILITY AND VOTE SHARE
+grc1leg "../Figures_incumbency/probability_bandwidths.gph" "../Figures_incumbency/margin_bandwidths.gph" , ///
+scheme(s1color)  imargin(vsmall)  col(1) 
+graph export "../Figures_incumbency/all_bandwidths.png", as(png) replace
+*===================================================================================================
+*NO DISCONTINUOUS JUMP
+global covariates 	logdefuncionespc alignment_executive_strong alignment_governor_strong  logpop numparties_eff numparties_eff_molinar pri_mayor2 pan_mayor2 morena_mayor2
+global covariates 	logpop numparties_eff numparties_eff_molinar pri_mayor2 pan_mayor2 morena_mayor2
+
+est clear
+
+preserve
+foreach band in CCT{
+foreach n in 1{
+foreach j in $covariates{
+*A) Linear polynomial
+foreach pol in 1 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)*`n'
+
+qui xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest _b[interaction_ref]
+*qui xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+*eststo: lincomest _b[inc_party_won]
+
+}
+*B) Quadratic polynomial
+foreach pol in 2 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)*`n'
+
+qui xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+eststo: lincomest _b[interaction_ref]
+*qui xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+*eststo: lincomest _b[inc_party_won]	
+}
+}
+}
+}
+restore
+
+*Figure		   
+coefplot  (est1, rename((1) = "log(population)") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est2, rename((1) = "log(population)") msymbol(T) msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est3, rename((1) = "Effective Number of Parties") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est4, rename((1) = "Effective Number of Parties")  msymbol(T) msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est7, rename((1) = "PRI mayor") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est8, rename((1) = "PRI mayor") msymbol(T) msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est9, rename((1) = "PAN mayor") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est10, rename((1) = "PAN mayor") msymbol(T) msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est11, rename((1) = "MORENA mayor") msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ (est12, rename((1) = "MORENA mayor") msymbol(T) msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black)))  ///
+ , ///
+ horizontal scheme(s1color)  xline(0)    ///
+ytitle("Pretreatment" "covariates")  xtitle("Difference-in-Discontinuity Estimator") ///
+subtitle(" ") legend(order(1 "99% CI" 1 "95% CI" 3 "90% CI") rows(1)) 
+graph export "../Figures_incumbency/nojump.png", as(png) replace
+graph export "../Figures_incumbency/nojump.pdf", as(pdf) replace
+graph export "../Figures_incumbency/nojump.tif", as(tif) replace
+graph save "../Figures_incumbency/nojump.gph", replace
+
+*===================================================================================================
+*MECHANISMS
+
+
 /*===================================================================================================
 *Callaway and Sant'Ana (2020)
 *help did
