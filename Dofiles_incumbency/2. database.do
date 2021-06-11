@@ -724,7 +724,7 @@ drop if _merge==2
 drop _merge
 
 **3.16) egresos e ingresos
-foreach i in predial seguridad_ingresos seguridad_egresos desarrollo_social_egresos obras_egresos remuneraciones_egresos ingresos{
+foreach i in predial seguridad_ingresos seguridad_egresos desarrollo_social_egresos obras_egresos remuneraciones_egresos ingresos impuestos patrimonio produccion tenencia carros{
 merge m:m inegi year using "../../Data/ConstructionDatabase/Transferencias/Stata/`i'_2010_2018.dta"
 drop if _merge==2
 drop _merge

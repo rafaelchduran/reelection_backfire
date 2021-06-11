@@ -207,13 +207,13 @@ glo se: di %5.3f r(se)
 restore
 esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
 
-esttab using "../Tables_incumbency/naive_twfe_main.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+esttab using "../Tables_incumbency/naive_twfe.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction (Reform X Win), Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
 mgroups("\begin{tabular}[c]{@{}l@{}} Probability of winning, \\ Election at t+1\end{tabular}" ///
  "\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
 pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
@@ -288,14 +288,14 @@ label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction (Reform X Win), Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t  \\ (Personal Incumbency Advantage)\end{tabular}") ///
 mgroups("\begin{tabular}[c]{@{}l@{}} Probability of winning, \\ Election at t+1\end{tabular}" ///
  "\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
 pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
 
 *=============================================
-*1) Naive TWFE: constraint on the outcome/rating relationship to be identical on both sides of the cut-point
+*2) Naive Diff-Disc: constraint on the outcome/rating relationship to be identical on both sides of the cut-point
 *WITH COVARIATES
 est clear
 
@@ -363,14 +363,14 @@ label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction (Reform X Win), Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
 mgroups("\begin{tabular}[c]{@{}l@{}} Probability of winning, \\ Election at t+1\end{tabular}" ///
  "\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
 pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
 
 *=============================================
-*2) Naive TWFE-Saturated: polynomial interacting the treatment
+*3) Naive TWFE-Saturated: polynomial interacting the treatment
 /*
 Including an interaction between the forcing variable and the treatment can account for the fact that the treatment
 may impact not only the intercept, but also the slop of the regression line. This is important where data that are 
@@ -456,7 +456,7 @@ pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrul
 collabels(none) nonotes booktabs nomtitles nolines
 
 *=============================================
-*3) Naive Event Study
+*4) Naive Event Study
 label variable lag_8 "t-8"
 label variable lag_6"t-6"
 label variable lag_5 "t-5"
@@ -793,7 +793,7 @@ label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction (Reform X Win), Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t  \\ (Personal Incumbency Advantage)\end{tabular}") ///
 mgroups("\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
 pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
@@ -803,19 +803,19 @@ collabels(none) nonotes booktabs nomtitles nolines
 label variable inc_party_won "Partisan"
 label variable interaction_ref "Personal"
 coefplot (est1, rename((1)= "Optimal")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est3, rename((1)= "Optimal") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est3, rename((1)= "Optimal") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est5, rename((1)= "90%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est7, rename((1)= "90%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est7, rename((1)= "90%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est9, rename((1)= "80%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est11, rename((1)= "80%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est11, rename((1)= "80%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est13, rename((1)= "70%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est15, rename((1)= "70%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est15, rename((1)= "70%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est17, rename((1)= "60%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est19, rename((1)= "60%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est19, rename((1)= "60%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est21, rename((1)= "50%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est23, rename((1)= "50%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est23, rename((1)= "50%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est25, rename((1)= "40%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est27, rename((1)= "40%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est27, rename((1)= "40%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
  , ///
  vertical scheme(s1color)  yline(0)    ///
 ytitle(" ")  xtitle(" ") ///
@@ -828,19 +828,19 @@ graph save "../Figures_incumbency/probability_personal_bandwidths.gph", replace
 
 *Figure: Personal Incumbency Advantage. Pol1 and Pol2	
 coefplot (est2, rename((1)= "Optimal")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est4, rename((1)= "Optimal") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est4, rename((1)= "Optimal") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est6, rename((1)= "90%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est8, rename((1)= "90%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est8, rename((1)= "90%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est10, rename((1)= "80%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est12, rename((1)= "80%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est12, rename((1)= "80%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est14, rename((1)= "70%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est16, rename((1)= "70%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est16, rename((1)= "70%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est18, rename((1)= "60%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est20, rename((1)= "60%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est20, rename((1)= "60%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est22, rename((1)= "50%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est24, rename((1)= "50%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est24, rename((1)= "50%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est26, rename((1)= "40%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est28, rename((1)= "40%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est28, rename((1)= "40%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
  , ///
  vertical scheme(s1color)  yline(0)    ///
 ytitle(" ")  xtitle(" ") ///
@@ -900,7 +900,7 @@ label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction (Reform X Win), Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t  \\ (Personal Incumbency Advantage)\end{tabular}") ///
 mgroups("\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
 pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
@@ -910,19 +910,19 @@ collabels(none) nonotes booktabs nomtitles nolines
 label variable inc_party_won "Partisan"
 label variable interaction_ref "Personal"
 coefplot (est1, rename((1)= "Optimal")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est3, rename((1)= "Optimal") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est3, rename((1)= "Optimal") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est5, rename((1)= "90%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est7, rename((1)= "90%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est7, rename((1)= "90%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est9, rename((1)= "80%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est11, rename((1)= "80%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est11, rename((1)= "80%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est13, rename((1)= "70%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est15, rename((1)= "70%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est15, rename((1)= "70%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est17, rename((1)= "60%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est19, rename((1)= "60%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est19, rename((1)= "60%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est21, rename((1)= "50%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est23, rename((1)= "50%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est23, rename((1)= "50%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est25, rename((1)= "40%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est27, rename((1)= "40%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est27, rename((1)= "40%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
  , ///
  vertical scheme(s1color)  yline(0)    ///
 ytitle(" ")  xtitle(" ") ///
@@ -935,19 +935,19 @@ graph save "../Figures_incumbency/margin_personal_bandwidths.gph", replace
 
 *Figure: Personal Incumbency Advantage. Pol1 and Pol2	
 coefplot (est2, rename((1)= "Optimal")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est4, rename((1)= "Optimal") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est4, rename((1)= "Optimal") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est6, rename((1)= "90%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est8, rename((1)= "90%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est8, rename((1)= "90%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est10, rename((1)= "80%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est12, rename((1)= "80%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est12, rename((1)= "80%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est14, rename((1)= "70%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est16, rename((1)= "70%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est16, rename((1)= "70%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est18, rename((1)= "60%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est20, rename((1)= "60%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est20, rename((1)= "60%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est22, rename((1)= "50%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est24, rename((1)= "50%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est24, rename((1)= "50%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
 (est26, rename((1)= "40%")   msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
-(est28, rename((1)= "40%") msymbol(T)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est28, rename((1)= "40%") msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
  , ///
  vertical scheme(s1color)  yline(0)    ///
 ytitle(" ")  xtitle(" ") ///
@@ -1028,7 +1028,546 @@ graph export "../Figures_incumbency/nojump.tif", as(tif) replace
 graph save "../Figures_incumbency/nojump.gph", replace
 
 *===================================================================================================
-*MECHANISMS
+*MECHANISMS: QUALITY BASED INCUMBENCY ADVANTAGE
+label variable reform "Reform: Term vs. Reelection"
+est clear
+
+preserve
+foreach band in CCT{
+foreach n in 1{
+foreach j in incumbent_quality{
+*A) Linear polynomial
+foreach pol in 1 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)*`n'
+
+eststo: xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+*eststo: lincomest _b[interaction_ref]
+*qui xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+*eststo: lincomest _b[inc_party_won]
+
+}
+*B) Quadratic polynomial
+foreach pol in 2 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)*`n'
+
+eststo: xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+*eststo: lincomest _b[interaction_ref]
+*qui xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+*eststo: lincomest _b[inc_party_won]	
+}
+}
+}
+}
+restore
+
+esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
+
+*Figure		   
+coefplot  (est1, keep(reform inc_party_won interaction_ref)  msize(medium) mcolor(red) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+(est2, keep(reform inc_party_won interaction_ref)  msize(medium) mcolor(blue) levels(99 95 90) ciopts(lwidth(*0.5 *1 *2) color(black black black))) ///
+, ///
+ horizontal scheme(s1color)  xline(0)    ///
+ytitle(" ")  xtitle(" ") ///
+subtitle(" ") legend(order(1 "99% CI" 1 "95% CI" 3 "90% CI" 4 "linear" 8 "quadratic" ) rows(2)) 
+graph export "../Figures_incumbency/quality.png", as(png) replace
+graph export "../Figures_incumbency/quality.pdf", as(pdf) replace
+graph export "../Figures_incumbency/quality.tif", as(tif) replace
+graph save "../Figures_incumbency/quality.gph", replace
+*===================================================================================================
+*MECHANISMS: TRANSFERS
+	global transfers participaciones2 participables2 fomento2 fa_fortalecer2 fa_infra2  aportaciones2
+	foreach i in $transfers{
+	replace `i'=`i'/1000000
+	}
+	global transfers_a participaciones2 participables2 fomento2
+	global transfers_b fa_fortalecer2 fa_infra2  aportaciones2
+
+*1) Naive Diff-Disc: constraint on the outcome/rating relationship to be identical on both sides of the cut-point
+**NO COVARIATES
+est clear
+
+preserve
+foreach band in CCT{
+foreach n in 1{
+foreach j in $transfers_a{
+*A) Linear polynomial
+foreach pol in 1 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial linear  
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+*B) Quadratic polynomial
+foreach pol in 2 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+*global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial quadratic 
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se	
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+}
+}
+}
+restore
+esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
+
+esttab using "../Tables_incumbency/transfers_panela.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
+label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
+ "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+keep(reform inc_party_won interaction_ref) ///
+coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
+pattern(1 1 1 1 1 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+collabels(none) nonotes booktabs nomtitles nolines
+
+
+est clear
+
+preserve
+foreach band in CCT{
+foreach n in 1{
+foreach j in $transfers_b{
+*A) Linear polynomial
+foreach pol in 1 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial linear  
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+*B) Quadratic polynomial
+foreach pol in 2 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+*global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial quadratic 
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se	
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+}
+}
+}
+restore
+esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
+
+esttab using "../Tables_incumbency/transfers_panelb.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
+label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
+ "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+keep(reform inc_party_won interaction_ref) ///
+coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
+pattern(1 1 1 1 1 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+collabels(none) nonotes booktabs nomtitles nolines
+*===================================================================================================
+*MECHANISMS: REVENUES
+	global revenues ingresos2 impuestos2 impuesto_predial2  patrimonio2 produccion2 tenencia2 carros2 seguridad_ing2
+	foreach i in $revenues{
+	replace `i'=`i'/1000000
+	}
+	global revenues_a ingresos2 impuestos2 impuesto_predial2  patrimonio2
+	global revenues_b produccion2 tenencia2 carros2 
+*1) Naive Diff-Disc: constraint on the outcome/rating relationship to be identical on both sides of the cut-point
+**NO COVARIATES
+est clear
+
+preserve
+foreach band in CCT{
+foreach n in 1{
+foreach j in $revenues_a{
+*A) Linear polynomial
+foreach pol in 1 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial linear  
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+*B) Quadratic polynomial
+foreach pol in 2 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+*global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial quadratic 
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se	
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+}
+}
+}
+restore
+esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
+
+esttab using "../Tables_incumbency/revenues_panela.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
+label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
+ "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+keep(reform inc_party_won interaction_ref) ///
+coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
+pattern(1 1 1 1 1 1 1 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+collabels(none) nonotes booktabs nomtitles nolines
+
+est clear
+
+preserve
+foreach band in CCT{
+foreach n in 1{
+foreach j in $revenues_b{
+*A) Linear polynomial
+foreach pol in 1 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial linear  
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+*B) Quadratic polynomial
+foreach pol in 2 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+*global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial quadratic 
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se	
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+}
+}
+}
+restore
+esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
+
+esttab using "../Tables_incumbency/revenues_panelb.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
+label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
+ "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+keep(reform inc_party_won interaction_ref) ///
+coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
+pattern(1 1 1 1 1 1 1 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+collabels(none) nonotes booktabs nomtitles nolines
+
+*===================================================================================================
+*MECHANISMS: REVENUES
+	global effort tot_ses tot_inic por_egre t_person
+	foreach i in t_person{
+	replace `i'=(`i'/pop)*100000
+	}
+	global effort_a  tot_ses tot_inic
+	global effort_b  por_egre t_person
+
+*1) Naive Diff-Disc: constraint on the outcome/rating relationship to be identical on both sides of the cut-point
+**NO COVARIATES
+est clear
+
+preserve
+foreach band in CCT{
+foreach n in 1{
+foreach j in $effort_a{
+*A) Linear polynomial
+foreach pol in 1 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial linear  
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+*B) Quadratic polynomial
+foreach pol in 2 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+*global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial quadratic 
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se	
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+}
+}
+}
+restore
+esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
+
+esttab using "../Tables_incumbency/effort_outcomes_a.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
+label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
+ "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+keep(reform inc_party_won interaction_ref) ///
+coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
+pattern(1 1 1 1 ) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+collabels(none) nonotes booktabs nomtitles nolines
+
+est clear
+
+preserve
+foreach band in CCT{
+foreach n in 1{
+foreach j in $effort_b{
+*A) Linear polynomial
+foreach pol in 1 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  pol`pol' reform inc_party_won interaction_ref    i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial linear  
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+*B) Quadratic polynomial
+foreach pol in 2 {
+rdbwselect  `j' mv_incparty, c(0) p(`pol') kernel(tri) bwselect(`band') 
+*global optimal = e(h_CCT)/`n'
+
+eststo: xi: reghdfe  `j'  reform inc_party_won interaction_ref pol1  pol`pol'  i.year if mv_incparty<${optimal} & mv_incparty>-${optimal}, a(inegi) vce(cluster estado)
+		estadd local fixed \checkmark
+		estadd local year \checkmark
+		estadd local controls  
+		estadd local polynomial quadratic 
+test 	(_b[interaction_ref]-_b[inc_party_won])=0
+glo pvalue: di %5.3f r(p)
+	estadd local pvalue $pvalue
+	glo est= "" 
+			if (${pvalue}<=0.1) global est = "*"
+			if (${pvalue}<=0.05) global est = "**"
+			if (${pvalue}<=0.01) global est = "***"
+
+lincom (_b[interaction_ref]-_b[inc_party_won]) 
+glo difference: di %5.4f r(estimate)
+	estadd local difference $${difference}^{${est}}$
+glo se: di %5.4f r(se)
+	estadd local se $se	
+sum `j', meanonly
+local mean: di %5.1f r(mean)
+estadd local mean `mean'
+}
+}
+}
+}
+restore
+esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
+
+esttab using "../Tables_incumbency/effort_outcomes_b.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
+label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
+ "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+keep(reform inc_party_won interaction_ref) ///
+coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
+pattern(1 1 1 1 ) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+collabels(none) nonotes booktabs nomtitles nolines
 
 
 /*===================================================================================================

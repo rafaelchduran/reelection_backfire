@@ -364,7 +364,7 @@ Both transfers and revenues are used to proxy for measures of the resources incu
 \centering
  \caption{Effect of Term Limit Reform on the Quality of Candidates}
  \label{fig:quality_trend}
-\includegraphics[width=0.9\textwidth]{Figures_incumbency/quality_parallel.png}
+\includegraphics[width=0.9\textwidth]{Figures_incumbency/quality.png}
        \captionsetup{justification=centering}
          
  \textbf{Note:} Figure \ref{fig:quality_trend} shows the average treatment effect of the Term Limit Reform on a dummy indicator of whether candidates hold a professional title. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:main} are used, as well as the same number of observations.   
@@ -403,20 +403,55 @@ The paper further tries to explain the reasons behind the observed incumbency re
 	\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \centering
-\caption{Partisan and Personal Incumbency Advantage, Two-way Fixed Effects Model}
+\caption{Partisan and Personal Incumbency Advantage, Difference-in-Discontinuity of Close Elections Model}
 \label{tab:naive_twfe}
+\scalebox{1}{ 
+
 \begin{tabular}{l*{4}{c}}
 \hline \hline 
    
-  \input{Tables_incumbency/naive_twfe.tex}   
+  \input{Tables_incumbency/naive_twfe_nocov.tex}   
 
       
 \hline \hline 
-\multicolumn{5}{p{1\textwidth}}{\footnotesize{Notes: I follow \citet{altonji_etal_2005} to check if unobserved variation is likely to explain the signing of security cooperation agreements with the Governor by mayors. To do so, I regress the treatment (whether the municipality held reelection) on all the available covariates used for Figure \ref{fig:event_study_agreements}.} I then take the fitted value from the regression and use it to predict each outcome, this time including unit and year fixed effects. This test suggests that – under the assumption that observables are representative of unobservables – selection on unobservables is not driving the results.} \\
+\multicolumn{5}{p{1\textwidth}}{\footnotesize{Notes: Standard errors in parentheses are clustered at the state level. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test.$^a$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; and logged population.} \\
 \end{tabular}
+}
 \end{table} 
+	
+\begin{figure}[H]   
+\centering    
+ \caption{Event Study: Personal Incumbency Advantage}
+ \label{fig:event_study_personal}
+\includegraphics[width=0.9\textwidth]{Figures_incumbency/event_study.png}
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} Figure \ref{fig:event_study_personal} shows the average difference-in-discontinuity estimator of the effect of the Term Limit Reform that compares municipalities with incumbents that barely won to those that barely lost in the election at $t$ on the probability of winning in the election at $t+1$ (Panel A) and the vote share in the  election at $t+1$ (Panel B). Optimal bandwidths following \citet{calonicoetal_2014} are used. 
+  
+\end{figure}          
+    
+       
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Partisan and Personal Incumbency Advantage, Difference-in-Discontinuity of Close Elections Model}
+\label{tab:naive_twfe}
+\scalebox{1}{ 
+Dependent variables in Million pesos: & \multicolumn{2}{c}{General Participation Fund}  & \multicolumn{2}{c}{Participating Funds} & \multicolumn{2}{c}{Municipal Development Fund}  & \multicolumn{2}{c}{\begin{tabular}[c]{@{}l@{}}Contributions Fund to \\ Strengthen Municipalities \end{tabular}} & \multicolumn{2}{c}{\begin{tabular}[c]{@{}l@{}}Contribution Fund for \\ Municipal Social Infrastructure \end{tabular}}  & \multicolumn{2}{c}{\begin{tabular}[c]{@{}l@{}}Federal and State \\ Contributions (placebo) \end{tabular}} \\
 
+\begin{tabular}{l*{12}{c}}
+\hline \hline 
+   
+  %\input{Tables_incumbency/naive_twfe_nocov.tex}   
 
+      
+\hline \hline 
+\multicolumn{5}{p{1\textwidth}}{\footnotesize{Notes: Standard errors in parentheses are clustered at the state level. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test.$^a$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; and logged population.} \\
+\end{tabular}
+}
+\end{table}        
+        
+    \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 \section{Tables and Figures \label{appendix:tables_figures}}
@@ -431,7 +466,7 @@ The paper further tries to explain the reasons behind the observed incumbency re
 \begin{table}[H]
 \centering 
 \caption{Descriptive statistics}
- 
+   
 \label{tab:descriptive}
 \scalebox{0.75}{ 
 {
@@ -443,26 +478,31 @@ The paper further tries to explain the reasons behind the observed incumbency re
 \emph{Pane A - Incumbency Advantage:} 	&		&		&		&		\\
 \input{Tables_incumbency/inc_advantage.tex}
 \\
-\emph{Panel B - Controls and Forcing Variable:} 	&		&		&		&		\\
+\emph{Panel B - Treatments and Forcing Variable:} 	&		&		&		&		\\
+\input{Tables_incumbency/treatments.tex}
+\input{Tables_incumbency/forcing.tex}
+
+\\
+\emph{Panel C - Pretreatment controls:} 	&		&		&		&		\\
 \input{Tables_incumbency/covariates_statelevel.tex}
 \input{Tables_incumbency/population.tex}
 
 \\
-\emph{Panel C - Mechanisms-Fiscal Transfers:} 	&		&		&		&		\\
+\emph{Panel D - Mechanisms-Fiscal Transfers:} 	&		&		&		&		\\
 \input{Tables_incumbency/transfers.tex}
 \\
-\emph{Panel D - Mechanisms-Municipal Revenues:} 	&		&		&		&		\\
+\emph{Panel E - Mechanisms-Municipal Revenues:} 	&		&		&		&		\\
 \input{Tables_incumbency/revenues.tex}
 \\
-\emph{Panel E - Mechanisms-Other Resources:} 	&		&		&		&		\\
+\emph{Panel F - Mechanisms-Other Resources:} 	&		&		&		&		\\
 \input{Tables_incumbency/other.tex}
 \\
-\emph{Panel F - Mechanisms-Incumbents' quality:} 	&		&		&		&		\\
+\emph{Panel G - Mechanisms-Incumbents' quality:} 	&		&		&		&		\\
 \input{Tables_incumbency/desc_quality.tex}
 \\ 
 
 \hline\hline
-\end{tabular} 
+\end{tabular}    
 }
 }
 \end{table} 
@@ -520,7 +560,7 @@ The paper further tries to explain the reasons behind the observed incumbency re
    
 \end{figure} 
 
-
+  
     
     
 \begin{figure}[h]   
@@ -541,14 +581,14 @@ The paper further tries to explain the reasons behind the observed incumbency re
 \centering
  \caption{Testing Different Bandwidths}
  \label{fig:bandwidths}
-\includegraphics[width=0.65\textwidth]{Figures_incumbency/many_bandwidths_linear.png}
+\includegraphics[width=0.65\textwidth]{Figures_incumbency/probability_bandwidths.png}
        \captionsetup{justification=centering}
- \includegraphics[width=0.65\textwidth]{Figures_incumbency/many_bandwidths_quadratic.png}
+ \includegraphics[width=0.65\textwidth]{Figures_incumbency/margin_bandwidths.png}
 
- \textbf{Note:} Figure \ref{fig:bandwidths} shows the average treatment effect of the Term Limit Reform on the probability of victory in the next election. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Various bandwidths are tested as well as the optimal bandwidths following \citet{calonicoetal_2014}. 
+ \textbf{Note:} Figure \ref{fig:bandwidths} shows the average treatment effect of the Term Limit Reform on the probability of victory in the next election. Various bandwidths are tested as well as the optimal bandwidth following \citet{calonicoetal_2014}. 
    
 \end{figure} 
-
+   
 
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
