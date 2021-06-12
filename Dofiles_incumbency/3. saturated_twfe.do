@@ -162,7 +162,8 @@ eststo: xi: reghdfe  `j'   reform inc_party_won interaction_ref    i.year if mv_
 		estadd local fixed \checkmark
 		estadd local year \checkmark
 		estadd local controls  
-		estadd local polynomial linear  
+		estadd local polynomial linear 
+*Difference:
 test 	(_b[interaction_ref]-_b[inc_party_won])=0
 glo pvalue: di %5.3f r(p)
 	estadd local pvalue $pvalue
@@ -175,7 +176,22 @@ lincom (_b[interaction_ref]-_b[inc_party_won])
 glo difference: di %5.3f r(estimate)
 	estadd local difference $${difference}^{${est}}$
 glo se: di %5.3f r(se)
-	estadd local se $se		
+	estadd local se $se	
+*Incumbency advantage:
+test 	(_b[interaction_ref]+_b[inc_party_won])=0
+glo pvalue2: di %5.3f r(p)
+	estadd local pvalue2 $pvalue2
+	glo est2= "" 
+			if (${pvalue2}<=0.1) global est2 = "*"
+			if (${pvalue2}<=0.05) global est2 = "**"
+			if (${pvalue2}<=0.01) global est2 = "***"
+
+lincom (_b[interaction_ref]+_b[inc_party_won]) 
+glo tot_incumbency: di %5.3f r(estimate)
+	estadd local tot_incumbency $${tot_incumbency}^{${est2}}$
+glo se2: di %5.3f r(se)
+	estadd local se2 $se2		
+
 }
 *B) Quadratic polynomial
 foreach pol in 2 {
@@ -187,6 +203,7 @@ eststo: xi: reghdfe  `j'  reform inc_party_won interaction_ref  i.year if mv_inc
 		estadd local year \checkmark
 		estadd local controls  
 		estadd local polynomial quadratic 
+*Difference
 test 	(_b[interaction_ref]-_b[inc_party_won])=0
 glo pvalue: di %5.3f r(p)
 	estadd local pvalue $pvalue
@@ -199,7 +216,23 @@ lincom (_b[interaction_ref]-_b[inc_party_won])
 glo difference: di %5.3f r(estimate)
 	estadd local difference $${difference}^{${est}}$
 glo se: di %5.3f r(se)
-	estadd local se $se		
+	estadd local se $se	
+*Incumbency
+*Incumbency advantage:
+test 	(_b[interaction_ref]+_b[inc_party_won])=0
+glo pvalue2: di %5.3f r(p)
+	estadd local pvalue2 $pvalue2
+	glo est2= "" 
+			if (${pvalue2}<=0.1) global est2 = "*"
+			if (${pvalue2}<=0.05) global est2 = "**"
+			if (${pvalue2}<=0.01) global est2 = "***"
+
+lincom (_b[interaction_ref]+_b[inc_party_won]) 
+glo tot_incumbency: di %5.3f r(estimate)
+	estadd local tot_incumbency $${tot_incumbency}^{${est2}}$
+glo se2: di %5.3f r(se)
+	estadd local se2 $se2		
+
 }
 }
 }
@@ -208,9 +241,9 @@ restore
 esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
 
 esttab using "../Tables_incumbency/naive_twfe.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
-s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
+s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
+ "Polynomial" "Incumbency Advantage: Personal+Partisan" "SE(Incumbency Advantage)" "Difference:Personal-Partisan" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
@@ -250,7 +283,22 @@ lincom (_b[interaction_ref]-_b[inc_party_won])
 glo difference: di %5.4f r(estimate)
 	estadd local difference $${difference}^{${est}}$
 glo se: di %5.4f r(se)
-	estadd local se $se		
+	estadd local se $se	
+*Incumbency advantage:
+test 	(_b[interaction_ref]+_b[inc_party_won])=0
+glo pvalue2: di %5.3f r(p)
+	estadd local pvalue2 $pvalue2
+	glo est2= "" 
+			if (${pvalue2}<=0.1) global est2 = "*"
+			if (${pvalue2}<=0.05) global est2 = "**"
+			if (${pvalue2}<=0.01) global est2 = "***"
+
+lincom (_b[interaction_ref]+_b[inc_party_won]) 
+glo tot_incumbency: di %5.3f r(estimate)
+	estadd local tot_incumbency $${tot_incumbency}^{${est2}}$
+glo se2: di %5.3f r(se)
+	estadd local se2 $se2		
+
 }
 *B) Quadratic polynomial
 foreach pol in 2 {
@@ -274,7 +322,22 @@ lincom (_b[interaction_ref]-_b[inc_party_won])
 glo difference: di %5.4f r(estimate)
 	estadd local difference $${difference}^{${est}}$
 glo se: di %5.4f r(se)
-	estadd local se $se		
+	estadd local se $se	
+*Incumbency advantage:
+test 	(_b[interaction_ref]+_b[inc_party_won])=0
+glo pvalue2: di %5.3f r(p)
+	estadd local pvalue2 $pvalue2
+	glo est2= "" 
+			if (${pvalue2}<=0.1) global est2 = "*"
+			if (${pvalue2}<=0.05) global est2 = "**"
+			if (${pvalue2}<=0.01) global est2 = "***"
+
+lincom (_b[interaction_ref]+_b[inc_party_won]) 
+glo tot_incumbency: di %5.3f r(estimate)
+	estadd local tot_incumbency $${tot_incumbency}^{${est2}}$
+glo se2: di %5.3f r(se)
+	estadd local se2 $se2		
+
 }
 }
 }
@@ -283,9 +346,9 @@ restore
 esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
 
 esttab using "../Tables_incumbency/naive_twfe_nocov.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
-s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
+s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
+ "Polynomial" "Incumbency Advantage: Personal+Partisan" "SE(Incumbency Advantage)" "Difference:Personal-Partisan" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t  \\ (Personal Incumbency Advantage)\end{tabular}") ///
@@ -325,7 +388,22 @@ lincom (_b[interaction_ref]-_b[inc_party_won])
 glo difference: di %5.3f r(estimate)
 	estadd local difference $${difference}^{${est}}$
 glo se: di %5.3f r(se)
-	estadd local se $se		
+	estadd local se $se	
+*Incumbency advantage:
+test 	(_b[interaction_ref]+_b[inc_party_won])=0
+glo pvalue2: di %5.3f r(p)
+	estadd local pvalue2 $pvalue2
+	glo est2= "" 
+			if (${pvalue2}<=0.1) global est2 = "*"
+			if (${pvalue2}<=0.05) global est2 = "**"
+			if (${pvalue2}<=0.01) global est2 = "***"
+
+lincom (_b[interaction_ref]+_b[inc_party_won]) 
+glo tot_incumbency: di %5.3f r(estimate)
+	estadd local tot_incumbency $${tot_incumbency}^{${est2}}$
+glo se2: di %5.3f r(se)
+	estadd local se2 $se2		
+
 }
 *B) Quadratic polynomial
 foreach pol in 2 {
@@ -349,7 +427,22 @@ lincom (_b[interaction_ref]-_b[inc_party_won])
 glo difference: di %5.3f r(estimate)
 	estadd local difference $${difference}^{${est}}$
 glo se: di %5.3f r(se)
-	estadd local se $se		
+	estadd local se $se	
+*Incumbency advantage:
+test 	(_b[interaction_ref]+_b[inc_party_won])=0
+glo pvalue2: di %5.3f r(p)
+	estadd local pvalue2 $pvalue2
+	glo est2= "" 
+			if (${pvalue2}<=0.1) global est2 = "*"
+			if (${pvalue2}<=0.05) global est2 = "**"
+			if (${pvalue2}<=0.01) global est2 = "***"
+
+lincom (_b[interaction_ref]+_b[inc_party_won]) 
+glo tot_incumbency: di %5.3f r(estimate)
+	estadd local tot_incumbency $${tot_incumbency}^{${est2}}$
+glo se2: di %5.3f r(se)
+	estadd local se2 $se2		
+
 }
 }
 }
@@ -358,9 +451,9 @@ restore
 esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
 
 esttab using "../Tables_incumbency/naive_twfe.tex", replace f b(%9.3f) se(%9.3f) se  star(* 0.10 ** 0.05 *** 0.01) ///
-s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
+s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
+ "Polynomial" "Incumbency Advantage: Personal+Partisan" "SE(Incumbency Advantage)" "Difference:Personal-Partisan" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
@@ -414,6 +507,21 @@ glo difference: di %5.3f r(estimate)
 	estadd local difference $${difference}^{${est}}$
 glo se: di %5.3f r(se)
 	estadd local se $se		
+*Incumbency advantage:
+test 	(_b[interaction_ref]+_b[inc_party_won])=0
+glo pvalue2: di %5.3f r(p)
+	estadd local pvalue2 $pvalue2
+	glo est2= "" 
+			if (${pvalue2}<=0.1) global est2 = "*"
+			if (${pvalue2}<=0.05) global est2 = "**"
+			if (${pvalue2}<=0.01) global est2 = "***"
+
+lincom (_b[interaction_ref]+_b[inc_party_won]) 
+glo tot_incumbency: di %5.3f r(estimate)
+	estadd local tot_incumbency $${tot_incumbency}^{${est2}}$
+glo se2: di %5.3f r(se)
+	estadd local se2 $se2		
+
 }
 foreach pol in 2 {
 rdbwselect  `j' mv_incparty, c(0) p(1) kernel(tri) bwselect(CCT) 
@@ -436,7 +544,22 @@ lincom (_b[interaction_ref]-_b[inc_party_won])
 glo difference: di %5.3f r(estimate)
 	estadd local difference $${difference}^{${est}}$
 glo se: di %5.3f r(se)
-	estadd local se $se		  
+	estadd local se $se	
+*Incumbency advantage:
+test 	(_b[interaction_ref]+_b[inc_party_won])=0
+glo pvalue2: di %5.3f r(p)
+	estadd local pvalue2 $pvalue2
+	glo est2= "" 
+			if (${pvalue2}<=0.1) global est2 = "*"
+			if (${pvalue2}<=0.05) global est2 = "**"
+			if (${pvalue2}<=0.01) global est2 = "***"
+
+lincom (_b[interaction_ref]+_b[inc_party_won]) 
+glo tot_incumbency: di %5.3f r(estimate)
+	estadd local tot_incumbency $${tot_incumbency}^{${est2}}$
+glo se2: di %5.3f r(se)
+	estadd local se2 $se2		
+
 }
 }
 }
@@ -444,9 +567,9 @@ restore
 esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0.01) t
 
 esttab using "../Tables_incumbency/naive_twfe_saturated.tex", replace f b(%9.3f) se(%9.3f) se  star(* 0.10 ** 0.05 *** 0.01) ///
-s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
+s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
+ "Polynomial" "Incumbency Advantage: Personal+Partisan" "SE(Incumbency Advantage)" "Difference:Personal-Partisan" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Term Limit Reform X Dummy Win, Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
