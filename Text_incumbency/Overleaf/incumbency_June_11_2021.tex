@@ -235,7 +235,7 @@ Evidence suggests that the differences in timing is a function of the staggered 
 
 \subsection{Empirical Specification} 
 
-I estimate  a difference-in-discontinuity in close elections model that exploits the 2014 Electoral Reform that removed term limits for mayors in Mexico. I follow \citet{grembi_etal_2017} to estimate the boundary points of four regression functions of the probability of winning office (or the vote share) in the next election at $t+1$ ($Y_{m,t+1}$) on the winning margin of the election at $t$ for municipality $m$ and normalized at zero ($Margin_{m,t}$): two regressions on either side of the winning margin threshold, before and after the implementation of the Term Limit Reform at $t_0$. Following \citet{gelman_imbens2014}, I fit a local linear regression for the observations distributed within an  \citet{calonicoetal_2014} optimal bandwidth distance $h$ to the forcing variable cutoff (i.e., when the winning margin=0), for either side of $Margin_{m,t}$ before and after the implemenation of the Reform at $t_0$.\footnote{A rectangular kernel would give the same results as taking $E[Y]$ at a given bin on the distance to the cutting threshold. Other types of kernels, such as a triangular kernel, gives more weight to observations closer to the cutoff. I choose the latter for all estimations presented while estimations using a rectangular kernel are available upon request. Results are almost unchanged using the latter rather than the former.} In other words, I compare only municipalities in close elections and thus restrict the sample to those within a certain distance $h$ to the threshold, i.e. $Margin_{m,t} \in [Margin_{b-h}, Margin_{b+h}]$. 
+I estimate  a difference-in-discontinuity in close elections model that exploits the 2014 Electoral Reform that removed term limits for mayors in Mexico. To do so, I follow \citet{grembi_etal_2017} to estimate the boundary points of four regression functions of the probability of winning office (or the vote share) in the next election at $t+1$ ($Y_{m,t+1}$) on the winning margin of the election at $t$ for municipality $m$ and normalized at zero ($Margin_{m,t}$): two regressions on either side of the winning margin threshold (i.e., when $Margin_{m,t}$=0), before and after the implementation of the Term Limit Reform at $t_0$. Following \citet{gelman_imbens2014}, I fit a local linear regression for the observations distributed within an  \citet{calonicoetal_2014} optimal bandwidth distance $h$ to the forcing variable cutoff, for either side of $Margin_{m,t}$ before and after the implemenation of the Reform at $t_0$.\footnote{A rectangular kernel would give the same results as taking $E[Y]$ at a given bin on the distance to the cutting threshold. Other types of kernels, such as a triangular kernel, gives more weight to observations closer to the cutoff. I choose the latter for all estimations presented while estimations using a rectangular kernel are available upon request. Results are almost unchanged using the latter rather than the former.} In other words, I compare only municipalities in close elections and thus restrict the sample to those within a certain distance $h$ to the threshold, i.e. $Margin_{m,t} \in [Margin_{b-h}, Margin_{b+h}]$.  
 
 The specification of the difference-in-discontinuity in close elections design is the following:
 
@@ -248,167 +248,31 @@ Y_{m,t+1}=\mu_m + \lambda_t + \delta_1 f_{(.)}(VoteShareMargin)_{m,t} \\
 \end{split}
 \end{equation}   
 
-where $Y_{m,t+1}$ is either (a) a dummy=1 if party wins the following election at $t+1$, =0 otherwise, or (b) the vote share in election at $t+1$, 0 otherwise. $Win_{m,t}$ is a dummy=1 if an incumbent from $t-1$ barely lost the election at $t$, =0 if he lost. $Reform_{m,t}$ is a dummy=1 if a municipality implemented reelection for mayors, =0 otherwise, i.e. a post-treatment indicator. $f_{(.)}(VoteShareMargin)_{m,t}$ is the RD polynomial on winning margin for municipal election $m$ at calendar time $t$, having $f_{(.)}$ an \emph{n}th order polynomial of the forcing variable $VoteShareMargin_{m,t}$, which in this paper will be only a linear and quadratic polynomials.\footnote{Equation \ref{eq:abraham} shows the specification for the linear case. For the quadratic case, we would expand the equation to include all linear and quadratic interactions to have a fully saturated model.} $\mu_m$ and $\lambda_t$ are municipality and year fixed effects, with $\mathbf{X}_{s(m),t}$ a battery of controls. Standard errors are clustered at the state level as that is the level of treatment of the Electoral Reform in Mexico. 
+where $Y_{m,t+1}$ is either (a) a dummy=1 if party wins the following election at $t+1$, =0 otherwise, or (b) the vote share in election at $t+1$, 0 otherwise. $Win_{m,t}$ is a dummy=1 if an incumbent from $t-1$ barely lost the election at $t$, =0 if he lost. $Reform_{m,t}$ is a dummy=1 if a municipality implemented reelection for mayors, =0 otherwise, i.e. a post-treatment indicator. $f_{(.)}(VoteShareMargin)_{m,t}$ is the RD polynomial on winning margin for municipal election $m$ at calendar time $t$, having $f_{(.)}$ an \emph{n}th order polynomial of the forcing variable $VoteShareMargin_{m,t}$, which in this paper will be only a linear and quadratic polynomials.\footnote{Equation \ref{eq:abraham} shows the specification for the linear case. For the quadratic case, we would expand the equation to include all linear and quadratic interactions to have a fully saturated model.} $\mu_m$ and $\lambda_t$ are municipality and year fixed effects, with $\mathbf{X}_{s(m),t}$ a battery of controls including a dummy on the party alignment of the mayor with the governor, and the winning margin of the governor to proxy for governors influence in local politics. Standard errors are clustered at the state level as that is the level of treatment of the Electoral Reform in Mexico. 
 
-The coefficient $\gamma_0$ is the regression discontinuity estimator that measures the incumbency returns for term-limited mayors. In other words, $\gamma_0$ captures the partisan incumbency advantage as term limited incumbents cannot run again for office but their parties can. The coefficient $\alpha_0$ is the difference-in-difference estimator on the effect of the Term Limit Reform on the probability of winning in the election at $t+1$. Conditional on municipal and period fixed effects, as well as other covariates, this estimator represents the difference in the probability of winning (or the vote share) in the next election $t+1$ for mayors without term limits to those with term limits. Lastly, the coefficient $\beta_0$ is the difference-in-discontinuity estimator that identifies the personal incumbency advantage by comparing municipalities where an incumbent barely wins an election to municipalities where an incumbent barely loses ($Win_{m,t}$), before and after term limit removal ($Reform_{m,t}$), i.e. the treatment $PersonalIncumbency_{m,t}=Reform_{m,t} \cdot Win_{m,t}$. Importantly, the aforementioned coefficients needs to be divided by 2 and take into account the probability of an incumbent running again for office as some may retire as described in Section \ref{sec:design_literature}. 
+The coefficient $\gamma_0$ is the regression discontinuity estimator that measures the incumbency returns for term-limited mayors. In other words, $\gamma_0$ captures the partisan incumbency advantage as term limited incumbents cannot run again for office but their parties can. The coefficient $\alpha_0$ is the difference-in-difference estimator on the effect of the Term Limit Reform on the probability of winning in the election at $t+1$. Conditional on municipal and period fixed effects, as well as other covariates, this estimator represents the difference in the probability of winning (or the vote share) in the next election $t+1$ for mayors without term limits to those with term limits. This coefficient does not measure an incumbency advantage, however. Lastly, the coefficient $\beta_0$ is the difference-in-discontinuity estimator that identifies the personal incumbency advantage by comparing municipalities where an incumbent barely wins an election to municipalities where an incumbent barely loses ($Win_{m,t}$), before and after term limit removal ($Reform_{m,t}$), i.e. the treatment $PersonalIncumbency_{m,t}=Reform_{m,t} \cdot Win_{m,t}$. Importantly, the aforementioned coefficients needs to be divided by 2 and take into account the probability of an incumbent running again for office as some may retire as described in Section \ref{sec:design_literature}. 
 
 
-\subsection{Data}   
+\subsection{Data}  
 
-To measure incumbency advantage, I construct an indicator that takes the value of 1 if the party won office in the next election and was an incumbent two elections before, 0 otherwise. This analysis identifies the party that wins in the next election and studies the effect of this party barely winning (or losing) in the present election on outcomes at the next election following \citet{klasnja_titiunik_2017}. This measure requires at least three rounds of elections, and thus I consider all municipal level elections since 2011 to 2018.\footnote{Municipal electoral calendars vary by state. However, almost all municipalities have three year terms with the exception of some municipalities with non-aligned electoral calendars with State-level ones, or other political circumstances.} A second measure uses vote share instead of the probability of winning office. Different from the Brazilian case studied by \citet{klasnja_titiunik_2017} where parties do not contest in every election and thus need to adjust estimates unconditional on parties running,\footnote{\citet{klasnja_titiunik_2017} called this outcome ``unconditional victor on running" and measures if a party won at $t+1$ regardless of whether they had a candidate at that time period or not.} in Mexico the three main parties in this time period (PRI, PAN and PRD) always run in elections they have already participated in the past and hold national representation. Thus, there is no bias to be concerned of related to a party's decision to run at $t+1$ given anticipation of their performance at that same time period.  
+The two main outcomes of interest are (1) an indicator of whether the incumbent party wins the mayoral office in election at $t+1$, and (2) the vote share of the incumbent party in election at $t+1$. As described in the last section since the number of parties that compete for Mexican mayoral elections and win is large, I restrict the analysis only to incumbent parties following \citet{klasnja_titiunik_2017}. To do so, we need to identify a party that wins the election at $t-1$ and study the effects of this incumbent winning or losing at $t$ on the electoral outcomes (1) and (2) at election $t+1$. For this we need at least three elections per municipality. The data covers all election years from 2006 to 2018. This allows to have at least to pre-reform election per municipality. For example, for the state of Michoacan we consider data for the elections of 2012 ($t-1$), 2015 ($t$) when the Electoral Reform was implemented, and 2018 ($t+1$). 
+
+To check for pre-reform parallel trends in an event study setup that we will use later in the paper we need additional elections years prior to 2012. I include at least two full three-election cycles prior to treatment. Lets use the example of Michoacan again: the first cycle considers the election 2006 ($t-1$) to define the party that is the incumbent, who barely looses or wins at election at 2009 ($t$) on the electoral outcomes at the election at 2012 ($t+1$); the second cycle considers the election 2009 ($t-1$) to define the party that is the incumbent, who barely looses or wins at election at 2012 ($t$) on the electoral outcomes at the election at 2015 ($t+1$). For other states these years may vary since each state holds different electoral calendars.\footnote{Municipal electoral calendars vary by state. However, almost all municipalities have three year terms with the exception of some municipalities with non-aligned electoral calendars with State-level ones, or other political circumstances.} In an event study setup to test for parallel trends we will only observe two coefficients prior to treatment of the incumbency advantage for the state of Michoacan: 2009 (as $t$ for the first cycle) on its effect on electoral outcomes at 2012 (as $t+1$ for the first cycle), and 2012 (as $t$ for the first cycle) on its effect on electoral outcomes at 2015 (as $t+1$ for the first cycle). However, since we generally have a reference period in event-study models, we do not show incumbency advantage results for the second cycle of 2012 (as $t$) and 2015 (as $t+1$).  
 
 To measure incumbent quality, I web-scraped professional titles and other characteristics for all municipal mayors in Mexico from 2010 to 2019 from the National Information Municipal System (SNIM for its abbreviation in Spanish). This novel database allows me to test for quality-based incumbency advantages.
 
 I use several measures to proxy for the resources and effort placed by incumbents once in office. I use the National Institute of Statistics and Geography (INEGI for its acronym in Spanish) municipal level data on revenues and expenses from 2010 to 2018. I use data on total municipal revenues, as well as its subcomponents, specifically those coming from taxes, including property and estate taxes, as well as those from production, consumption and transaction taxes. These variables were deflated and are expressed in million pesos. The data is further described in Section \ref{sec:mechanisms} while Appendix Table \ref{tab:descriptive} presents descriptive statistics.
 
-%The last piece of information used in this paper are municipal expenses on different topics including social development, infrastructure, wages to bureaucrats and public security. The allow to test incumbents' interest in public good provision. This data also comes from INEGI and covers the time period from 2010 to 2018. These variables are deflated and expressed in million pesos. 
-
 \section{Main Results \label{sec:results}}
 
-Figure \ref{fig:main} presents the IW estimators on the effect of reelection on incumbency returns. The first point estimate from top to bottom shows that mayors up for reelection experience an incumbency disadvantage of -7.23\% in the probability of winning office in the next election using a linear polynomial specification. This result is not significant however, while an incumbency disadvantage of -13.25\% significant to the 5\% level is found for the quadratic polynomial specification. Appendix Table \ref{tab:incumbency_wpolynomials} shows the incumbency disadvantage is also found when using winning margin in the next election as an outcome instead of the probability of winning, with a decrease of -1.75\% significant to the 5\% level with a linear polynomial, and -1.26\% significant to the 10\% level with a quadratic polynomial. These results suggest mayors up for reelection face an incumbency disadvantage relative to mayors in term limit races.   
+Table \ref{tab:naive_twfe} shows the $\gamma_0$ or coefficient of the partisan incumbency advantage, $\alpha_0$ or the coefficient of the difference in the probability of wining in the next election between term and non-term limited incumbents and $\beta_0$ or the personal incumbency advantage. %Columns (1) and (2) have as outcome the probability of winning in election at $t+1$ while columns (3) and (4) use the vote share at election $t+1$ as outcome. 
+First, we observe that the introduction of reelection generated an incumbency \emph{advantage}, i.e. $\gamma_0 + \beta_0$ is equal to 4.5\% but not significant when using the probability of winning in the next election as outcome, and 4.6\% significant to the 1\% level for the linear specification. Results are similar for the quadratic one. However, this positive incumbency advantage masks an asymmetry. First, we find a partisan incumbency \emph{disadvantage} of -5.38\% (not significant) and -3.32\% significant to the 1\% level for the probability of winning office and the vote share in the next election, respectively [for the linear case and results are similar for the quadratic]. These results are smaller than the ones identified in other Latin American cases like Brazil (-7.5\%), Colombia (-10\%) and Peru (-8.5\%) by \citet{klasnja_titiunik_2017}.\footnote{These numbers are the coefficients presented by \citet{klasnja_titiunik_2017} but divided by 2 and adjusted for the probability of running for office, a correction not done for these estimates.} 
 
-However, as noted in Section \ref{sec:personal_vs_partisan}, this incumbency disadvantage masks an asymmetric effect. In Figure \ref{fig:main} we observe that the incumbency disadvantage is a weighted effect of a personal incumbency \emph{advantage} of 24.7 percentage points significant to the 1\% level and a partisan incumbency \emph{disadvantage} of -31.9 percentage points significant to the 5\% level using a linear polynomial. Similar results are found with a quadratic specification.\footnote{From here on, all estimates are divided by 2 times the probability of the incumbent running for office again following \citet{erikson_titiunik_2015}.}$^,$\footnote{Appendix Figure \ref{fig:personal_vs_partisan_margin} shows similar asymmetric effects using winning margin in the next election as outcome to proxy for incumbency advantage. In this case there are positive but not significant personal incumbency returns and negative partisan incumbency returns significant to the 5\% level using a linear specification. Using a quadratic specification we find more noisy results.} While these incumbency returns might seem large, these values coincide with large incumbency returns observed in other Latin American countries. The incumbency disadvantage in Brazil is -15\%, while in Colombia and Peru is -20\% and -19\%, respectively, according to \citet{klasnja_titiunik_2017}, for example. Moreover the partisan incumbency disadvantage identified by \citet{klasnja_titiunik_2017} for term limit races in Mexico from 1997 to 2009 of -28 percentage points coincides with the partisan incumbency disadvantage of -31\% described above. 
-   
-As noted in Section \ref{sec:personal_vs_partisan}, prior to the 2014 Reelection Reform, Mexico's mayoral elections showed a partisan incumbency disadvantage. Once reelection is introduced a decrease in the incumbency disadvantage is observed and in the linear specification of Figure \ref{fig:main} it is statistically not different from zero. This decay in the incumbency disadvantage with the removal of term limits is similar to the finding by \citet{klasnja_titiunik_2017} when comparing the incumbency returns from countries with term limits -mainly Brazil, Mexico, and Colombia-  to those with indefinite reelection -Peru, Chile and Costa Rica: while the former show an average incumbency disadvantage of -19\% (significant to the 1\% level) the latter show an incumbency disadvantage of -2\% (non-significant). In the case of \citet{klasnja_titiunik_2017} they believe incumbency disadvantage is explained by voters blaming weak parties from not being able to sanction their members from undesirable behavior in office, specially when they are term limited and there is no need to be responsive for voters. Reelection in this setting strengthens the accountability between voters and representatives which should decrease the responsibility put on parties to control their members decreasing the incumbency disadvantage. The asymmetry found in Figure \ref{fig:main} offers a closely related logic: reelection creates an ``electoral connection'' between voters and incumbents \citep{mayhew_1974}; as a result a personal incumbency advantage is created signaling that voters believe incumbents and not their parties are responsible for policy actions. %Without reelection, as is the case with term limits, politicians do not hold any benefit from impressing the voter and thus will not be responsive to them \citep{ashworth_2012}.
- In other words, a personal incumbency advantage is the main driver in the decrease in incumbency disadvantage in Mexico, and plausibly other countries too.
-
-Moreover, this result speaks to a potential party dealignment in Mexican politics after the introduction of reelection. Not only has the country experienced a decrease in winning margins and various changes in party bases in the last two decades, but citizens at the municipal level are associating policy actions to representatives rather than their parties. 
-       
- \begin{figure}[h]   
-\centering    
- \caption{Effect of Term Limit Reform on Partisan and Personal Incumbency Advantage \\ -difference-in-discontinuity of close elections design-}
- \label{fig:main}
-\includegraphics[width=0.9\textwidth]{Figures_incumbency/partisan_personal_inc_advantage.png}
-       \captionsetup{justification=centering}
-       
- \textbf{Note:} Figure \ref{fig:main} shows the average treatment effect of the Term Limit Reform on the probability of winning in the following election using a difference in discontinuity of close elections design. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Optimal bandwidths following \citet{calonicoetal_2014} are used. Red and blue points show that parallel trends hold, while hollow ones imply pretrends. 
-\end{figure}  
-   
-
-\subsection{Identification assumptions} 
-
-To validate causal effects three identification assumptions need to hold. First, cohort weighted specifications need to show parallel trends for both incumbency advantage measures. As seen in Figure \ref{fig:parallel_trend_main}  this is the case. Cohort weights further assure that parallel trends are not spurious due to correlation between the $k$ period indicators relative to treatment implementation.\footnote{Appendix Figure \ref{fig:naive_partisan&personal} find the same asymmetric effect as that of Figure \ref{fig:main} but no parallel trends are found when using a simple event study design.} Second, no anticipatory behavior from municipalities should be found; since we are only taking into account one election cycle post-treatment, we don't anticipate incumbents reacting in such a short time window. %[MISSING]%this is the case when running an ``event-to-event" analysis following \citet{cengiz_etal_2019}: there is no clustering in estimated coefficients on early and late state adopters.\footnote{Results available upon request.} 
-Third, the design would be invalid if parties could manipulate close elections and sort themselves to those that imply a higher probability of winning. Two tests are commonly used to show validity on the design: (a) no covariate jump at the discontinuity on relevant pre-treatment variables and (b) density tests to see whether the number of municipalities above (or below) the cutoff threshold is significantly different from the number of municipalities below (or above). Appendix Figure \ref{fig:jump_covariates} shows evidence of no significant jump at the discontinuity of various pretreatment covariates including a dummy on the alignment with the President, alignment with the governor, logged population, a dummy of the party who was ruling the municipality one election before (PRI, PAN or MORENA/PRD), and the effective number of parties. Furthermore, Appendix Figure \ref{fig:mccrary} shows no density difference between municipalities just above and below the cutoff for the linear and polynomial specifications. 
-
- \begin{figure}[h]   
-\centering
- \caption{Effect of Term Limit Reform on Incumbency Advantage \\ -difference-in-discontinuity of close elections-}
- \label{fig:parallel_trend_main}
-\includegraphics[width=0.9\textwidth]{Figures_incumbency/parallel_trend.png}
-       \captionsetup{justification=centering}
-         
- \textbf{Note:} Figure \ref{fig:parallel_trend_main} shows the average treatment effect of the Term Limit Reform on the probability of winning in the following election using a difference in discontinuity of close elections design. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Optimal bandwidths following \citet{calonicoetal_2014} are used.  
- 
-\end{figure}   
-    
-\subsection{Robustness tests \label{sec:robustness}}
-  
-To test the robustness of results I start by comparing the difference-in-discontinuity of close election design results from Section \ref{sec:results} with the design used by \citet{fowler_hall_2014}. To estimate the personal and partisan incumbency advantages they run two different regressions: first, a regression discontinuity design of close elections where candidates are prevented from running for reelection, i.e. they are term limited; second, a regression discontinuity design where candidates are non-term limited, i.e. they can run for reelection if desired. The difference between the estimated coefficients of these two models results in the personal incumbency advantage, while the first one estimates the partisan one and the second one the conjoint partisan and personal incumbency advantages. Results are then corrected by the probabilities of reelection attempts as described in Section \ref{sec:personal_vs_partisan}. Table \ref{tab:fowler_hall} shows the partisan and personal incumbency advantages following \citet{fowler_hall_2014} using both the probability of victory as well as the winning margin in the next election as outcomes. Panel A shows the results using a linear polynomial while Panel B uses a quadratic one. Overall, we see that without term limits, in Mexico incumbents had a positive but non-significant incumbency advantage. However, term limited races show that a partisan incumbency disadvantage exists between -8 to -9\% depending on the specification. Contrastingly, the difference between the term limit and non-term limit cases in column (3) shows the personal incumbency returns to be positive and significant to the 1\% level. These results coincide with the asymmetry found in Figure \ref{fig:main}. While estimates are half of those observed in that Figure, we need to consider that differences may arise from adjusting for heterogeneous treatment effects across the different treatment cohorts. 
-
-For robustness we also check whether results change by varying the bandwidth for close elections. Appendix Figure \ref{fig:bandwidths} shows this to be the case overall, with an asymmetry found between the partisan and personal incumbency advantages for the linear and quadratic specifications. Moreover, across different bandwidths we observe the average incumbency returns to be non-different from zero speaking to the effect of reelection on incumbency returns due to a personal incumbency advantage. 
-      
-\input{Tables_incumbency/fowler_hall.tex}   
-
-
-\section{Mechanisms: What explains the observed electoral returns from incumbency? \label{sec:mechanisms}}
-           
-A big concern of the literature has been understanding the determinants of incumbency advantage. To date, we can identify at least three broad types of explanations. First, what incumbents do (and opponents cannot do) emphasizing the resources, visibility, and power that incumbents gain from office holding \citep{mayhew_1974, fiorina_1989, king_1991, cox_morgensten_1993}.  Second, quality-based explanations that emphasize who incumbents are (and who their opponents are) \citep{cox_katz_1996, levitt_wolfram_1997, ansolabehere_snyder_2000, eggers_2017}. In this second line we find explanations related to incumbents’ quality as well as the “scare-off effect”, or the ability incumbents have to scare off high-quality challengers. A third and more recent type of mechanism emphasizes the role of information. \citet{ashworth_bdm_2008} find that incumbency advantage is dependent on how precise the information is about incumbent’s ability to voters. More recently, \citet{ashworth_etal_2019} expand on the role of information to explain incumbency advantage: through a theoretical model, they show that incumbents have an additional information advantage to challengers: they govern while challengers do not. This is so even absent any partisanship, electoral selection or challenger scare off. However, to date there is no empirical identification of the information-based explanation proposed by these authors. Moreover, if theoretical work done by Ashworth and co-authors is correct, all other explanations of incumbency advantage might be biased by the role information plays. 
-
-To test if a resource-based incumbency advantage explains the returns observed in Section \ref{sec:results}, I evaluate the effect of the reform on municipal revenues and fiscal transfers. Local tax revenues have been widely use to proxy for incumbents effort on state capacity building. The most relevant tax revenues at the municipal level in Mexico are property and estate taxes. Two additional sources of local revenues are important, those coming from the ownership of vehicles (\emph{tenencia} in Spanish) as well as revenues from taxing new cars. Mayors tend to use these two sources of revenues to increase their treasury but are highly unapproved by voters. As a result, we would expect mayors with reelection incentives not to rely on these types of tax revenues. Figure \ref{fig:revenues1} Panel A shows that total municipal revenues increased during the first years of office from $t$ to $t+3$. A large increase of municipal revenues comes from an increase in tax revenues (Figure \ref{fig:revenues1} Panel B), particularly property and estate tax revenues (Panel C and D), and a lower proportion from the increase in tax revenues from production, consumption and transactions (but these estimates are non-significant; see Figure \ref{fig:revenues2} Panel E). Interestingly, unpopular taxes like the \emph{tenencia} and those on new cars show a decrease in revenues the first year in office, and for the tenencia the three years afterwards. All these estimates show parallel trends and consider only the subsample of municipalities used to estimate Figure \ref{fig:main}. 
-  
-  
-\begin{figure}[h]   
-\centering
- \caption{Effect of Term Limit Reform on Municipal Revenues}
- \label{fig:revenues1}
-\includegraphics[width=0.9\textwidth]{Figures_incumbency/revenues_allyears1.png}
-       \captionsetup{justification=centering}
-         
- \textbf{Note:}  Figure \ref{fig:revenues1} shows the average treatment effect of the Term Limit Reform on different measures of municipal revenues. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:main} are used, as well as the same municipalities. All variables are deflated and in million pesos. 
-\end{figure}   
-
-\begin{figure}[h]   
-\centering
- \caption{Effect of Term Limit Reform on Municipal Revenues (continuation)}
- \label{fig:revenues2}
-\includegraphics[width=0.9\textwidth]{Figures_incumbency/revenues_allyears2.png}
-       \captionsetup{justification=centering}
-         
- \textbf{Note:} Figure \ref{fig:revenues2} shows the average treatment effect of the Term Limit Reform on different measures of municipal revenues. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:main} are used, as well as the same municipalities. All variables are deflated and in million pesos.  
-          
-\end{figure}  
-
- Besides revenues, we can use data on municipal transfers from the federation or the state to proxy for resources. These transfers can be divided into two types: labeled and unlabeled. Labeled transfers are those which are determined mostly by the use of fiscal formulas and are targeted to specific ``labeled'' expenses or conditional on certain activities. The most prominent municipal transfer in Mexico si the Federal and State Contributions Fund. Unlabeled transfers are those that municipalities can exercise freely and are generally not audited by Federal Superior Audit in Mexico. The most prominent ones include the General Participation Fund as well as secondary participating funds. Other relevant unlabelled municipal transfers are the Municipal Development Fund, the Contribution Fund to Strengthen Municipalities and the Contribution Fund for Municipal Social Infrastructure. Figure \ref{fig:resources2} shows the effect of the Term Limit Reform on these transfers. We see an increase of participations (Panels A and B), as well as municipal funds (Panels C and D) in municipalities where mayors can run for reelection relative to those that are term limited. Interestingly, the increase is particularly salient four years after the implementation of the reform, i.e. in the first year of reelection. In contrast, no effects are found for labeled transfers (Panel F). 
-   
- \begin{figure}[h]   
-\centering
- \caption{Effect of Term Limit Reform on Transfers from the Federation or the State}
- \label{fig:resources2}
-\includegraphics[width=0.9\textwidth]{Figures_incumbency/resouce_based_incumbency_allyears.png}
-       \captionsetup{justification=centering}
-         
- \textbf{Note:} Figure \ref{fig:resources2} shows the average treatment effect of the Term Limit Reform on various transfers measures. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:main} are used, as well as the same municipalities. All variables are deflated and in million pesos.   
-       
-\end{figure}  
-
-Both transfers and revenues are used to proxy for measures of the resources incumbents may get and may affect their reelection chances or that of their parties. This is called the resource-based incumbency advantage where citizens create a positive incumbency return expecting a higher budget or transfer in the future \citep{cox_morgensten_1993}. The literature has also used measures of casework services to constituents or the ability to expand the bureaucracy and thus public labor to test for a resource based incumbency advantage \citep{cox_katz_1996}. I rely on data from the Municipal Government Census (\emph{Censos de Gobierno Municipal}) from 2011 to 2019 which collect information on the number of bureaucrats of municipalities, as well as the number of city council sessions, the number of approved initiatives of law and the percentage of municipal budget spend, all in the year prior to the census. This data spans from 2010 to 2018 every two years. For the case of Mexico, council sessions and initiatives approved is performed by the local council members (\emph{regidores}) who are elected by proportional representation in mayoral elections according to the vote received by the mayor. As such, they work directly with the mayor and can be considered as his bureaucrats specially when they belong to the same party. Figure \ref{fig:effort} shows the effect of the 2014 Term Limit Reform on these measures. As with Figure \ref{fig:main}, the election prior to reform, i.e. $t-3$ serves as the baseline period of comparison. Overall we find no difference in the number of city council sessions (Panel A), approved initiatives of law (Panel B), nor the number of bureaucrats (Panel D) between municipalities with term-limited and non-term limited mayors. Furthermore, the percentage of budget spend serves as a proxy of effort as municipal mayors in Mexico tend not to spend their resources during their tenure, the so called \emph{subejercicios} in Spanish. It seems mayors up for reelection hold \emph{subejercicios} of 10\% of the total budget, but a seemingly decreasing trend calls for further robustness. In conclusion, taking into account the evidence provided by municipal revenues, transfers and other measures of resources available to mayors up for reelection, we find evidence of a resource-based incumbency advantage.
-
-
- \begin{figure}[h]   
-\centering
- \caption{Effect of Term Limit Reform on Other Resources}
- \label{fig:effort}
-\includegraphics[width=0.9\textwidth]{Figures_incumbency/effort_based_incumbency.png}
-       \captionsetup{justification=centering}
-         
- \textbf{Note:} Figure \ref{fig:effort} shows the average treatment effect of the Term Limit Reform on various transfers measures. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:main} are used, as well as the same municipalities.   
-\end{figure}   
-
- \begin{figure}[h]   
-\centering
- \caption{Effect of Term Limit Reform on the Quality of Candidates}
- \label{fig:quality_trend}
-\includegraphics[width=0.9\textwidth]{Figures_incumbency/quality.png}
-       \captionsetup{justification=centering}
-         
- \textbf{Note:} Figure \ref{fig:quality_trend} shows the average treatment effect of the Term Limit Reform on a dummy indicator of whether candidates hold a professional title. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:main} are used, as well as the same number of observations.   
-     
-\end{figure}   
-To test for a quality-based incumbency advantage, Figure \ref{fig:quality_trend} shows the difference-in-discontinuity of close elections specification on the effect of the term limit reform on the quality of candidates measured as a dummy indicator of whether incumbents hold a professional degree. Panel A compares term limited vs. non-term limited incumbents as done in Figure \ref{fig:main}. We observe no difference in the quality of incumbents, but pretrends are found in $t-4$. Panel B and C carry on a different experiment. Panel B compares term limited to non-term limited incumbents in their first term only. While incumbents up for reelection tend to hold more professional degrees than term limited ones, pretrends reduce the assurance of this claim. Lastly, besides differences in the quality of incumbents there could exist a difference in the quality of challengers who out of fear to the experience and ability of incumbents might choose not to run for office, the so called scare-off effect. Sadly, there is no municipal level data on the quality of challengers. However, in Panel C we develop an experiment that could proxy such decision: we compare term limited to non-term limited incumbents in their second term. A first term mayor that can reelect and a first term mayor who is term-limited have won an election once, and thus have the same selection pressures but different electoral incentives. The difference between them yields the election incentive effect. There are no selection effects, however. To estimate them we would have to compare either a term-limited mayor who was won election once to a term-limited mayor who has won election twice, where both are facing the same election incentives but hold different selection histories. The same could be done by comparing first term mayor that can reelection and has won election once to a mayor that can reelect and has won election twice. This experiment to isolate the election from the selection effect is done by \citet{ashworth_2012}. The idea is that if a scare-off effect exists we should observe term limit incumbents differ in their quality relative to those with more experience and ability, i.e. those incumbents who reelected and are in their second term. Panel C shows this difference to be substantial, close to 50\% and significant to the 1\% level. Parallel trends hold for $t-4$ and $t-5$, but a difference exists when comparing elections six years prior ($t-6$), i.e. two elections before for the majority of races in $t$. Overall, given the existence of pretrends, we cannot rule out the possibility of a quality-based incumbency advantage. Results, however, suggest a potential scare-off effect might be taking place. 
-
-Lastly, these estimates do not allow to test for an information-based incumbency advantage. To do so we would need data on whether citizens increased their information reception of incumbents actions and behavior in office. Future work is needed to disentangle the specific information and quality-based mechanisms behind the observed incumbency returns in mayoral elections in Mexico. 
-
-  
-
-\section{Conclusion} 
-
-This paper disentangles the partisan from the personal incumbency advantages. By not disentangling these two concepts when estimating incumbency electoral returns, most of the literature has failed to correctly identify the valuation citizens have on the electoral system and the existent accountability dynamics. To unbox incumbency advantage into its personal and partisan components, this paper relies on a difference-in-discontinuity of close elections design that exploits the staggered implementation of the 2014 Electoral Reform in Mexico that removed term limits for local mayors. Term limit mayors allows us to identify the partisan incumbency returns, while those up for reelection identify both the partisan and personal returns. The difference between these two measures allows for the identification of the personal incumbency advantage. Moreover, the difference-in-difference setup allows us to test for no differential trends of these two type of races prior to the introduction of the reform, while the regression discontinuity of close elections design allows us to reduce the potential of omitted variables, including party, elections and candidates differences. Lastly, we consider only mayors in their first terms which allows us to leave aside concerns coming from differences in experience and skills. 
-
-The main result of the paper shows that the implementation of reelection in Mexico led to an incumbency disadvantage. However, this incumbency disadvantage can be decomposed into a personal incumbency \emph{advantage} and a partisan incumbency  \emph{disadvantage}. Moreover, the observed incumbency disadvantage with reelection is lower than the partisan incumbency disadvantage before reelection, making the personal incumbency advantage the primary reasons behind the decrease in the disadvantage for mayoral incumbents. These results imply that reelection makes incumbency a personal affair and not only a partisan one, and may signal a potential party dealignment in Mexican politics. The asymmetric effects also imply parties in Mexico do not hold a credible threat to punish renegade mayors, and may be punished harshly by citizens by not doing so. 
-
-The paper further tries to explain the reasons behind the observed incumbency returns. An increase in the revenues and fiscal transfers to municipalities provide strong evidence of a resource-based incumbency advantage. In other words, citizens create a positive incumbency return with candidates who they expect will bring a higher budget or transfer in the future, and not their parties. We also test whether a quality-incumbency advantage exists, including a potential scare-off effect where high quality challengers may not choose to compete given the advantage incumbents may hold. While no quality differences are found between term limit and non-term limit incumbents, and a scare-off effect seems to exist, the existence of pretrends clouds this conclusion. It is important to acknowledge that to further prove this mechanism more data on the quality of incumbents and challengers in mayoral elections in Mexico is needed. It is also important to note that we do not have data on whether citizens increased their information reception of incumbents action, data that could be used to test whether an information-based incumbency advantage explains the observed results. 
-
-
-
-
-\clearpage               
-%APPENDIX -----------------------------------------------
-
-%%%%%%%%%%%%
-\bibliographystyle{aer} 
-\bibliography{References}    
-
-\clearpage
-%APPENDIX -----------------------------------------------
-\begin{appendix}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{New Tables and Figures}
-   
 \begin{table}[h]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \centering
 \caption{Partisan and Personal Incumbency Advantage, Difference-in-Discontinuity of Close Elections Model}
 \label{tab:naive_twfe}
-\scalebox{1}{ 
+\scalebox{0.8}{ 
 
 \begin{tabular}{l*{4}{c}}
 \hline \hline 
@@ -417,11 +281,24 @@ The paper further tries to explain the reasons behind the observed incumbency re
      
       
 \hline \hline 
-\multicolumn{5}{p{1\textwidth}}{\footnotesize{Notes: Standard errors in parentheses are clustered at the state level. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test.$^a$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; and logged population.}} \\
+\multicolumn{5}{p{1.15\textwidth}}{\footnotesize{Notes: Standard errors in parentheses are clustered at the state level. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test.$^a$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; and logged population.}} \\
 \end{tabular}
 }
 \end{table}    
 
+
+Second, we observe a personal incumbency \emph{advantage} of 9.86\% significant to the 10\% in the probability of winning office, and of 7.88\% significant to the 1\% level for vote share in the next election [for the linear case and results are similar for the quadratic]. The personal incumbency advantage found is not small representing almost half a standard deviation for the vote share, and a quarter of a standard deviation for the probability of winning office in the next election. Interestingly, the personal incumbency advantage is similar to the one find by \citet{fowler_hall_2014} for the case of the US of 8.8\%. They also find a negative partisan incumbency of -2\% but not significant.  
+
+Table \ref{tab:naive_twfe} shows that prior to the introduction of the Electoral Reform Mexico's mayoral elections showed an incumbency disadvantage (a partisan one since there where term limits). This result has been confirmed by \citet{klasnja_titiunik_2017} who run a regression discontinuity design for close elections considering all elections from 1997 to 2009 in Mexico. However, once reelection is introduced a decrease in the incumbency disadvantage is observed and as noted in Table \ref{tab:naive_twfe} it even became positive and not different from zero. This decay in the incumbency disadvantage with the removal of term limits is similar to the finding by \citet{klasnja_titiunik_2017} when comparing the incumbency returns from countries with term limits -mainly Brazil, Mexico, and Colombia-  to those with indefinite reelection -Peru, Chile and Costa Rica: while the former show an average incumbency disadvantage of -19\% (significant to the 1\% level) in the probability of winning office the latter show an incumbency disadvantage of -2\% (non-significant). In the case of \citet{klasnja_titiunik_2017} they believe incumbency disadvantage is explained by voters blaming weak parties from not being able to sanction their members from undesirable behavior in office, specially when they are term limited and there is no need to be responsive for voters. Reelection in this setting strengthens the accountability between voters and representatives which should decrease the responsibility put on parties to control their members decreasing the incumbency disadvantage. The asymmetry found in Table \ref{tab:naive_twfe} offers a closely related logic: reelection creates an ``electoral connection'' between voters and incumbents \citep{mayhew_1974}; as a result a personal incumbency advantage is created signaling that voters believe incumbents and not their parties are responsible for policy actions. In other words, a personal incumbency advantage is the main driver in the decrease in incumbency disadvantage in Mexico, and plausibly other countries too. Moreover, this result speaks to a potential party dealignment in Mexican politics after the introduction of reelection. Not only has the country experienced a decrease in winning margins and various changes in party bases in the last two decades, but citizens at the municipal level are associating policy actions to representatives rather than their parties.   
+
+
+Lastly, it is important to notice that mayors up for reelection had a higher probability of winning office in the next election relative to term-limited mayors whose parties will run again. This is not a measure of incumbency advantage but just a difference in the probability of winning office. The probability is not small, however, it represents a greater likelihood of 17.8\% significant to the 5\% level of winning office in the next election, and a greater vote share of 16.6\% in the next election. 
+   
+\subsection{Identification assumptions} 
+
+To validate causal effects three identification assumptions need to hold. First, parallel trends for both incumbency advantage measures need to hold. As seen in Figure \ref{fig:event_study_personal}  this is the case for both the probability of winning and vote share at election $t+1$. This Figure shows an event study design of the same data used to estimate Table \ref{tab:naive_twfe} but constructing $t$ year indicators relative to treatment implementation. The period $t=0$ represents the year in which the Electoral Reform was implemented. Periods prior to $t=0$ speak to the years prior to the implementation of the reform. For example, $t-6$ represents two election cycles prior to $t=0$ since for some municipalities electoral cycles last 3 years.  $t-5$ and $t-4$ also represent two election cycles prior to the implementation of the reform at $t$ but for municipalities where their calendars gave only 2 or 1 years for mayors in office, which corresponds to states that where aligning their municipal and gubernatorial calendars (E.g., Puebla). Figure \ref{fig:event_study_personal} omits the election prior to the implementation of the Reform to serve as comparison group: these is the period three years prior to $t=0$, i.e. $t-3$. There were no elections in years $t-2$ and $t-1$. Thus, estimated coefficients are interpreted as the difference relative to the election prior to the implementation of the Reform.\footnote{Potential treatment effect heterogeneity of the different treatment cohorts of the Reform may introduce bias to the difference-in-discontinuity estimators. I follow \citet{abraham_sun_2020} and run a cohort weighted event study design that takes into account treatment effect heterogeneity. Results show parallel trends and similar results to those of  Figure \ref{fig:event_study_personal}. Results available upon request.} Figure \ref{fig:event_study_personal} shows the difference-in-discontinuity estimator, i.e. the personal incumbency advantage before and after the implementation of the Reform. Parallel trends are found for both the linear and quadratic polynomial specifications.  
+
+Second, no anticipatory behavior from municipalities should be found; since we are only taking into account one election cycle post-treatment, we don't anticipate incumbents reacting in such a short time window. Third, the design would be invalid if parties could manipulate close elections and sort themselves to those that imply a higher probability of winning. Two tests are commonly used to show validity on the design: (a) no covariate jump at the discontinuity on relevant pre-treatment variables and (b) density tests to see whether the number of municipalities above (or below) the cutoff threshold is significantly different from the number of municipalities below (or above). Appendix Figure \ref{fig:jump_covariates} shows evidence of no significant jump at the discontinuity of various pretreatment covariates including a dummy on the alignment with the President, alignment with the governor, logged population, a dummy of the party who was ruling the municipality one election before (PRI, PAN or MORENA/PRD), and the effective number of parties. Furthermore, Appendix Figure \ref{fig:mccrary} shows no density difference between municipalities just above and below the cutoff for the linear and polynomial specifications. 
 
 \begin{figure}[H]   
 \centering    
@@ -432,43 +309,25 @@ The paper further tries to explain the reasons behind the observed incumbency re
          
  \textbf{Note:} Figure \ref{fig:event_study_personal} shows the average difference-in-discontinuity estimator of the effect of the Term Limit Reform that compares municipalities with incumbents that barely won to those that barely lost in the election at $t$ on the probability of winning in the election at $t+1$ (Panel A) and the vote share in the  election at $t+1$ (Panel B). Optimal bandwidths following \citet{calonicoetal_2014} are used. 
   
-\end{figure}             
-        
- %\begin{landscape}  
- %TRANSFERS    
-\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\centering
-\caption{Transfers to Municipal Governments from the Federation and the State, Difference-in-Discontinuity of Close Elections Model}
-\label{tab:transfers}
-\scalebox{0.7}{ 
-\begin{tabular}{l*{6}{c}}
-\hline \hline 
-\\
-& \multicolumn{6}{c}{\textbf{Panel A:}}  \\
-
-        
-Dependent variable in million pesos$^b$: & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}General Participation \\ Fund\end{tabular}}  & \multicolumn{2}{c}{Participating Funds} & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Municipal Development \\ Fund\end{tabular}}  \\
-\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
- \input{Tables_incumbency/transfers_panela.tex}   
-
-\\
-& \multicolumn{6}{c}{\textbf{Panel B:}}  \\
-\\
-Dependent variable in million pesos$^b$: & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Contributions Fund to \\ Strengthen Municipalities \end{tabular}} & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Contribution Fund for \\ Municipal Social Infrastructure \end{tabular}}  & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Federal and State \\ Contributions \end{tabular}} \\
- \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
-
- \input{Tables_incumbency/transfers_panelb.tex}   
+\end{figure}  
  
-      
-\hline \hline 
-\multicolumn{7}{p{1.4\textwidth}}{\footnotesize{Notes: Standard errors in parentheses are clustered at the state level. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test.$^a$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; and logged population. $^b$ 1 dollar = 20 pesos approximately. Thus, 1 million pesos are \$200,000 USD.}} \\
-\end{tabular}
-}
-\end{table}  
-%\end{landscape}      
+    
+\subsection{Robustness tests \label{sec:robustness}} 
+  
+To test the robustness of results I start by comparing the difference-in-discontinuity of close election design results from Table \ref{tab:naive_twfe} with the design used by \citet{fowler_hall_2014}. To estimate the personal and partisan incumbency advantages \citet{fowler_hall_2014} run two different regressions: first, a regression discontinuity design of close elections where candidates are prevented from running for reelection, i.e. they are term limited; second, a regression discontinuity design where candidates are non-term limited, i.e. they can run for reelection if desired. The difference between the estimated coefficients of these two models results in the personal incumbency advantage, while the first one estimates the partisan one and the second one the conjoint partisan and personal incumbency advantages. Results are then corrected by the probabilities of reelection attempts as described in Section \ref{sec:design_literature}. Table \ref{tab:fowler_hall} shows the partisan and personal incumbency advantages following \citet{fowler_hall_2014} using both the probability of victory as well as the winning margin in the next election as outcomes, and all mayoral elections in Mexico since 2000. Panel A shows the results using a linear polynomial while Panel B uses a quadratic one. Overall, we see that without term limits, in Mexico incumbents had a positive but non-significant incumbency advantage. However, term limited races show that a partisan incumbency disadvantage exists between -8 to -9\% depending on the specification. Contrastingly, the difference between the term limit and non-term limit cases in column (3) shows the personal incumbency returns to be positive and significant to the 1\% level. These results coincide with the asymmetry found in Table \ref{tab:naive_twfe}.  
+
+\input{Tables_incumbency/fowler_hall.tex}   
 
 
-        
+For robustness we also check whether results change by varying the bandwidth for close elections. Appendix Figure \ref{fig:bandwidths} shows this to be the case overall, with an asymmetry found between the partisan and personal incumbency advantages for the linear and quadratic specifications, using both the probability of winning or vote share in the election $t+1$.       
+
+
+\section{Mechanisms: What explains the observed electoral returns from incumbency? \label{sec:mechanisms}}
+           
+A big concern of the literature has been understanding the determinants of incumbency advantage. To date, we can identify at least three broad types of explanations. First, what incumbents do (and opponents cannot do) emphasizing the resources, visibility, and power that incumbents gain from office holding \citep{mayhew_1974, fiorina_1989, king_1991, cox_morgensten_1993}.  Second, quality-based explanations that emphasize who incumbents are (and who their opponents are) \citep{cox_katz_1996, levitt_wolfram_1997, ansolabehere_snyder_2000, eggers_2017}. In this second line we find explanations related to incumbents’ quality as well as the “scare-off effect”, or the ability incumbents have to scare off high-quality challengers. A third and more recent type of mechanism emphasizes the role of information. \citet{ashworth_bdm_2008} find that incumbency advantage is dependent on how precise the information is about incumbent’s ability to voters. More recently, \citet{ashworth_etal_2019} expand on the role of information to explain incumbency advantage: through a theoretical model, they show that incumbents have an additional information advantage to challengers: they govern while challengers do not. This is so even absent any partisanship, electoral selection or challenger scare off. However, to date there is no empirical identification of the information-based explanation proposed by these authors. Moreover, if theoretical work done by Ashworth and co-authors is correct, all other explanations of incumbency advantage might be biased by the role information plays. 
+
+To test if a resource-based incumbency advantage explains the returns observed in Section \ref{sec:results}, I evaluate the effect of the reform on municipal revenues and fiscal transfers. Local tax revenues have been widely use to proxy for incumbents effort on tax collection and state capacity building. The most relevant tax revenues at the municipal level in Mexico are property and estate taxes. Two additional sources of local revenues are important, those coming from the ownership of vehicles (\emph{tenencia} in Spanish) as well as revenues from taxing new cars. Mayors tend to use these two sources of revenues to increase their treasury but are highly unapproved by voters. As a result, we would expect mayors with reelection incentives not to rely on these types of tax revenues. Table \ref{tab:revenues} Panel A shows that total municipal revenues increased by 44 million pesos significant to the 5\% level for mayors up for reelection and that barely won in the election at $t$ relative to those with term limits and barely lost at $t$..  This is true for the linear and quadratic specification..\footnote{One dollar is equivalent to 20 pesos approximately.} This result represents an increase of a quarter of the mean of total municipal revenues. A large increase of municipal revenues comes from an increase in tax revenues (columns 3 and 4 of Panel A), particularly property tax revenues (columns 5 and 6), and estate tax revenues (columns 7 and 8). Null effects are found for production, consumption and transactions tax revenues in Panel B columns 1 and 2. Interestingly, unpopular taxes like the \emph{tenencia} decrease in revenues for mayors up for reelection and that barely won in election $t$ relative to those term limited and that barely lost in $t$. Now, the increase in municipal revenues is used as a measure of the increase in resources. The increase could be driven by an increase in the effort of tax collection, an increase in tax rates or better economic conditions that lead to higher tax revenues. For the case of municipal revenues in Mexico it is hard to disentangle between these three mechanisms, specially since there is no data on local tax rates or effort in tax collection. The main takeaway, however, is that the municipality increase the amount of resources and that voters create a resource-based incumbency advantage with the believe that they will receive a higher budget or transfer in the future. %%%rewrite .
+
  %\begin{landscape} 
  %REVENUES     
 \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
@@ -504,6 +363,46 @@ Dependent variable in million pesos$^b$: & \multicolumn{2}{c}{\begin{tabular}[c]
 \end{table}    
 %\end{landscape}   
         
+
+ Besides revenues, we can use data on municipal transfers from the federation or the state to proxy for resources. These transfers can be divided into two types: ear-marked and not ear-marked. Ear-marked transfers are those which are determined mostly by the use of fiscal formulas and are targeted to specific ``ear-marked'' expenses or conditional on certain activities. The most prominent municipal transfer in Mexico are the Federal and State Contributions Fund. Not ear-marked transfers are those that municipalities can exercise freely and are generally not audited by Federal Superior Audit in Mexico. The most prominent ones include the General Participation Fund as well as secondary participating funds. Other not ear-marked municipal transfers are the Municipal Development Fund, the Contribution Fund to Strengthen Municipalities and the Contribution Fund for Municipal Social Infrastructure. Table \ref{tab:transfers} shows the effect of the Term Limit Reform on these transfers. We see an increase of participations (columns 1-4 in Panel A), as well as contributions to municipal social infrastructure (columns 3 and 4 in Panel B)  in municipalities where mayors can run for reelection and barely won in election $t$ relative to those that are term limited and barely lost in election $t$. In contrast, no effects are found for ear-marked transfers, mainly the Federal and State Contributions. 
+   
+        
+ %\begin{landscape}  
+ %TRANSFERS    
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Transfers to Municipal Governments from the Federation and the State, Difference-in-Discontinuity of Close Elections Model}
+\label{tab:transfers}
+\scalebox{0.7}{ 
+\begin{tabular}{l*{6}{c}}
+\hline \hline 
+\\
+& \multicolumn{6}{c}{\textbf{Panel A:}}  \\
+
+        
+Dependent variable in million pesos$^b$: & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}General Participation \\ Fund\end{tabular}}  & \multicolumn{2}{c}{Participating Funds} & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Municipal Development \\ Fund\end{tabular}}  \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+ \input{Tables_incumbency/transfers_panela.tex}   
+
+\\
+& \multicolumn{6}{c}{\textbf{Panel B:}}  \\
+\\
+Dependent variable in million pesos$^b$: & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Contributions Fund to \\ Strengthen Municipalities \end{tabular}} & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Contribution Fund for \\ Municipal Social Infrastructure \end{tabular}}  & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Federal and State \\ Contributions \end{tabular}} \\
+ \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+
+ \input{Tables_incumbency/transfers_panelb.tex}   
+ 
+      
+\hline \hline 
+\multicolumn{7}{p{1.4\textwidth}}{\footnotesize{Notes: Standard errors in parentheses are clustered at the state level. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test.$^a$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; and logged population. $^b$ 1 dollar = 20 pesos approximately. Thus, 1 million pesos are \$200,000 USD.}} \\
+\end{tabular}
+}
+\end{table}  
+%\end{landscape}      
+
+
+Both transfers and revenues are used to proxy for measures of the resources incumbents may get and may affect their reelection chances or that of their parties. This is called the resource-based incumbency advantage where citizens create a positive incumbency return expecting a higher budget or transfer in the future \citep{cox_morgensten_1993}. The literature has also used measures of casework services to constituents or the ability to expand the bureaucracy and thus public labor to test for a resource based incumbency advantage \citep{cox_katz_1996}. I rely on data from the Municipal Government Census (\emph{Censos de Gobierno Municipal}) from 2011 to 2019 which collect information on the number of bureaucrats of municipalities, as well as the number of city council sessions, the number of approved initiatives of law and the percentage of municipal budget spend, all in the year prior to the census. This data spans from 2010 to 2018 every two years. For the case of Mexico, council sessions and initiatives approved is performed by the local council members (\emph{regidores}) who are elected by proportional representation in mayoral elections according to the vote received by the mayor. As such, they work directly with the mayor and can be considered as his bureaucrats specially when they belong to the same party. Table \ref{tab:effort} shows the effect of the 2014 Term Limit Reform on these  measures. We find no difference in the difference-in-discontinuity estimator of the number of city council sessions (Panel A columns 1 and 2), approved initiatives of law (Panel A columns 3 and 4), the municipal budget spend (Panel B columns 1 and 2) nor the number of bureaucrats (Panel B columns 3 and 4). While this results do not provide evidence on the resource-based incumbency advantage, the increase in transfes and revenues does. 
+   
 %EFFORT     
 \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 \centering
@@ -534,8 +433,45 @@ Dependent variable: & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Municipal Bu
 } 
 \end{table}      
 %\end{landscape}   
+ 
 
-    \clearpage
+ \begin{figure}[H]   
+\centering
+ \caption{Effect of Term Limit Reform on the Quality of Candidates}
+ \label{fig:quality_trend}
+\includegraphics[width=0.9\textwidth]{Figures_incumbency/quality.png}
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} Figure \ref{fig:quality_trend} shows the average treatment effect of the Term Limit Reform on a dummy indicator of whether candidates hold a professional title. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Same optimal bandwidths as those in Figure \ref{fig:main} are used, as well as the same number of observations.   
+     
+\end{figure}   
+
+To test for a quality-based incumbency advantage, Figure \ref{fig:quality_trend} shows the difference-in-discontinuity estimator on the indicator of whether a mayor hold a professional title. We observe no difference in the quality of incumbents that barely won the election in $t$ to those that barely lost, before and after the Electoral Reform. In other words, it seems there is no evidence of a quality-based incumbency advantage. However, there could exist a difference in the quality of challengers who out of fear to the experience and ability of incumbents might choose not to run for office, the so called scare-off effect. Sadly, there is no municipal level data on the quality of challengers. To test for potential scare-off effects we would have to compare either a term-limited mayor who was won election once to a term-limited mayor who has won election twice, where both are facing the same election incentives but hold different selection histories. The same could be done by comparing first term mayor that can reelection and has won election once to a mayor that can reelect and has won election twice. This experiment to isolate the election from the selection effect is done by \citet{ashworth_2012}. We leave this test for future research.
+
+Lastly, these estimates do not allow to test for an information-based incumbency advantage. To do so we would need data on whether citizens increased their information reception of incumbents actions and behavior in office. Future work is needed to disentangle the specific information and quality-based mechanisms behind the observed incumbency returns in mayoral elections in Mexico. 
+
+  
+
+\section{Conclusion} 
+
+This paper disentangles the partisan from the personal incumbency advantages. By not disentangling these two concepts when estimating incumbency electoral returns, most of the literature has failed to correctly identify the valuation citizens have on the electoral system and the existent accountability dynamics. To unbox incumbency advantage into its personal and partisan components, this paper relies on a difference-in-discontinuity of close elections design that exploits the staggered implementation of the 2014 Electoral Reform in Mexico that removed term limits for local mayors. Term limit mayors allows us to identify the partisan incumbency returns, while those up for reelection identify both the partisan and personal returns. The difference between these two measures allows for the identification of the personal incumbency advantage. Moreover, the difference-in-difference setup allows us to test for no differential trends of these two type of races prior to the introduction of the reform, while the regression discontinuity of close elections design allows us to reduce the potential of omitted variables, including party, elections and candidates differences. Lastly, we consider only mayors in their first terms which allows us to leave aside selection concerns coming from differences in experience and skills. 
+
+The main result of the paper shows that the implementation of reelection in Mexico led to an incumbency advantage. However, this incumbency disadvantage can be decomposed into a personal incumbency \emph{advantage} and a partisan incumbency  \emph{disadvantage}. Since the personal incumbency advantage is greater than the partisan incumbency disadvantage, results suggest that reelection makes incumbency a personal affair and may signal a potential party dealignment in Mexican politics. The asymmetric effects also imply parties in Mexico do not hold a credible threat to punish renegade mayors any longer. 
+
+The paper further tries to explain the reasons behind the observed incumbency returns. An increase in the revenues and fiscal transfers to municipalities provide strong evidence of a resource-based incumbency advantage. In other words, citizens create a positive incumbency return with candidates who they expect will bring a higher budget or transfer in the future, and not their parties. We also test whether a quality-incumbency advantage exists. While no quality differences are found between term limit and non-term limit incumbents before and after the implementation of the Term Limit Reform, more data is needed to test for potential scare-off effects. It is also important to note that we do not have data on whether citizens increased their information reception of incumbents action, data that could be used to test whether an information-based incumbency advantage explains the observed results.
+
+
+\clearpage               
+%APPENDIX -----------------------------------------------
+
+%%%%%%%%%%%%
+\bibliographystyle{aer} 
+\bibliography{References}    
+
+\clearpage
+%APPENDIX -----------------------------------------------
+\begin{appendix}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 \section{Tables and Figures \label{appendix:tables_figures}}
@@ -591,46 +527,6 @@ Dependent variable: & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Municipal Bu
 }
 \end{table} 
    
-\clearpage
-
-%Table   
-\input{Tables_incumbency/abraham_sun_incumbency_wpolynomials.tex}   
-         
-
-%Figure:  
-\begin{comment}
-	
- \begin{figure}[H]   
-\centering
- \caption{Personal and Partisan Incumbency Advantage, two-way fixed effect model}
- \label{fig:twfe_partisan&personal}
- \includegraphics[width=0.9\textwidth]{Figures_incumbency/twfe_personalvspartisan_advantage.png}
- 
-  \textbf{Note:} The left panel in figure \ref{fig:twfe_partisan&personal} shows the average treatment effect of the Term Limit Reform on the probability of winning in the following election using a difference in discontinuity of close elections design; the right panel shows the winning margin. Optimal bandwidths following \citet{calonicoetal_2014} are used. This analysis identifies the party that wins at $t-1$ and studies the effect of this party barely winning (or losing) at $t$ on outcomes at election $t+1$ following \citet{klasnja_titiunik_2017}.  
-\end{figure} 
-\end{comment}
-
-\begin{figure}[h]   
-\centering    
- \caption{Effect of Term Limit Reform on Partisan and Personal Incumbency Advantage, using winning margin in the next election \\ -difference-in-discontinuity of close elections design-}
- \label{fig:personal_vs_partisan_margin}
-\includegraphics[width=0.9\textwidth]{Figures_incumbency/partisan_personal_inc_advantage_margin.png}
-       \captionsetup{justification=centering}
-         
- \textbf{Note:} Figure \ref{fig:personal_vs_partisan_margin} shows the average treatment effect of the Term Limit Reform on the winning margin in the following election using a difference in discontinuity of close elections design. This average effect was estimated using the IW estimators following \citet{abraham_sun_2020} for each lead and lag relative to the first year a municipality implemented reelection. Optimal bandwidths following \citet{calonicoetal_2014} are used. Red and blue points show that parallel trends hold, while hollow ones imply pretrends. 
-\end{figure}           
-
-%Figure:
- \begin{figure}[h]   
-\centering
- \caption{Personal and Partisan Incumbency Advantage, event study design}
- \label{fig:naive_partisan&personal}
- \includegraphics[width=0.9\textwidth]{Figures_incumbency/naive_personalvspartisan_advantage.png}
- 
-  \textbf{Note:} The left panel in figure \ref{fig:naive_partisan&personal} shows the average treatment effect of the Term Limit Reform on the probability of winning in the following election using a difference in discontinuity of close elections design; the right panel shows the winning margin in the next election. Optimal bandwidths following \citet{calonicoetal_2014} are used. 
-\end{figure} 
-       
-
 
 
  \begin{figure}[h]   
@@ -669,106 +565,10 @@ Dependent variable: & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Municipal Bu
        \captionsetup{justification=centering}
  \includegraphics[width=0.65\textwidth]{Figures_incumbency/margin_bandwidths.png}
 
- \textbf{Note:} Figure \ref{fig:bandwidths} shows the average treatment effect of the Term Limit Reform on the probability of victory in the next election. Various bandwidths are tested as well as the optimal bandwidth following \citet{calonicoetal_2014}. 
+ \textbf{Note:} Figure \ref{fig:bandwidths} shows the average treatment effect of the Term Limit Reform on the probability of victory in the next election. Various bandwidths are tested as well as the optimal bandwidth following \citet{calonicoetal_2014}. A 90\% implies a reduction of the optimal bandwidth in 10\%, an 80\% a reduction of 20\%, and so on..
    
 \end{figure} 
-   
-
-\clearpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%% RDD design
-
- \renewcommand{\thetable}{B-\arabic{table}}
-\setcounter{table}{0}
- 
-\renewcommand{\thefigure}{B-\arabic{figure}}
-\setcounter{figure}{0}
-
-\section{Regression Discontinuity Design of close elections, comparing elections with and without term limits \label{appendix:rdd}} 
-
-I begin by visualizing the effect of the reform on incumbency advantage.  Figure \ref{fig:incumbency_advantage} presents the RDD estimate of close elections on incumbency advantage  within an optimal bandwidth distance $h$ from the cutoff (0), and a quadratic polynomial:\footnote{A triangular kernel is used. Results are similar when using other polynomial functional forms.} Panel A shows a comparison of municipalities with incumbents at $t-1$ that barely won to those that barely lost in $t$ on the probability of electoral victory at $t+1$,\footnote{Incumbency advantage measure following \citet{klasnja_titiunik_2017}.} taking into account all elections from 1979 to 2014 (i.e. prior to the term-limit reform); Panel B shows the same comparison but restricting the sample to municipalities that implemented reelection after 2014. I do not consider those municipal elections that after 2014 did not implement reelection. Table \ref{tab:rdd} shows RD estimates using multiple polynomial functional forms. Even though RD estimates are biased in this setting, especially for Panel B in Figure \ref{fig:incumbency_advantage} (and even columns in Table \ref{tab:rdd}) since in the presence of staggered treatment timing and heterogeneous treatment effects across cohorts are not causally interpretable since we are considering both early vs late adopters of the reform on the treated,\footnote{The next iteration of this working paper will show this proof in the Appendix for RD designs.} they provide a striking depiction of what occurred before and after the electoral reform. 
-
-
-\begin{figure}[H]
-\centering
-\caption{Effect of Term Limit Reform on Incumbency Advantage, quadratic polynomial}
-  \label{fig:incumbency_advantage} 
-
-	{\textbf Figure A: Probability of winning at t+1}
-	 \includegraphics[width=0.6\textwidth]{Figures_incumbency/RDD_incumbency_pol2.png}
-	 \\
-	{\textbf Figure B: Winning margin at t+1}
-
- \includegraphics[width=0.6\textwidth]{Figures_incumbency/RDD_incumbency_margin_pol2.png}
-     \captionsetup{justification=centering}  
-       
-\end{figure} 
-       Note: Regression Discontinuity design of close elections on incumbency advantage. Panel (a) considers all elections from 2000 to 2014. Panel (b) considers all elections after 2014 for municipalities that implemented reelection.) 
-\\
-       
-Before the reform, there was a negative statistical significant difference between municipalities that barely won and lost on the probability of success in the next election. This incumbency \emph{disadvantage} aligns strongly with a similar result found by \citet{klasnja_titiunik_2017} for the case of Mexico. \citet{klasnja_titiunik_2017} find that an incumbent party that is barely reelected suffers a reduction in the probability of winning the following election of 28 percentage points. In contrast, I find a reduction between 10.7 to 11.32 percentage points, a finding that considers 20 more years of elections since \citet{klasnja_titiunik_2017} cap their data from 1997 to 2009, while I consider elections since 1979 to 2014. 
-
-More interesting is the finding that after reelection takes place the previous incumbency disadvantage disappears as noted by a positive and non-statistical significant difference between municipalities that barely lost and won an election. This initial RDD results provide suggestive evidence that the electoral reform generated an increase in the probability of victory in the next election for municipalities that barely won an election relative to those that barely lost. These estimates, however, may be biased. By comparing term limit and non-term limit elections we are assuming there are parallel trends for identification which might not be the case. Furthermore, as \citet{eggers_2017} even when comparing close elections, a potential difference in the quality of incumbents and challengers may exist. 
- 
- \\ 
   
-%Table:
-\begin{table}[!htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{Regression Discontinuity Design of Close Elections on Incumbency Advantage: Comparison of term and non-term limited elections}
-\label{tab:rdd}
-\begin{center} 
-\scalebox{1}{
-\begin{tabular}{lcccc}
- 
-\hline \hline   
-\\       
-   
-\multicolumn{5}{l}{Dependent variable:}\\
-  
-\\
-\input{Tables_incumbency/rdd_estimates_conditional.tex} 
-\\
-\input{Tables_incumbency/rdd_estimates_conditional2.tex} 
- 
-                 
-\hline \hline   
-\multicolumn{5}{p{0.8\textwidth}}{\footnotesize{Notes: Standard errors in parentheses, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test. Optimal bandwidth following \citet{calonicoetal_2014} $^a$ Incumbency advantage measured following \citet{klasnja_titiunik_2017}. 
-  }} \\  
-\end{tabular}         
-}
-\end{center} 
-\end{table} 
-
-\clearpage
-\section{CATTs}
-
-
-I estimate  a difference-in-discontinuity design with close elections that exploits the staggered implementation of the 2014 Electoral Reform  and state-level variation.
-      
-Following \citet{grembi_2016} and \citet{gelman_imbens2014}, I fit a local linear regression for municipalities within an \citet{calonicoetal_2014} optimal bandwidth distance $h$ to the cutoff (=0), using as forcing variable the winning margin of executive local elections.\footnote{A rectangular kernel would give the same results as taking $E[Y]$ at a given bin on the distance to the cutting threshold. Other types of kernels, such as a triangular kernel, gives more weight to observations closer to the cutoff. I choose the latter for all estimations presented while estimations using a rectangular kernel are available upon request. Results are almost unchanged using the latter rather than the former.} In other words, I compare only municipalities in close elections and thus restrict the sample to those within a certain distance $h$ to the threshold, i.e. $D_{mt} \in [D_b-h, D_b+h]$ for municipality $m$ in time period $t$. By comparing municipalities where a party barely wins an election to municipalities where a party barely loses, the design allows to isolate the causal effect of winning office from the spurious correlation between current and future electoral success.\footnote{For example, potential correlation that could arise, noted by \citet{klasnja_titiunik_2017}, is that parties with good reputation or strong candidates are more likely to succeed in an electoral contest.} 
-
-Furthermore, the difference-in-difference setup allows to tease out any time-variant and time variant confounding variation as long as parallel trends and no anticipatory behavior from municipalities (states) holds. For this I rely on \citet{abraham_sun_2020} cohort weighted event-study design that accounts for potential cohort treatment heterogeneity. I saturate the time and unit fixed effects structure so that treated units do not enter the test window as control units. Specifically, I replace the binary indicator variable for the start of the 2014 Electoral Reform in Mexico with a series of lead/lag indicators $\gamma_k$ for being ``k" years away from treatment. I focus on the window from 7 years prior to treatment to the year in which the reform took place i.e. for $k \in \{-7,0\} $ which correspond to the time period of 2011 to 2018, with 2015 the first year of Term Limit Reform implementation. Given that municipal elections occur every three years at maximum, and the reform was enacted in 2014 and all municipalities in the study period had only one election, there are no leads. Moreover, there are no mayoral elections in $t-1$ and $t-2$. Thus $k$ relative time periods run from  $k \in\{-7,-6,-5,-4,-3,0\}$. Following \citet{abraham_sun_2020} I exclude the indicator prior to treatment  $\gamma_{-3}$ to avoid collinearity and for comparison: estimated coefficients are interpreted as the difference relative to $t-3$, i.e. the last election. As suggested   \citet{abraham_sun_2020}, I also exclude the last time period $k=-7$ due to collinearity.
-
-The specification of the difference-in-discontinuity in close elections design is the following:
-
-\begin{equation}
-\begin{split}
-%\label{eq:abraham}
-y_{mt}=\mu_m + \mu_t + \sum^5_{e=1} \sum^0_{k=-6, \neq {-7,-3}} \gamma_{e,k}(1\{E_i=e\} \cdot R^k_{m,t}) + \sum^5_{e=1} \sum^0_{k=-6, \neq {-7,-3}}  \Theta'X_{it} (\mathbbm{1}(E_i=e)\cdot R^k_{m,t})  \\
-+ f_{(.)}(margin)_{mt} + \sum^5_{e=1} \sum^0_{k=-6, \neq {-7,-3}} \nu_{e,k}(1\{E_i=e\} \cdot R^k_{m,t} \cdot  f_{(.)}(margin)_{mt} )+ \epsilon_{mt}
-\end{split}
-\end{equation}   
-  
-where $y_{mt}$ is the outcome of the probability of winning office or the winning margin in the next election $t+1$. $E_i$ are cohort-specific indicators if a Mexican state removed term limits in a given year.\footnote{As noted in Figure \ref{fig:treatment_status}, there are five treatment cohorts including the never treated. The never-treated cohort is made up of the municipalities in the states of Hidalgo, Nayarit, Tlaxcala and Veracruz.} $R^k_{m,t}\in \{0,1\}$  is the Term Limit Reform treatment status indicator at period $k$ relative to treatment, for municipality $m$ at calendar time $t$.\footnote{$t=e+k$.} $X_{s(m)t}$ is a matrix of state $s$ (municipal $m$) level covariates interacted with the set of cohort-specific fixed effects including pre-treatment governor's winning margin, party alignment with the governor, party alignment with the President, and logged population.  The year indicators by treatment cohort  $\gamma_{e,k}$ are the difference-in-difference (DiD) estimators for the Cohort Average Treatment Effects (CATTs). Conditional on municipal and period fixed effects, as well covariates, these CATTs represent the annual difference in the probability of winning (or the winning margin) in the next election $t+1$ for mayors without term limits to those with term limits, $k$ years before and after treatment. $f_{(.)}(margin)_{mt}$ is the RD polynomial on winning margin for municipal election $m$ at calendar time $t$, having $f_{(.)}$ take various polynomial approximations from quadratic to quartic. $\sum^5_{e=1} \sum^{0}_{k=-6, \neq {-7,-3}} \nu_{e,k}(1\{E_i=e\} \cdot R^k_{m,t} \cdot  f_{(.)}(margin)_{mt}  $ is the RD polynomial interacting the $E_i$ cohort-specific indicators and the electoral reform treatment indicator. 
-
-I then take the linear combination of the CATTs for each relative time period $k$, weighting each cohort by its relative share of the sample, to construct the interaction weighted (IW) estimator of \citet{abraham_sun_2020}:   
-
-\begin{equation}
-\hat{\nu}_g=\frac{1}{|g|}\sum_{k \in g}\sum_e \hat{\gamma_{e,k}} \hat{Pr}\{E_i=e | E_i \in [-k, T-k]\}	
-\end{equation}
-  
-where $\hat{\gamma_{e,k}}$ is returned from equation \ref{eq:abraham} and $\hat{Pr}\{E_i=e | E_i \in [-k, T-k]\}$  are the estimated weights equal to the share of each cohort in the relevant time period, normalized by the size of  $g$, with $g$ the universe of the $k$ periods relative to treatment. Since I estimate a IW estimator per year $|g|=1$. Lastly, to estimate the average treatment effect for $t=0$, I run the linear average of weighted coefficients across the CATTs of this time period relative to treatment.  Standard errors are clustered at the state level as that is the level of treatment of the Electoral Reform in Mexico. 
-
 
   
 \end{document}

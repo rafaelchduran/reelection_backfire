@@ -243,7 +243,7 @@ esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0
 esttab using "../Tables_incumbency/naive_twfe.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Incumbency Advantage: Personal+Partisan" "SE(Incumbency Advantage)" "Difference:Personal-Partisan" "SE(Difference)")) ///
+ "Polynomial" "Incumbency Advantage: Partisan ($\gamma_0$) + Personal($\beta_0$)" "SE(Incumbency Advantage)" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
@@ -348,7 +348,7 @@ esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0
 esttab using "../Tables_incumbency/naive_twfe_nocov.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Incumbency Advantage: Personal+Partisan" "SE(Incumbency Advantage)" "Difference:Personal-Partisan" "SE(Difference)")) ///
+ "Polynomial" "Incumbency Advantage: Partisan ($\gamma_0$) + Personal($\beta_0$)" "SE(Incumbency Advantage)" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t  \\ (Personal Incumbency Advantage)\end{tabular}") ///
@@ -453,7 +453,7 @@ esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0
 esttab using "../Tables_incumbency/naive_twfe.tex", replace f b(%9.3f) se(%9.3f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Incumbency Advantage: Personal+Partisan" "SE(Incumbency Advantage)" "Difference:Personal-Partisan" "SE(Difference)")) ///
+ "Polynomial" "Incumbency Advantage: Partisan ($\gamma_0$) + Personal($\beta_0$)" "SE(Incumbency Advantage)" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
@@ -569,7 +569,7 @@ esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0
 esttab using "../Tables_incumbency/naive_twfe_saturated.tex", replace f b(%9.3f) se(%9.3f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Incumbency Advantage: Personal+Partisan" "SE(Incumbency Advantage)" "Difference:Personal-Partisan" "SE(Difference)")) ///
+ "Polynomial" "Incumbency Advantage: Partisan ($\gamma_0$) + Personal($\beta_0$)" "SE(Incumbency Advantage)" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Term Limit Reform X Dummy Win, Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
@@ -913,7 +913,7 @@ restore
 /*esttab using "../Tables_incumbency/naive_twfe_nocov_multiplebandwidths.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
+ "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t  \\ (Personal Incumbency Advantage)\end{tabular}") ///
@@ -1020,7 +1020,7 @@ restore
 /*esttab using "../Tables_incumbency/naive_twfe_nocov_multiplebandwidths.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)")) ///
+ "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t  \\ (Personal Incumbency Advantage)\end{tabular}") ///
@@ -1278,7 +1278,7 @@ esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0
 esttab using "../Tables_incumbency/transfers_panela.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+ "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
@@ -1356,7 +1356,7 @@ esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0
 esttab using "../Tables_incumbency/transfers_panelb.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+ "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
@@ -1442,7 +1442,7 @@ esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0
 esttab using "../Tables_incumbency/revenues_panela.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+ "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
@@ -1519,7 +1519,7 @@ esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0
 esttab using "../Tables_incumbency/revenues_panelb.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+ "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
@@ -1607,7 +1607,7 @@ esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0
 esttab using "../Tables_incumbency/effort_outcomes_a.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+ "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
@@ -1684,7 +1684,7 @@ esttab est*, keep(reform inc_party_won interaction_ref) star(* 0.1 ** 0.05 *** 0
 esttab using "../Tables_incumbency/effort_outcomes_b.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
- "Polynomial" "Difference:Personal-Partisan" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
+ "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
 coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
  interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
