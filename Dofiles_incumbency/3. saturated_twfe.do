@@ -245,8 +245,8 @@ s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3)
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Incumbency Advantage: Partisan ($\gamma_0$) + Personal($\beta_0$)" "SE(Incumbency Advantage)" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \\ (Partisan Incumbency Advantage)\end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$) \\ (Personal Incumbency Advantage)\end{tabular}") ///
 mgroups("\begin{tabular}[c]{@{}l@{}} Probability of winning, \\ Election at t+1\end{tabular}" ///
  "\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
 pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
@@ -350,8 +350,8 @@ s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3)
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Incumbency Advantage: Partisan ($\gamma_0$) + Personal($\beta_0$)" "SE(Incumbency Advantage)" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t  \\ (Personal Incumbency Advantage)\end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \\ (Partisan Incumbency Advantage)\end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$)  \\ (Personal Incumbency Advantage)\end{tabular}") ///
 mgroups("\begin{tabular}[c]{@{}l@{}} Probability of winning, \\ Election at t+1\end{tabular}" ///
  "\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
 pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
@@ -455,8 +455,8 @@ s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3)
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Incumbency Advantage: Partisan ($\gamma_0$) + Personal($\beta_0$)" "SE(Incumbency Advantage)" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \\ (Partisan Incumbency Advantage)\end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$) \\ (Personal Incumbency Advantage)\end{tabular}") ///
 mgroups("\begin{tabular}[c]{@{}l@{}} Probability of winning, \\ Election at t+1\end{tabular}" ///
  "\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
 pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
@@ -571,8 +571,8 @@ s(N r2 fixed year controls polynomial tot_incumbency se2 difference se, fmt(0 3)
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Incumbency Advantage: Partisan ($\gamma_0$) + Personal($\beta_0$)" "SE(Incumbency Advantage)" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE(Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Term Limit Reform X Dummy Win, Election at t \\ (Personal Incumbency Advantage)\end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \\ (Partisan Incumbency Advantage)\end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Term Limit Reform ($\alpha_0$) X Dummy win, Election at t ($\gamma_0$) \\ (Personal Incumbency Advantage)\end{tabular}") ///
 mgroups("\begin{tabular}[c]{@{}l@{}} Probability of winning, \\ Election at t+1\end{tabular}" ///
  "\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
 pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
@@ -915,8 +915,8 @@ s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t  \\ (Personal Incumbency Advantage)\end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \\ (Partisan Incumbency Advantage)\end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$)  \\ (Personal Incumbency Advantage)\end{tabular}") ///
 mgroups("\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
 pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
@@ -1022,8 +1022,8 @@ s(N r2 fixed year controls polynomial difference se, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \\ (Partisan Incumbency Advantage)\end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t  \\ (Personal Incumbency Advantage)\end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \\ (Partisan Incumbency Advantage)\end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$)  \\ (Personal Incumbency Advantage)\end{tabular}") ///
 mgroups("\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}" , ///
 pattern(1 0 1 0) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
@@ -1280,8 +1280,8 @@ s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$) \end{tabular}") ///
 mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
 pattern(1 1 1 1 1 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
@@ -1358,8 +1358,8 @@ s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$) \end{tabular}") ///
 mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
 pattern(1 1 1 1 1 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
@@ -1444,8 +1444,8 @@ s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$) \end{tabular}") ///
 mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
 pattern(1 1 1 1 1 1 1 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
@@ -1521,8 +1521,8 @@ s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$) \end{tabular}") ///
 mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
 pattern(1 1 1 1 1 1 1 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
@@ -1609,8 +1609,8 @@ s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$) \end{tabular}") ///
 mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
 pattern(1 1 1 1 ) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
@@ -1686,8 +1686,8 @@ s(N r2 fixed year controls polynomial difference se mean, fmt(0 3) ///
 label("Observations" "R-squared"  "Municipal FE" "Year FE" "Controls$^a$" ///
  "Polynomial" "Difference:Personal($\beta_0$)-Partisan($\gamma_0$)" "SE (Difference)" "Mean DV in million pesos$^b$")) ///
 keep(reform inc_party_won interaction_ref) ///
-coeflabel(reform "Term Limit Reform" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t \end{tabular}" ///
- interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t \end{tabular}") ///
+coeflabel(reform "Term Limit Reform ($\alpha_0$)" inc_party_won "\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \end{tabular}" ///
+ interaction_ref "\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$) \end{tabular}") ///
 mgroups("linear" "quadratic" "linear" "quadratic" "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic"  "linear" "quadratic" , ///
 pattern(1 1 1 1 ) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
 collabels(none) nonotes booktabs nomtitles nolines
