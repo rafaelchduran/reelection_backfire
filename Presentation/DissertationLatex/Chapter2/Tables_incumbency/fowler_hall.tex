@@ -1,0 +1,39 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Personal and Partisan Incumbency Advantage following \citet{fowler_hall_2014}}
+\label{tab:fowler_hall}
+\scalebox{0.9}{
+\begin{tabular}{lccc}
+\hline \hline
+& \multicolumn{3}{c}{\textbf{Panel A: linear polynomial}}\\
+& \multicolumn{1}{c}{No term limits:} & \multicolumn{1}{c}{term limits:} & \multicolumn{1}{c}{difference:}\\
+Advantage: & \multicolumn{1}{c}{personal + partisan} & \multicolumn{1}{c}{partisan} & \multicolumn{1}{c}{personal} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4}\\
+\addlinespace
+RD estimate: prob(victory in t+1) &      $ 0.0568^{} $ &  $ -0.1269^{***} $  &  $ 0.1468^{***} $  \\
+& ($ 0.0508$) & ($ 0.0208 $)  & ($ 0.0038 $)\\
+RD estimate: vote share in t+1 &      $ 0.0245^{} $ &  $ -0.0529^{***} $  &  $ 0.0618^{***} $  \\
+& ($ 0.0243$) & ($ 0.0073 $)  & ($ 0.0024 $)\\
+\addlinespace
+Observations: prob(victory in t+1)      &            1257        &     9180  \\
+Observations: vote share in t+1      &            1221        &     8758  \\
+\\
+& \multicolumn{3}{c}{\textbf{Panel B: quadratic polynomial}}\\
+& \multicolumn{1}{c}{No term limits:} & \multicolumn{1}{c}{term limits:} & \multicolumn{1}{c}{difference:}\\
+Advantage: & \multicolumn{1}{c}{personal + partisan} & \multicolumn{1}{c}{partisan} & \multicolumn{1}{c}{personal} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4}\\
+\addlinespace
+RD estimate: prob(victory in t+1) &      $ 0.0442^{} $ &  $ -0.1291^{***} $  &  $ 0.1384^{***} $  \\
+& ($ 0.0676$) & ($ 0.0258 $)  & ($ 0.0042 $)\\
+RD estimate: vote share in t+1 &      $ 0.0311^{} $ &  $ -0.0510^{***} $  &  $ 0.0656^{***} $  \\
+& ($ 0.0274$) & ($ 0.0092 $)  & ($ 0.0026 $)\\
+\addlinespace
+Observations: prob(victory in t+1)      &            1257        &     9180  \\
+Observations: vote share in t+1      &            1221        &     8758  \\
+\hline \hline
+\multicolumn{4}{p{1\textwidth}}{\footnotesize{Notes: Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. Table estimated using all elections since the year 2000.}}
+\end{tabular}
+}
+\end{table}

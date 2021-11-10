@@ -1,0 +1,33 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Difference-in-Discontinuity: Effect of 2014 Electoral Reform on Incumbency Advantage, in close elections}
+\label{tab:incumbency}
+\scalebox{1}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{2}{c}{incumbency advantage}   \\
+& \multicolumn{1}{c}{(w/o cohort weights)} & \multicolumn{1}{c}{(w/ cohort weights)} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \\
+\addlinespace
+Lag 5 years &     $ -0.0782^{} $ &     $ -0.0389^{} $  \\
+\\
+Lag 4 years &     $ -0.2316^{} $ &     $ -0.1768^{} $ \\
+\\
+Lag 3 years &     $ -0.4477^{*} $ &     $ -0.0690^{} $  \\
+\\
+Reform, time 0 &     $ 0.2079^{} $ &     $ 0.0560^{*} $ \\
+\\ 
+\addlinespace
+Observations       &              2,769    &              2,769  \\
+R-squared        &          0.6039 &          0.6039 \\
+Mun. FEs      &     \checkmark         &  \checkmark  \\
+Year. FEs    &     \checkmark         &  \checkmark  \\
+State Controls$^b$  &    \checkmark     &       \checkmark \\
+Cohort weighted  &   \checkmark      &       \checkmark  \\
+\hline \hline
+\multicolumn{3}{p{0.65\textwidth}}{\footnotesize{Notes: Linear combination of the Cohort Average Treatment Effects (CATTs) for reach relative time period, weighting by each cohort's relative share of the sample following \citet{abraham_sun_2020}. Two relative time periods (lag 7 and 1) are removed in columns (2) and (4) to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-levels: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Even columns with outcomes where missing values where replaced by zeros assuming no activity was registered. $^b$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party.}} \\
+\end{tabular}
+}
+\end{table}

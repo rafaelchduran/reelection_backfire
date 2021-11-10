@@ -1,0 +1,22 @@
+            &\multicolumn{2}{c}{\begin{tabular}[c]{@{}l@{}} Probability of winning, \\ Election at t+1\end{tabular}}&\multicolumn{2}{c}{\begin{tabular}[c]{@{}l@{}}  Vote Share,  \\ Election at t+1 \end{tabular}}\\\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\addlinespace
+Term Limit Reform ($\alpha_0$)&      0.1780\sym{**} &      0.1789\sym{**} &      0.1656\sym{**} &      0.1656\sym{**} \\
+            &    (0.0770)         &    (0.0770)         &    (0.0773)         &    (0.0771)         \\
+\addlinespace
+\begin{tabular}[c]{@{}l@{}} Dummy win, Election at t ($\gamma_0$) \\ (Partisan Incumbency Advantage)\end{tabular}&     -0.0538         &     -0.0537         &     -0.0332\sym{***}&     -0.0332\sym{***}\\
+            &    (0.0389)         &    (0.0392)         &    (0.0111)         &    (0.0110)         \\
+\addlinespace
+\begin{tabular}[c]{@{}l@{}} Interaction: Reform X Win Election at t ($\beta_0$)  \\ (Personal Incumbency Advantage)\end{tabular}&      0.0986\sym{*}  &      0.0979         &      0.0788\sym{***}&      0.0787\sym{***}\\
+            &    (0.0580)         &    (0.0591)         &    (0.0208)         &    (0.0209)         \\
+\addlinespace
+Observations&        2247         &        2247         &        1892         &        1892         \\
+R-squared   &       0.535         &       0.535         &       0.558         &       0.558         \\
+Municipal FE&  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Year FE     &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Controls$^a$&                     &                     &                     &                     \\
+Polynomial  &      linear         &   quadratic         &      linear         &   quadratic         \\
+Incumbency Advantage: Partisan ($\gamma_0$) + Personal($\beta_0$)&  $0.045^{}$         &  $0.044^{}$         &$0.046^{***}$         &$0.045^{***}$         \\
+SE(Incumbency Advantage)&       0.036         &       0.036         &       0.017         &       0.017         \\
+Difference:Personal($\beta_0$)-Partisan($\gamma_0$)& $0.1523^{}$         & $0.1516^{}$         &$0.1119^{***}$         &$0.1119^{***}$         \\
+SE(Difference)&      0.0919         &      0.0935         &      0.0289         &      0.0290         \\

@@ -1,0 +1,92 @@
+\chapter{Appendix of ``Love the Candidate but Hate his Party: The Asymmetric Effects of Reelection Incentives on Partisan and Personal Incumbency Returns in Mexico'' \label{chap:append2}}
+
+\break
+
+%\section{Tables and Figures}
+
+\begin{table}[H]
+\centering 
+\caption{Descriptive statistics}
+   
+\label{tab:descriptive}
+\scalebox{0.55}{ 
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{1}{ccccc}}
+\hline\hline
+            &        \textbf{Mean}&  \textbf{SD}&  \textbf{Min}&  \textbf{Max}& \textbf{N}\\
+\hline    
+\emph{Pane A - Incumbency Advantage:} 	&		&		&		&		\\
+\input{Chapter2/Tables_incumbency/inc_advantage.tex}
+\\
+\emph{Panel B - Treatments and Forcing Variable:} 	&		&		&		&		\\
+\input{Chapter2/Tables_incumbency/treatments.tex}
+\input{Chapter2/Tables_incumbency/forcing.tex}
+
+\\
+\emph{Panel C - Pretreatment controls:} 	&		&		&		&		\\
+\input{Chapter2/Tables_incumbency/covariates_statelevel.tex}
+\input{Chapter2/Tables_incumbency/population.tex}
+
+\\
+\emph{Panel D - Mechanisms-Fiscal Transfers:} 	&		&		&		&		\\
+\input{Chapter2/Tables_incumbency/transfers.tex}
+\\
+\emph{Panel E - Mechanisms-Municipal Revenues:} 	&		&		&		&		\\
+\input{Chapter2/Tables_incumbency/revenues.tex}
+\\
+\emph{Panel F - Mechanisms-Other Resources:} 	&		&		&		&		\\
+\input{Chapter2/Tables_incumbency/other.tex}
+\\
+\emph{Panel G - Mechanisms-Incumbents' quality:} 	&		&		&		&		\\
+\input{Chapter2/Tables_incumbency/desc_quality.tex}
+\\ 
+
+\hline\hline
+\end{tabular}    
+}
+}
+\end{table} 
+   
+
+
+ \begin{figure}[h]   
+\centering
+ \caption{No discontinuous jump of covariates}
+ \label{fig:jump_covariates}
+\includegraphics[width=0.9\textwidth]{Chapter2/Figures_incumbency/nojump.png}
+       \captionsetup{justification=centering}
+    
+ \textbf{Note:} Figure \ref{fig:jump_covariates} shows the average treatment effect of the Term Limit Reform on various pretreatment covariates using a difference in discontinuity of close elections design. Optimal bandwidths following \citet{calonicoetal_2014} are used. 
+   
+\end{figure} 
+
+  
+    
+    
+\begin{figure}[h]   
+\centering
+ \caption{McCrary Test}
+ \label{fig:mccrary}
+\includegraphics[width=1\textwidth]{Chapter2/Figures_incumbency/mccrary_pol1_2.png}
+%\includegraphics[width=0.9\textwidth]{../Figures/conditional_mccrary_test_pol1_final.png}
+
+       \captionsetup{justification=centering}
+         
+ \textbf{Note:} 95\% confidence intervals reported.
+ 
+\end{figure} 
+
+
+ \begin{figure}[h]   
+\centering
+ \caption{Testing Different Bandwidths}
+ \label{fig:bandwidths}
+\includegraphics[width=0.65\textwidth]{Chapter2/Figures_incumbency/probability_bandwidths.png}
+       \captionsetup{justification=centering}
+ \includegraphics[width=0.65\textwidth]{Chapter2/Figures_incumbency/margin_bandwidths.png}
+
+ \textbf{Note:} Figure \ref{fig:bandwidths} shows the average treatment effect of the Term Limit Reform on the probability of victory in the next election. Various bandwidths are tested as well as the optimal bandwidth following \citet{calonicoetal_2014}. A 90\% implies a reduction of the optimal bandwidth in 10\%, an 80\% a reduction of 20\%, and so on.
+   
+\end{figure} 
+  

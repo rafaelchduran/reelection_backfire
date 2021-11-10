@@ -1,0 +1,73 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Event-in-Discontinuity in close elections model: testing no discontinuous jump of covariates}
+\label{tab:incumbency_wpolynomials_pop}
+\scalebox{0.6}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{2}{c}{population ('000)}   \\
+& \multicolumn{1}{c}{(w/o cohort weights)} & \multicolumn{1}{c}{(w/ cohort weights)} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \\
+\addlinespace
+& \multicolumn{2}{c}{linear polynomial} \\
+\cmidrule(lrr){2-3} \\
+Lag 5 years &     $ 0.9885^{} $ &     $ 0.4920^{} $  \\
+\\
+Lag 4 years &     $ 33.4369^{} $ &     $ 25.5176^{} $ \\
+\\
+Lag 3 years &     $ 19.7357^{} $ &     $ 9.8474^{} $  \\
+\\
+Reform, time 0 &     $ -1.2e+02^{***} $ &     $ 8.4008^{} $ \\
+\\
+Observations       &              1,668    &              1,668  \\
+R-squared        &          0.9995 &          0.9995 \\
+\\tex & \multicolumn{2}{c}{quadratic polynomial} \\
+\cmidrule(lrr){2-3} \\
+Lag 5 years &     $ 1.6867^{} $ &     $ 0.8394^{} $  \\
+\\
+Lag 4 years &     $ 33.3792^{*} $ &     $ 25.4736^{*} $ \\
+\\
+Lag 3 years &     $ 17.5997^{} $ &     $ 9.3557^{} $  \\
+\\
+Reform, time 0 &     $ -1.3e+02^{***} $ &     $ 7.9320^{} $ \\
+\\
+Observations       &              1,840    &              1,840  \\
+R-squared        &          0.9993 &          0.9993 \\
+\\
+& \multicolumn{2}{c}{cubic polynomial} \\
+\cmidrule(lrr){2-3} \\
+Lag 5 years &     $ 2.5971^{} $ &     $ 1.2925^{} $  \\
+\\
+Lag 4 years &     $ 33.0294^{*} $ &     $ 25.2066^{*} $ \\
+\\
+Lag 3 years &     $ 19.3518^{} $ &     $ 9.5349^{} $  \\
+\\
+Reform, time 0 &     $ -1.3e+02^{***} $ &     $ 8.1340^{} $ \\
+\\
+Observations       &              1,840    &              1,840  \\
+R-squared        &          0.9993 &          0.9993 \\
+\\
+& \multicolumn{2}{c}{quartic polynomial} \\
+\cmidrule(lrr){2-3} \\
+Lag 5 years &     $ 1.7280^{} $ &     $ 0.8600^{} $  \\
+\\
+Lag 4 years &     $ 33.2123^{*} $ &     $ 25.3462^{*} $ \\
+\\
+Lag 3 years &     $ 17.5776^{} $ &     $ 9.3860^{} $  \\
+\\
+Reform, time 0 &     $ -1.3e+02^{***} $ &     $ 8.1269^{} $ \\
+\\
+Observations       &              1,840    &              1,840  \\
+R-squared        &          0.9993 &          0.9993 \\
+\\
+Mun. FEs      &     \checkmark         &  \checkmark  \\
+Year. FEs    &     \checkmark         &  \checkmark  \\
+State Controls$^a$  &    \checkmark     &       \checkmark \\
+Cohort weighted  &   \checkmark      &       \checkmark  \\
+\hline \hline
+\multicolumn{3}{p{0.65\textwidth}}{\footnotesize{Notes: Coefficients in column (1) show non-cohort weighted estimates; coefficients of column (2) show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 6 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level for estimates in saturaded model. Significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ State-level controls include governor winning margin in last pre-treatment election and an indicator of whether the governor's party is the same as the federal incumbent party. I also control for logged homicides per capita at the municipality level.}} \\
+\end{tabular}
+}
+\end{table}

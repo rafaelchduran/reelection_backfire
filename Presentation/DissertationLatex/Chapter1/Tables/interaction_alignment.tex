@@ -1,0 +1,47 @@
+\begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Party Alignment Total Interaction Effects}
+\label{tab:interaction_alignment}
+\scalebox{0.75}{
+\begin{tabular}{lccc}
+\hline \hline
+\\ \multicolumn{4}{l}{Dependent variable: Signing Security Cooperation Agreement}\\
+Party Alignment: & w/ President  & w/ Governor  & w/ Governor from PRI \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} & \multicolumn{1}{c}{(3)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3} \cmidrule(lrr){4-4} \\
+\addlinespace
+t-7 &     $ -0.2389^{*} $ &     $ -0.0747^{**} $ &  $ 0.0000^{} $ \\
+&     ($0.1375$) &     ($0.0291$) & ($0.0000$) \\
+t-6 &     $ -0.0810^{} $ &     $ 0.0004^{} $ &  $ -0.0442^{} $  \\
+&     ($0.0881$) &     ($0.0509$) & ($0.0467$) \\
+t-5 &     $ -0.1180^{} $ &     $ -0.2348^{**} $ &  $ -0.2752^{***} $  \\
+&     ($0.1032$) &     ($0.0973$) & ($0.0949$) \\
+t-4 &     $ 0.0631^{} $ &     $ -0.1337^{} $ &  $ -0.1757^{} $  \\
+&     ($0.1496$) &     ($0.1292$) & ($0.1304$) \\
+t-3 &     $ 0.3430^{**} $ &     $ 0.2040^{**} $ &  $ 0.1615^{**} $  \\
+&     ($0.1627$) &     ($0.0790$) & ($0.0781$) \\
+t-2 &     $ 0.0052^{} $ &     $ -0.0577^{} $ &  $ 0.0503^{} $  \\
+&     ($0.1546$) &     ($0.1227$) & ($0.1548$) \\
+Reform (t=0) &     $ -0.1667^{} $ &     $ -0.2601^{*} $ &   $ 0.1288^{} $   \\
+&     ($0.1884$) &     ($0.1297$) & ($0.1236$) \\
+t+1 &     $ -0.2121^{} $ &     $ -0.6036^{***} $ &    $ -0.0941^{} $ \\
+&     ($0.1912$) &     ($0.2122$) & ($0.1633$) \\
+t+2 &     $ -0.1075^{} $ &     $ -0.5550^{**} $  &     $ -0.5689^{**} $ \\
+&     ($0.2467$) &     ($0.2671$)  & ($0.2763$) \\
+t+3 &     $ -0.2125^{} $ &     $ -0.4193^{} $  &     $ -0.4864^{} $ \\
+&     ($0.2204$) &     ($0.3757$)  & ($0.3788$) \\
+\\
+\addlinespace
+Observations       &             12,173    &             12,173    &          12,173    \\
+R-squared        &          0.4557 &          0.4570    &    0.4551    \\
+Mun. FEs      &     \checkmark         &  \checkmark   &     \checkmark    \\
+Year FEs    &     \checkmark         &  \checkmark   &     \checkmark    \\
+Controls$^b$  &    \checkmark     &       \checkmark  &    \checkmark   \\
+Cohort weighted  &   \checkmark      &       \checkmark  &   \checkmark    \\
+Reform average effect         & $-0.1339^{}$      & $-0.1710^{*}$     & $-0.0799^{}$     \\
+SE (average effect)      & (0.1306)  & (0.0895) & (0.0656) \\
+\hline \hline
+\multicolumn{4}{p{1\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 1) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Refers to signing a security cooperation agreement with any of the following actors. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; logged population; logged organized crime related deaths; and Cartel presence.}} \\
+\end{tabular}
+}
+\end{table}
