@@ -1,0 +1,46 @@
+\begin{table}[H]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\centering
+\caption{Effect of 2014 Term Limit Reform on Violence}
+\label{tab:as_fuerocomun}
+\scalebox{0.75}{
+\begin{tabular}{lcc}
+\hline \hline
+\\ \multicolumn{3}{l}{Dependent variable:}\\
+& \multicolumn{1}{c}{log(property crimes)} & \multicolumn{1}{c}{log(freedom crimes)$^{a}$} \\
+& \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\
+\cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
+\addlinespace
+Lag 6 years &          $ 0.0063^{} $ &   $ -0.0146^{**} $  \\
+& ($ 0.0071$) & ($ 0.0060 $) \\
+Lag 5 years &        $ 0.1000^{***} $ &   $ 0.0194^{} $ \\
+& ($ 0.0341$) & ($ 0.0300 $) \\
+Lag 4 years &         $ 0.0574^{} $ &      $ 0.0223^{} $  \\
+& ($ 0.1273$) & ($ 0.0622 $) \\
+Lag 3 years &        $ -0.0468^{} $ &     $ -0.0066^{} $ \\
+& ($ 0.0585$) & ($ 0.0413 $) \\
+Lag 2 years &        $ -0.1141^{} $ &    $ -0.0600^{} $  \\
+& ($ 0.0874$) & ($ 0.0413 $) \\
+Reform, time 0 &        $ -0.0120^{} $ &     $ -0.0117^{} $ \\
+& ($ 0.0419$) & ($ 0.0221 $) \\
+Lead 1 year &         $ 0.0529^{} $ &       $ 0.0184^{} $ \\
+& ($ 0.0541$) & ($ 0.0380 $) \\
+Lead 2 years &         $ 0.0978^{**} $ &      $ -0.0306^{*} $  \\
+& ($ 0.0442$) & ($ 0.0155 $) \\
+Lead 3 years &        $ 0.0000^{} $ &     $ 0.0000^{} $ \\
+& ($ 0.0000$) & ($ 0.0000 $) \\
+\addlinespace
+Observations       &                  9,105        &           9,105  \\
+R-squared        &              0.8388        &           0.9388   \\
+Mun. FEs       &     \checkmark         &  \checkmark    \\
+Year. FEs       &     \checkmark         &  \checkmark   \\
+Controls$^b$   &      \checkmark       &      \checkmark    \\
+Cohort weighted   &   \checkmark       &   \checkmark    \\
+Aggregate effect        &           $   0.0347^{} $        &           $-0.0060^{} $    \\
+SE (aggregate eff.)        &              0.0323        &           0.0167   \\
+Standardize Aggregate effect        &           $   0.0287^{} $        &           $-0.0049^{} $    \\
+Standardize SE (aggregate eff.)        &              0.0267        &           0.0138   \\
+\hline \hline
+\multicolumn{3}{p{0.9\textwidth}}{\footnotesize{Notes: Coefficients show IW estimators following \citet{abraham_sun_2020}. Two relative time periods (lag 8 and 0) are removed to avoid collinearity problems noted by \citet{abraham_sun_2020}. Standard errors in parentheses are clustered at the state level, with the following significance-level: $^{***}$ 1\%; $^{**}$ 5\%; and $^*$ 10\%, that refer to two-sided t-test with the null hypothesis equal to 0 for each relative time period. $^a$ Inverse hyperbolic sine transformation. $^b$ Pretreatment controls include: governor winning margin; party alignment with the President;  party alignment with the Governor; municipal winning margin; and Cartel presence.}} \\
+\end{tabular}
+}
+\end{table}

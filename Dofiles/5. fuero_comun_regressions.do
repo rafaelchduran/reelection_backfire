@@ -55,8 +55,12 @@ xtset inegi year
 	global violence logdefuncionespc ihs_defuncionespc loghomicidepc loghomicide_oldpc
 	global outcome logdefuncionespc
    	global outcome2 ihs_defuncionespc
+	global fuero_comun logcasapc logsociedadpc loglibertadpc
+	global fuero_comun_old logcasa2pc loglibertad2pc logrobopc
+	global fuero_comun_old1 logrobopc
+	global fuero_comun_old2 loglibertad2pc
+	global fuero_comun_old3 logcasa2pc
 
-	
 *========================================================================
 *Run .ado 
 do "wild_areg.do"
@@ -69,7 +73,7 @@ keep if e(sample)==1
 *1) Naive Event study design: Cluster vs Wild corrected errors
 
 est clear
-foreach i in $violence{
+foreach i in $fuero_comun_old{
 eststo: quietly  xi: areg `i' $lagsleads  $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 macros_tables3
 *eststo: qui wildcorrection logdefuncionespc
@@ -79,7 +83,7 @@ macros_tables3
 
 esttab est*, keep($lagsleads) t(%9.3f)  star(* 0.1 ** 0.05 *** 0.01)
 
-esttab using "../Tables/event_study_homicides.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
+esttab using "../Tables/event_study_fuerocomun.tex", replace f b(%9.4f) se(%9.4f) se  star(* 0.10 ** 0.05 *** 0.01) ///
 s(N r2 controls munfe yearfe clustermun , fmt(%11.2gc 3) ///
  label("Observations" "R2" "Controls" "Mun. FE" "Year FE" "State Cluster S.E.")) ///
 keep($lagsleads) ///
@@ -97,7 +101,7 @@ est clear
 ***A: w/o covariates
 ************	
 
-xi: reghdfe  $outcome  $saturated $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+xi: reghdfe  $fuero_comun_old1  $saturated $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 	estadd local depcontrols \checkmark
 	estadd local munfe \checkmark
 	estadd local yearfe \checkmark
@@ -282,9 +286,9 @@ foreach i in lead_3{
 
 preserve
 *Set globals: 	
-center logdefuncionespc , inplace standardize
+center $fuero_comun_old1 , inplace standardize
 
-xi: reghdfe  $outcome  $saturated $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+xi: reghdfe  $fuero_comun_old1  $saturated $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 **estimate aggregate effect:
 	sum perc if date_0_2015==1, meanonly
 	local a = r(mean)
@@ -330,7 +334,7 @@ restore
 ************
 ***B: with covariates
 ************	
-xi: reghdfe  $outcome2  $saturated $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+xi: reghdfe  $fuero_comun_old2  $saturated $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 *qui eststo: wildcorrection_as_homicides2 $outcome
 
 	estadd local depcontrols \checkmark
@@ -515,9 +519,9 @@ foreach i in lead_3{
 
 preserve
 *Set globals: 	
-center ihs_defuncionespc , inplace standardize
+center $fuero_comun_old2 , inplace standardize
 
-xi: reghdfe  $outcome2  $saturated $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
+xi: reghdfe  $fuero_comun_old2  $saturated $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
 **estimate aggregate2 effect:
 	sum perc if date_0_2015==1, meanonly
 	local a = r(mean)
@@ -563,16 +567,16 @@ restore
 
 *Table
 	
-texdoc init  "../Tables/abraham_sun_homicides.tex", replace force
+texdoc init  "../Tables/abraham_sun_fuerocomun.tex", replace force
 tex \begin{table}[H]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
 tex \caption{Effect of 2014 Term Limit Reform on Violence}
-tex \label{tab:as_homicides}
+tex \label{tab:as_fuerocomun}
 tex \scalebox{0.75}{    
 tex \begin{tabular}{lcc}  
 tex \hline \hline       
 tex \\ \multicolumn{3}{l}{Dependent variable:}\\
-tex & \multicolumn{1}{c}{log(homicide per capita)} & \multicolumn{1}{c}{IHS(homicide per capita)$^{a}$} \\
+tex & \multicolumn{1}{c}{log(property crimes)} & \multicolumn{1}{c}{log(freedom crimes)$^{a}$} \\
 tex & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)} \\ 
 
 tex \cmidrule(lrr){2-2}  \cmidrule(lrr){3-3}\\
@@ -620,9 +624,9 @@ texdoc close
 
 
 
-*MESSAGE: reform increased homicides per capita. 
+*FIGURE:
 *========================================================================
-
+global outcome $fuero_comun_old3
 est clear
 foreach i in lag_7{
 xi: reghdfe  $outcome  $saturated $controls_time_acuerdo  i.year, a(inegi) vce(cluster estado)
@@ -774,10 +778,10 @@ coefplot (est2, rename((1) = "t-6") msize(large) mcolor(red) levels(99 95 90) ci
  vertical scheme(s1color)  yline(0)  ///
 ytitle("log(homicides per capita)")  xtitle(" ") ///
 subtitle(" ") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI") rows(1)) 
-graph export "../Figures/catts_homicides.png", as(png) replace
-graph export "../Figures/catts_homicides.pdf", as(pdf) replace
-graph export "../Figures/catts_homicides.tif", as(tif) replace
-graph save "../Figures/catts_homicides.gph", replace
+graph export "../Figures/catts_property.png", as(png) replace
+graph export "../Figures/catts_property.pdf", as(pdf) replace
+graph export "../Figures/catts_property.tif", as(tif) replace
+graph save "../Figures/catts_property.gph", replace
 
 
 *========================================================================
@@ -1142,7 +1146,7 @@ cap foreach i in lead_3{
 			if (${p_aggregate2}<=0.05) global est_aggregate2 = "**"
 			if (${p_aggregate2}<=0.01) global est_aggregate2 = "***"	
 *Table
-texdoc init  "../Tables/abraham_sun_estimates_homicides_lag1.tex", replace force
+texdoc init  "../Tables/abraham_sun_estimates_fuerocomun_lag1.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
 tex \caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, with t=0 as reference period}
@@ -1465,7 +1469,7 @@ cap foreach i in lead_3{
 			if (${p_aggregate2}<=0.05) global est_aggregate2 = "**"
 			if (${p_aggregate2}<=0.01) global est_aggregate2 = "***"		
 *Table
-texdoc init  "../Tables/abraham_sun_estimates_homicides_trim.tex", replace force
+texdoc init  "../Tables/abraham_sun_estimates_fuerocomun_trim.tex", replace force
 tex \begin{table}[htbp]\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 tex \centering
 tex \caption{Effect of Term Limit Reform on Security Cooperation Agreements signed with the Governor, trimming periods}
@@ -1670,10 +1674,10 @@ coefplot (est1, rename((1) = "TWFE") msize(large) mfcolor(white) mcolor(red) lev
  horizontal scheme(s1color)  xline(0)   ///
 ytitle(" ")  xtitle("Term Limit Reform average effect" "from t to t+3") ///
 subtitle(" ") legend(order(1 "99% CI" 2 "95% CI" 3 "90% CI") rows(1)) 
-graph export "../Figures/average_effects_homicides.png", as(png) replace
-graph export "../Figures/average_effects_homicides.pdf", as(pdf) replace
-graph export "../Figures/average_effects_homicides.tif", as(tif) replace
-graph save "../Figures/average_effects_homicides.gph", replace
+graph export "../Figures/average_effects_fuerocomun.png", as(png) replace
+graph export "../Figures/average_effects_fuerocomun.pdf", as(pdf) replace
+graph export "../Figures/average_effects_fuerocomun.tif", as(tif) replace
+graph save "../Figures/average_effects_fuerocomun.gph", replace
 
 
 
